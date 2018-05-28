@@ -3,19 +3,19 @@ var canvas, canvasContext;
 var player = new playerClass();
 var enemy = new playerClass();
 
-window.onload = function() {
+window.onload = function () {
 	canvas = document.getElementById('gameCanvas');
 	canvasContext = canvas.getContext('2d');
 
-	colorRect(0,0, canvas.width,canvas.height, 'black');
-	colorText("LOADING IMAGES", canvas.width/2, canvas.height/2, 'white');
+	colorRect(0, 0, canvas.width, canvas.height, 'black');
+	colorText("LOADING IMAGES", canvas.width / 2, canvas.height / 2, 'white');
 
 	loadImages();
 }
 
 function imageLoadingDoneSoStartGame() {
-	var framesPerSecond = 30;
-	setInterval(updateAll, 1000/framesPerSecond);
+	var framesPerSecond = 60;
+	setInterval(updateAll, 1000 / framesPerSecond);
 
 	setupInput();
 
@@ -37,23 +37,23 @@ function updateAll() {
 function moveAll() {
 	cameraFollow();
 	player.move();
-	if(!enemy.remove){
+	if (!enemy.remove) {
 		enemy.move();
 	}
 }
 
 function drawAll() {
 	canvasContext.save(); // needed to undo this .translate() used for scroll
-	    // this next line is like subtracting camPanX and camPanY from every
-	    // canvasContext draw operation up until we call canvasContext.restore
-	    // this way we can just draw them at their "actual" position coordinates
+	// this next line is like subtracting camPanX and camPanY from every
+	// canvasContext draw operation up until we call canvasContext.restore
+	// this way we can just draw them at their "actual" position coordinates
 
-	    canvasContext.translate(-camPanX,-camPanY);
-		drawWorld();
-		player.draw();
-		if(!enemy.remove){
-			enemy.draw();
-		}
+	canvasContext.translate(-camPanX, -camPanY);
+	drawWorld();
+	player.draw();
+	if (!enemy.remove) {
+		enemy.draw();
+	}
 
 	canvasContext.restore();
 } 
