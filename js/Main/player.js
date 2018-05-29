@@ -20,8 +20,8 @@ function playerClass() {
 
     this.radius = 28;
 
-    this.width = 64;
-    this.height = 64;
+    this.width = 80;
+    this.height = 80;
     this.ang = 0; 
 
 

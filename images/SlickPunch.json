@@ -1,67 +1,67 @@
 { "frames": {
-   "SlickPunch 0.aseprite": {
-    "frame": { "x": 0, "y": 0, "w": 64, "h": 64 },
+   "SlickPunch80 0.aseprite": {
+    "frame": { "x": 0, "y": 0, "w": 80, "h": 80 },
     "rotated": false,
     "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 64, "h": 64 },
-    "sourceSize": { "w": 64, "h": 64 },
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 80, "h": 80 },
+    "sourceSize": { "w": 80, "h": 80 },
     "duration": 100
    },
-   "SlickPunch 1.aseprite": {
-    "frame": { "x": 64, "y": 0, "w": 64, "h": 64 },
+   "SlickPunch80 1.aseprite": {
+    "frame": { "x": 80, "y": 0, "w": 80, "h": 80 },
     "rotated": false,
     "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 64, "h": 64 },
-    "sourceSize": { "w": 64, "h": 64 },
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 80, "h": 80 },
+    "sourceSize": { "w": 80, "h": 80 },
     "duration": 100
    },
-   "SlickPunch 2.aseprite": {
-    "frame": { "x": 128, "y": 0, "w": 64, "h": 64 },
+   "SlickPunch80 2.aseprite": {
+    "frame": { "x": 160, "y": 0, "w": 80, "h": 80 },
     "rotated": false,
     "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 64, "h": 64 },
-    "sourceSize": { "w": 64, "h": 64 },
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 80, "h": 80 },
+    "sourceSize": { "w": 80, "h": 80 },
     "duration": 100
    },
-   "SlickPunch 3.aseprite": {
-    "frame": { "x": 192, "y": 0, "w": 64, "h": 64 },
+   "SlickPunch80 3.aseprite": {
+    "frame": { "x": 240, "y": 0, "w": 80, "h": 80 },
     "rotated": false,
     "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 64, "h": 64 },
-    "sourceSize": { "w": 64, "h": 64 },
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 80, "h": 80 },
+    "sourceSize": { "w": 80, "h": 80 },
     "duration": 100
    },
-   "SlickPunch 4.aseprite": {
-    "frame": { "x": 256, "y": 0, "w": 64, "h": 64 },
+   "SlickPunch80 4.aseprite": {
+    "frame": { "x": 320, "y": 0, "w": 80, "h": 80 },
     "rotated": false,
     "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 64, "h": 64 },
-    "sourceSize": { "w": 64, "h": 64 },
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 80, "h": 80 },
+    "sourceSize": { "w": 80, "h": 80 },
     "duration": 100
    },
-   "SlickPunch 5.aseprite": {
-    "frame": { "x": 320, "y": 0, "w": 64, "h": 64 },
+   "SlickPunch80 5.aseprite": {
+    "frame": { "x": 400, "y": 0, "w": 80, "h": 80 },
     "rotated": false,
     "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 64, "h": 64 },
-    "sourceSize": { "w": 64, "h": 64 },
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 80, "h": 80 },
+    "sourceSize": { "w": 80, "h": 80 },
     "duration": 100
    },
-   "SlickPunch 6.aseprite": {
-    "frame": { "x": 384, "y": 0, "w": 64, "h": 64 },
+   "SlickPunch80 6.aseprite": {
+    "frame": { "x": 480, "y": 0, "w": 80, "h": 80 },
     "rotated": false,
     "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 64, "h": 64 },
-    "sourceSize": { "w": 64, "h": 64 },
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 80, "h": 80 },
+    "sourceSize": { "w": 80, "h": 80 },
     "duration": 100
    }
  },
  "meta": {
   "app": "http://www.aseprite.org/",
   "version": "1.1.8-dev",
-  "image": "C:\\Users\\techieVignesh\\Desktop\\Piksel art\\SlickPunch.png",
+  "image": "E:\\Contributions\\gaming\\Gamkedo\\slickPunch\\raw\\SlickPunch.png",
   "format": "RGBA8888",
-  "size": { "w": 448, "h": 64 },
+  "size": { "w": 560, "h": 80 },
   "scale": "1",
   "frameTags": [
   ],

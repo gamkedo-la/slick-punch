@@ -24,7 +24,6 @@ const WORLD_BACKGROUND = 0;
 const WORLD_PLATFORM = 1;
 const WORLD_PLAYERSTART = 2;
 const WORLD_ENEMYSTART = 4;
-
 const WORLD_GOAL = 3
 
 
