@@ -20,7 +20,7 @@ function playerClass() {
 		'isIdle': false
 	};
 
-	this.radius = 28;
+	this.radius = 35;
 
     this.width = 80;
     this.height = 80;
