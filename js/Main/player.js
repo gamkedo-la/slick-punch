@@ -159,7 +159,6 @@ function playerClass() {
 		if (this.state.isPunching) {
 			this.state.isIdle = false;
 			this.state.isRunning = false;
-			playPunchSound();
 			if (this.name == "Player") {
 				if (distance(enemy.pos.x, enemy.pos.y, this.pos.x, this.pos.y) < 30) {
 					// console.log('Removing enemy');
