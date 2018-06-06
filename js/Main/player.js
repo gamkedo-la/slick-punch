@@ -22,29 +22,27 @@ function playerClass() {
 
 	this.radius = 35;
 
-    this.width = 80;
-    this.height = 80;
-    this.ang = 0; 
+	this.width = 80;
+	this.height = 80;
+	this.ang = 0;
 
-
-
-	this.health;
+	this.health = 0;
 	this.removeMe = false;
 
 	this.tickCount = 0;
 	this.ticksPerFrame = 5;
-	this.spriteAnim;
-	this.framesAnim;
+	this.spriteAnim = null;
+	this.framesAnim = null;
 
 	this.keyHeld_Right = false;
 	this.keyHeld_Left = false;
 	this.keyHeld_Down = false;
 	this.keyHeld_Up = false;
 
-	this.controlKeyRight;
-	this.controlKeyLeft;
-	this.controlKeyUp;
-	this.controlKeyDown;
+	this.controlKeyRight = null;
+	this.controlKeyLeft = null;
+	this.controlKeyUp = null;
+	this.controlKeyDown = null;
 
 	this.walkSprite = new SpriteSheetClass(playerWalkAnim, this.width, this.height); // 10 frames
 	this.jumpSprite = new SpriteSheetClass(playerJumpAnim, this.width, this.height); //7 frames
@@ -79,6 +77,14 @@ function playerClass() {
 		this.controlKeyLeft = leftKey;
 	}
 
+	this.takeDamage = function (howMuch) {
+		console.log("Damage received: " + howMuch);
+		this.health -= howMuch;
+		if (this.health <= 0) {
+			console.log("PLAYER HAS 0 HP - todo: gameover/respawn");
+		}
+	}
+
 	this.reset = function (whichImage, playerName, health) {
 		this.name = playerName;
 		this.playerPic = whichImage;
@@ -104,7 +110,6 @@ function playerClass() {
 	} // end of playerReset func
 
 	this.move = function () {
-
 
 		if (this.state['onGround']) {
 
@@ -154,6 +159,7 @@ function playerClass() {
 		if (this.state.isPunching) {
 			this.state.isIdle = false;
 			this.state.isRunning = false;
+			playPunchSound();
 			if (this.name == "Player") {
 				if (distance(enemy.pos.x, enemy.pos.y, this.pos.x, this.pos.y) < 30) {
 					// console.log('Removing enemy');
