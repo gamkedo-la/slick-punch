@@ -2,7 +2,8 @@ var audioFormat;
 var musicEnabled = true;
 var firstSong;
 var punchSound;
-
+var jumpSound;
+var kickSound;
 
 function setFormat() {
 	var audio = new Audio();
@@ -21,6 +22,7 @@ function playBGM(whichLevel) {
 
 	if (whichLevel == 1) {
 		whichSong = firstSong;
+		whichSong.volume = 0.8;
 		whichSong.loop = true;
 		whichSong.play();
 	} else {
@@ -34,8 +36,13 @@ function playBGM(whichLevel) {
 }
 
 function playPunchSound() {
-	punchSound.volume = 0.2;
+	punchSound.volume = 0.1;
 	punchSound.play();
+}
+
+function playJumpSound() {
+	jumpSound.volume = 0.5;
+	jumpSound.play();
 }
 
 // When adding new audio, make sure to declare a variable at the top of the script
@@ -44,4 +51,6 @@ function loadSounds() {
 	setFormat();
 	firstSong = new Audio("./sound/deepdark" + audioFormat);
 	punchSound = new Audio("./sound/punch" + audioFormat);
+	jumpSound = new Audio("./sound/jump" + audioFormat);
+	kickSound = new Audio("./sound/kick" + audioFormat);
 }

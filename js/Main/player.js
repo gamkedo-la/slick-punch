@@ -52,6 +52,8 @@ function playerClass() {
 	this.frameRow = 0;
 
 	this.justPunched = false;
+	this.justJumped = false;
+	this.justKicked = false;
 
 	// this.speed = RUN_SPEED;
 	this.incrementTick = function () {
@@ -148,6 +150,11 @@ function playerClass() {
 			if (this.state['onGround']) {
 				this.speed.y -= JUMP_POWER;
 			}
+
+			if (this.justJumped == false) {
+				playJumpSound();
+			}
+
 		}
 
 		if (!this.keyHeld_Left && !this.keyHeld_Right && !this.keyHeld_Up) {
@@ -175,6 +182,12 @@ function playerClass() {
 			this.justPunched = false;
 		} else {
 			this.justPunched = true;
+		}
+
+		if (this.state['onGround'] == true) {
+			this.justJumped = false;
+		} else {
+			this.justJumped = true;
 		}
 
 		// player.state.isPunching = false;
