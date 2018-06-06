@@ -53,6 +53,7 @@ function playerClass() {
 
 	this.frameRow = 0;
 
+	this.justPunched = false;
 
 	// this.speed = RUN_SPEED;
 	this.incrementTick = function () {
@@ -158,8 +159,17 @@ function playerClass() {
 					// console.log('Removing enemy');
 					enemy.remove = true;
 				}
-
 			}
+			if (this.justPunched == false) {
+				playPunchSound();
+			}
+		}
+
+		// We need to set "justPunched", so that we do not play the punch sound every frame
+		if (this.state.isPunching == false) {
+			this.justPunched = false;
+		} else {
+			this.justPunched = true;
 		}
 
 		// player.state.isPunching = false;

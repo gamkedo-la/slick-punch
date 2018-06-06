@@ -8,6 +8,7 @@ const KEY_A = 65;
 const KEY_S = 83;
 const KEY_D = 68;
 const KEY_Z = 90;
+const KEY_M = 77;
 
 var mouseX = 0;
 var mouseY = 0;
@@ -36,20 +37,20 @@ function updateMousePos(evt) {
 	carSpeedY = -4;*/
 }
 
-function keySet(keyEvent, whichCar, setTo) {
-	if(keyEvent.keyCode == whichCar.controlKeyLeft) {
-		whichCar.keyHeld_Left = setTo;
+function keySet(keyEvent, whichPlayer, setTo) {
+	if(keyEvent.keyCode == whichPlayer.controlKeyLeft) {
+		whichPlayer.keyHeld_Left = setTo;
 	}
-	if(keyEvent.keyCode == whichCar.controlKeyRight) {
-		whichCar.keyHeld_Right = setTo;
+	if(keyEvent.keyCode == whichPlayer.controlKeyRight) {
+		whichPlayer.keyHeld_Right = setTo;
 	}
-	if(keyEvent.keyCode == whichCar.controlKeyUp) {
+	if(keyEvent.keyCode == whichPlayer.controlKeyUp) {
 		// if(whichCar.state['onGround']){
-			whichCar.keyHeld_Up = setTo;
+			whichPlayer.keyHeld_Up = setTo;
 		// }
 	}
-	if(keyEvent.keyCode == whichCar.controlKeyDown) {
-		whichCar.keyHeld_Down = setTo;
+	if(keyEvent.keyCode == whichPlayer.controlKeyDown) {
+		whichPlayer.keyHeld_Down = setTo;
 	}
 
 }
@@ -64,7 +65,6 @@ function keyPressed(evt) {
 		player.state.isPunching = true;
 		player.state.isIdle = false;
 		player.state.isRunning = false;
-
 	}
 
 
@@ -76,5 +76,8 @@ function keyReleased(evt) {
 	// keySet(evt, greenCar, false);
 	keySet(evt, player, false);
 
-	
+	if (evt.keyCode == KEY_M) {
+		musicEnabled = !musicEnabled;
+	}
+
 }
