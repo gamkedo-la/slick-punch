@@ -11,6 +11,7 @@ window.onload = function () {
 	colorText("LOADING IMAGES", canvas.width / 2, canvas.height / 2, 'white');
 
 	loadImages();
+	loadSounds();
 }
 
 function imageLoadingDoneSoStartGame() {
@@ -26,7 +27,6 @@ function loadLevel(whichLevel) {
 	worldGrid = whichLevel.slice();
 	player.reset(playerPic, "Player");
 	enemy.reset(enemyPic, "Enemy");
-
 }
 
 function updateAll() {
@@ -40,6 +40,10 @@ function moveAll() {
 	if (!enemy.remove) {
 		enemy.move();
 	}
+	
+	playBGM(currentLevel);
+
+	
 }
 
 function drawAll() {

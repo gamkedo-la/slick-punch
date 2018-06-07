@@ -51,6 +51,9 @@ function playerClass() {
 
 	this.frameRow = 0;
 
+	this.justPunched = false;
+	this.justJumped = false;
+	this.justKicked = false;
 
 	// this.speed = RUN_SPEED;
 	this.incrementTick = function () {
@@ -147,6 +150,11 @@ function playerClass() {
 			if (this.state['onGround']) {
 				this.speed.y -= JUMP_POWER;
 			}
+
+			if (this.justJumped == false) {
+				playJumpSound();
+			}
+
 		}
 
 		if (!this.keyHeld_Left && !this.keyHeld_Right && !this.keyHeld_Up) {
@@ -158,14 +166,28 @@ function playerClass() {
 		if (this.state.isPunching) {
 			this.state.isIdle = false;
 			this.state.isRunning = false;
-			playPunchSound();
 			if (this.name == "Player") {
 				if (distance(enemy.pos.x, enemy.pos.y, this.pos.x, this.pos.y) < 30) {
 					// console.log('Removing enemy');
 					enemy.remove = true;
 				}
-
 			}
+			if (this.justPunched == false) {
+				playPunchSound();
+			}
+		}
+
+		// We need to set "justPunched", so that we do not play the punch sound every frame
+		if (this.state.isPunching == false) {
+			this.justPunched = false;
+		} else {
+			this.justPunched = true;
+		}
+
+		if (this.state['onGround'] == true) {
+			this.justJumped = false;
+		} else {
+			this.justJumped = true;
 		}
 
 		// player.state.isPunching = false;

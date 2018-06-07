@@ -28,6 +28,7 @@ var levelOne = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
 
 
 var worldGrid = [];
+var currentLevel = 1; // This needs to get incremented every time a level is completed
 
 const WORLD_BACKGROUND = 0;
 const WORLD_PLATFORM = 1;
