@@ -240,18 +240,18 @@ function playerClass() {
 			if (this.state['isPunching']) {
 				this.spriteAnim = this.punchSprite;
 				this.framesAnim = 7;
-
-				// this.punchSprite.draw(Math.floor(this.tickCount / this.ticksPerFrame), this.frameRow, this.pos.x, this.pos.y, this.ang, this.state.movingLeft);
+				this.punchSprite.draw(Math.floor(this.tickCount / this.ticksPerFrame), this.frameRow, this.pos.x, this.pos.y, this.ang, this.state.movingLeft);
 
 			}
 
 			if (this.state['isJumping']) {
 
+		}
 
-
-			}
+		if (this.spriteAnim) 
+		{
 			this.spriteAnim.draw(Math.floor(this.tickCount / this.ticksPerFrame), this.frameRow, this.pos.x, this.pos.y, this.ang, this.state.movingLeft);
-
+		}
 
 		}
 

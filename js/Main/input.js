@@ -63,7 +63,7 @@ function keyPressed(evt) {
 	if(evt.keyCode == KEY_Z){
 
 		player.state.isPunching = true;
-		player.state.isIdle = false;
+		player.state.isIdle = true;
 		player.state.isRunning = false;
 	}
 
