@@ -1,8 +1,19 @@
 var playerPic = document.createElement("img");
 var enemyPic = document.createElement("img");
+
 var playerJumpAnim = document.createElement("img");
 var playerPunchAnim = document.createElement("img");
 var playerWalkAnim = document.createElement("img");
+var playerLeftJabAnim = document.createElement("img");
+
+var slickTileSet = document.createElement("img");
+
+
+
+
+
+
+
 
 var trackPics = [];
 
@@ -33,11 +44,14 @@ function loadImages() {
 		{ varName: playerJumpAnim, theFile: "playerDuck.png" },
 		{ varName: playerPunchAnim, theFile: "playerPunch.png" },
 		{ varName: playerWalkAnim, theFile: "playerWalk.png" },
+		{ varName: slickTileSet, theFile: "slickTileset2.png" },
 
-		{ trackType: WORLD_GOAL, theFile: "goal.png" },
+
+		// { trackType: WORLD_GOAL, theFile: "goal.png" },
 		{ trackType: WORLD_BACKGROUND, theFile: "background.png" },
-		{ trackType: WORLD_PLATFORM, theFile: "platform.png" },
-		{ trackType: WORLD_HAZARD, theFile: "hazard.png" },
+		// { trackType: WORLD_PLATFORM, theFile: "platform.png" },
+		// { trackType: WORLD_HAZARD, theFile: "hazard.png" },
+
 
 
 

@@ -273,7 +273,7 @@ function isPlatformAtPixelCoord(hitPixelX, hitPixelY) {
 	}
 
 	var brickIndex = rowColToArrayIndex(tileCol, tileRow);
-	return (worldGrid[brickIndex] == 1);
+	return (worldGrid[brickIndex] >= 0);
 }
 
 
