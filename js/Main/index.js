@@ -1,5 +1,7 @@
 var canvas, canvasContext;
 
+var score; 
+
 var player = new playerClass();
 var enemy = new playerClass();
 
@@ -12,6 +14,7 @@ window.onload = function () {
 
 	loadImages();
 	loadSounds();
+
 }
 
 function imageLoadingDoneSoStartGame() {
@@ -25,8 +28,9 @@ function imageLoadingDoneSoStartGame() {
 
 function loadLevel(whichLevel) {
 	worldGrid = whichLevel.slice();
-	player.reset(playerPic, "Player");
-	enemy.reset(enemyPic, "Enemy");
+	player.reset(playerPic, "Player", 10);
+	enemy.reset(enemyPic, "Enemy", 5);
+	score = 0;
 }
 
 function updateAll() {
@@ -40,10 +44,7 @@ function moveAll() {
 	if (!enemy.remove) {
 		enemy.move();
 	}
-	
 	playBGM(currentLevel);
-
-	
 }
 
 function drawAll() {
@@ -60,4 +61,7 @@ function drawAll() {
 	}
 
 	canvasContext.restore();
+	colorText(`Score : ${score}`,30 ,30, "yellow","30px Tahoma");
+	colorText(`Health : ${player.health}` ,30 ,60, "yellow","30px Tahoma");
+
 } 

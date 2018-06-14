@@ -1,14 +1,21 @@
+
+
+//For current movement.
 const KEY_LEFT_ARROW = 37;
 const KEY_UP_ARROW = 38;
 const KEY_RIGHT_ARROW = 39;
 const KEY_DOWN_ARROW = 40;
 
-const KEY_W = 87;
-const KEY_A = 65;
-const KEY_S = 83;
-const KEY_D = 68;
-const KEY_Z = 90;
-const KEY_M = 77;
+const KEY_W = 87; 
+
+
+const KEY_A = 65; // Object 1
+const KEY_S = 83; // Object 2
+const KEY_D = 68; // Object 3
+const KEY_M = 77; // For music
+const KEY_Z = 90; // Attack
+const KEY_X = 88; //Jump
+const Key_C = 67; // Defend
 
 var mouseX = 0;
 var mouseY = 0;
@@ -20,7 +27,7 @@ function setupInput() {
 	document.addEventListener('keyup', keyReleased);
 
 	// greenCar.setupInput(KEY_W, KEY_D, KEY_S, KEY_A);
-	player.setupInput(KEY_UP_ARROW, KEY_RIGHT_ARROW, KEY_DOWN_ARROW, KEY_LEFT_ARROW, KEY_Z);
+	player.setupInput(KEY_UP_ARROW, KEY_RIGHT_ARROW, KEY_DOWN_ARROW, KEY_LEFT_ARROW);
 } 
 
 function updateMousePos(evt) {
@@ -59,15 +66,15 @@ function keyPressed(evt) {
 	// console.log("Key pressed: "+evt.keyCode);
 	// keySet(evt, greenCar, true);
 	keySet(evt, player, true);
-
 	if(evt.keyCode == KEY_Z){
 
-		player.state.isPunching = true;
-		player.state.isIdle = true;
-		player.state.isRunning = false;
-	}
+			player.state.isAttacking = true;
+			player.state.isIdle = true;
+			player.state.isRunning = false;
+		}
 
 
+	
 	evt.preventDefault();
 }
 
@@ -79,5 +86,15 @@ function keyReleased(evt) {
 	if (evt.keyCode == KEY_M) {
 		musicEnabled = !musicEnabled;
 	}
+
+	if(player.tickCount > 0){
+
+		player.state.isAttacking = false;
+		player.state.isIdle = true;
+		player.state.isRunning = false;
+	}
+
+
+
 
 }

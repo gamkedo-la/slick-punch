@@ -10,14 +10,18 @@ function playerClass() {
 
 	this.playerPic; // which picture to use
 	this.name = "Player Character";
+	this.health = 5;
+
 	this.state = {
-		'onGround': false,
-		'isRunning': false,
-		'movingLeft': false,
-		'isPunching': false,
-		'isDucking': false,
+		'isOnGround': false,
+		'isIdle': false,
+		// 'isWalking': false,
+		'isMovingLeft': false,
+		'isCrouching': false,
+		'isFacingUp': false,
+		'isAttacking': false,
+		'isDefending': false,
 		'isJumping': false,
-		'isIdle': false
 	};
 
 	this.radius = 35;
@@ -44,13 +48,34 @@ function playerClass() {
 	this.controlKeyUp = null;
 	this.controlKeyDown = null;
 
-	this.walkSprite = new SpriteSheetClass(playerWalkAnim, this.width, this.height); // 10 frames
-	this.jumpSprite = new SpriteSheetClass(playerJumpAnim, this.width, this.height); //7 frames
-	this.punchSprite = new SpriteSheetClass(playerPunchAnim, this.width, this.height); //7frames
+	this.walkSprite = new SpriteSheetClass(playerPunchAnim, this.width, this.height); // 10 frames
+	this.jumpSprite = new SpriteSheetClass(playerWalkAnim, this.width, this.height); //7 frames
+	this.jumpSprite = new SpriteSheetClass(slickTileSet, this.width, this.height); //7 frames
+	this.playerLeftJabSprite = new SpriteSheetClass(playerLeftJabAnim, this.width, this.height); //7 frames
+	this.playerWalkJumpSprite = new SpriteSheetClass(playerWalkJumpAnim, this.width, this.height); //7 frames
+	this.playerIdleJumpSprite = new SpriteSheetClass(playerIdleJumpAnim, this.width, this.height); //7 frames
+	this.playerOverheadKickSprite = new SpriteSheetClass(playerOverheadKickAnim, this.width, this.height); //7 frames
+	this.playerHighKickSprite = new SpriteSheetClass(playerHighKickAnim, this.width, this.height); //7 frames
+	this.playerNormalKickSprite = new SpriteSheetClass(playerNormalKickAnim, this.width, this.height); //7 frames
+
+
+
+
+
+		// { varName: playerPunchAnim, theFile: "playerPunchsheet.png" },
+		// { varName: playerWalkAnim, theFile: "playerWalksheet.png" },
+		// { varName: slickTileSet, theFile: "slickTileset2.png" },
+		// { varName: playerLeftJabAnim, theFile: "playerLeftJabsheet.png" },
+		// { varName: playerWalkJumpAnim, theFile: "playerWalkJumpsheet.png" },
+		// { varName: playerIdleJumpAnim, theFile: "SlickIdleJumpsheet.png" },
+		// { varName: playerOverheadKickAnim, theFile: "playerOverheadKicksheet.png" },
+		// { varName: playerHighKickAnim, theFile: "playerHighKicksheet.png" },
+		// { varName: playerNormalKickAnim, theFile: "slickTileset2.png" },
+		// { varName: playerJumpkick, theFile: "slickTileset2.png" },
+
+
 	this.remove = false;
-
 	this.frameRow = 0;
-
 	this.justPunched = false;
 	this.justJumped = false;
 	this.justKicked = false;
@@ -62,9 +87,9 @@ function playerClass() {
 
 		if (this.tickCount / this.ticksPerFrame >= this.framesAnim) {
 			this.tickCount = 0;
-			if (this.state.isPunching) {
-				this.state.isPunching = false; //play punching animation once per click punch btn
-			}
+			// if (this.state.isAttacking) {
+			// 	this.state.isAttacking = false; //play punching animation once per click punch btn
+			// }
 		}
 
 		// if(this.tickCount >= this.numFrames * this.ticksPerFrame) {
@@ -113,7 +138,7 @@ function playerClass() {
 
 	this.move = function () {
 
-		if (this.state['onGround']) {
+		if (this.state['isOnGround']) {
 
 			this.speed.x *= GROUND_FRICTION;
 
@@ -128,26 +153,26 @@ function playerClass() {
 		}
 
 		if (this.keyHeld_Left) {
-			this.state.isRunning = true;
+			this.state.isWalking = true;
 			this.state.isIdle = false;
-			this.state.isPunching = false;
+			this.state.isAttacking = false;
 			this.state.movingLeft = true;
 
 			this.speed.x = -RUN_SPEED;
 		}
 
 		if (this.keyHeld_Right) {
-			this.state.isRunning = true;
+			this.state.isWalking = true;
 			this.state.isIdle = false;
-			this.state.isPunching = false;
+			this.state.isAttacking = false;
 			this.state.movingLeft = false;
 			this.speed.x = RUN_SPEED;
 		}
 
 		if (this.keyHeld_Up) {
-			this.state.isRunning = false;
+			this.state.isWalking = false;
 			this.state.isIdle = true;
-			if (this.state['onGround']) {
+			if (this.state['isOnGround']) {
 				this.speed.y -= JUMP_POWER;
 			}
 
@@ -158,14 +183,14 @@ function playerClass() {
 		}
 
 		if (!this.keyHeld_Left && !this.keyHeld_Right && !this.keyHeld_Up) {
-			this.state.isRunning = false;
+			this.state.isWalking = false;
 			this.state.isIdle = true;
 
 		}
 
-		if (this.state.isPunching) {
+		if (this.state.isAttacking) {
 			this.state.isIdle = false;
-			this.state.isRunning = false;
+			this.state.isWalking = false;
 			if (this.name == "Player") {
 				if (distance(enemy.pos.x, enemy.pos.y, this.pos.x, this.pos.y) < 30) {
 					// console.log('Removing enemy');
@@ -178,19 +203,19 @@ function playerClass() {
 		}
 
 		// We need to set "justPunched", so that we do not play the punch sound every frame
-		if (this.state.isPunching == false) {
+		if (this.state.isAttacking == false) {
 			this.justPunched = false;
 		} else {
 			this.justPunched = true;
 		}
 
-		if (this.state['onGround'] == true) {
+		if (this.state['isOnGround'] == true) {
 			this.justJumped = false;
 		} else {
 			this.justJumped = true;
 		}
 
-		// player.state.isPunching = false;
+		// player.state.isAttacking = false;
 		// 		player.state.isIdle = true;
 
 
@@ -203,10 +228,10 @@ function playerClass() {
 
 		if (this.speed.y > 0 && isPlatformAtPixelCoord(this.pos.x, this.pos.y + this.radius) == 1) {
 			this.pos.y = (1 + Math.floor(this.pos.y / WORLD_H)) * WORLD_H - this.radius;
-			this.state['onGround'] = true;
+			this.state['isOnGround'] = true;
 			this.speed.y = 0;
 		} else if (isPlatformAtPixelCoord(this.pos.x, this.pos.y + this.radius + 2) == 0) {
-			this.state['onGround'] = false;
+			this.state['isOnGround'] = false;
 		}
 
 		if (this.speed.x < 0 && isPlatformAtPixelCoord(this.pos.x - this.radius, this.pos.y) == 1) {
@@ -232,26 +257,39 @@ function playerClass() {
 
 		}
 		else {
-			if (this.state['isRunning']) {
+			if (this.state['isWalking']) {
 				this.spriteAnim = this.walkSprite;
 				this.framesAnim = 10;
 			}
 
-			if (this.state['isPunching']) {
+			if (this.state['isAttacking']) {
 				this.spriteAnim = this.punchSprite;
-				this.framesAnim = 7;
+				this.framesAnim = 4;
 				this.punchSprite.draw(Math.floor(this.tickCount / this.ticksPerFrame), this.frameRow, this.pos.x, this.pos.y, this.ang, this.state.movingLeft);
 
 			}
 
+			// 	'isOnGround': false,
+			//  'isIdle': false,
+			//  'isWalking': false,
+			//  'isMovingLeft': false,
+			//  'isCrouching': false,
+			//  'isFacingUp': false,
+
+			//  'isAttacking': false,
+			//  'isDefending': false,
+			//  'isJumping': false,
+
 			if (this.state['isJumping']) {
+				this.spriteAnim = this.punchSprite;
+				this.framesAnim = 7;
+				this.punchSprite.draw(Math.floor(this.tickCount / this.ticksPerFrame), this.frameRow, this.pos.x, this.pos.y, this.ang, this.state.movingLeft);
+			}
 
-		}
-
-		if (this.spriteAnim) 
-		{
-			this.spriteAnim.draw(Math.floor(this.tickCount / this.ticksPerFrame), this.frameRow, this.pos.x, this.pos.y, this.ang, this.state.movingLeft);
-		}
+			if (this.spriteAnim) 
+			{
+				this.spriteAnim.draw(Math.floor(this.tickCount / this.ticksPerFrame), this.frameRow, this.pos.x, this.pos.y, this.ang, this.state.movingLeft);
+			}
 
 		}
 
