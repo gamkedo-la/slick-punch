@@ -1,8 +1,10 @@
 const GROUND_FRICTION = 0.7;
 const AIR_RESISTANCE = 0.975;
 const RUN_SPEED = 3.0;
-const JUMP_POWER = 5.5;
+const JUMP_POWER = 8;
+const DOUBLE_JUMP_POWER = 12; // we need more force to counteract gravity in air
 const GRAVITY = 0.55;
+const MAX_AIR_JUMPS = 1; // double jump
 
 function playerClass() {
 	this.pos = vector.create(75, 75);
@@ -42,6 +44,7 @@ function playerClass() {
 	this.keyHeld_Left = false;
 	this.keyHeld_Down = false;
 	this.keyHeld_Up = false;
+	this.keyHeld_Up_lastframe = false; // don't jump >1x per keypress
 
 	this.controlKeyRight = null;
 	this.controlKeyLeft = null;
@@ -80,6 +83,8 @@ function playerClass() {
 	this.justJumped = false;
 	this.justKicked = false;
 
+	this.doubleJumpCount = 0;
+
 	// this.speed = RUN_SPEED;
 	this.incrementTick = function () {
 
@@ -116,10 +121,11 @@ function playerClass() {
 		this.name = playerName;
 		this.playerPic = whichImage;
 		this.health = health;
+		this.doubleJumpCount = 0;
+
 		if (this.name == "Enemy") {
 			this.state.movingLeft = true;
 		}
-
 
 		for (var eachRow = 0; eachRow < WORLD_ROWS; eachRow++) {
 			for (var eachCol = 0; eachCol < WORLD_COLS; eachCol++) {
@@ -141,8 +147,9 @@ function playerClass() {
 		if (this.state['isOnGround']) {
 
 			this.speed.x *= GROUND_FRICTION;
+			this.doubleJumpCount = 0;
 
-		} else {
+		} else { // in the air
 
 			this.speed.x *= AIR_RESISTANCE;
 			this.speed.y += GRAVITY;
@@ -157,7 +164,6 @@ function playerClass() {
 			this.state.isIdle = false;
 			this.state.isAttacking = false;
 			this.state.movingLeft = true;
-
 			this.speed.x = -RUN_SPEED;
 		}
 
@@ -169,18 +175,31 @@ function playerClass() {
 			this.speed.x = RUN_SPEED;
 		}
 
-		if (this.keyHeld_Up) {
+		if (this.keyHeld_Up && !this.keyHeld_Up_lastframe) {
 			this.state.isWalking = false;
 			this.state.isIdle = true;
-			if (this.state['isOnGround']) {
+			this.keyHeld_Up_lastframe = true;
+
+			if (this.state['onGround']) { // regular jump
+				//console.log("Normal Jump!");
 				this.speed.y -= JUMP_POWER;
 			}
-
-			if (this.justJumped == false) {
-				playJumpSound();
+			else if (this.doubleJumpCount < MAX_AIR_JUMPS) { // in the air?
+				//console.log("Double Jump!");
+				this.speed.y -= DOUBLE_JUMP_POWER;
+				this.doubleJumpCount++;
+			} else {
+				//console.log("Ignoring triple jump...");
 			}
-
 		}
+
+		// avoid multiple jumps from the same keypress
+		this.keyHeld_Up_lastframe = this.keyHeld_Up;
+
+		if (this.justJumped == false) {
+			playJumpSound();
+		}
+
 
 		if (!this.keyHeld_Left && !this.keyHeld_Right && !this.keyHeld_Up) {
 			this.state.isWalking = false;
@@ -246,7 +265,7 @@ function playerClass() {
 
 		playerWorldHandling(this);
 		this.incrementTick();
-	}
+	} // end of player.move function
 
 	this.draw = function () {
 
@@ -276,6 +295,7 @@ function playerClass() {
 			//  'isCrouching': false,
 			//  'isFacingUp': false,
 
+
 			//  'isAttacking': false,
 			//  'isDefending': false,
 			//  'isJumping': false,
@@ -286,8 +306,9 @@ function playerClass() {
 				this.punchSprite.draw(Math.floor(this.tickCount / this.ticksPerFrame), this.frameRow, this.pos.x, this.pos.y, this.ang, this.state.movingLeft);
 			}
 
-			if (this.spriteAnim) 
-			{
+
+
+			if (this.spriteAnim) {
 				this.spriteAnim.draw(Math.floor(this.tickCount / this.ticksPerFrame), this.frameRow, this.pos.x, this.pos.y, this.ang, this.state.movingLeft);
 			}
 
