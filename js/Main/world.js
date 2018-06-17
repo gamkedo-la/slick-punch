@@ -122,12 +122,6 @@ const THORNS = 27;
 const VINES_POISONOUS = 28; 
 
 
-
-
-
-
-
-
 // const WORLD_PLATFORM = 1;
 const WORLD_PLAYERSTART = -2;
 const WORLD_ENEMYSTART = -3;
@@ -300,6 +294,8 @@ function isTransparentInBackground(tile){
 		tile == SLIME_PIT_MIDDLE_TOP ||
 		tile == SLIME_PIT_RIGHT_TOP ||
 		tile == GREEN_VINE_WEBS ||
-		tile == THORNS);
+		tile == THORNS || 
+		VINES_POISONOUS
+		);
 
 }
