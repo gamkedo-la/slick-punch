@@ -58,7 +58,7 @@ function playerClass() {
 	// this.playerOverheadKickSprite = new SpriteSheetClass(playerOverheadKickAnim, this.width, this.height); //7 frames
 	// this.playerHighKickSprite = new SpriteSheetClass(playerHighKickAnim, this.width, this.height); //7 frames
 	// this.playerNormalKickSprite = new SpriteSheetClass(playerNormalKickAnim, this.width, this.height); //7 frames
-	// this.playerIdleSprite = new SpriteSheetClass(playerIdleAnim, this.width, this.height); //7 frames
+	this.playerIdleSprite = new SpriteSheetClass(playerIdleAnim, this.width, this.height); //7 frames
 
 
 
