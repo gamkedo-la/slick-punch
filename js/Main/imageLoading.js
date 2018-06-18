@@ -10,7 +10,7 @@ var playerWalkJumpAnim = document.createElement("img");
 var playerIdleJumpAnim = document.createElement("img");
 var playerHighKickAnim = document.createElement("img");
 var playerIdleAnim = document.createElement("img");
-
+var playerCrouchAnim = document.createElement("img");
 
 var slickTileSet = document.createElement("img");
 
@@ -46,8 +46,10 @@ function loadImages() {
 		{ varName: playerLeftJabAnim, theFile: "playerLeftJabsheet.png" },
 		{ varName: playerWalkJumpAnim, theFile: "playerWalkJumpsheet.png" },
 		{ varName: playerIdleAnim, theFile: "playerIdleSheet.png" },
-		// { varName: playerIdleJumpAnim, theFile: "playerIdleJumpsheet.png" },
-		// { varName: playerHighKickAnim, theFile: "playerHighKicksheet.png" },
+		{ varName: playerIdleJumpAnim, theFile: "playerIdleJumpsheet.png" },
+		{ varName: playerHighKickAnim, theFile: "playerHighKicksheet.png" },
+		{ varName: playerCrouchAnim, theFile: "playerCrouchSheet.png" },
+
 		{ varName: scrollBackground, theFile: "background.png" },
 		// { trackType: WORLD_GOAL, theFile: "goal.png" },
 		{ trackType: WORLD_BACKGROUND, theFile: "background35.png" },

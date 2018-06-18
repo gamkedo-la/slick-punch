@@ -15,15 +15,15 @@ function playerClass() {
 	this.health = 5;
 
 	this.state = {
-		'isOnGround': false,
+		'isOnGround': true,
 		'isIdle': true,
-		// 'isWalking': false,
+		'isWalking': false,
 		'isMovingLeft': false,
 		'isCrouching': false,
 		'isFacingUp': false,
 		'isAttacking': false,
 		'isDefending': false,
-		'isJumping': false,
+		
 	};
 
 	this.radius = 35;
@@ -49,35 +49,17 @@ function playerClass() {
 	this.controlKeyUp = null;
 	this.controlKeyDown = null;
 
+
+	// Animation generation. 
 	this.walkSprite = new SpriteSheetClass(playerWalkAnim, this.width, this.height); // 10 frames
 	this.punchSprite = new SpriteSheetClass(playerPunchAnim, this.width, this.height); //7frames
-	this.jumpSprite = new SpriteSheetClass(slickTileSet, this.width, this.height); //7 frames
-	// this.playerLeftJabSprite = new SpriteSheetClass(playerLeftJabAnim, this.width, this.height); //7 frames
-	// this.playerWalkJumpSprite = new SpriteSheetClass(playerWalkJumpAnim, this.width, this.height); //7 frames
-	// this.playerIdleJumpSprite = new SpriteSheetClass(playerIdleJumpAnim, this.width, this.height); //7 frames
-	// this.playerOverheadKickSprite = new SpriteSheetClass(playerOverheadKickAnim, this.width, this.height); //7 frames
-	// this.playerHighKickSprite = new SpriteSheetClass(playerHighKickAnim, this.width, this.height); //7 frames
-	// this.playerNormalKickSprite = new SpriteSheetClass(playerNormalKickAnim, this.width, this.height); //7 frames
-	this.playerIdleSprite = new SpriteSheetClass(playerIdleAnim, this.width, this.height); //7 frames
+	this.idleAnim = new SpriteSheetClass(playerIdleAnim, this.width, this.height); //7 frames
+	this.idleJumpAnim = new SpriteSheetClass(playerIdleJumpAnim, this.width, this.height); //6 frames
+	this.leftJabAni = new SpriteSheetClass(playerLeftJabAnim, this.width, this.height); //7 frames
+	this.walkJumpAnim = new SpriteSheetClass(playerWalkJumpAnim, this.width, this.height); //5 frames
+	this.highKickAnim = new SpriteSheetClass(playerHighKickAnim, this.width, this.height); //6 frames
+	this.crouchAnim = new SpriteSheetClass(playerCrouchAnim, this.width, this.height); //4 frames
 
-
-
-
-
-
-		// { varName: playerPunchAnim, theFile: "playerPunchsheet.png" },
-		// { varName: playerWalkAnim, theFile: "playerWalksheet.png" },
-		// { varName: slickTileSet, theFile: "slickTileset2.png" },
-		// { varName: playerLeftJabAnim, theFile: "playerLeftJabsheet.png" },
-		// { varName: playerWalkJumpAnim, theFile: "playerWalkJumpsheet.png" },
-		// { varName: playerIdleJumpAnim, theFile: "SlickIdleJumpsheet.png" },
-		// { varName: playerOverheadKickAnim, theFile: "playerOverheadKicksheet.png" },
-		// { varName: playerHighKickAnim, theFile: "playerHighKicksheet.png" },
-		// { varName: playerNormalKickAnim, theFile: "slickTileset2.png" },
-		// { varName: playerJumpkick, theFile: "slickTileset2.png" },
-
-
-	this.remove = false;
 	this.frameRow = 0;
 	this.justPunched = false;
 	this.justJumped = false;
@@ -93,10 +75,26 @@ function playerClass() {
 		if (this.tickCount / this.ticksPerFrame >= this.framesAnim) {
 			this.tickCount = 0;
 			if (this.state.isAttacking) {
-				// this.state.isAttacking = false; //play punching animation once per click punch btn
+				this.state.isAttacking = false; //play punching animation once per click punch btn
 			}
 		}
 	};
+
+	//sets all values of state object to false
+	this.setStateToFalse = function (){
+		for(key in this.state){
+			this.state[key] = false;
+		}
+	};
+
+	//sets value of given key pf state object to value passed
+	this.setStateValueTo = function (key, val){
+		if(this.state.hasOwnProperty(key)){
+			// console.log("Setting" + key + ":" + val);
+			this.state[key] = val;
+		}
+	};
+
 
 	this.setupInput = function (upKey, rightKey, downKey, leftKey) {
 		this.controlKeyUp = upKey;
@@ -118,10 +116,6 @@ function playerClass() {
 		this.playerPic = whichImage;
 		this.health = health;
 		this.doubleJumpCount = 0;
-
-		if (this.name == "Enemy") {
-			this.state.movingLeft = true;
-		}
 
 		for (var eachRow = 0; eachRow < WORLD_ROWS; eachRow++) {
 			for (var eachCol = 0; eachCol < WORLD_COLS; eachCol++) {
@@ -145,8 +139,9 @@ function playerClass() {
 			this.speed.x *= GROUND_FRICTION;
 			this.doubleJumpCount = 0;
 
-		} else { // in the air
+		} 
 
+		else { // in the air
 			this.speed.x *= AIR_RESISTANCE;
 			this.speed.y += GRAVITY;
 
@@ -156,34 +151,41 @@ function playerClass() {
 		}
 
 		if (this.keyHeld_Left) {
-			this.state.isWalking = true;
-			this.state.isIdle = false;
-			this.state.isAttacking = false;
-			this.state.movingLeft = true;
+			//this.setStateToFalse(); //setting every value of object to false; // might be buggy
+			this.setStateValueTo("isWalking", true);
+			this.setStateValueTo("isMovingLeft", true);
 			this.speed.x = -RUN_SPEED;
 		}
 
-		if (this.keyHeld_Right) {
-			this.state.isWalking = true;
-			this.state.isIdle = false;
-			this.state.isAttacking = false;
-			this.state.movingLeft = false;
+		else if (this.keyHeld_Right) {
+			//this.setStateToFalse();
+			this.setStateValueTo("isWalking", true);
+			this.setStateValueTo("isMovingLeft", false);
 			this.speed.x = RUN_SPEED;
 		}
 
+		else {
+			// this.setStateToFalse();
+			this.setStateValueTo("isIdle", true);
+		}
+
 		if (this.keyHeld_Up && !this.keyHeld_Up_lastframe) {
-			this.state.isWalking = false;
-			this.state.isIdle = true;
+			// this.setStateToFalse();
 			this.keyHeld_Up_lastframe = true;
 
-			if (this.state['onGround']) { // regular jump
+			if (this.state['isOnGround']) { // regular jump
 				//console.log("Normal Jump!");
 				this.speed.y -= JUMP_POWER;
+				// this.setStateToFalse();
+				this.setStateValueTo("isOnGround", false);
 			}
 			else if (this.doubleJumpCount < MAX_AIR_JUMPS) { // in the air?
 				//console.log("Double Jump!");
 				this.speed.y -= DOUBLE_JUMP_POWER;
 				this.doubleJumpCount++;
+				// this.setStateToFalse();
+
+				this.setStateValueTo("isOnGround", false);
 			} else {
 				//console.log("Ignoring triple jump...");
 			}
@@ -192,49 +194,36 @@ function playerClass() {
 		// avoid multiple jumps from the same keypress
 		this.keyHeld_Up_lastframe = this.keyHeld_Up;
 
-		/* if (this.justJumped == false) {
+		 if (this.justJumped == false) {
 		 	playJumpSound();
-		 }*/
-
-
-		if (!this.keyHeld_Left && !this.keyHeld_Right && !this.keyHeld_Up) {
-			this.state.isWalking = false;
-			this.state.isIdle = true;
-
-		}
+		 }
 
 		if (this.state.isAttacking) {
 			this.state.isIdle = false;
 			this.state.isWalking = false;
 			if (this.name == "Player") {
 				if (distance(enemy.pos.x, enemy.pos.y, this.pos.x, this.pos.y) < 30) {
-					// console.log('Removing enemy');
 					enemy.remove = true;
 				}
 			}
 			if (this.justPunched == false) {
-				// playPunchSound();
+				playPunchSound();
 			}
 		}
 
 		// We need to set "justPunched", so that we do not play the punch sound every frame
-		if (this.state.isAttacking == false) {
+		if (!this.state.isAttacking) {
 			this.justPunched = false;
 		} else {
 			this.justPunched = true;
 		}
 
-		if (this.state['isOnGround'] == true) {
+		if (this.state['isOnGround']) {
 			this.justJumped = false;
-		} else {
+		} 
+		else {
 			this.justJumped = true;
 		}
-
-		// player.state.isAttacking = false;
-		// 		player.state.isIdle = true;
-
-
-
 
 		if (this.speed.y < 0 && isPlatformAtPixelCoord(this.pos.x, this.pos.y - this.radius) == 1) {
 			this.pos.y = (Math.floor(this.pos.y / WORLD_H)) * WORLD_H + this.radius;
@@ -243,11 +232,11 @@ function playerClass() {
 
 		if (this.speed.y > 0 && isPlatformAtPixelCoord(this.pos.x, this.pos.y + this.radius) == 1) {
 			this.pos.y = (1 + Math.floor(this.pos.y / WORLD_H)) * WORLD_H - this.radius;
-			this.state['isOnGround'] = true;
+			this.setStateValueTo("isOnGround", true);
 			this.speed.y = 0;
 		}
 		else if (isPlatformAtPixelCoord(this.pos.x, this.pos.y + this.radius + 2) == 0) {
-			this.state['isOnGround'] = false;
+			this.setStateValueTo("isOnGround", false);
 		}
 		if (this.speed.x < 0 && isPlatformAtPixelCoord(this.pos.x - this.radius, this.pos.y) == 1) {
 			this.pos.x = (Math.floor(this.pos.x / WORLD_W)) * WORLD_W + this.radius;
@@ -268,53 +257,35 @@ function playerClass() {
 		//TODO : Clean all code. 
 
 		if (this.state['isIdle']) {
-			drawBitmapFlipped(this.playerPic, this.pos.x, this.pos.y, this.state.movingLeft);
-
-			// this.spriteAnim = this.idleSprite;
-			// this.framesAnim = 10;
-			// this.walkSprite.draw(Math.floor(this.tickCount / this.ticksPerFrame), this.frameRow, this.pos.x, this.pos.y, this.ang, this.state.movingLeft);
+			this.spriteAnim = this.idleAnim;
+			this.framesAnim = 7;
 		}
-		else {
-			if (this.state['isWalking']) {
-				// console.log("Hey");
-				this.spriteAnim = this.walkSprite;
-				this.framesAnim = 10;
-				this.walkSprite.draw(Math.floor(this.tickCount / this.ticksPerFrame), this.frameRow, this.pos.x, this.pos.y, this.ang, this.state.movingLeft);
-
-			}
-
-			if (this.state['isAttacking']) {
-				this.spriteAnim = this.punchSprite;
-				this.framesAnim = 4;
-				this.punchSprite.draw(Math.floor(this.tickCount / this.ticksPerFrame), this.frameRow, this.pos.x, this.pos.y, this.ang, this.state.movingLeft);
-
-			}
-
-			// 	'isOnGround': false,
-			//  'isIdle': false,
-			//  'isWalking': false,
-			//  'isMovingLeft': false,
-			//  'isCrouching': false,
-			//  'isFacingUp': false,
-
-
-			//  'isAttacking': false,
-			//  'isDefending': false,
-			//  'isJumping': false,
-
-			if (this.state['isJumping']) {
-				this.spriteAnim = this.punchSprite;
-				this.framesAnim = 7;
-				this.punchSprite.draw(Math.floor(this.tickCount / this.ticksPerFrame), this.frameRow, this.pos.x, this.pos.y, this.ang, this.state.movingLeft);
-			}
-
-
-
-			if (this.spriteAnim) {
-				this.spriteAnim.draw(Math.floor(this.tickCount / this.ticksPerFrame), this.frameRow, this.pos.x, this.pos.y, this.ang, this.state.movingLeft);
-			}
-
+	
+		if (this.state['isWalking']) {
+			this.spriteAnim = this.walkSprite;
+			this.framesAnim = 10;
 		}
+
+		if (this.state['isAttacking']) {
+			this.spriteAnim = this.punchSprite;
+			this.framesAnim = 4;
+			// this.spriteAnim.draw(Math.floor(this.tickCount / this.ticksPerFrame), this.frameRow, this.pos.x, this.pos.y, this.ang, this.state.movingLeft);
+		}
+
+		//Jump Animation
+		// if (!this.state['isOnGround']) {
+		// 	this.spriteAnim = this.idleJumpAnim;
+		// 	this.framesAnim = 6;
+		// 	// this.spriteAnim.draw(Math.floor(this.tickCount / this.ticksPerFrame), this.frameRow, this.pos.x, this.pos.y, this.ang, this.state.movingLeft);
+		// }
+
+
+		//final drawing of sprite.
+		if (this.spriteAnim !=null) {
+			this.spriteAnim.draw(Math.floor(this.tickCount / this.ticksPerFrame), this.frameRow, this.pos.x, this.pos.y, this.ang, this.state.isMovingLeft);
+		}
+
+		
 
 	}
 }
@@ -336,3 +307,5 @@ function isPlatformAtPixelCoord(hitPixelX, hitPixelY) {
 	var brickIndex = rowColToArrayIndex(tileCol, tileRow);
 	return (worldGrid[brickIndex] >= 0);
 }
+
+

@@ -67,14 +67,9 @@ function keyPressed(evt) {
 	// keySet(evt, greenCar, true);
 	keySet(evt, player, true);
 	if(evt.keyCode == KEY_Z){
-
-			player.state.isAttacking = true;
-			player.state.isIdle = true;
-			player.state.isRunning = false;
-		}
-
-
-	
+		player.setStateToFalse();
+		player.setStateValueTo("isAttacking", true);
+	}
 	evt.preventDefault();
 }
 
@@ -89,12 +84,7 @@ function keyReleased(evt) {
 
 	if(player.tickCount > 0){
 
-		player.state.isAttacking = false;
-		player.state.isIdle = true;
-		player.state.isRunning = false;
+		player.setStateToFalse();
+		player.setStateValueTo("isIdle", true);
 	}
-
-
-
-
 }

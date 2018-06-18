@@ -19,9 +19,7 @@ window.onload = function () {
 function imageLoadingDoneSoStartGame() {
 	var framesPerSecond = 60;
 	setInterval(updateAll, 1000 / framesPerSecond);
-
 	setupInput();
-
 	loadLevel(levelOne);
 }
 
