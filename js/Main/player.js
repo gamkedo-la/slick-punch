@@ -21,8 +21,9 @@ function playerClass() {
 		'isMovingLeft': false,
 		'isCrouching': false,
 		'isFacingUp': false,
-		'isAttacking': false,
+		'isAttacking': false, //combo punches, kick on 3 continuos punch
 		'isDefending': false,
+		'isAnimating' : false, // Used to set state between animation and final.
 		
 	};
 
@@ -42,25 +43,35 @@ function playerClass() {
 	this.keyHeld_Left = false;
 	this.keyHeld_Down = false;
 	this.keyHeld_Up = false;
+	this.keyHeld_Attack = false;
+	this.keyHeld_Jump = false;
+	this.keyHeld_Defend = false;
+
 	this.keyHeld_Up_lastframe = false; // don't jump >1x per keypress
 
 	this.controlKeyRight = null;
 	this.controlKeyLeft = null;
 	this.controlKeyUp = null;
 	this.controlKeyDown = null;
-
+	this.controlKeyAttack = null;
+	this.controlKeyJump = null;
+	this.controlKeyDefend = null;
 
 	// Animation generation. 
-	this.walkSprite = new SpriteSheetClass(playerWalkAnim, this.width, this.height); // 10 frames
-	this.punchSprite = new SpriteSheetClass(playerPunchAnim, this.width, this.height); //7frames
-	this.idleAnim = new SpriteSheetClass(playerIdleAnim, this.width, this.height); //7 frames
-	this.idleJumpAnim = new SpriteSheetClass(playerIdleJumpAnim, this.width, this.height); //6 frames
-	this.leftJabAni = new SpriteSheetClass(playerLeftJabAnim, this.width, this.height); //7 frames
-	this.walkJumpAnim = new SpriteSheetClass(playerWalkJumpAnim, this.width, this.height); //5 frames
-	this.highKickAnim = new SpriteSheetClass(playerHighKickAnim, this.width, this.height); //6 frames
-	this.crouchAnim = new SpriteSheetClass(playerCrouchAnim, this.width, this.height); //4 frames
+	this.walkSprite = new SpriteSheetClass(playerWalkAnim, this.width, this.height, 10); // 10 frames
+	this.punchAnim = new SpriteSheetClass(playerPunchAnim, this.width, this.height, 7); //7frames
+	this.idleAnim = new SpriteSheetClass(playerIdleAnim, this.width, this.height, 7); //7 frames
+	this.idleJumpAnim = new SpriteSheetClass(playerIdleJumpAnim, this.width, this.height, 6); //6 frames
+	this.leftJabAnim = new SpriteSheetClass(playerLeftJabAnim, this.width, this.height, 7); //7 frames
+	this.walkJumpAnim = new SpriteSheetClass(playerWalkJumpAnim, this.width, this.height, 5); //5 frames
+	this.highKickAnim = new SpriteSheetClass(playerHighKickAnim, this.width, this.height, 6); //6 frames
+	this.crouchAnim = new SpriteSheetClass(playerCrouchAnim, this.width, this.height, 4); //4 frames
+	this.attackAnimArr = [this.highKickAnim, this.leftJabAnim, this.punchAnim]
 
+	//Used for animation.
 	this.frameRow = 0;
+
+	//Used to track sound play and pause.
 	this.justPunched = false;
 	this.justJumped = false;
 	this.justKicked = false;
@@ -73,12 +84,14 @@ function playerClass() {
 		this.tickCount++;
 
 		if (this.tickCount / this.ticksPerFrame >= this.framesAnim) {
-			this.tickCount = 0;
-			if (this.state.isAttacking) {
-				this.state.isAttacking = false; //play punching animation once per click punch btn
-			}
+			this.tickCount = 0; //Looping animation.//
 		}
 	};
+
+
+	this.checkAnimationCompletion = function(){
+
+	}
 
 	//sets all values of state object to false
 	this.setStateToFalse = function (){
@@ -96,11 +109,14 @@ function playerClass() {
 	};
 
 
-	this.setupInput = function (upKey, rightKey, downKey, leftKey) {
+	this.setupInput = function (upKey, rightKey, downKey, leftKey, attackKey, jumpKey, defendKey) {
 		this.controlKeyUp = upKey;
 		this.controlKeyRight = rightKey;
 		this.controlKeyDown = downKey;
 		this.controlKeyLeft = leftKey;
+		this.controlKeyAttack = attackKey;
+		this.controlKeyJump = jumpKey;
+		this.controlKeyDefend = defendKey;
 	}
 
 	this.takeDamage = function (howMuch) {
@@ -142,20 +158,21 @@ function playerClass() {
 		} 
 
 		else { // in the air
-			this.speed.x *= AIR_RESISTANCE;
-			this.speed.y += GRAVITY;
-
-			if (this.speed.y > this.radius) { // cheap test to ensure can't fall through floor
-				this.speed.y = this.radius;
-			}
+				this.speed.x *= AIR_RESISTANCE;
+				this.speed.y += GRAVITY;
+				// cheap test to ensure can't fall through floor
+				// improve this
+				if (this.speed.y > this.radius) { 
+					this.speed.y = this.radius;
+				}
 		}
 
 		if (this.keyHeld_Left) {
-			//this.setStateToFalse(); //setting every value of object to false; // might be buggy
-			this.setStateValueTo("isWalking", true);
-			this.setStateValueTo("isMovingLeft", true);
-			this.speed.x = -RUN_SPEED;
-		}
+				//this.setStateToFalse(); //setting every value of object to false; // might be buggy
+				this.setStateValueTo("isWalking", true);
+				this.setStateValueTo("isMovingLeft", true);
+				this.speed.x = -RUN_SPEED;
+			}
 
 		else if (this.keyHeld_Right) {
 			//this.setStateToFalse();
@@ -164,12 +181,34 @@ function playerClass() {
 			this.speed.x = RUN_SPEED;
 		}
 
+
+		else if (this.keyHeld_Down) {
+				this.setStateValueTo("isIdle", false);
+				this.setStateValueTo("isWalking", false);
+				this.setStateValueTo("isCrouching", true);
+		}
+		
+		else if (this.keyHeld_Up) {
+				this.setStateValueTo("isIdle", false);
+				this.setStateValueTo("isWalking", false);
+				this.setStateValueTo("isCrouching", true);
+		}
+
+		else if (this.keyHeld_Attack) {
+				this.setStateValueTo("isIdle", false);
+				this.setStateValueTo("isWalking", false);
+				this.setStateValueTo("isAttacking", true);
+		}
+
 		else {
-			// this.setStateToFalse();
+			this.setStateToFalse();
+			this.setStateValueTo("isOnGround", true);		
 			this.setStateValueTo("isIdle", true);
 		}
 
-		if (this.keyHeld_Up && !this.keyHeld_Up_lastframe) {
+
+
+		if (this.keyHeld_Jump && !this.keyHeld_Up_lastframe) {
 			// this.setStateToFalse();
 			this.keyHeld_Up_lastframe = true;
 
@@ -192,24 +231,25 @@ function playerClass() {
 		}
 
 		// avoid multiple jumps from the same keypress
-		this.keyHeld_Up_lastframe = this.keyHeld_Up;
+		//TODO: Jump sound bug
+		this.keyHeld_Up_lastframe = this.keyHeld_Jump;
 
 		 if (this.justJumped == false) {
 		 	playJumpSound();
 		 }
 
-		if (this.state.isAttacking) {
-			this.state.isIdle = false;
-			this.state.isWalking = false;
-			if (this.name == "Player") {
-				if (distance(enemy.pos.x, enemy.pos.y, this.pos.x, this.pos.y) < 30) {
-					enemy.remove = true;
-				}
-			}
-			if (this.justPunched == false) {
-				playPunchSound();
-			}
-		}
+		// if (this.state.isAttacking) {
+		// 	this.state.isIdle = false;
+		// 	this.state.isWalking = false;
+		// 	if (this.name == "Player") {
+		// 		if (distance(enemy.pos.x, enemy.pos.y, this.pos.x, this.pos.y) < 30) {
+		// 			enemy.remove = true;
+		// 		}
+		// 	}
+		// 	if (this.justPunched == false) {
+		// 		playPunchSound();
+		// 	}
+		// }
 
 		// We need to set "justPunched", so that we do not play the punch sound every frame
 		if (!this.state.isAttacking) {
@@ -267,25 +307,31 @@ function playerClass() {
 		}
 
 		if (this.state['isAttacking']) {
-			this.spriteAnim = this.punchSprite;
+			this.spriteAnim = this.punchAnim;
 			this.framesAnim = 4;
 			// this.spriteAnim.draw(Math.floor(this.tickCount / this.ticksPerFrame), this.frameRow, this.pos.x, this.pos.y, this.ang, this.state.movingLeft);
 		}
 
 		//Jump Animation
-		// if (!this.state['isOnGround']) {
-		// 	this.spriteAnim = this.idleJumpAnim;
-		// 	this.framesAnim = 6;
-		// 	// this.spriteAnim.draw(Math.floor(this.tickCount / this.ticksPerFrame), this.frameRow, this.pos.x, this.pos.y, this.ang, this.state.movingLeft);
-		// }
+		if (!this.state['isOnGround']) {
+			this.spriteAnim = this.idleJumpAnim;
+			this.framesAnim = 6;
+			// this.spriteAnim.draw(Math.floor(this.tickCount / this.ticksPerFrame), this.frameRow, this.pos.x, this.pos.y, this.ang, this.state.movingLeft);
+		}
 
+		//Crouch Animation
+		if (this.state['isCrouching']) {
+			this.spriteAnim = this.crouchAnim;
+			this.framesAnim = 4;
 
+			// this.spriteAnim.draw(Math.floor(this.tickCount / this.ticksPerFrame), this.frameRow, this.pos.x, this.pos.y, this.ang, this.state.movingLeft);
+		}
+
+		//Once crouch animation complete. Call a function to draw in fixed state instead of animation. 
 		//final drawing of sprite.
 		if (this.spriteAnim !=null) {
 			this.spriteAnim.draw(Math.floor(this.tickCount / this.ticksPerFrame), this.frameRow, this.pos.x, this.pos.y, this.ang, this.state.isMovingLeft);
 		}
-
-		
 
 	}
 }

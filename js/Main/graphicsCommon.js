@@ -101,10 +101,11 @@ function getTextWidth(txt, font) {
   return width;
 }
 
-function SpriteSheetClass(sheetIn, widthIn, heightIn){
+function SpriteSheetClass(sheetIn, widthIn, heightIn, frameNum = 1){
   var sheet = sheetIn;
   var width = widthIn;
   var height = heightIn;
+  this.frameNum = frameNum;
   
   this.draw = function(col, row, atX, atY, withAngle, flippedX = false, flippedY = false) {
     canvasContext.save();
