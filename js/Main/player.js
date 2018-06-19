@@ -59,9 +59,9 @@ function playerClass() {
 
 	// Animation generation. 
 	this.walkSprite = new SpriteSheetClass(playerWalkAnim, this.width, this.height, 10); // 10 frames
-	this.punchAnim = new SpriteSheetClass(playerPunchAnim, this.width, this.height, 7); //7frames
+	this.punchAnim = new SpriteSheetClass(playerPunchAnim, this.width, this.height, 4); //4frames
 	this.idleAnim = new SpriteSheetClass(playerIdleAnim, this.width, this.height, 7); //7 frames
-	this.idleJumpAnim = new SpriteSheetClass(playerIdleJumpAnim, this.width, this.height, 6); //6 frames
+	this.idleJumpAnim = new SpriteSheetClass(playerIdleJumpAnim, this.width, this.height, 5); //6 frames
 	this.leftJabAnim = new SpriteSheetClass(playerLeftJabAnim, this.width, this.height, 7); //7 frames
 	this.walkJumpAnim = new SpriteSheetClass(playerWalkJumpAnim, this.width, this.height, 5); //5 frames
 	this.highKickAnim = new SpriteSheetClass(playerHighKickAnim, this.width, this.height, 6); //6 frames
@@ -79,12 +79,15 @@ function playerClass() {
 	this.doubleJumpCount = 0;
 
 	// this.speed = RUN_SPEED;
+	//TODO: Fix double jump bug.
+
 	this.incrementTick = function () {
 
 		this.tickCount++;
 
-		if (this.tickCount / this.ticksPerFrame >= this.framesAnim) {
-			this.tickCount = 0; //Looping animation.//
+		if ( this.spriteAnim != null &&
+			 this.tickCount / this.ticksPerFrame >= this.spriteAnim.frameNum) {
+				this.tickCount = 0; //Looping animation.//
 		}
 	};
 
@@ -201,8 +204,10 @@ function playerClass() {
 		}
 
 		else {
-			this.setStateToFalse();
-			this.setStateValueTo("isOnGround", true);		
+			// this.setStateToFalse();
+			this.setStateValueTo("isOnGround", true);
+			this.setStateValueTo("isAttacking", false);	
+			this.setStateValueTo("isWalking", false);		
 			this.setStateValueTo("isIdle", true);
 		}
 
@@ -295,36 +300,33 @@ function playerClass() {
 
 		//TODO : Each animation should take atmost 1 sec to complete. 
 		//TODO : Clean all code. 
+		//TODO : Jump, Attack animation should work Only once
+		//TODO : Crouch should run once and stick to that position. 
+
 
 		if (this.state['isIdle']) {
 			this.spriteAnim = this.idleAnim;
-			this.framesAnim = 7;
+			this.framesAnim = this.spriteAnim.frameNum;
 		}
 	
 		if (this.state['isWalking']) {
 			this.spriteAnim = this.walkSprite;
-			this.framesAnim = 10;
 		}
 
 		if (this.state['isAttacking']) {
-			this.spriteAnim = this.punchAnim;
-			this.framesAnim = 4;
-			// this.spriteAnim.draw(Math.floor(this.tickCount / this.ticksPerFrame), this.frameRow, this.pos.x, this.pos.y, this.ang, this.state.movingLeft);
+			// this.spriteAnim = this.punchAnim;
+			this.spriteAnim = this.highKickAnim;
+			// this.attackAnimArr[Math.floor(Math.random()*this.attackAnimArr.length)];
 		}
 
 		//Jump Animation
 		if (!this.state['isOnGround']) {
 			this.spriteAnim = this.idleJumpAnim;
-			this.framesAnim = 6;
-			// this.spriteAnim.draw(Math.floor(this.tickCount / this.ticksPerFrame), this.frameRow, this.pos.x, this.pos.y, this.ang, this.state.movingLeft);
 		}
 
 		//Crouch Animation
 		if (this.state['isCrouching']) {
 			this.spriteAnim = this.crouchAnim;
-			this.framesAnim = 4;
-
-			// this.spriteAnim.draw(Math.floor(this.tickCount / this.ticksPerFrame), this.frameRow, this.pos.x, this.pos.y, this.ang, this.state.movingLeft);
 		}
 
 		//Once crouch animation complete. Call a function to draw in fixed state instead of animation. 
