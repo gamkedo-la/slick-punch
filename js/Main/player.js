@@ -79,7 +79,6 @@ function playerClass() {
 	this.doubleJumpCount = 0;
 
 	// this.speed = RUN_SPEED;
-	//TODO: Fix double jump bug.
 
 	this.incrementTick = function () {
 
@@ -205,7 +204,6 @@ function playerClass() {
 
 		else {
 			// this.setStateToFalse();
-			this.setStateValueTo("isOnGround", true);
 			this.setStateValueTo("isAttacking", false);	
 			this.setStateValueTo("isWalking", false);		
 			this.setStateValueTo("isIdle", true);
