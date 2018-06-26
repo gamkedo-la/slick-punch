@@ -50,7 +50,7 @@ function loadImages() {
 		{ varName: playerHighKickAnim, theFile: "playerHighKicksheet.png" },
 		{ varName: playerCrouchAnim, theFile: "playerCrouchSheet.png" },
 
-		{ varName: scrollBackground, theFile: "background.png" },
+		// { varName: scrollBackground, theFile: "background.png" },
 		// { trackType: WORLD_GOAL, theFile: "goal.png" },
 		{ trackType: WORLD_BACKGROUND, theFile: "background35.png" },
 		// { trackType: WORLD_PLATFORM, theFile: "platform.png" },
