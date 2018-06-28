@@ -206,6 +206,7 @@ function playerClass() {
 			// this.setStateToFalse();
 			this.setStateValueTo("isAttacking", false);	
 			this.setStateValueTo("isWalking", false);		
+			this.setStateValueTo("isCrouching", false);
 			this.setStateValueTo("isIdle", true);
 		}
 
