@@ -151,7 +151,12 @@ function playerWorldHandling(whichPlayer) {
 	if (playerTrackCol >= 0 && playerTrackCol < WORLD_COLS &&
 		playerTrackRow >= 0 && playerTrackRow < WORLD_ROWS) {
 		var tileHere = returnTileTypeAtColRow(playerTrackCol, playerTrackRow);
-
+		var tileUnderHere = returnTileTypeAtColRow(playerTrackCol, playerTrackRow + 1);
+		
+		if (tileUnderHere >= SLIME_PIT_LEFT_TOP && tileUnderHere <= SLIME_PIT_RIGHT_BOTTOM){
+			console.log(whichPlayer.name + " touched a slime!");
+			whichPlayer.takeDamage(1);
+		}
 		//console.log("playerWorldHandling tileHere=" + tileHere);
 
 		if (tileHere == GREEN_VINE_WEBS) {
