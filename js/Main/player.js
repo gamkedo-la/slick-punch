@@ -17,10 +17,10 @@ function playerClass() {
 	this.state = {
 		'isOnGround': true,
 		'isIdle': true,
-		'isWalking': false,
-		'isMovingLeft': false,
+		'isInMotion': false,
+		'isMovingLeft': false, //Required to set character flip.
 		'isCrouching': false,
-		'isFacingUp': false,
+		'isFacingUp': false, //Might be redundant
 		'isAttacking': false, //combo punches, kick on 3 continuos punch
 		'isDefending': false,
 		'isAnimating' : false, // Used to set state between animation and final.
@@ -66,6 +66,18 @@ function playerClass() {
 	this.walkJumpAnim = new SpriteSheetClass(playerWalkJumpAnim, this.width, this.height, 5); //5 frames
 	this.highKickAnim = new SpriteSheetClass(playerHighKickAnim, this.width, this.height, 6); //6 frames
 	this.crouchAnim = new SpriteSheetClass(playerCrouchAnim, this.width, this.height, 4); //4 frames
+
+	this.explosiveFallAnim = new SpriteSheetClass(playerIdleJumpAnim, this.width, this.height, 8); //8 frames
+	this.hurtAnim = new SpriteSheetClass(playerLeftJabAnim, this.width, this.height, 3); //3 frames
+	this.FlipAnim = new SpriteSheetClass(playerWalkJumpAnim, this.width, this.height, 5); //5 frames
+	this.rollAnim = new SpriteSheetClass(playerHighKickAnim, this.width, this.height, 7); //7 frames
+	this.crouchedKickAnim = new SpriteSheetClass(playerCrouchAnim, this.width, this.height, 4); //4 frames
+	this.uppercutAnim = new SpriteSheetClass(playerCrouchAnim, this.width, this.height, 6); //4 frames
+	this.deadAnim = new SpriteSheetClass(playerDeadAnim, this.width, this.height, 8); //8 frames
+
+
+
+
 	this.attackAnimArr = [this.highKickAnim, this.leftJabAnim, this.punchAnim]
 
 	//Used for animation.
@@ -171,41 +183,49 @@ function playerClass() {
 
 		if (this.keyHeld_Left) {
 				//this.setStateToFalse(); //setting every value of object to false; // might be buggy
-				this.setStateValueTo("isWalking", true);
+				this.setStateValueTo("isInMotion", true);
 				this.setStateValueTo("isMovingLeft", true);
 				this.speed.x = -RUN_SPEED;
 			}
 
 		else if (this.keyHeld_Right) {
 			//this.setStateToFalse();
-			this.setStateValueTo("isWalking", true);
+			this.setStateValueTo("isInMotion", true);
 			this.setStateValueTo("isMovingLeft", false);
 			this.speed.x = RUN_SPEED;
 		}
 
-
+		//For crouched movement 
 		else if (this.keyHeld_Down) {
 				this.setStateValueTo("isIdle", false);
-				this.setStateValueTo("isWalking", false);
+				// this.setStateValueTo("isInMotion", false);
 				this.setStateValueTo("isCrouching", true);
 		}
 		
+
+		//For uppercut and high kick.
 		else if (this.keyHeld_Up) {
 				this.setStateValueTo("isIdle", false);
-				this.setStateValueTo("isWalking", false);
+				// this.setStateValueTo("isInMotion", false);
 				this.setStateValueTo("isCrouching", true);
 		}
 
 		else if (this.keyHeld_Attack) {
 				this.setStateValueTo("isIdle", false);
-				this.setStateValueTo("isWalking", false);
+				this.setStateValueTo("isInMotion", false);
 				this.setStateValueTo("isAttacking", true);
 		}
+
+		// else if (this.controlKeyJump) {
+		// 		this.setStateValueTo("isIdle", false);
+		// 		this.setStateValueTo("isInMotion", false);
+		// 		this.setStateValueTo("isOnGround", false);
+		// }
 
 		else {
 			// this.setStateToFalse();
 			this.setStateValueTo("isAttacking", false);	
-			this.setStateValueTo("isWalking", false);		
+			this.setStateValueTo("isInMotion", false);		
 			this.setStateValueTo("isCrouching", false);
 			this.setStateValueTo("isIdle", true);
 		}
@@ -224,6 +244,7 @@ function playerClass() {
 			}
 			else if (this.doubleJumpCount < MAX_AIR_JUMPS) { // in the air?
 				//console.log("Double Jump!");
+				this.speed.y = 0;
 				this.speed.y -= DOUBLE_JUMP_POWER;
 				this.doubleJumpCount++;
 				// this.setStateToFalse();
@@ -244,7 +265,7 @@ function playerClass() {
 
 		// if (this.state.isAttacking) {
 		// 	this.state.isIdle = false;
-		// 	this.state.isWalking = false;
+		// 	this.state.isInMotion = false;
 		// 	if (this.name == "Player") {
 		// 		if (distance(enemy.pos.x, enemy.pos.y, this.pos.x, this.pos.y) < 30) {
 		// 			enemy.remove = true;
@@ -308,22 +329,37 @@ function playerClass() {
 			this.framesAnim = this.spriteAnim.frameNum;
 		}
 	
-		if (this.state['isWalking']) {
+		if (this.state['isInMotion'] && this.state['isCrouching']) {
+			this.spriteAnim = this.rollSprite;
+		}
+
+		if (this.state['isInMotion'] ) {
 			this.spriteAnim = this.walkSprite;
 		}
 
 		if (this.state['isAttacking']) {
-			// this.spriteAnim = this.punchAnim;
-			this.spriteAnim = this.highKickAnim;
+			this.spriteAnim = this.punchAnim;
 			// this.attackAnimArr[Math.floor(Math.random()*this.attackAnimArr.length)];
 		}
 
-		//Jump Animation
+
+		//is Jumping or falling
 		if (!this.state['isOnGround']) {
 			this.spriteAnim = this.idleJumpAnim;
 		}
 
+		if (this.state['isAttacking'] && !this.state['isOnGround']) {
+				this.spriteAnim = this.highKickAnim;
+				// this.attackAnimArr[Math.floor(Math.random()*this.attackAnimArr.length)];
+		}
+
+
 		//Crouch Animation
+		if (this.state['isCrouching']) {
+			this.spriteAnim = this.crouchAnim;
+		}
+
+		//roll
 		if (this.state['isCrouching']) {
 			this.spriteAnim = this.crouchAnim;
 		}

@@ -13,8 +13,6 @@ var playerIdleAnim = document.createElement("img");
 var playerCrouchAnim = document.createElement("img");
 var playerDeadAnim = document.createElement("img");
 var playerCrouchAnim = document.createElement("img");
-
-
 var playerexplosiveFallAnim = document.createElement("img"); //playerExplosiveFall.png'
 var playerHurtAnim = document.createElement("img"); //playerHurtsheet.png'
 var playerFlipAnim = document.createElement("img"); //playerJumpFlip.png'
@@ -26,19 +24,6 @@ var playerUppercutAnim = document.createElement("img"); //playerUppercutSheet.pn
 var diamondPickupAnim = document.createElement("img"); //pickup.png'
 var crateAnim = document.createElement("img"); //crate.png'
 var flyingEnemyAnim = document.createElement("img"); //flyingEnemy.png'
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 var slickTileSet = document.createElement("img");
 
@@ -82,7 +67,7 @@ function loadImages() {
 		{ varName: playerexplosiveFallAnim, theFile: "playerExplosiveFall.png" },
 		{ varName: playerHurtAnim, theFile: "playerHurtsheet.png" },
 		{ varName: playerFlipAnim, theFile: "playerJumpFlip.png" },
-
+		{ varName: playerDeadAnim, theFile: "playerDeadsheet.png" },
 		{ varName: playerRollAnim, theFile: "playerRollsheet.png" },
 		{ varName: playerCrouchedKickAnim, theFile: "playerCrouchedKicksheet.png" },
 		{ varName: playerNormalKickAnim, theFile: "playerNormalKick.png" },

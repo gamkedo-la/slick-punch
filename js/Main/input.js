@@ -57,7 +57,7 @@ function keySet(keyEvent, whichPlayer, setTo) {
 		whichPlayer.keyHeld_Up = setTo;
 	}
 	if(keyEvent.keyCode == whichPlayer.controlKeyDown) {
-		console.log("setting" + whichPlayer.keyHeld_Down + "to : " + setTo);
+		// console.log("setting" + whichPlayer.keyHeld_Down + "to : " + setTo);
 		whichPlayer.keyHeld_Down = setTo;
 	}
 	if(keyEvent.keyCode == whichPlayer.controlKeyAttack) {
