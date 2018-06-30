@@ -71,7 +71,7 @@ function playerClass() {
 	this.hurtAnim = new SpriteSheetClass(playerLeftJabAnim, this.width, this.height, 3); //3 frames
 	this.FlipAnim = new SpriteSheetClass(playerWalkJumpAnim, this.width, this.height, 5); //5 frames
 	this.rollAnim = new SpriteSheetClass(playerRollAnim, this.width, this.height, 7); //7 frames
-	this.crouchedKickAnim = new SpriteSheetClass(playerCrouchAnim, this.width, this.height, 4); //4 frames
+	this.crouchedKickAnim = new SpriteSheetClass(playerCrouchedKickAnim, this.width, this.height, 4); //4 frames
 	this.uppercutAnim = new SpriteSheetClass(playerCrouchAnim, this.width, this.height, 6); //4 frames
 	this.deadAnim = new SpriteSheetClass(playerDeadAnim, this.width, this.height, 8); //8 frames
 
@@ -204,13 +204,15 @@ function playerClass() {
 	
 		//For crouched movement 
 		if (this.keyHeld_Down || this.keyHeld_Up) {
+				//Up for uppercut
 				this.setStateValueTo("isIdle", false);
 				// this.setStateValueTo("isInMotion", false);
 				this.setStateValueTo("isCrouching", true);
 		}
 		else{
+			//Down for spin kick
 			this.setStateValueTo("isCrouching", false);
-				this.setStateValueTo("isIdle", true);
+			this.setStateValueTo("isIdle", true);
 
 
 		}
@@ -221,7 +223,7 @@ function playerClass() {
 				this.setStateValueTo("isAttacking", true);
 		}
 		else{
-				this.setStateValueTo("isAttacking", false);
+			 this.setStateValueTo("isAttacking", false);
 
 		}
 
@@ -324,13 +326,10 @@ function playerClass() {
 			this.spriteAnim = this.idleAnim;
 			this.framesAnim = this.spriteAnim.frameNum;
 		}
-	
-		
 
 		if (this.state['isInMotion'] ) {
 			this.spriteAnim = this.walkAnim;
 		}
-
 
 			//Crouch Animation
 		if (this.state['isCrouching']) {
@@ -349,6 +348,10 @@ function playerClass() {
 
 		if (this.state['isAttacking']) {
 			this.spriteAnim = this.punchAnim;
+			if(this.state.isCrouching){
+				this.spriteAnim = this.crouchedKickAnim;
+
+			}
 			// this.attackAnimArr[Math.floor(Math.random()*this.attackAnimArr.length)];
 		}
 
