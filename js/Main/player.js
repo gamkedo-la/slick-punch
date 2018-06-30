@@ -69,7 +69,7 @@ function playerClass() {
 
 	this.explosiveFallAnim = new SpriteSheetClass(playerIdleJumpAnim, this.width, this.height, 8); //8 frames
 	this.hurtAnim = new SpriteSheetClass(playerLeftJabAnim, this.width, this.height, 3); //3 frames
-	this.FlipAnim = new SpriteSheetClass(playerWalkJumpAnim, this.width, this.height, 5); //5 frames
+	this.FlipAnim = new SpriteSheetClass(playerFlipAnim, this.width, this.height, 5); //5 frames
 	this.rollAnim = new SpriteSheetClass(playerRollAnim, this.width, this.height, 7); //7 frames
 	this.crouchedKickAnim = new SpriteSheetClass(playerCrouchedKickAnim, this.width, this.height, 4); //4 frames
 	this.uppercutAnim = new SpriteSheetClass(playerUppercutAnim, this.width, this.height, 6); //4 frames
@@ -376,6 +376,9 @@ function playerClass() {
 		//is Jumping or falling
 		if (!this.state['isOnGround']) {
 			this.spriteAnim = this.idleJumpAnim;
+			if(this.keyHeld_Up){
+				this.spriteAnim = this.FlipAnim;
+			}
 		}
 
 		if (this.state['isAttacking'] && !this.state['isOnGround']) {
