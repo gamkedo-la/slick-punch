@@ -48,6 +48,9 @@ function moveAll() {
 }
 
 function drawAll() {
+	canvasContext.drawImage(scrollBackground, 0, 0);
+
+
 	canvasContext.save(); // needed to undo this .translate() used for scroll
 	// this next line is like subtracting camPanX and camPanY from every
 	// canvasContext draw operation up until we call canvasContext.restore

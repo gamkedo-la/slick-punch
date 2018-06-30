@@ -188,11 +188,16 @@ function tileVisible(tx, ty) {
 
 function drawWorld() {
 
+
+
 	var arrayIndex = 0;
 	var drawTileX = 0;
 	var drawTileY = 0;
+
 	for (var eachRow = 0; eachRow < WORLD_ROWS; eachRow++) {
 		for (var eachCol = 0; eachCol < WORLD_COLS; eachCol++) {
+
+
 
 			var arrayIndex = rowColToArrayIndex(eachCol, eachRow);
 			var tileKindHere = worldGrid[arrayIndex];
@@ -227,7 +232,7 @@ function drawWorld() {
 			// }
 
 			if(tileKindHere == WORLD_BACKGROUND){
-				canvasContext.drawImage(trackPics[WORLD_BACKGROUND], drawTileX, drawTileY);
+				// canvasContext.drawImage(trackPics[WORLD_BACKGROUND], drawTileX, drawTileY);
 
 			}
 
@@ -235,7 +240,9 @@ function drawWorld() {
 			else{
 
 				if(isTransparentInBackground(tileKindHere)){
-					canvasContext.drawImage(trackPics[WORLD_BACKGROUND], drawTileX, drawTileY);
+					// canvasContext.drawImage(trackPics[WORLD_BACKGROUND], drawTileX, drawTileY);
+
+					//Do nothing
 				}
 
 				canvasContext.drawImage(slickTileSet,
