@@ -222,14 +222,12 @@ function playerClass() {
 				this.setStateValueTo("isIdle", false);
 				this.setStateValueTo("isInMotion", false);
 				this.setStateValueTo("isAttacking", true);
-				// if(this.keyHeld_Up && this.state.isCrouching){
-				// 	if (this.state['isOnGround']) { // regular jump
-				// 		//console.log("Normal Jump!");
-				// 		this.speed.y -= JUMP_POWER;
-				// 		// this.setStateToFalse();
-				// 		this.setStateValueTo("isOnGround", false);
-				// 	}
-				// }
+				if(this.keyHeld_Up && this.state.isCrouching){
+					
+						// this.speed.y -= 0.05;
+						// this.state.isOnGround = false;
+					
+				}
 		}
 		else{
 			 this.setStateValueTo("isAttacking", false);
@@ -312,6 +310,10 @@ function playerClass() {
 			this.speed.y = 0;
 		}
 		else if (isPlatformAtPixelCoord(this.pos.x, this.pos.y + this.radius + 2) == 0) {
+			// if(!this.state.isAttacking && !this.state.isCrouching){
+			// 	this.setStateValueTo("isOnGround", false);
+
+			// }
 			this.setStateValueTo("isOnGround", false);
 		}
 		if (this.speed.x < 0 && isPlatformAtPixelCoord(this.pos.x - this.radius, this.pos.y) == 1) {
