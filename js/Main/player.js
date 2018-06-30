@@ -58,7 +58,7 @@ function playerClass() {
 	this.controlKeyDefend = null;
 
 	// Animation generation. 
-	this.walkSprite = new SpriteSheetClass(playerWalkAnim, this.width, this.height, 10); // 10 frames
+	this.walkAnim = new SpriteSheetClass(playerWalkAnim, this.width, this.height, 10); // 10 frames
 	this.punchAnim = new SpriteSheetClass(playerPunchAnim, this.width, this.height, 4); //4frames
 	this.idleAnim = new SpriteSheetClass(playerIdleAnim, this.width, this.height, 7); //7 frames
 	this.idleJumpAnim = new SpriteSheetClass(playerIdleJumpAnim, this.width, this.height, 5); //6 frames
@@ -70,7 +70,7 @@ function playerClass() {
 	this.explosiveFallAnim = new SpriteSheetClass(playerIdleJumpAnim, this.width, this.height, 8); //8 frames
 	this.hurtAnim = new SpriteSheetClass(playerLeftJabAnim, this.width, this.height, 3); //3 frames
 	this.FlipAnim = new SpriteSheetClass(playerWalkJumpAnim, this.width, this.height, 5); //5 frames
-	this.rollAnim = new SpriteSheetClass(playerHighKickAnim, this.width, this.height, 7); //7 frames
+	this.rollAnim = new SpriteSheetClass(playerRollAnim, this.width, this.height, 7); //7 frames
 	this.crouchedKickAnim = new SpriteSheetClass(playerCrouchAnim, this.width, this.height, 4); //4 frames
 	this.uppercutAnim = new SpriteSheetClass(playerCrouchAnim, this.width, this.height, 6); //4 frames
 	this.deadAnim = new SpriteSheetClass(playerDeadAnim, this.width, this.height, 8); //8 frames
@@ -163,6 +163,7 @@ function playerClass() {
 	} // end of playerReset func
 
 	this.move = function () {
+		
 
 		if (this.state['isOnGround']) {
 
@@ -195,41 +196,34 @@ function playerClass() {
 			this.speed.x = RUN_SPEED;
 		}
 
+		else {
+			this.setStateValueTo("isInMotion", false);		
+			this.setStateValueTo("isIdle", true);
+		}
+
+	
 		//For crouched movement 
-		else if (this.keyHeld_Down) {
+		if (this.keyHeld_Down || this.keyHeld_Up) {
 				this.setStateValueTo("isIdle", false);
 				// this.setStateValueTo("isInMotion", false);
 				this.setStateValueTo("isCrouching", true);
 		}
-		
+		else{
+			this.setStateValueTo("isCrouching", false);
+				this.setStateValueTo("isIdle", true);
 
-		//For uppercut and high kick.
-		else if (this.keyHeld_Up) {
-				this.setStateValueTo("isIdle", false);
-				// this.setStateValueTo("isInMotion", false);
-				this.setStateValueTo("isCrouching", true);
+
 		}
 
-		else if (this.keyHeld_Attack) {
+		if (this.keyHeld_Attack) {
 				this.setStateValueTo("isIdle", false);
 				this.setStateValueTo("isInMotion", false);
 				this.setStateValueTo("isAttacking", true);
 		}
+		else{
+				this.setStateValueTo("isAttacking", false);
 
-		// else if (this.controlKeyJump) {
-		// 		this.setStateValueTo("isIdle", false);
-		// 		this.setStateValueTo("isInMotion", false);
-		// 		this.setStateValueTo("isOnGround", false);
-		// }
-
-		else {
-			// this.setStateToFalse();
-			this.setStateValueTo("isAttacking", false);	
-			this.setStateValueTo("isInMotion", false);		
-			this.setStateValueTo("isCrouching", false);
-			this.setStateValueTo("isIdle", true);
 		}
-
 
 
 		if (this.keyHeld_Jump && !this.keyHeld_Up_lastframe) {
@@ -254,6 +248,8 @@ function playerClass() {
 				//console.log("Ignoring triple jump...");
 			}
 		}
+
+	
 
 		// avoid multiple jumps from the same keypress
 		//TODO: Jump sound bug
@@ -329,13 +325,27 @@ function playerClass() {
 			this.framesAnim = this.spriteAnim.frameNum;
 		}
 	
-		if (this.state['isInMotion'] && this.state['isCrouching']) {
-			this.spriteAnim = this.rollSprite;
-		}
+		
 
 		if (this.state['isInMotion'] ) {
-			this.spriteAnim = this.walkSprite;
+			this.spriteAnim = this.walkAnim;
 		}
+
+
+			//Crouch Animation
+		if (this.state['isCrouching']) {
+			this.spriteAnim = this.crouchAnim;
+			if(this.state.isInMotion){
+				this.spriteAnim = this.rollAnim;
+
+			}
+		}
+
+	
+		
+
+		// if (this.state['isInMotion'] && this.state['isCrouching']) {
+		// }
 
 		if (this.state['isAttacking']) {
 			this.spriteAnim = this.punchAnim;
@@ -354,15 +364,7 @@ function playerClass() {
 		}
 
 
-		//Crouch Animation
-		if (this.state['isCrouching']) {
-			this.spriteAnim = this.crouchAnim;
-		}
-
-		//roll
-		if (this.state['isCrouching']) {
-			this.spriteAnim = this.crouchAnim;
-		}
+	
 
 		//Once crouch animation complete. Call a function to draw in fixed state instead of animation. 
 		//final drawing of sprite.
