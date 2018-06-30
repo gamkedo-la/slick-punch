@@ -72,7 +72,7 @@ function playerClass() {
 	this.FlipAnim = new SpriteSheetClass(playerWalkJumpAnim, this.width, this.height, 5); //5 frames
 	this.rollAnim = new SpriteSheetClass(playerRollAnim, this.width, this.height, 7); //7 frames
 	this.crouchedKickAnim = new SpriteSheetClass(playerCrouchedKickAnim, this.width, this.height, 4); //4 frames
-	this.uppercutAnim = new SpriteSheetClass(playerCrouchAnim, this.width, this.height, 6); //4 frames
+	this.uppercutAnim = new SpriteSheetClass(playerUppercutAnim, this.width, this.height, 6); //4 frames
 	this.deadAnim = new SpriteSheetClass(playerDeadAnim, this.width, this.height, 8); //8 frames
 
 
@@ -184,6 +184,7 @@ function playerClass() {
 
 		if (this.keyHeld_Left) {
 				//this.setStateToFalse(); //setting every value of object to false; // might be buggy
+
 				this.setStateValueTo("isInMotion", true);
 				this.setStateValueTo("isMovingLeft", true);
 				this.speed.x = -RUN_SPEED;
@@ -221,6 +222,14 @@ function playerClass() {
 				this.setStateValueTo("isIdle", false);
 				this.setStateValueTo("isInMotion", false);
 				this.setStateValueTo("isAttacking", true);
+				// if(this.keyHeld_Up && this.state.isCrouching){
+				// 	if (this.state['isOnGround']) { // regular jump
+				// 		//console.log("Normal Jump!");
+				// 		this.speed.y -= JUMP_POWER;
+				// 		// this.setStateToFalse();
+				// 		this.setStateValueTo("isOnGround", false);
+				// 	}
+				// }
 		}
 		else{
 			 this.setStateValueTo("isAttacking", false);
@@ -288,6 +297,10 @@ function playerClass() {
 			this.justJumped = true;
 		}
 
+		if(this.state.isOnGround && this.state.isAttacking){
+			this.speed.x = 0;
+		}
+
 		if (this.speed.y < 0 && isPlatformAtPixelCoord(this.pos.x, this.pos.y - this.radius) == 1) {
 			this.pos.y = (Math.floor(this.pos.y / WORLD_H)) * WORLD_H + this.radius;
 			this.speed.y = 0.0;
@@ -340,18 +353,20 @@ function playerClass() {
 			}
 		}
 
-	
-		
-
 		// if (this.state['isInMotion'] && this.state['isCrouching']) {
 		// }
 
 		if (this.state['isAttacking']) {
 			this.spriteAnim = this.punchAnim;
 			if(this.state.isCrouching){
-				this.spriteAnim = this.crouchedKickAnim;
-
+				if(this.keyHeld_Up){
+					this.spriteAnim = this.uppercutAnim;
+				}
+				else{
+					this.spriteAnim = this.crouchedKickAnim;
+				}
 			}
+
 			// this.attackAnimArr[Math.floor(Math.random()*this.attackAnimArr.length)];
 		}
 
