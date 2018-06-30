@@ -11,6 +11,34 @@ var playerIdleJumpAnim = document.createElement("img");
 var playerHighKickAnim = document.createElement("img");
 var playerIdleAnim = document.createElement("img");
 var playerCrouchAnim = document.createElement("img");
+var playerDeadAnim = document.createElement("img");
+var playerCrouchAnim = document.createElement("img");
+
+
+var playerexplosiveFallAnim = document.createElement("img"); //playerExplosiveFall.png'
+var playerHurtAnim = document.createElement("img"); //playerHurtsheet.png'
+var playerFlipAnim = document.createElement("img"); //playerJumpFlip.png'
+var playerRollAnim = document.createElement("img"); //playerRollsheet.png
+var playerCrouchedKickAnim = document.createElement("img"); //playerCrouchedKicksheet.png
+var playerNormalKickAnim = document.createElement("img"); //playerNormalKick.png
+var playerUppercutAnim = document.createElement("img"); //playerUppercutSheet.png
+
+var diamondPickupAnim = document.createElement("img"); //pickup.png'
+var crateAnim = document.createElement("img"); //crate.png'
+var flyingEnemyAnim = document.createElement("img"); //flyingEnemy.png'
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 var slickTileSet = document.createElement("img");
 
@@ -50,7 +78,22 @@ function loadImages() {
 		{ varName: playerHighKickAnim, theFile: "playerHighKicksheet.png" },
 		{ varName: playerCrouchAnim, theFile: "playerCrouchSheet.png" },
 
-		// { varName: scrollBackground, theFile: "background.png" },
+
+		{ varName: playerexplosiveFallAnim, theFile: "playerExplosiveFall.png" },
+		{ varName: playerHurtAnim, theFile: "playerHurtsheet.png" },
+		{ varName: playerFlipAnim, theFile: "playerJumpFlip.png" },
+
+		{ varName: playerRollAnim, theFile: "playerRollsheet.png" },
+		{ varName: playerCrouchedKickAnim, theFile: "playerCrouchedKicksheet.png" },
+		{ varName: playerNormalKickAnim, theFile: "playerNormalKick.png" },
+		{ varName: playerUppercutAnim, theFile: "playerUppercutSheet.png" },
+		{ varName: diamondPickupAnim, theFile: "pickup.png" },
+		{ varName: crateAnim, theFile: "crate.png" },
+		{ varName: flyingEnemyAnim, theFile: "flyingEnemy.png" },
+
+
+
+		{ varName: scrollBackground, theFile: "background.png" },
 		// { trackType: WORLD_GOAL, theFile: "goal.png" },
 		{ trackType: WORLD_BACKGROUND, theFile: "background35.png" },
 		// { trackType: WORLD_PLATFORM, theFile: "platform.png" },
