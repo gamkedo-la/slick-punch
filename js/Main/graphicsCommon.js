@@ -19,13 +19,6 @@ function strokedRect(topLeftX,topLeftY, boxWidth,boxHeight,lineWidth, strokeColo
   canvasContext.stroke();  
 }
 
-  canvasContext.beginPath();
-  canvasContext.lineWidth="2";
-  canvasContext.strokeStyle="yellow";
-  canvasContext.rect(player.boundingBox.x,player.boundingBox.y,player.boundingBox.width,player.boundingBox.height); 
-  canvasContext.stroke();
-
-
 function colorCircle(centerX,centerY, radius, fillColor) {
 	canvasContext.fillStyle = fillColor;
 	canvasContext.beginPath();

@@ -2,9 +2,11 @@ const GROUND_FRICTION = 0.7;
 const AIR_RESISTANCE = 0.975;
 const RUN_SPEED = 3.0;
 const JUMP_POWER = 8;
-const DOUBLE_JUMP_POWER = 12; // we need more force to counteract gravity in air
+const DOUBLE_JUMP_POWER = 10; // we need more force to counteract gravity in air
 const GRAVITY = 0.55;
 const MAX_AIR_JUMPS = 1; // double jump
+const PLAYER_COLLISION_PADDING = 5;
+
 
 function playerClass() {
 	this.pos = vector.create(75, 75);
@@ -168,10 +170,10 @@ function playerClass() {
 		else { // in the air
 				this.speed.x *= AIR_RESISTANCE;
 				this.speed.y += GRAVITY;
-				// cheap test to ensure can't fall through floor
+				
 				// improve this
-				if (this.speed.y > this.radius) { 
-					this.speed.y = this.radius;
+				if (this.speed.y > this.boundingBox.height/2 + PLAYER_COLLISION_PADDING) { 
+					this.speed.y = this.boundingBox.height/2 + PLAYER_COLLISION_PADDING;
 				}
 		}
 
@@ -292,38 +294,37 @@ function playerClass() {
 			this.speed.x = 0;
 		}
 
-		if (this.speed.y < 0 && isPlatformAtPixelCoord(this.pos.x, this.pos.y - this.height/2) ) {
-			this.pos.y = (Math.floor(this.pos.y / WORLD_H)) * WORLD_H + this.height/2;
-			this.speed.y = 0.0;
+
+		//Checking if player is falling or jumping.
+		if (this.speed.y < 0 && isPlatformAtPixelCoord(this.pos.x, this.pos.y - this.boundingBox.height/2)) {
+
+			this.pos.y = (Math.floor(this.pos.y / WORLD_H)) * WORLD_H + this.boundingBox.height/2;
+			this.speed.y = 0;
 		}
 
+		if (this.speed.y > 0 && isPlatformAtPixelCoord(this.pos.x, this.pos.y + this.boundingBox.height/4)) {
 
-
-		// if (this.speed.y > 0 && isPlatformAtPixelCoord(this.pos.x, this.pos.y + this.radius)) {
-		// 	this.pos.y = (1 + Math.floor(this.pos.y / WORLD_H)) * WORLD_H - this.radius;
-		// 	this.setStateValueTo("isOnGround", true);
-		// 	this.speed.y = 0;
-		// }
-		
-
-		if (this.speed.y > 0 && isPlatformAtPixelCoord(this.pos.x, this.pos.y + this.height/2.5)) {
-			this.pos.y = (1 + Math.floor(this.pos.y / WORLD_H)) * WORLD_H - this.height/2.5;
+			this.pos.y = (1 + Math.floor(this.pos.y / WORLD_H)) * WORLD_H - this.boundingBox.height/2 + PLAYER_COLLISION_PADDING;
 			this.setStateValueTo("isOnGround", true);
 			this.speed.y = 0;
 		}
 
-		else if (isPlatformAtPixelCoord(this.pos.x, this.pos.y + this.radius + 2) == 0) {
+
+		//checks for air/empty space
+		else if (!isPlatformAtPixelCoord(this.pos.x, this.pos.y + this.boundingBox.height/2 + PLAYER_COLLISION_PADDING *2)) {
 			// if(!this.state.isAttacking && !this.state.isCrouching){
 			// 	this.setStateValueTo("isOnGround", false);
 
 			// }
 			this.setStateValueTo("isOnGround", false);
 		}
-		if (this.speed.x < 0 && isPlatformAtPixelCoord(this.pos.x - this.radius, this.pos.y) == 1) {
-			this.pos.x = (Math.floor(this.pos.x / WORLD_W)) * WORLD_W + this.radius;
+
+		if (this.speed.x < 0 && isPlatformAtPixelCoord(this.pos.x - this.boundingBox.width/2, this.pos.y)) {
+			this.pos.x = (Math.floor(this.pos.x / WORLD_W)) * WORLD_W + this.boundingBox.width/2;
 		}
-		if (this.speed.x > 0 && isPlatformAtPixelCoord(this.pos.x + this.radius, this.pos.y) == 1) {
-			this.pos.x = (1 + Math.floor(this.pos.x / WORLD_W)) * WORLD_W - this.radius;
+
+		if (this.speed.x > 0 && isPlatformAtPixelCoord(this.pos.x + this.boundingBox.width/2, this.pos.y)) {
+			this.pos.x = (1 + Math.floor(this.pos.x / WORLD_W)) * WORLD_W - this.boundingBox.width/2;
 		}
 
 
