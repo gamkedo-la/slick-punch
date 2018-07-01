@@ -418,7 +418,7 @@ function isPlatformAtPixelCoord(hitPixelX, hitPixelY) {
 
 
 function tileCollidable(tile){
-		return (tile != GREEN_VINE_WEBS &&
+		return (
 		tile != WORLD_BACKGROUND)
 	// return tile > 0;
 	

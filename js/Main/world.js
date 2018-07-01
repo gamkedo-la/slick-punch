@@ -75,7 +75,7 @@ var levelOne = [9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,
 				9,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,14,
 				9,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,14,
 				9,11,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,27,10,10,27,-1,-1,-1,-1,-1,-1,-1,27,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,1,-1,-1,-1,-1,-1,-1,27,27,27,11,
-				12,10,10,10,10,10,10,10,10,10,10,10,10,10,12,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,15,16,16,16,17,10,10,10,10,10,10,10,10,10,10,10,10,10,11,
+				12,10,10,10,10,10,10,10,10,10,10,10,10,10,12,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,15,-16,-16,16,-17,10,10,10,10,10,10,10,10,10,10,10,10,10,11,
 				];
 
 
@@ -141,9 +141,9 @@ const WORLD_ENEMYSTART = -3;
 const WORLD_GOAL = -4;
 
 
-var slimeLeftBlobSprite = new SpriteSheetClass(slimeLeftBlobAnim, WORLD_W, WORLD_H, 8); // 8 frames
-var slimeMiddleBlobSprite = new SpriteSheetClass(slimeMiddleBlobAnim, WORLD_W, WORLD_H, 8); // 8 frames
-var slimeRightBlobSprite = new SpriteSheetClass(slimeRightBlobAnim, WORLD_W, WORLD_H, 8); // 8 frames
+var slimeLeftBlobSprite = new SpriteSheetClass(slimeLeftBlobAnim, WORLD_W, WORLD_H, 8, 20); // 8 frames
+var slimeMiddleBlobSprite = new SpriteSheetClass(slimeMiddleBlobAnim, WORLD_W, WORLD_H, 8, 20); // 8 frames
+var slimeRightBlobSprite = new SpriteSheetClass(slimeRightBlobAnim, WORLD_W, WORLD_H, 8, 20); // 8 frames
 
 
 
@@ -244,7 +244,7 @@ function drawWorld() {
 
 			//converting to see what this tile kind here index means 
             
-
+			//Used for TIleset
             var tilesetRow = tileKindHere > 0 ? Math.floor(tileKindHere / 3) : 0; 
             var tilesetCol = tileKindHere > 0 ? Math.floor(tileKindHere % 3) : 0; //Here 3 is columns in tileset
 
