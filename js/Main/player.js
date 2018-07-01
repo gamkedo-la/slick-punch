@@ -158,6 +158,13 @@ function playerClass() {
 	} // end of playerReset func
 
 	this.move = function () {
+
+
+		
+		this.boundingBox.width = this.width/2;
+		this.boundingBox.height = this.height;
+		this.boundingBox.x = this.pos.x - this.boundingBox.width/2;
+		this.boundingBox.y = this.pos.y - this.boundingBox.height/2;
 		
 
 		if (this.state['isOnGround']) {
@@ -204,6 +211,8 @@ function playerClass() {
 				this.setStateValueTo("isIdle", false);
 				// this.setStateValueTo("isInMotion", false);
 				this.setStateValueTo("isCrouching", true);
+				this.boundingBox.height = this.height/2;
+				this.boundingBox.y = this.pos.y - this.boundingBox.height/2;
 		}
 		else{
 			//Down for spin kick
@@ -217,6 +226,12 @@ function playerClass() {
 				this.setStateValueTo("isIdle", false);
 				this.setStateValueTo("isInMotion", false);
 				this.setStateValueTo("isAttacking", true);
+
+
+			
+				this.boundingBox.width = this.width/1.5;
+				this.boundingBox.x = this.pos.x - this.boundingBox.width/2;
+				
 				if(this.keyHeld_Up && this.state.isCrouching){
 					
 						// this.speed.y -= 0.05;
@@ -302,9 +317,9 @@ function playerClass() {
 			this.speed.y = 0;
 		}
 
-		if (this.speed.y > 0 && isPlatformAtPixelCoord(this.pos.x, this.pos.y + this.boundingBox.height/4)) {
+		if (this.speed.y > 0 && isPlatformAtPixelCoord(this.pos.x, this.pos.y + this.height/2 - PLAYER_COLLISION_PADDING )) {
 
-			this.pos.y = (1 + Math.floor(this.pos.y / WORLD_H)) * WORLD_H - this.boundingBox.height/2 + PLAYER_COLLISION_PADDING;
+			this.pos.y = (1 + Math.floor(this.pos.y / WORLD_H)) * WORLD_H - this.height/2 + PLAYER_COLLISION_PADDING*2;
 			this.setStateValueTo("isOnGround", true);
 			this.speed.y = 0;
 		}
@@ -335,12 +350,14 @@ function playerClass() {
 
 		}
 
-		this.boundingBox = {
-			x: this.pos.x - this.width/4,
-			y: this.pos.y - this.height/2,
-			width: this.width/2,
-			height: this.height
-		}
+
+
+		// this.boundingBox = {
+		// 	x: this.pos.x - this.width/4,
+		// 	y: this.pos.y - this.height/2,
+		// 	width: this.width/2,
+		// 	height: this.height
+		// }
 		// this.incrementTick();
 	} // end of player.move function
 
