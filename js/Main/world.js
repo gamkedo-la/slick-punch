@@ -151,7 +151,7 @@ var slimeRightBlobSprite = new SpriteSheetClass(slimeRightBlobAnim, WORLD_W, WOR
 function returnAnimatedTileSprites(tileKindHere){
 	switch(tileKindHere){
 		case SLIME_PIT_LEFT_TOP_ANIM:
-			return slimeRightBlobSprite;
+			return slimeLeftBlobSprite;
 			break;
 		case SLIME_PIT_MIDDLE_TOP_ANIM:
 			return slimeMiddleBlobSprite;
