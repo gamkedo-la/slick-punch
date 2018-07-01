@@ -65,7 +65,7 @@ function playerClass() {
 	this.leftJabAnim = new SpriteSheetClass(playerLeftJabAnim, this.width, this.height, 7); //7 frames
 	this.walkJumpAnim = new SpriteSheetClass(playerWalkJumpAnim, this.width, this.height, 5); //5 frames
 	this.highKickAnim = new SpriteSheetClass(playerHighKickAnim, this.width, this.height, 6); //6 frames
-	this.crouchAnim = new SpriteSheetClass(playerCrouchAnim, this.width, this.height, 4); //4 frames
+	this.crouchAnim = new SpriteSheetClass(playerCrouchAnim, this.width, this.height, 4, 4, false); //4 frames
 
 	this.explosiveFallAnim = new SpriteSheetClass(playerIdleJumpAnim, this.width, this.height, 8); //8 frames
 	this.hurtAnim = new SpriteSheetClass(playerLeftJabAnim, this.width, this.height, 3); //3 frames
@@ -290,16 +290,26 @@ function playerClass() {
 			this.speed.x = 0;
 		}
 
-		if (this.speed.y < 0 && isPlatformAtPixelCoord(this.pos.x, this.pos.y - this.radius) == 1 ) {
-			this.pos.y = (Math.floor(this.pos.y / WORLD_H)) * WORLD_H + this.radius;
+		if (this.speed.y < 0 && isPlatformAtPixelCoord(this.pos.x, this.pos.y - this.height/2) ) {
+			this.pos.y = (Math.floor(this.pos.y / WORLD_H)) * WORLD_H + this.height/2;
 			this.speed.y = 0.0;
 		}
 
-		if (this.speed.y > 0 && isPlatformAtPixelCoord(this.pos.x, this.pos.y + this.radius) == 1) {
-			this.pos.y = (1 + Math.floor(this.pos.y / WORLD_H)) * WORLD_H - this.radius;
+
+
+		// if (this.speed.y > 0 && isPlatformAtPixelCoord(this.pos.x, this.pos.y + this.radius)) {
+		// 	this.pos.y = (1 + Math.floor(this.pos.y / WORLD_H)) * WORLD_H - this.radius;
+		// 	this.setStateValueTo("isOnGround", true);
+		// 	this.speed.y = 0;
+		// }
+		
+
+		if (this.speed.y > 0 && isPlatformAtPixelCoord(this.pos.x, this.pos.y + this.height/2.5)) {
+			this.pos.y = (1 + Math.floor(this.pos.y / WORLD_H)) * WORLD_H - this.height/2.5;
 			this.setStateValueTo("isOnGround", true);
 			this.speed.y = 0;
 		}
+
 		else if (isPlatformAtPixelCoord(this.pos.x, this.pos.y + this.radius + 2) == 0) {
 			// if(!this.state.isAttacking && !this.state.isCrouching){
 			// 	this.setStateValueTo("isOnGround", false);
@@ -418,7 +428,7 @@ function isPlatformAtPixelCoord(hitPixelX, hitPixelY) {
 
 
 function tileCollidable(tile){
-		return (
+		return ( 
 		tile != WORLD_BACKGROUND)
 	// return tile > 0;
 	

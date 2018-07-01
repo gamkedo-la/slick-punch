@@ -37,8 +37,10 @@ function SpriteSheetClass(sheetIn, widthPerFrame, heightPerFrame, frameNum, tick
                 this.frameIndex += 1;
             }
             else{
+              this.frameIndex = this.frameNum - 1;
+
               if(loop){
-                this.frameIndex = 1;
+                this.frameIndex = 0;
               }
             } 
 

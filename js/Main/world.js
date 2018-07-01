@@ -168,7 +168,7 @@ function returnTileTypeAtColRow(col, row) {
 		var trackIndexUnderCoord = rowColToArrayIndex(col, row);
 		return worldGrid[trackIndexUnderCoord];
 	} else {
-		return WORLD_PLATFORM;
+		console.log("TileHere is"  + worldGrid[rowColToArrayIndex(col, row)]);
 	}
 }
 
