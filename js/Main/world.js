@@ -56,8 +56,8 @@ var levelOne = [9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,
 				9,25,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,14,
 				9,25,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,6,7,8,-1,-1,-1,-1,-1,-1,14,
 				9,25,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,28,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,14,
-				9,25,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,0,1,1,1,1,1,1,16,16,16,16,1,1,1,1,2,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,14,
-				9,25,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-15,19,19,19,19,19,19,19,19,19,19,19,19,19,19,17,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,14,
+				9,25,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,0,1,1,1,1,1,1,16,-16,16,16,1,1,1,1,2,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,14,
+				9,25,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-15,19,19,19,19,19,19,19,19,19,19,19,19,19,19,-17,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,14,
 				9,25,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,14,
 				9,25,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,14,
 				9,25,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,14,
@@ -83,8 +83,8 @@ var levelOne = [9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,
 		// { varName: crateAnim, theFile: "crate.png" },
 		// { varName: flyingEnemyAnim, theFile: "flyingEnemy.png" },
 
-
-
+// Used for frame animation. Update to more optimized format
+var frameRow = 0
 
 var worldGrid = [];
 var currentLevel = 1; // This needs to get incremented every time a level is completed
@@ -140,7 +140,27 @@ const WORLD_PLAYERSTART = -2;
 const WORLD_ENEMYSTART = -3;
 const WORLD_GOAL = -4;
 
-// const WORLD_HAZARD = 11;
+
+var slimeLeftBlobSprite = new SpriteSheetClass(slimeLeftBlobAnim, WORLD_W, WORLD_H, 8); // 8 frames
+var slimeMiddleBlobSprite = new SpriteSheetClass(slimeMiddleBlobAnim, WORLD_W, WORLD_H, 8); // 8 frames
+var slimeRightBlobSprite = new SpriteSheetClass(slimeRightBlobAnim, WORLD_W, WORLD_H, 8); // 8 frames
+
+
+
+
+function returnAnimatedTileSprites(tileKindHere){
+	switch(tileKindHere){
+		case SLIME_PIT_LEFT_TOP_ANIM:
+			return slimeRightBlobSprite;
+			break;
+		case SLIME_PIT_MIDDLE_TOP_ANIM:
+			return slimeMiddleBlobSprite;
+			break;
+		case SLIME_PIT_RIGHT_TOP_ANIM:
+			return slimeRightBlobSprite;
+			break;
+	}
+}
 
 function returnTileTypeAtColRow(col, row) {
 	if (col >= 0 && col < WORLD_COLS &&
@@ -248,8 +268,15 @@ function drawWorld() {
 				
 
 				if(isTileAnimated(tileKindHere)){
-					
+				
+					var animatedTile = returnAnimatedTileSprites(tileKindHere);
+					animatedTile.update();
+					animatedTile.draw(animatedTile.frameIndex, frameRow, drawTileX + WORLD_W/2, drawTileY + WORLD_H/2, false, false);
+
 					// console.log("Animated Tile comes here");
+
+
+
 				}
 				else{
 					canvasContext.drawImage(slickTileSet,

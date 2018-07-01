@@ -81,7 +81,8 @@ function playerClass() {
 	this.attackAnimArr = [this.highKickAnim, this.leftJabAnim, this.punchAnim]
 
 	//Used for animation.
-	// this.frameRow = 0;
+	//TODO :Change this.frameRow and used it for animating consilated spritesheet of player character
+	this.frameRow = 0;
 
 	//Used to track sound play and pause.
 	this.justPunched = false;
@@ -89,19 +90,6 @@ function playerClass() {
 	this.justKicked = false;
 
 	this.doubleJumpCount = 0;
-
-	// this.speed = RUN_SPEED;
-
-	this.incrementTick = function () {
-
-		this.tickCount++;
-
-		if ( this.spriteAnim != null &&
-			 this.tickCount / this.ticksPerFrame >= this.spriteAnim.frameNum) {
-				this.tickCount = 0; //Looping animation.//
-		}
-	};
-
 
 	this.checkAnimationCompletion = function(){
 
@@ -398,9 +386,9 @@ function playerClass() {
 
 		//Once crouch animation complete. Call a function to draw in fixed state instead of animation. 
 		//final drawing of sprite.
-		if (this.spriteAnim !=null) {
-			// this.spriteAnim.draw(Math.floor(this.tickCount / this.ticksPerFrame), this.frameRow, this.pos.x, this.pos.y, this.ang, this.state.isMovingLeft);
-			this.spriteAnim.draw(this.spriteAnim.frameIndex, 0, this.pos.x, this.pos.y, this.ang, this.state.isMovingLeft);
+		if (this.spriteAnim !=null) {			
+			//TODO :Change this.frameRow and used it for animating consilated spritesheet of player character
+			this.spriteAnim.draw(this.spriteAnim.frameIndex, this.frameRow, this.pos.x, this.pos.y, this.ang, this.state.isMovingLeft);
 			// console.log(this.spriteAnim.frameIndex);
 		
 		}
