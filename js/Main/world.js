@@ -57,7 +57,7 @@ var levelOne = [9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,
 				9,25,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,6,7,8,-1,-1,-1,-1,-1,-1,14,
 				9,25,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,28,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,14,
 				9,25,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,0,1,1,1,1,1,1,16,16,16,16,1,1,1,1,2,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,14,
-				9,25,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,15,19,19,19,19,19,19,19,19,19,19,19,19,19,19,17,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,14,
+				9,25,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-15,19,19,19,19,19,19,19,19,19,19,19,19,19,19,17,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,14,
 				9,25,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,14,
 				9,25,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,14,
 				9,25,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,14,
@@ -244,25 +244,26 @@ function drawWorld() {
 				
 			// }
 
-			if(tileKindHere == WORLD_BACKGROUND){
-				// canvasContext.drawImage(trackPics[WORLD_BACKGROUND], drawTileX, drawTileY);
+			if(tileKindHere != WORLD_BACKGROUND){
+				
 
-			}
-
-
-			else{
-
-				// if(isTransparentInBackground(tileKindHere)){
-				// 	// canvasContext.drawImage(trackPics[WORLD_BACKGROUND], drawTileX, drawTileY);
-
-				// 	//Do nothing
-				// }
-
-				canvasContext.drawImage(slickTileSet,
+				if(isTileAnimated(tileKindHere)){
+					
+					// console.log("Animated Tile comes here");
+				}
+				else{
+					canvasContext.drawImage(slickTileSet,
 			        tilesetCol * WORLD_W, tilesetRow * WORLD_H, // top-left corner of tile art, multiple of tile width for clipped image
 			        WORLD_W, WORLD_H, // get full tile size from source
 			        drawTileX, drawTileY, // x,y top-left corner for image destination
 			        WORLD_W, WORLD_H); // stretch or shrink coordinates
+
+				}
+
+				
+		
+
+				
 			}
 			drawTileX += WORLD_W;
 			arrayIndex++;

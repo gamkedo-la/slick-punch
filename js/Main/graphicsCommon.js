@@ -100,24 +100,3 @@ function getTextWidth(txt, font) {
   
   return width;
 }
-
-function SpriteSheetClass(sheetIn, widthIn, heightIn, frameNum = 1){
-  var sheet = sheetIn;
-  var width = widthIn;
-  var height = heightIn;
-  this.frameNum = frameNum;
-  
-  this.draw = function(col, row, atX, atY, withAngle, flippedX = false, flippedY = false) {
-    canvasContext.save();
-    canvasContext.translate(atX, atY);
-    canvasContext.rotate(withAngle);
-    canvasContext.scale(flippedX ? -1 : 1, flippedY ? -1 : 1);
-
-    canvasContext.drawImage(sheet,
-                            col * width, row * height,
-                            width, height,
-                            -width/2, -height/2,
-                            width, height);
-    canvasContext.restore();
-  }
-}

@@ -81,7 +81,7 @@ function playerClass() {
 	this.attackAnimArr = [this.highKickAnim, this.leftJabAnim, this.punchAnim]
 
 	//Used for animation.
-	this.frameRow = 0;
+	// this.frameRow = 0;
 
 	//Used to track sound play and pause.
 	this.justPunched = false;
@@ -137,7 +137,7 @@ function playerClass() {
 		console.log("Damage received: " + howMuch);
 		if(this.health > 0){
 		this.health -= howMuch;
-			
+
 		}
 		if (this.health <= 0) {
 			console.log("PLAYER HAS 0 HP - todo: gameover/respawn");
@@ -329,7 +329,11 @@ function playerClass() {
 
 		this.pos.addTo(this.speed) // same as above, but for vertical
 		playerWorldHandling(this);
-		this.incrementTick();
+		if(this.spriteAnim != null){
+			this.spriteAnim.update();
+
+		}
+		// this.incrementTick();
 	} // end of player.move function
 
 	this.draw = function () {
@@ -342,7 +346,7 @@ function playerClass() {
 
 		if (this.state['isIdle']) {
 			this.spriteAnim = this.idleAnim;
-			this.framesAnim = this.spriteAnim.frameNum;
+			// this.framesAnim = this.spriteAnim.frameNum;
 		}
 
 		if (this.state['isInMotion'] ) {
@@ -395,7 +399,10 @@ function playerClass() {
 		//Once crouch animation complete. Call a function to draw in fixed state instead of animation. 
 		//final drawing of sprite.
 		if (this.spriteAnim !=null) {
-			this.spriteAnim.draw(Math.floor(this.tickCount / this.ticksPerFrame), this.frameRow, this.pos.x, this.pos.y, this.ang, this.state.isMovingLeft);
+			// this.spriteAnim.draw(Math.floor(this.tickCount / this.ticksPerFrame), this.frameRow, this.pos.x, this.pos.y, this.ang, this.state.isMovingLeft);
+			this.spriteAnim.draw(this.spriteAnim.frameIndex, 0, this.pos.x, this.pos.y, this.ang, this.state.isMovingLeft);
+			// console.log(this.spriteAnim.frameIndex);
+		
 		}
 
 	}
