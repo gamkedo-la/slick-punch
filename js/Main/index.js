@@ -4,6 +4,7 @@ var player = new playerClass();
 var enemy = new playerClass();
 
 var score;
+var debug = false;
 
 window.onload = function () {
 	canvas = document.getElementById('gameCanvas');
@@ -67,8 +68,12 @@ function drawAll() {
 	// if (!enemy.remove) {
 	// 	enemy.draw();
 	// }
-	strokedRect(player.boundingBox.x,player.boundingBox.y,player.boundingBox.width,player.boundingBox.height, "2", "yellow"); 
-	colorCircle(player.pos.x,player.pos.y, 2, "green")
+
+	if(debug){
+		strokedRect(player.boundingBox.x,player.boundingBox.y,player.boundingBox.width,player.boundingBox.height, "2", "yellow"); 
+		colorCircle(player.pos.x,player.pos.y, 2, "green");
+	}
+	
 
 	canvasContext.restore();
 	colorText(`Score : ${score}`,30 ,30, "yellow","30px Tahoma");

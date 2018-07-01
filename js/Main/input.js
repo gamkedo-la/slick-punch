@@ -9,6 +9,7 @@ const KEY_Z = 90; // Attack
 const KEY_X = 88; //Jump
 const KEY_C = 67; // Defend
 const KEY_M = 77; // For music
+const KEY_D = 68;
 
 
 // const KEY_W = 87; 
@@ -92,6 +93,11 @@ function keyReleased(evt) {
 	if (evt.keyCode == KEY_M) {
 		musicEnabled = !musicEnabled;
 	}
+
+	if (evt.keyCode == KEY_D) {
+		debug = !debug;
+	}
+
 
 
 	// if(evt.keyCode == KEY_Z && player.state.isAttacking){		
