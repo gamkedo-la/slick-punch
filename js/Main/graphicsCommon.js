@@ -11,6 +11,21 @@ function colorRect(topLeftX,topLeftY, boxWidth,boxHeight, fillColor) {
 	canvasContext.fillRect(topLeftX,topLeftY, boxWidth,boxHeight);
 }
 
+function strokedRect(topLeftX,topLeftY, boxWidth,boxHeight,lineWidth, strokeColor) {
+  canvasContext.beginPath();
+  canvasContext.lineWidth = lineWidth;
+  canvasContext.strokeStyle = strokeColor;
+  canvasContext.rect(topLeftX, topLeftY, boxWidth, boxHeight); 
+  canvasContext.stroke();  
+}
+
+  canvasContext.beginPath();
+  canvasContext.lineWidth="2";
+  canvasContext.strokeStyle="yellow";
+  canvasContext.rect(player.boundingBox.x,player.boundingBox.y,player.boundingBox.width,player.boundingBox.height); 
+  canvasContext.stroke();
+
+
 function colorCircle(centerX,centerY, radius, fillColor) {
 	canvasContext.fillStyle = fillColor;
 	canvasContext.beginPath();

@@ -63,9 +63,10 @@ function drawAll() {
 	canvasContext.translate(-camPanX, -camPanY);
 	drawWorld();
 	player.draw();
-	if (!enemy.remove) {
-		enemy.draw();
-	}
+	// if (!enemy.remove) {
+	// 	enemy.draw();
+	// }
+	strokedRect(player.boundingBox.x,player.boundingBox.y,player.boundingBox.width,player.boundingBox.height, "2", "yellow"); 
 
 	canvasContext.restore();
 	colorText(`Score : ${score}`,30 ,30, "yellow","30px Tahoma");

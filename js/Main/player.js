@@ -27,6 +27,8 @@ function playerClass() {
 		
 	};
 
+	this.boundingBox = {}
+
 	this.radius = 35;
 	this.width = 80;
 	this.height = 80;
@@ -330,6 +332,13 @@ function playerClass() {
 		if(this.spriteAnim != null){
 			this.spriteAnim.update();
 
+		}
+
+		this.boundingBox = {
+			x: this.pos.x - this.width/4,
+			y: this.pos.y - this.height/2,
+			width: this.width/2,
+			height: this.height
 		}
 		// this.incrementTick();
 	} // end of player.move function
