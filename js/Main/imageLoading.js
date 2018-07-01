@@ -21,6 +21,11 @@ var playerCrouchedKickAnim = document.createElement("img"); //playerCrouchedKick
 var playerNormalKickAnim = document.createElement("img"); //playerNormalKick.png
 var playerUppercutAnim = document.createElement("img"); //playerUppercutSheet.png
 
+var slimeLeftBlobAnim = document.createElement("img");
+var slimeMiddleBlobAnim = document.createElement("img");
+var slimeRightBlobAnim = document.createElement("img");
+
+
 var diamondPickupAnim = document.createElement("img"); //pickup.png'
 var crateAnim = document.createElement("img"); //crate.png'
 var flyingEnemyAnim = document.createElement("img"); //flyingEnemy.png'
@@ -75,7 +80,9 @@ function loadImages() {
 		{ varName: diamondPickupAnim, theFile: "pickup.png" },
 		{ varName: crateAnim, theFile: "crate.png" },
 		{ varName: flyingEnemyAnim, theFile: "flyingEnemy.png" },
-
+		{ varName: slimeLeftBlobAnim, theFile: "slimeLeftBloop.png" },
+		{ varName: slimeMiddleBlobAnim, theFile: "slimeMiddleBloop.png" },
+		{ varName: slimeRightBlobAnim, theFile: "slimeRightBloop.png" },
 
 
 		{ varName: scrollBackground, theFile: "background.png" },

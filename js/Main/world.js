@@ -252,11 +252,11 @@ function drawWorld() {
 
 			else{
 
-				if(isTransparentInBackground(tileKindHere)){
-					// canvasContext.drawImage(trackPics[WORLD_BACKGROUND], drawTileX, drawTileY);
+				// if(isTransparentInBackground(tileKindHere)){
+				// 	// canvasContext.drawImage(trackPics[WORLD_BACKGROUND], drawTileX, drawTileY);
 
-					//Do nothing
-				}
+				// 	//Do nothing
+				// }
 
 				canvasContext.drawImage(slickTileSet,
 			        tilesetCol * WORLD_W, tilesetRow * WORLD_H, // top-left corner of tile art, multiple of tile width for clipped image
@@ -321,6 +321,16 @@ function isTransparentInBackground(tile){
 		tile == GREEN_VINE_WEBS ||
 		tile == THORNS || 
 		VINES_POISONOUS
+		);
+
+}
+
+function isTileAnimated(tile){
+
+	return(
+		tile == SLIME_PIT_LEFT_TOP_ANIM ||
+		tile == SLIME_PIT_MIDDLE_TOP_ANIM ||
+		tile == SLIME_PIT_RIGHT_TOP_ANIM 
 		);
 
 }
