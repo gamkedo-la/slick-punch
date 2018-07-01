@@ -185,25 +185,32 @@ function playerWorldHandling(whichPlayer) {
 		playerTrackRow >= 0 && playerTrackRow < WORLD_ROWS) {
 		var tileHere = returnTileTypeAtColRow(playerTrackCol, playerTrackRow);
 		var tileUnderHere = returnTileTypeAtColRow(playerTrackCol, playerTrackRow + 1);
+
 		
-		if (tileUnderHere >= SLIME_PIT_LEFT_TOP && tileUnderHere <= SLIME_PIT_RIGHT_BOTTOM){
-			console.log(whichPlayer.name + " touched a slime!");
-			whichPlayer.takeDamage(1);
-		}
-		//console.log("playerWorldHandling tileHere=" + tileHere);
 
-		if (tileHere == GREEN_VINE_WEBS) {
-			console.log(whichPlayer.name + " touched a hazard!");
-			whichPlayer.takeDamage(1);
-		} // end of track found
+			if (tileUnderHere >= SLIME_PIT_LEFT_TOP && tileUnderHere <= SLIME_PIT_RIGHT_BOTTOM){
+				console.log(whichPlayer.name + " touched a slime!");
+				whichPlayer.takeDamage(1);
+			}
+			//console.log("playerWorldHandling tileHere=" + tileHere);
 
-		if (tileHere == WORLD_GOAL) {
-			console.log(whichPlayer.name + " WINS!");
-			loadLevel(levelOne);
-		} // end of track found
+			if (tileHere == GREEN_VINE_WEBS) {
+				console.log(whichPlayer.name + " touched a hazard!");
+				whichPlayer.takeDamage(1);
+			} // end of track found
+
+			if (tileHere == WORLD_GOAL) {
+				console.log(whichPlayer.name + " WINS!");
+				loadLevel(levelOne);
+			} // end of track found
+			
+	
+	
 
 	} // end of valid col and row
 } // end of playerTrackHandling func
+
+
 
 function rowColToArrayIndex(col, row) {
 	return col + WORLD_COLS * row;

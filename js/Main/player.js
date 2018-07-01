@@ -290,7 +290,7 @@ function playerClass() {
 			this.speed.x = 0;
 		}
 
-		if (this.speed.y < 0 && isPlatformAtPixelCoord(this.pos.x, this.pos.y - this.radius) == 1) {
+		if (this.speed.y < 0 && isPlatformAtPixelCoord(this.pos.x, this.pos.y - this.radius) == 1 ) {
 			this.pos.y = (Math.floor(this.pos.y / WORLD_H)) * WORLD_H + this.radius;
 			this.speed.y = 0.0;
 		}
@@ -404,14 +404,22 @@ function isPlatformAtPixelCoord(hitPixelX, hitPixelY) {
 	tileCol = Math.floor(tileCol);
 	tileRow = Math.floor(tileRow);
 
-	// first check whether the jumper is within any part of the brick wall
-	if (tileCol < 0 || tileCol >= WORLD_COLS ||
-		tileRow < 0 || tileRow >= WORLD_ROWS) {
-		return false;
+	if (tileCol > 0 && tileCol <= WORLD_COLS &&
+		tileRow > 0 && tileRow <= WORLD_ROWS) {
+
+		var brickIndex = rowColToArrayIndex(tileCol, tileRow);
+		var tileHere = worldGrid[brickIndex];
+		return tileCollidable(tileHere);
+		
 	}
 
-	var brickIndex = rowColToArrayIndex(tileCol, tileRow);
-	return (worldGrid[brickIndex] >= 0);
+	
 }
 
 
+function tileCollidable(tile){
+		return (tile != GREEN_VINE_WEBS &&
+		tile != WORLD_BACKGROUND)
+	// return tile > 0;
+	
+}
