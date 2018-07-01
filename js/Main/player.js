@@ -135,7 +135,10 @@ function playerClass() {
 
 	this.takeDamage = function (howMuch) {
 		console.log("Damage received: " + howMuch);
+		if(this.health > 0){
 		this.health -= howMuch;
+			
+		}
 		if (this.health <= 0) {
 			console.log("PLAYER HAS 0 HP - todo: gameover/respawn");
 		}
