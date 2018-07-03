@@ -86,6 +86,7 @@ var levelOne = [9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,
 // Used for frame animation. Update to more optimized format
 var frameRow = 0
 
+
 var worldGrid = [];
 var currentLevel = 1; // This needs to get incremented every time a level is completed
 
@@ -162,6 +163,7 @@ function returnAnimatedTileSprites(tileKindHere){
 	}
 }
 
+
 function returnTileTypeAtColRow(col, row) {
 	if (col >= 0 && col < WORLD_COLS &&
 		row >= 0 && row < WORLD_ROWS) {
@@ -171,6 +173,33 @@ function returnTileTypeAtColRow(col, row) {
 		console.log("TileHere is"  + worldGrid[rowColToArrayIndex(col, row)]);
 	}
 }
+
+
+function tileHarmsPlayer(tile){
+	return (tile ==  SLIME_PIT_LEFT_TOP ||
+			tile ==  SLIME_PIT_MIDDLE_TOP ||
+			tile ==  SLIME_PIT_RIGHT_TOP ||
+			tile ==  SLIME_PIT_LEFT_TOP_ANIM ||
+			tile ==  SLIME_PIT_MIDDLE_TOP_ANIM ||
+			tile ==  SLIME_PIT_RIGHT_TOP_ANIM ||
+			tile ==  SLIME_PIT_LEFT_CENTER ||
+			tile ==  SLIME_PIT_MIDDLE_CENTER ||
+			tile ==  SLIME_PIT_RIGHT_CENTER ||
+			tile ==  SLIME_PIT_LEFT_BOTTOM ||
+			tile ==  SLIME_PIT_MIDDLE_BOTTOM ||
+			tile ==  SLIME_PIT_LEFT_TOP ||
+			tile ==  SLIME_PIT_RIGHT_BOTTOM ||
+			tile ==  RED_TILE ||
+			tile ==  GREEN_VINE_WEBS ||
+			tile ==  THORNS ||
+			tile == VINES_POISONOUS)
+}
+
+
+function isPickupItem(tile){
+
+}
+
 
 function playerWorldHandling(whichPlayer) {
 	var playerTrackCol = Math.floor(whichPlayer.pos.x / WORLD_W);
@@ -185,14 +214,49 @@ function playerWorldHandling(whichPlayer) {
 		playerTrackRow >= 0 && playerTrackRow < WORLD_ROWS) {
 		var tileHere = returnTileTypeAtColRow(playerTrackCol, playerTrackRow);
 		var tileUnderHere = returnTileTypeAtColRow(playerTrackCol, playerTrackRow + 1);
+		var tileRightHere = returnTileTypeAtColRow(playerTrackCol + 1, playerTrackRow );
+		var tileLeftHere = returnTileTypeAtColRow(playerTrackCol - 1, playerTrackRow );
 
+
+		var tileRect = { x : playerTrackCol * WORLD_W,
+						 y : playerTrackRow * WORLD_H,
+						width: WORLD_W,
+						height: WORLD_H}
+
+
+		if(tileHere == THORNS){
+			enemyObjArr.push(tileRect);
+		}
+
+		if(tileLeftHere == THORNS || tileRightHere == THORNS || tileUnderHere == THORNS ){
+			var boundingResult = utils.rectIntersect(tileRect, whichPlayer.boundingBox);
+			if(boundingResult){
+				// whichPlayer.spriteAnim = whichPlayer.hurtAnim;
+				console.log("I'm hurt");
+			}
+
+
+		}
+
+		
+
+
+			if(tileHarmsPlayer(tileHere)){
+				console.log('Done');
+				player.spriteAnim = player.hurtAnim;
+			}
 		
 
 			if (tileUnderHere >= SLIME_PIT_LEFT_TOP && tileUnderHere <= SLIME_PIT_RIGHT_BOTTOM){
 				console.log(whichPlayer.name + " touched a slime!");
 				whichPlayer.takeDamage(1);
+
 			}
 			//console.log("playerWorldHandling tileHere=" + tileHere);
+			if (tileHere == THORNS) {
+				console.log(whichPlayer.name + " touched a thorn!");
+				whichPlayer.takeDamage(1);
+			} // end of track found
 
 			if (tileHere == GREEN_VINE_WEBS) {
 				console.log(whichPlayer.name + " touched a hazard!");
@@ -241,6 +305,9 @@ function drawWorld() {
 
 			var arrayIndex = rowColToArrayIndex(eachCol, eachRow);
 			var tileKindHere = worldGrid[arrayIndex];
+
+
+
 
 			//converting to see what this tile kind here index means 
             

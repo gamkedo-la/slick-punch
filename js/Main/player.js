@@ -72,7 +72,7 @@ function playerClass() {
 	this.crouchAnim = new SpriteSheetClass(playerCrouchAnim, this.width, this.height, 4, 4, false); //4 frames
 
 	this.explosiveFallAnim = new SpriteSheetClass(playerIdleJumpAnim, this.width, this.height, 8); //8 frames
-	this.hurtAnim = new SpriteSheetClass(playerLeftJabAnim, this.width, this.height, 3); //3 frames
+	this.hurtAnim = new SpriteSheetClass(playerHurtAnim, this.width, this.height, 3); //3 frames
 	this.FlipAnim = new SpriteSheetClass(playerFlipAnim, this.width, this.height, 5); //5 frames
 	this.rollAnim = new SpriteSheetClass(playerRollAnim, this.width, this.height, 7); //7 frames
 	this.crouchedKickAnim = new SpriteSheetClass(playerCrouchedKickAnim, this.width, this.height, 4); //4 frames
@@ -317,16 +317,16 @@ function playerClass() {
 			this.speed.y = 0;
 		}
 
-		if (this.speed.y > 0 && isPlatformAtPixelCoord(this.pos.x, this.pos.y + this.height/2 - PLAYER_COLLISION_PADDING )) {
+		if (this.speed.y > 0 && isPlatformAtPixelCoord(this.pos.x, this.pos.y + this.height/2 - PLAYER_COLLISION_PADDING*2 )) {
 
-			this.pos.y = (1 + Math.floor(this.pos.y / WORLD_H)) * WORLD_H - this.height/2 + PLAYER_COLLISION_PADDING*2;
+			this.pos.y = (1 + Math.floor(this.pos.y / WORLD_H)) * WORLD_H - this.height/2 + PLAYER_COLLISION_PADDING;
 			this.setStateValueTo("isOnGround", true);
 			this.speed.y = 0;
 		}
 
 
 		//checks for air/empty space
-		else if (!isPlatformAtPixelCoord(this.pos.x, this.pos.y + this.boundingBox.height/2 + PLAYER_COLLISION_PADDING *2)) {
+		else if (!isPlatformAtPixelCoord(this.pos.x, this.pos.y + this.height/2 + PLAYER_COLLISION_PADDING *2)) {
 			// if(!this.state.isAttacking && !this.state.isCrouching){
 			// 	this.setStateValueTo("isOnGround", false);
 
