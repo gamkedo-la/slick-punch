@@ -16,6 +16,7 @@ function playerClass() {
 	this.name = "Player Character";
 	this.health = 5;
 
+	// @todo split up attack-state into multiple states to make playing sounds/animation easier
 	this.state = {
 		'isOnGround': true,
 		'isIdle': true,
@@ -53,6 +54,9 @@ function playerClass() {
 
 	this.keyHeld_Up_lastframe = false; // don't jump >1x per keypress
 
+	this.punchTimer = false;
+	this.punchFrameCount = 4;
+
 	this.controlKeyRight = null;
 	this.controlKeyLeft = null;
 	this.controlKeyUp = null;
@@ -63,7 +67,7 @@ function playerClass() {
 
 	// Animation generation. 
 	this.walkAnim = new SpriteSheetClass(playerWalkAnim, this.width, this.height, 10); // 10 frames
-	this.punchAnim = new SpriteSheetClass(playerPunchAnim, this.width, this.height, 4); //4frames
+	this.punchAnim = new SpriteSheetClass(playerPunchAnim, this.width, this.height, this.punchFrameCount); //4frames
 	this.idleAnim = new SpriteSheetClass(playerIdleAnim, this.width, this.height, 7); //7 frames
 	this.idleJumpAnim = new SpriteSheetClass(playerIdleJumpAnim, this.width, this.height, 5); //6 frames
 	this.leftJabAnim = new SpriteSheetClass(playerLeftJabAnim, this.width, this.height, 7); //7 frames
@@ -226,6 +230,13 @@ function playerClass() {
 				this.setStateValueTo("isIdle", false);
 				this.setStateValueTo("isInMotion", false);
 				this.setStateValueTo("isAttacking", true);
+				if (!this.punchTimer) {
+					this.punchTimer = this.punchFrameCount;
+					playPunchSound();
+				}
+				else {
+					this.punchTimer--;
+				}
 
 
 			
@@ -240,8 +251,8 @@ function playerClass() {
 				}
 		}
 		else{
-			 this.setStateValueTo("isAttacking", false);
-
+			this.setStateValueTo("isAttacking", false);
+			this.punchTimer = false;
 		}
 
 
@@ -250,12 +261,14 @@ function playerClass() {
 			this.keyHeld_Up_lastframe = true;
 
 			if (this.state['isOnGround']) { // regular jump
+				playJumpSound();
 				//console.log("Normal Jump!");
 				this.speed.y -= JUMP_POWER;
 				// this.setStateToFalse();
 				this.setStateValueTo("isOnGround", false);
 			}
 			else if (this.doubleJumpCount < MAX_AIR_JUMPS) { // in the air?
+				playJumpSound();
 				//console.log("Double Jump!");
 				this.speed.y = 0;
 				this.speed.y -= DOUBLE_JUMP_POWER;
@@ -271,12 +284,7 @@ function playerClass() {
 	
 
 		// avoid multiple jumps from the same keypress
-		//TODO: Jump sound bug
 		this.keyHeld_Up_lastframe = this.keyHeld_Jump;
-
-		 if (this.justJumped == false) {
-		 	playJumpSound();
-		 }
 
 		// if (this.state.isAttacking) {
 		// 	this.state.isIdle = false;
