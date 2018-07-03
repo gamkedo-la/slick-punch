@@ -73,10 +73,10 @@ function moveAll() {
 		if(debug){
 			strokedRect(player.boundingBox.x,player.boundingBox.y,player.boundingBox.width,player.boundingBox.height, "2", "yellow"); 
 			colorCircle(player.pos.x,player.pos.y, 2, "green");
-			for(int i = 0 ; i < enemyObjArr.length; i++ ){
-				console.log("hey");
-				// strokedRect(enemyObjArr[i].x, enemyObjArr[i].y, enemyObjArr[i].width, enemyObjArr[i].height, "2", "red"); 
-			}
+			// for(int i = 0 ; i < enemyObjArr.length; i++ ){
+			// 	console.log("hey");
+			// 	// strokedRect(enemyObjArr[i].x, enemyObjArr[i].y, enemyObjArr[i].width, enemyObjArr[i].height, "2", "red"); 
+			// }
 		}
 		
 	
