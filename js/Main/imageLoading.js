@@ -12,7 +12,6 @@ var playerHighKickAnim = document.createElement("img");
 var playerIdleAnim = document.createElement("img");
 var playerCrouchAnim = document.createElement("img");
 var playerDeadAnim = document.createElement("img");
-var playerCrouchAnim = document.createElement("img");
 var playerexplosiveFallAnim = document.createElement("img"); //playerExplosiveFall.png'
 var playerHurtAnim = document.createElement("img"); //playerHurtsheet.png'
 var playerFlipAnim = document.createElement("img"); //playerJumpFlip.png'
@@ -36,16 +35,16 @@ var trackPics = [];
 
 var picsToLoad = 0; // set automatically based on imageList in loadImages()
 
-function countLoadedImagesAndLaunchIfReady() {
+function countLoadedImagesAndLaunchIfReady(f) {
 	picsToLoad--;
-	console.log(picsToLoad);
+	console.log(picsToLoad, f);
 	if (picsToLoad == 0) {
 		imageLoadingDoneSoStartGame();
 	}
 }
 
 function beginLoadingImage(imgVar, fileName) {
-	imgVar.onload = countLoadedImagesAndLaunchIfReady;
+	imgVar.onload = countLoadedImagesAndLaunchIfReady.bind(this, fileName);
 	imgVar.src = "images/" + fileName;
 }
 
@@ -63,7 +62,7 @@ function loadImages() {
 		{ varName: slickTileSet, theFile: "slickTileset2.png" },
 		{ varName: playerLeftJabAnim, theFile: "playerLeftJabsheet.png" },
 		{ varName: playerWalkJumpAnim, theFile: "playerWalkJumpsheet.png" },
-		{ varName: playerIdleAnim, theFile: "playerIdleSheet.png" },
+		{ varName: playerIdleAnim, theFile: "playerIdlesheet.png" },
 		{ varName: playerIdleJumpAnim, theFile: "playerIdleJumpsheet.png" },
 		{ varName: playerHighKickAnim, theFile: "playerHighKicksheet.png" },
 		{ varName: playerCrouchAnim, theFile: "playerCrouchSheet.png" },
@@ -76,7 +75,7 @@ function loadImages() {
 		{ varName: playerRollAnim, theFile: "playerRollsheet.png" },
 		{ varName: playerCrouchedKickAnim, theFile: "playerCrouchedKicksheet.png" },
 		{ varName: playerNormalKickAnim, theFile: "playerNormalKick.png" },
-		{ varName: playerUppercutAnim, theFile: "playerUppercutSheet.png" },
+		{ varName: playerUppercutAnim, theFile: "playerUppercutsheet.png" },
 		{ varName: diamondPickupAnim, theFile: "pickup.png" },
 		{ varName: crateAnim, theFile: "crate.png" },
 		{ varName: flyingEnemyAnim, theFile: "flyingEnemy.png" },

@@ -52,5 +52,5 @@ function loadSounds() {
 	firstSong = new Audio("./sound/deepdark" + audioFormat);
 	punchSound = new Audio("./sound/punch" + audioFormat);
 	jumpSound = new Audio("./sound/jump" + audioFormat);
-	kickSound = new Audio("./sound/kick" + audioFormat);
+	kickSound = new Audio("./sound/Kick" + audioFormat);
 }
