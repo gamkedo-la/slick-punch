@@ -498,7 +498,9 @@ function isPlatformAtPixelCoord(hitPixelX, hitPixelY) {
 
 function tileCollidable(tile){
 		return ( 
-			tile != WORLD_BACKGROUND
+			tile != WORLD_BACKGROUND &&
+			tile != PICKUP &&
+			tile != CRATE
 			//Add boxes background elements here. 
 			//
 			)
