@@ -34,7 +34,7 @@ var levelOne = [9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,
 				9,25,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,25,25,25,25,25,25,25,25,25,14,
 				9,25,-2,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,25,25,25,25,25,14,
 				9,25,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,25,14,
-				9,25,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,27,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,25,14,
+				9,25,-1,-1,-1,-1,-1,-1,30,-1,29,-1,-1,-1,-1,-1,27,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,25,14,
 				9,25,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,25,14,
 				9,25,3,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,25,14,
 				9,25,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,4,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,25,14,
@@ -136,6 +136,10 @@ const GREEN_VINE_WEBS = 25;
 const WORLD_BACKGROUND_BROWN = 26;
 const THORNS = 27;
 const VINES_POISONOUS = 28; 
+const CRATE = 29;
+const PICKUP = 30;
+
+
 
 
 // const WORLD_PLATFORM = 1;
@@ -147,6 +151,8 @@ const WORLD_GOAL = -4;
 var slimeLeftBlobSprite = new SpriteSheetClass(slimeLeftBlobAnim, WORLD_W, WORLD_H, 8, 5); // 8 frames, 5 ticks 
 var slimeMiddleBlobSprite = new SpriteSheetClass(slimeMiddleBlobAnim, WORLD_W, WORLD_H, 8, 20); // 8 frames
 var slimeRightBlobSprite = new SpriteSheetClass(slimeRightBlobAnim, WORLD_W, WORLD_H, 8, 5); // 8 frames, 5 ticks 
+var diamondSprite = new SpriteSheetClass(diamondPickupAnim, WORLD_W/2, WORLD_H/2, 2, 3); // 8 frames, 5 ticks 
+
 
 
 
@@ -161,6 +167,9 @@ function returnAnimatedTileSprites(tileKindHere){
 			break;
 		case SLIME_PIT_RIGHT_TOP_ANIM:
 			return slimeRightBlobSprite;
+			break;
+		case PICKUP:
+			return diamondSprite;
 			break;
 	}
 }
@@ -246,11 +255,6 @@ function playerWorldHandling(whichPlayer) {
 			var tileLeftHere = returnTileTypeAtColRow(playerTrackCol - 1, playerTrackRow );
 			var tileOverHere = returnTileTypeAtColRow(playerTrackCol, playerTrackRow - 1);
 
-			tileCollisionRect = { x : (playerTrackCol) * WORLD_W,
-							 y : playerTrackRow * WORLD_H ,
-							width: WORLD_W,
-							height: WORLD_H};
-
 
 				//TILEHERE IS THORN
 			if(tileLeftHere == THORNS || 
@@ -274,9 +278,6 @@ function playerWorldHandling(whichPlayer) {
 				}
 
 			}
-
-
-			
 
 				//TILEHERE IS VINES_POISONOUS
 			if(	tileLeftHere == VINES_POISONOUS || 
@@ -321,89 +322,6 @@ function playerWorldHandling(whichPlayer) {
 	} // end of valid col and row
 } // end of playerTrackHandling func
 
-
-// function playerWorldHandling(whichPlayer) {
-// 	var playerTrackCol = Math.floor(whichPlayer.pos.x / WORLD_W);
-// 	var playerTrackRow = Math.floor(whichPlayer.pos.y / WORLD_H);
-// 	var trackIndexUnderPlayer = rowColToArrayIndex(playerTrackCol, playerTrackRow);
-
-// 	var tileHere = worldGrid[trackIndexUnderPlayer];
-
-// 	var tileNum;
-
-// 	if(tileHere != tileNum){
-// 		tileNum = tileHere
-// 		console.log(tileHere);
-// 	}
-	
-
-
-
-// 	// tileCollisionRect = { x : playerTrackCol * WORLD_W,
-// 	// 					 y : playerTrackRow * WORLD_H,
-// 	// 					width: WORLD_W,
-// 	// 					height: WORLD_H};
-
-// 	// FIXED: this always evaluated to false
-// 	//console.log("playerTrackCol=" + playerTrackCol); // "NaN"
-// 	//console.log("player xy=" + whichPlayer.x + ',' + whichPlayer.y); // "undefined,undefined"
-
-// 	if (playerTrackCol >= 0 && playerTrackCol < WORLD_COLS &&
-// 		playerTrackRow >= 0 && playerTrackRow < WORLD_ROWS) {
-// 		// var tileHere = returnTileTypeAtColRow(playerTrackCol, playerTrackRow);
-// 		var tileUnderHere = returnTileTypeAtColRow(playerTrackCol, playerTrackRow + 1);
-		
-
-// 			// if(tileHarmsPlayer(tileHere)){
-// 			// 	console.log('Done');
-// 			// 	player.spriteAnim = player.hurtAnim;
-// 			// }
-		
-
-// 			if (tileUnderHere >= SLIME_PIT_LEFT_TOP && tileUnderHere <= SLIME_PIT_RIGHT_BOTTOM){
-// 				console.log(whichPlayer.name + " touched a slime!");
-// 				whichPlayer.takeDamage(1);
-// 				player.spriteAnim = player.hurtAnim;
-
-
-// 			}
-
-// 			if (tileUnderHere == GREEN_VINE_WEBS) {
-// 				console.log(whichPlayer.name + " touched a hazard!");
-// 				whichPlayer.takeDamage(1);
-			
-
-// 			} // end of track found
-
-// 			if (tileUnderHere == WORLD_GOAL) {
-// 				console.log(whichPlayer.name + " WINS!");
-// 				loadLevel(levelOne);
-
-// 			} // end of track found
-			
-	
-
-// 			//console.log("playerWorldHandling tileHere=" + tileHere);
-// 			if (tileHere == THORNS) {
-// 				// Add a rect to it and check box collision
-// 				var boundingResult = utils.rectIntersect(tileCollisionRect, whichPlayer.boundingBox);
-// 				if(boundingResult){
-// 					// whichPlayer.spriteAnim = whichPlayer.hurtAnim;
-// 					console.log("I'm hurt");
-// 					console.log(whichPlayer.name + " touched a thorn!");
-// 					whichPlayer.takeDamage(1);
-// 					player.spriteAnim = player.hurtAnim;
-// 				}
-
-				
-
-// 			} // end of track found
-
-			
-	
-
-// 	} // end of valid col and row
-// } // end of playerTrackHandling func
 
 
 
@@ -484,6 +402,11 @@ function drawWorld() {
 
 				}
 				else{
+					if(tileKindHere == CRATE){
+
+						canvasContext.drawImage(crateBox,drawTileX,drawTileY);
+					}
+
 					canvasContext.drawImage(slickTileSet,
 			        tilesetCol * WORLD_W, tilesetRow * WORLD_H, // top-left corner of tile art, multiple of tile width for clipped image
 			        WORLD_W, WORLD_H, // get full tile size from source
@@ -553,7 +476,8 @@ function isTransparentInBackground(tile){
 		tile == SLIME_PIT_RIGHT_TOP ||
 		tile == GREEN_VINE_WEBS ||
 		tile == THORNS || 
-		VINES_POISONOUS
+		VINES_POISONOUS ||
+		CRATE
 		);
 
 }
@@ -563,7 +487,8 @@ function isTileAnimated(tile){
 	return(
 		tile == SLIME_PIT_LEFT_TOP_ANIM ||
 		tile == SLIME_PIT_MIDDLE_TOP_ANIM ||
-		tile == SLIME_PIT_RIGHT_TOP_ANIM 
+		tile == SLIME_PIT_RIGHT_TOP_ANIM ||
+		tile == PICKUP
 		);
 
 }
