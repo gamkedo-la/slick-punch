@@ -28,6 +28,7 @@ function playerClass() {
 		'isDefending': false,
 		'isAnimating' : false, // Used to set state between animation and final.
 		'isHurt': false,
+		'isDead': false
 		
 	};
 
@@ -37,7 +38,6 @@ function playerClass() {
 	this.width = 80;
 	this.height = 80;
 	this.ang = 0;
-	this.health = 0;
 	this.removeMe = false;
 
 	this.tickCount = 0;
@@ -138,9 +138,14 @@ function playerClass() {
 		}
 		if (this.health <= 0) {
 			console.log("PLAYER HAS 0 HP - todo: gameover/respawn");
+			this.state.isDead = true;
+			setTimeout(loadLevel(levelOne), 10000);
+
+
+
 		}
 		
-		this.timeout = setTimeout(this.resetHurtAnimation.bind(this), 1000)
+		this.resetHurtTimeout = setTimeout(this.resetHurtAnimation.bind(this), 1000);
 		
 		
 	}
@@ -155,6 +160,20 @@ function playerClass() {
 		this.playerPic = whichImage;
 		this.health = health;
 		this.doubleJumpCount = 0;
+		this.state = {
+			'isOnGround': true,
+			'isIdle': true,
+			'isInMotion': false,
+			'isMovingLeft': false, //Required to set character flip.
+			'isCrouching': false,
+			'isFacingUp': false, //Might be redundant
+			'isAttacking': false, //combo punches, kick on 3 continuos punch
+			'isDefending': false,
+			'isAnimating' : false, // Used to set state between animation and final.
+			'isHurt': false,
+			'isDead': false
+			
+		};
 
 		for (var eachRow = 0; eachRow < WORLD_ROWS; eachRow++) {
 			for (var eachCol = 0; eachCol < WORLD_COLS; eachCol++) {
@@ -397,6 +416,9 @@ function playerClass() {
 			this.spriteAnim = this.hurtAnim;
 		}
 
+		if (this.state['isDead'] ) {
+			this.spriteAnim = this.deadAnim;
+		}
 
 			//Crouch Animation
 		if (this.state['isCrouching']) {

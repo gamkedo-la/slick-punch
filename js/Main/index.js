@@ -27,10 +27,13 @@ function imageLoadingDoneSoStartGame() {
 
 function loadLevel(whichLevel) {
 	worldGrid = whichLevel.slice();
-	player.reset(playerPic, "Player", 10);
+	player.reset(playerPic, "Player", 3);
 	enemy.reset(enemyPic, "Enemy", 5);
 	score = 0;
 }
+
+
+
 
 function updateAll() {
 	moveAll();
@@ -75,7 +78,7 @@ function moveAll() {
 			colorCircle(player.pos.x,player.pos.y, 2, "green");
 			if(tileCollisionRect != undefined){
 				strokedRect(tileCollisionRect.x,tileCollisionRect.y,tileCollisionRect.width,tileCollisionRect.height, "2", "green"); 
-				
+
 			}
 			
 
