@@ -5,6 +5,7 @@ var enemy = new playerClass();
 
 var score;
 var debug = false;
+var enemyObjArr = [];
 
 window.onload = function () {
 	canvas = document.getElementById('gameCanvas');
@@ -38,43 +39,47 @@ function updateAll() {
 
 function moveAll() {
 	cameraFollow();
-	player.move();
-	if (!enemy.remove) {
-		enemy.move();
+		player.move();
+		if (!enemy.remove) {
+			enemy.move();
+		}
+		
+		playBGM(currentLevel);
+	
+		
 	}
 	
-	playBGM(currentLevel);
-
+	function drawAll() {
 	
-}
-
-function drawAll() {
-
-
-	canvasContext.drawImage(scrollBackground, 0, 0);
-
-
-
-
-	canvasContext.save(); // needed to undo this .translate() used for scroll
-	// this next line is like subtracting camPanX and camPanY from every
-	// canvasContext draw operation up until we call canvasContext.restore
-	// this way we can just draw them at their "actual" position coordinates
 	
-	canvasContext.translate(-camPanX, -camPanY);
-	drawWorld();
-	player.draw();
-
-	// if (!enemy.remove) {
-	// 	enemy.draw();
-	// }
-
-	if(debug){
-		strokedRect(player.boundingBox.x,player.boundingBox.y,player.boundingBox.width,player.boundingBox.height, "2", "yellow"); 
-		colorCircle(player.pos.x,player.pos.y, 2, "green");
-	}
+		canvasContext.drawImage(scrollBackground, 0, 0);
 	
-
+	
+	
+	
+		canvasContext.save(); // needed to undo this .translate() used for scroll
+		// this next line is like subtracting camPanX and camPanY from every
+		// canvasContext draw operation up until we call canvasContext.restore
+		// this way we can just draw them at their "actual" position coordinates
+		
+		canvasContext.translate(-camPanX, -camPanY);
+		drawWorld();
+		player.draw();
+	
+		// if (!enemy.remove) {
+		// 	enemy.draw();
+		// }
+	
+		if(debug){
+			strokedRect(player.boundingBox.x,player.boundingBox.y,player.boundingBox.width,player.boundingBox.height, "2", "yellow"); 
+			colorCircle(player.pos.x,player.pos.y, 2, "green");
+			// for(int i = 0 ; i < enemyObjArr.length; i++ ){
+			// 	console.log("hey");
+			// 	// strokedRect(enemyObjArr[i].x, enemyObjArr[i].y, enemyObjArr[i].width, enemyObjArr[i].height, "2", "red"); 
+			// }
+		}
+		
+	
 	canvasContext.restore();
 	colorText(`Score : ${score}`,30 ,30, "yellow","30px Tahoma");
 	colorText(`Health : ${player.health}` ,30 ,60, "yellow","30px Tahoma");
