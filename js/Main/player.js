@@ -27,6 +27,7 @@ function playerClass() {
 		'isAttacking': false, //combo punches, kick on 3 continuos punch
 		'isDefending': false,
 		'isAnimating' : false, // Used to set state between animation and final.
+		'isHurt': false,
 		
 	};
 
@@ -131,13 +132,22 @@ function playerClass() {
 
 	this.takeDamage = function (howMuch) {
 		console.log("Damage received: " + howMuch);
-		if(this.health > 0){
-		this.health -= howMuch;
-
+		if(this.health > 0 && !this.state.isHurt){
+			this.health -= howMuch;
+			this.state.isHurt = true;
 		}
 		if (this.health <= 0) {
 			console.log("PLAYER HAS 0 HP - todo: gameover/respawn");
 		}
+		
+		this.timeout = setTimeout(this.resetHurtAnimation.bind(this), 1000)
+		
+		
+	}
+
+
+	this.resetHurtAnimation = function(){
+		this.state.isHurt = false;
 	}
 
 	this.reset = function (whichImage, playerName, health) {
@@ -382,6 +392,11 @@ function playerClass() {
 		if (this.state['isInMotion'] ) {
 			this.spriteAnim = this.walkAnim;
 		}
+
+		if (this.state['isHurt'] ) {
+			this.spriteAnim = this.hurtAnim;
+		}
+
 
 			//Crouch Animation
 		if (this.state['isCrouching']) {

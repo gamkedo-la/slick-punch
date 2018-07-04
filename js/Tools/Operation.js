@@ -55,3 +55,12 @@ var utils = {
 	}
 
 }
+
+
+function delayedCall(fun, time){
+	setTimeout(fun, time);
+}
+
+function intervalCall(fun, time){
+	setInterval(fun, time);
+}

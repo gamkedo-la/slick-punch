@@ -232,7 +232,7 @@ function tileNearbyCollisionCheck(tileLeftHere, tileRightHere, tileUnderHere, ti
 function playerWorldHandling(whichPlayer) {
 	var playerTrackCol = Math.floor(whichPlayer.pos.x / WORLD_W);
 	var playerTrackRow = Math.floor(whichPlayer.pos.y / WORLD_H);
-
+	var healthInterval;
 	// FIXED: this always evaluated to false
 	//console.log("playerTrackCol=" + playerTrackCol); // "NaN"
 	//console.log("player xy=" + whichPlayer.x + ',' + whichPlayer.y); // "undefined,undefined"
@@ -246,48 +246,55 @@ function playerWorldHandling(whichPlayer) {
 			var tileLeftHere = returnTileTypeAtColRow(playerTrackCol - 1, playerTrackRow );
 			var tileOverHere = returnTileTypeAtColRow(playerTrackCol, playerTrackRow - 1);
 
-				//TILEHERE IS VINES_POISONOUS
-			if(	tileLeftHere == VINES_POISONOUS || 
-				tileRightHere == VINES_POISONOUS || 
-				tileUnderHere == VINES_POISONOUS || 
-				tileHere == VINES_POISONOUS ){
-
-				tileNearbyCollisionCheck(tileLeftHere, tileRightHere, tileUnderHere, tileOverHere, VINES_POISONOUS, playerTrackCol, playerTrackRow);
-				
-				var boundingResult = utils.rectIntersect(tileCollisionRect, whichPlayer.boundingBox);
-				if(boundingResult){
-					// whichPlayer.spriteAnim = whichPlayer.hurtAnim;
-					console.log("I'm hurt by a web");
-					// console.log(whichPlayer.name + " touched a thorn!");
-					whichPlayer.takeDamage(2);
-					// player.spriteAnim = player.hurtAnim;
-				}
+			tileCollisionRect = { x : (playerTrackCol) * WORLD_W,
+							 y : playerTrackRow * WORLD_H ,
+							width: WORLD_W,
+							height: WORLD_H};
 
 
-
-
-			//TILEHERE IS THORN
-			else if(tileLeftHere == THORNS || 
+				//TILEHERE IS THORN
+			if(tileLeftHere == THORNS || 
 				tileRightHere == THORNS || 
 				tileUnderHere == THORNS || 
-				tileHere == THORNS ){
+				tileOverHere == THORNS ){
 
 				tileNearbyCollisionCheck(tileLeftHere, tileRightHere, tileUnderHere, tileOverHere, THORNS, playerTrackCol, playerTrackRow);
 				
 				var boundingResult = utils.rectIntersect(tileCollisionRect, whichPlayer.boundingBox);
 				if(boundingResult){
 					// whichPlayer.spriteAnim = whichPlayer.hurtAnim;
-					console.log("I'm hurt by a thorn");
-					// console.log(whichPlayer.name + " touched a thorn!");
-					whichPlayer.takeDamage(1);
-					// player.spriteAnim = player.hurtAnim;
+					if(!whichPlayer.state.isHurt){
+						
+						console.log(whichPlayer.name + " touched a thorn!");
+						 // healthInterval = intervalCall(whichPlayer.takeDamage(1), 100000);
+						whichPlayer.takeDamage(1);
+						// player.spriteAnim = player.hurtAnim;
+					}
+					
 				}
+
+			}
 
 
 			
 
+				//TILEHERE IS VINES_POISONOUS
+			if(	tileLeftHere == VINES_POISONOUS || 
+				tileRightHere == VINES_POISONOUS || 
+				tileUnderHere == VINES_POISONOUS || 
+				tileOverHere == VINES_POISONOUS ){
 
-
+				tileNearbyCollisionCheck(tileLeftHere, tileRightHere, tileUnderHere, tileOverHere, VINES_POISONOUS, playerTrackCol, playerTrackRow);
+				
+				var boundingResult = utils.rectIntersect(tileCollisionRect, whichPlayer.boundingBox);
+				if(boundingResult){
+					// whichPlayer.spriteAnim = whichPlayer.hurtAnim;
+					if(!whichPlayer.state.isHurt){
+					console.log(whichPlayer.name + " hurt by a vines");
+					whichPlayer.takeDamage(1);
+					}
+					
+				}
 			
 				// var boundingResult = utils.rectIntersect(tileCollisionRect, whichPlayer.boundingBox);
 				// if(boundingResult){
@@ -308,7 +315,7 @@ function playerWorldHandling(whichPlayer) {
 				loadLevel(levelOne);
 			} // end of track found
 			
-	}
+	
 	
 
 	} // end of valid col and row
