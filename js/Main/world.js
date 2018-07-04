@@ -241,7 +241,8 @@ function tileNearbyCollisionCheck(tileLeftHere, tileRightHere, tileUnderHere, ti
 function playerWorldHandling(whichPlayer) {
 	var playerTrackCol = Math.floor(whichPlayer.pos.x / WORLD_W);
 	var playerTrackRow = Math.floor(whichPlayer.pos.y / WORLD_H);
-	var healthInterval;
+	// var healthInterval;
+	var tileindex = rowColToArrayIndex(playerTrackCol, playerTrackRow);
 	// FIXED: this always evaluated to false
 	//console.log("playerTrackCol=" + playerTrackCol); // "NaN"
 	//console.log("player xy=" + whichPlayer.x + ',' + whichPlayer.y); // "undefined,undefined"
@@ -254,6 +255,26 @@ function playerWorldHandling(whichPlayer) {
 			var tileRightHere = returnTileTypeAtColRow(playerTrackCol + 1, playerTrackRow );
 			var tileLeftHere = returnTileTypeAtColRow(playerTrackCol - 1, playerTrackRow );
 			var tileOverHere = returnTileTypeAtColRow(playerTrackCol, playerTrackRow - 1);
+
+			tileCollisionRect = { x : (playerTrackCol) * WORLD_W,
+							 y : playerTrackRow * WORLD_H ,
+							width: WORLD_W,
+							height: WORLD_H};
+
+
+			if(tileHere == PICKUP){
+				tileCollisionRect.width = WORLD_W/2;
+				tileCollisionRect.height = WORLD_H/2;
+
+				var boundingResult = utils.rectIntersect(tileCollisionRect, whichPlayer.boundingBox);
+				if(boundingResult){
+					whichPlayer.health++;
+					worldGrid[tileindex] = -1;
+
+				}
+
+				
+			}
 
 
 				//TILEHERE IS THORN
