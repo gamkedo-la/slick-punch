@@ -157,11 +157,10 @@ function playerClass() {
 		console.log("NO PLAYER START FOUND!");
 	} // end of playerReset func
 
+
 	this.move = function () {
 
-
-		
-		this.boundingBox.width = this.width/2;
+		this.boundingBox.width = this.width/3;
 		this.boundingBox.height = this.height;
 		this.boundingBox.x = this.pos.x - this.boundingBox.width/2;
 		this.boundingBox.y = this.pos.y - this.boundingBox.height/2;
@@ -236,7 +235,6 @@ function playerClass() {
 					
 						// this.speed.y -= 0.05;
 						// this.state.isOnGround = false;
-					
 				}
 		}
 		else{
@@ -349,9 +347,6 @@ function playerClass() {
 			this.spriteAnim.update();
 
 		}
-
-
-
 		// this.boundingBox = {
 		// 	x: this.pos.x - this.width/4,
 		// 	y: this.pos.y - this.height/2,
@@ -360,6 +355,8 @@ function playerClass() {
 		// }
 		// this.incrementTick();
 	} // end of player.move function
+
+
 
 	this.draw = function () {
 
@@ -456,7 +453,10 @@ function isPlatformAtPixelCoord(hitPixelX, hitPixelY) {
 
 function tileCollidable(tile){
 		return ( 
-		tile != WORLD_BACKGROUND)
-	// return tile > 0;
+			tile != WORLD_BACKGROUND
+			//Add boxes background elements here. 
+			//
+			)
+			// return tile > 0;
 	
 }
