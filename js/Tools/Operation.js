@@ -54,7 +54,7 @@ var utils = {
 			   utils.rangeIntersect(r0.y, r0.y + r0.height, r1.y, r1.y + r1.height);
 	}
 
-}
+};
 
 
 function delayedCall(fun, time){

@@ -30,6 +30,7 @@ var crateBox = document.createElement("img"); //crate.png'
 var flyingEnemyAnim = document.createElement("img"); //flyingEnemy.png'
 
 var slickTileSet = document.createElement("img");
+var platformTileSet = document.createElement("img");
 
 var trackPics = [];
 
@@ -60,6 +61,7 @@ function loadImages() {
 		{ varName: playerPunchAnim, theFile: "playerPunchsheet.png" },
 		{ varName: playerWalkAnim, theFile: "playerWalksheet.png" },
 		{ varName: slickTileSet, theFile: "slickTileset2.png" },
+		{ varName: platformTileSet, theFile: "platformTileSet.png" },
 		{ varName: playerLeftJabAnim, theFile: "playerLeftJabsheet.png" },
 		{ varName: playerWalkJumpAnim, theFile: "playerWalkJumpsheet.png" },
 		{ varName: playerIdleAnim, theFile: "playerIdlesheet.png" },
