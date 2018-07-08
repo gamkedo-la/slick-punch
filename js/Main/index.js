@@ -16,7 +16,7 @@ window.onload = function () {
 
 	loadImages();
 	loadSounds();
-}
+};
 
 function imageLoadingDoneSoStartGame() {
 	var framesPerSecond = 60;
@@ -27,6 +27,7 @@ function imageLoadingDoneSoStartGame() {
 
 function loadLevel(whichLevel) {
 	worldGrid = whichLevel.slice();
+	platformList.parseWorld();
 	player.reset(playerPic, "Player", 3);
 	enemy.reset(enemyPic, "Enemy", 5);
 	score = 0;
@@ -46,13 +47,13 @@ function moveAll() {
 		if (!enemy.remove) {
 			enemy.move();
 		}
-		
+
 		playBGM(currentLevel);
-	
-		
-	}
-	
-	function drawAll() {
+
+	platformList.update();
+}
+
+function drawAll() {
 	
 	
 		canvasContext.drawImage(scrollBackground, 0, 0);
@@ -67,6 +68,7 @@ function moveAll() {
 		
 		canvasContext.translate(-camPanX, -camPanY);
 		drawWorld();
+		platformList.draw();
 		player.draw();
 	
 		// if (!enemy.remove) {
