@@ -3,6 +3,7 @@ var platformList = new (function() {
 	var platforms = [];
 
 	this.parseWorld = function () {
+		platforms = [];
 		for (var eachRow = 0; eachRow < WORLD_ROWS; eachRow++) {
 			for (var eachCol = 0; eachCol < WORLD_COLS; eachCol++) {
 				var arrayIndex = rowColToArrayIndex(eachCol, eachRow);
