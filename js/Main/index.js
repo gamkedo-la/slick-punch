@@ -3,6 +3,8 @@ var canvas, canvasContext;
 var player = new playerClass();
 var enemy = new playerClass();
 
+var flyingEnemies = []; // an array of flyingEnemy
+
 var score;
 var debug = false;
 var enemyObjArr = [];
@@ -25,12 +27,39 @@ function imageLoadingDoneSoStartGame() {
 	loadLevel(levelOne);
 }
 
+function spawnFlyingEnemies() {
+	console.log("Spawning flying enemies...");
+
+	// spawn flying enemies by scanning the level data
+	var spawnCounter = 0;
+	for (var px, py, eachRow = 0; eachRow < WORLD_ROWS; eachRow++) {
+		for (var eachCol = 0; eachCol < WORLD_COLS; eachCol++) {
+			var arrayIndex = rowColToArrayIndex(eachCol, eachRow);
+			if (worldGrid[arrayIndex] == WORLD_FLYING_ENEMY) {
+				worldGrid[arrayIndex] = WORLD_BACKGROUND;
+
+				spawnCounter++;
+
+				px = eachCol * WORLD_W + WORLD_W / 2;
+				py = eachRow * WORLD_H + WORLD_H / 2;
+
+				flyingEnemies.push(new flyingEnemyClass(px, py));
+
+			}
+		}
+	}
+	console.log("Flying enemies spawned: " + spawnCounter);
+
+}
+
 function loadLevel(whichLevel) {
 	worldGrid = whichLevel.slice();
 	platformList.parseWorld();
 	player.reset(playerPic, "Player", 3);
 	enemy.reset(enemyPic, "Enemy", 5);
 	score = 0;
+
+	spawnFlyingEnemies();
 }
 
 
@@ -43,56 +72,64 @@ function updateAll() {
 
 function moveAll() {
 	cameraFollow();
-		player.move();
-		if (!enemy.remove) {
-			enemy.move();
-		}
+	player.move();
+	if (!enemy.remove) {
+		enemy.move();
+	}
 
-		playBGM(currentLevel);
+	for (var num = 0; num < flyingEnemies.length; num++) {
+		flyingEnemies[num].move();
+	}
+
+	playBGM(currentLevel);
 
 	platformList.update();
 }
 
 function drawAll() {
-	
-	
-		canvasContext.drawImage(scrollBackground, 0, 0);
-	
-	
-	
-	
-		canvasContext.save(); // needed to undo this .translate() used for scroll
-		// this next line is like subtracting camPanX and camPanY from every
-		// canvasContext draw operation up until we call canvasContext.restore
-		// this way we can just draw them at their "actual" position coordinates
-		
-		canvasContext.translate(-camPanX, -camPanY);
-		drawWorld();
-		platformList.draw();
-		player.draw();
-	
-		// if (!enemy.remove) {
-		// 	enemy.draw();
-		// }
-	
-		if(debug){
-			strokedRect(player.boundingBox.x,player.boundingBox.y,player.boundingBox.width,player.boundingBox.height, "2", "yellow"); 
-			colorCircle(player.pos.x,player.pos.y, 2, "green");
-			if(tileCollisionRect != undefined){
-				strokedRect(tileCollisionRect.x,tileCollisionRect.y,tileCollisionRect.width,tileCollisionRect.height, "2", "green"); 
-
-			}
-			
 
 
-			// for(int i = 0 ; i < enemyObjArr.length; i++ ){
-			// 	console.log("hey");
-			// 	// strokedRect(enemyObjArr[i].x, enemyObjArr[i].y, enemyObjArr[i].width, enemyObjArr[i].height, "2", "red"); 
-			// }
+	canvasContext.drawImage(scrollBackground, 0, 0);
+
+
+
+
+	canvasContext.save(); // needed to undo this .translate() used for scroll
+	// this next line is like subtracting camPanX and camPanY from every
+	// canvasContext draw operation up until we call canvasContext.restore
+	// this way we can just draw them at their "actual" position coordinates
+
+	canvasContext.translate(-camPanX, -camPanY);
+	drawWorld();
+	platformList.draw();
+	player.draw();
+
+	// if (!enemy.remove) {
+	// 	enemy.draw();
+	// }
+
+	for (var num = 0; num < flyingEnemies.length; num++) {
+		flyingEnemies[num].draw();
+	}
+
+	if (debug) {
+		strokedRect(player.boundingBox.x, player.boundingBox.y, player.boundingBox.width, player.boundingBox.height, "2", "yellow");
+		colorCircle(player.pos.x, player.pos.y, 2, "green");
+		if (tileCollisionRect != undefined) {
+			strokedRect(tileCollisionRect.x, tileCollisionRect.y, tileCollisionRect.width, tileCollisionRect.height, "2", "green");
+
 		}
-		
-	
+
+
+
+		// for(int i = 0 ; i < enemyObjArr.length; i++ ){
+		// 	console.log("hey");
+		// 	// strokedRect(enemyObjArr[i].x, enemyObjArr[i].y, enemyObjArr[i].width, enemyObjArr[i].height, "2", "red"); 
+		// }
+	}
+
+
 	canvasContext.restore();
-	colorText(`Score : ${score}`,30 ,30, "yellow","30px Tahoma");
-	colorText(`Health : ${player.health}` ,30 ,60, "yellow","30px Tahoma");
+	colorText(`Score : ${score}`, 30, 30, "yellow", "30px Tahoma");
+	colorText(`Health : ${player.health}`, 30, 60, "yellow", "30px Tahoma");
 } 

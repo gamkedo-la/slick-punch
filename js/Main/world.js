@@ -28,62 +28,62 @@ var tileCollisionRect; // Used for displaying currently colliding rect
 // 				1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 
 
-var levelOne = [9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,14,
-				9,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,14,
-				9,25,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,14,
-				9,25,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,25,25,25,25,25,25,25,25,25,14,
-				9,25,-2,-1,-1,-1,-1,-1,30,30,30,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,25,25,25,25,25,14,
-				9,25,-1,-1,-1,-1,-1,30,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,25,14,
-				9,25,-1,-1,-1,-1,-1,-1,-1,-1,29,-1,-1,-1,-1,-1,27,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,25,14,
-				9,25,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,25,14,
-				9,25,3,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,25,14,
-				9,25,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,4,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,25,14,
-				9,25,-1,29,-1,-1,-1,-1,-1,-1,-1,-1,29,-1,-1,-1,-1,-1,-1,-1,-1,4,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,25,14,
-				9,25,-1,40,40,40,40,-1,-1,-1,-1,-1,49,-1,-1,-1,-1,-1,-1,-1,-1,-1,4,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,25,14,
-				9,25,-1,49,-1,-1,-1,-1,41,41,41,41,41,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,4,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,25,14,
-				9,25,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,25,14,
-				9,25,-1,43,43,43,-1,-1,49,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,25,14,
-				9,25,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,25,14,
-				9,25,-1,49,-1,-1,-1,-1,42,42,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,4,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,14,
-				9,25,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,6,7,8,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,14,
-				9,25,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,14,
-				9,25,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,6,7,8,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,14,
-				9,25,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,14,
-				9,25,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,6,7,8,-1,-1,-1,-1,-1,-1,14,
-				9,25,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,14,
-				9,25,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,14,
-				9,25,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,14,
-				9,25,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,28,-1,14,
-				9,25,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,6,7,8,-1,14,
-				9,25,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,14,
-				9,25,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,6,7,8,-1,-1,-1,-1,-1,-1,14,
-				9,25,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,28,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,14,
-				9,25,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,0,1,1,1,1,1,1,16,-16,16,16,1,1,1,1,2,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,14,
-				9,25,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1, 19,19,19,19,19,19,19,19,19,19,19,19,19,19,19, 19,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,14,
-				9,25,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,14,
-				9,25,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,14,
-				9,25,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,14,
-				9,25,-1,-1,28,-1,-1,-1,28,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,14,
-				9,0,1,1,1,1,1,1,1,1,1,1,1,1,2,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,14,
-				9,3,7,7,7,7,7,7,7,7,7,7,7,7,5,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,14,
-				9,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,4,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,14,
-				9,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,14,
-				9,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,4,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,14,
-				9,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,14,
-				9,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,6,7,7,7,7,7,7,7,8,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,14,
-				9,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,14,
-				9,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,4,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,14,
-				9,-1,-1,-1,-2,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,6,7,7,8,-1,-1,-1,-1,14,
-				9,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,14,
-				9,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,14,
-				9,11,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,27,10,10,27,-1,-1,-1,-1,-1,-1,-1,27,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,1,-1,-1,-1,-1,-1,-1,27,27,27,11,
-				12,10,10,10,10,10,10,10,10,10,10,10,10,10,12,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,-15,-16,-16,16,-17,10,10,10,10,10,10,10,10,10,10,10,10,10,11,
-				];
+var levelOne = [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 14,
+	9, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 14,
+	9, 25, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 14,
+	9, 25, -1, -1, -1, -5, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 25, 25, 25, 25, 25, 25, 25, 25, 25, 14,
+	9, 25, -2, -1, -1, -1, -1, -1, 30, 30, 30, -1, -1, -5, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 25, 25, 25, 25, 25, 14,
+	9, 25, -1, -1, -1, -1, -1, 30, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 25, 14,
+	9, 25, -1, -1, -1, -1, -1, -1, -1, -1, 29, -1, -1, -1, -1, -1, 27, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 25, 14,
+	9, 25, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 25, 14,
+	9, 25, 3, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 25, 14,
+	9, 25, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 4, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 25, 14,
+	9, 25, -1, 29, -1, -1, -1, -1, -1, -1, -1, -1, 29, -1, -1, -1, -1, -1, -1, -1, -1, 4, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 25, 14,
+	9, 25, -1, 40, 40, 40, 40, -1, -1, -1, -1, -1, 49, -1, -1, -5, -1, -1, -1, -1, -1, -1, 4, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 25, 14,
+	9, 25, -1, 49, -1, -1, -1, -1, 41, 41, 41, 41, 41, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 4, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 25, 14,
+	9, 25, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 25, 14,
+	9, 25, -1, 43, 43, 43, -1, -1, 49, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 25, 14,
+	9, 25, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 25, 14,
+	9, 25, -1, 49, -1, -1, -1, -1, 42, 42, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 4, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 14,
+	9, 25, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -5, -1, -1, -1, -1, -1, -1, -1, -1, -1, 6, 7, 8, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 14,
+	9, 25, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 14,
+	9, 25, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 6, 7, 8, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 14,
+	9, 25, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 14,
+	9, 25, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 6, 7, 8, -1, -1, -1, -1, -1, -1, 14,
+	9, 25, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 14,
+	9, 25, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 14,
+	9, 25, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -5, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 14,
+	9, 25, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -5, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 28, -1, 14,
+	9, 25, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 6, 7, 8, -1, 14,
+	9, 25, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 14,
+	9, 25, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 6, 7, 8, -1, -1, -1, -1, -1, -1, 14,
+	9, 25, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 28, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 14,
+	9, 25, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 0, 1, 1, 1, 1, 1, 1, 16, -16, 16, 16, 1, 1, 1, 1, 2, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 14,
+	9, 25, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -5, -1, -1, -1, -1, -1, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 14,
+	9, 25, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -5, -1, -1, -1, -1, -1, -1, -1, -1, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 14,
+	9, 25, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 14,
+	9, 25, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 14,
+	9, 25, -1, -1, 28, -1, -1, -1, 28, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 14,
+	9, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 14,
+	9, 3, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 5, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 14,
+	9, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 4, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 14,
+	9, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 14,
+	9, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 4, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 14,
+	9, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 14,
+	9, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 6, 7, 7, 7, 7, 7, 7, 7, 8, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 14,
+	9, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 14,
+	9, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 4, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 14,
+	9, -1, -1, -1, -2, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 6, 7, 7, 8, -1, -1, -1, -1, 14,
+	9, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 14,
+	9, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 14,
+	9, 11, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 27, 10, 10, 27, -1, -1, -1, -1, -1, -1, -1, 27, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 1, -1, -1, -1, -1, -1, -1, 27, 27, 27, 11,
+	12, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 12, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, -15, -16, -16, 16, -17, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 11,
+];
 
 
-		// { varName: diamondPickupAnim, theFile: "pickup.png" },
-		// { varName: crateAnim, theFile: "crate.png" },
-		// { varName: flyingEnemyAnim, theFile: "flyingEnemy.png" },
+// { varName: diamondPickupAnim, theFile: "pickup.png" },
+// { varName: crateAnim, theFile: "crate.png" },
+// { varName: flyingEnemyAnim, theFile: "flyingEnemy.png" },
 
 // Used for frame animation. Update to more optimized format
 var frameRow = 0;
@@ -104,7 +104,7 @@ const DOUBLE_PLATFORM_RIGHT_BOTTOM = 5;
 const SINGLE_CENTER = 4;
 
 const SINGLE_PLATFORM_LEFT = 6;
-const SINGLE_PLATFORM_MIDDLE = 7; 
+const SINGLE_PLATFORM_MIDDLE = 7;
 const SINGLE_PLATFORM_RIGHT = 8;
 
 const TILE_BOUNDARY_1 = 9;
@@ -132,10 +132,10 @@ const SLIME_PIT_MIDDLE_BOTTOM = 22;
 const SLIME_PIT_RIGHT_BOTTOM = 23;
 
 const RED_TILE = 24;
-const GREEN_VINE_WEBS = 25; 
+const GREEN_VINE_WEBS = 25;
 const WORLD_BACKGROUND_BROWN = 26;
 const THORNS = 27;
-const VINES_POISONOUS = 28; 
+const VINES_POISONOUS = 28;
 const CRATE = 29;
 const PICKUP = 30;
 
@@ -155,18 +155,19 @@ const WORLD_PLAYERSTART = -2;
 const WORLD_ENEMYSTART = -3;
 const WORLD_GOAL = -4;
 
+const WORLD_FLYING_ENEMY = -5; // spawns a flyingEnemy.js
 
 var slimeLeftBlobSprite = new SpriteSheetClass(slimeLeftBlobAnim, WORLD_W, WORLD_H, 8, 5); // 8 frames, 5 ticks 
 var slimeMiddleBlobSprite = new SpriteSheetClass(slimeMiddleBlobAnim, WORLD_W, WORLD_H, 8, 20); // 8 frames
 var slimeRightBlobSprite = new SpriteSheetClass(slimeRightBlobAnim, WORLD_W, WORLD_H, 8, 5); // 8 frames, 5 ticks 
-var diamondSprite = new SpriteSheetClass(diamondPickupAnim, WORLD_W/2, WORLD_H/2, 2, 20); // 8 frames, 5 ticks 
+var diamondSprite = new SpriteSheetClass(diamondPickupAnim, WORLD_W / 2, WORLD_H / 2, 2, 20); // 8 frames, 5 ticks 
 
 
 
 
 
-function returnAnimatedTileSprites(tileKindHere){
-	switch(tileKindHere){
+function returnAnimatedTileSprites(tileKindHere) {
+	switch (tileKindHere) {
 		case SLIME_PIT_LEFT_TOP_ANIM:
 			return slimeLeftBlobSprite;
 			break;
@@ -189,59 +190,61 @@ function returnTileTypeAtColRow(col, row) {
 		var trackIndexUnderCoord = rowColToArrayIndex(col, row);
 		return worldGrid[trackIndexUnderCoord];
 	} else {
-		console.log("TileHere is"  + worldGrid[rowColToArrayIndex(col, row)]);
+		console.log("TileHere is" + worldGrid[rowColToArrayIndex(col, row)]);
 	}
 }
 
 
-function tileHarmsPlayer(tile){
-	return (tile ==  SLIME_PIT_LEFT_TOP ||
-			tile ==  SLIME_PIT_MIDDLE_TOP ||
-			tile ==  SLIME_PIT_RIGHT_TOP ||
-			tile ==  SLIME_PIT_LEFT_TOP_ANIM ||
-			tile ==  SLIME_PIT_MIDDLE_TOP_ANIM ||
-			tile ==  SLIME_PIT_RIGHT_TOP_ANIM ||
-			tile ==  SLIME_PIT_LEFT_CENTER ||
-			tile ==  SLIME_PIT_MIDDLE_CENTER ||
-			tile ==  SLIME_PIT_RIGHT_CENTER ||
-			tile ==  SLIME_PIT_LEFT_BOTTOM ||
-			tile ==  SLIME_PIT_MIDDLE_BOTTOM ||
-			tile ==  SLIME_PIT_LEFT_TOP ||
-			tile ==  SLIME_PIT_RIGHT_BOTTOM ||
-			tile ==  RED_TILE ||
-			tile ==  GREEN_VINE_WEBS ||
-			tile ==  THORNS ||
-			tile == VINES_POISONOUS)
+function tileHarmsPlayer(tile) {
+	return (tile == SLIME_PIT_LEFT_TOP ||
+		tile == SLIME_PIT_MIDDLE_TOP ||
+		tile == SLIME_PIT_RIGHT_TOP ||
+		tile == SLIME_PIT_LEFT_TOP_ANIM ||
+		tile == SLIME_PIT_MIDDLE_TOP_ANIM ||
+		tile == SLIME_PIT_RIGHT_TOP_ANIM ||
+		tile == SLIME_PIT_LEFT_CENTER ||
+		tile == SLIME_PIT_MIDDLE_CENTER ||
+		tile == SLIME_PIT_RIGHT_CENTER ||
+		tile == SLIME_PIT_LEFT_BOTTOM ||
+		tile == SLIME_PIT_MIDDLE_BOTTOM ||
+		tile == SLIME_PIT_LEFT_TOP ||
+		tile == SLIME_PIT_RIGHT_BOTTOM ||
+		tile == RED_TILE ||
+		tile == GREEN_VINE_WEBS ||
+		tile == THORNS ||
+		tile == VINES_POISONOUS)
 }
 
 
-function isPickupItem(tile){
+function isPickupItem(tile) {
 
 }
 
-function tileNearbyCollisionCheck(tileLeftHere, tileRightHere, tileUnderHere, tileOverHere, tileType, playerTrackCol, playerTrackRow){
+function tileNearbyCollisionCheck(tileLeftHere, tileRightHere, tileUnderHere, tileOverHere, tileType, playerTrackCol, playerTrackRow) {
 
-				tileCollisionRect = { x : (playerTrackCol) * WORLD_W,
-							 y : playerTrackRow * WORLD_H ,
-							width: WORLD_W,
-							height: WORLD_H};
+	tileCollisionRect = {
+		x: (playerTrackCol) * WORLD_W,
+		y: playerTrackRow * WORLD_H,
+		width: WORLD_W,
+		height: WORLD_H
+	};
 
-				if(tileLeftHere == tileType){
-					tileCollisionRect.x = (playerTrackCol - 1) * WORLD_W;
-				
-				}
+	if (tileLeftHere == tileType) {
+		tileCollisionRect.x = (playerTrackCol - 1) * WORLD_W;
 
-				if(tileRightHere == tileType){
-					tileCollisionRect.x = (playerTrackCol + 1) * WORLD_W;
-				}
+	}
 
-				if(tileUnderHere == tileType){
-					tileCollisionRect.y = (playerTrackRow + 1) * WORLD_H;
-				}
+	if (tileRightHere == tileType) {
+		tileCollisionRect.x = (playerTrackCol + 1) * WORLD_W;
+	}
 
-				if(tileOverHere == tileType){
-					tileCollisionRect.y = (playerTrackRow - 1) * WORLD_H;
-				}
+	if (tileUnderHere == tileType) {
+		tileCollisionRect.y = (playerTrackRow + 1) * WORLD_H;
+	}
+
+	if (tileOverHere == tileType) {
+		tileCollisionRect.y = (playerTrackRow - 1) * WORLD_H;
+	}
 }
 
 
@@ -258,95 +261,97 @@ function playerWorldHandling(whichPlayer) {
 	if (playerTrackCol >= 0 && playerTrackCol < WORLD_COLS &&
 		playerTrackRow >= 0 && playerTrackRow < WORLD_ROWS) {
 
-			var tileHere = returnTileTypeAtColRow(playerTrackCol, playerTrackRow);
-			var tileUnderHere = returnTileTypeAtColRow(playerTrackCol, playerTrackRow + 1);
-			var tileRightHere = returnTileTypeAtColRow(playerTrackCol + 1, playerTrackRow );
-			var tileLeftHere = returnTileTypeAtColRow(playerTrackCol - 1, playerTrackRow );
-			var tileOverHere = returnTileTypeAtColRow(playerTrackCol, playerTrackRow - 1);
+		var tileHere = returnTileTypeAtColRow(playerTrackCol, playerTrackRow);
+		var tileUnderHere = returnTileTypeAtColRow(playerTrackCol, playerTrackRow + 1);
+		var tileRightHere = returnTileTypeAtColRow(playerTrackCol + 1, playerTrackRow);
+		var tileLeftHere = returnTileTypeAtColRow(playerTrackCol - 1, playerTrackRow);
+		var tileOverHere = returnTileTypeAtColRow(playerTrackCol, playerTrackRow - 1);
 
-			tileCollisionRect = { x : (playerTrackCol) * WORLD_W,
-							 y : playerTrackRow * WORLD_H ,
-							width: WORLD_W,
-							height: WORLD_H};
-
-
-			if(tileHere == PICKUP){
-				tileCollisionRect.width = WORLD_W/2;
-				tileCollisionRect.height = WORLD_H/2;
-
-				var boundingResult = utils.rectIntersect(tileCollisionRect, whichPlayer.boundingBox);
-				if(boundingResult){
-					whichPlayer.health++;
-					worldGrid[tileindex] = -1;
-
-				}
-
-				
-			}
+		tileCollisionRect = {
+			x: (playerTrackCol) * WORLD_W,
+			y: playerTrackRow * WORLD_H,
+			width: WORLD_W,
+			height: WORLD_H
+		};
 
 
-				//TILEHERE IS THORN
-			if(tileLeftHere == THORNS || 
-				tileRightHere == THORNS || 
-				tileUnderHere == THORNS || 
-				tileOverHere == THORNS ){
+		if (tileHere == PICKUP) {
+			tileCollisionRect.width = WORLD_W / 2;
+			tileCollisionRect.height = WORLD_H / 2;
 
-				tileNearbyCollisionCheck(tileLeftHere, tileRightHere, tileUnderHere, tileOverHere, THORNS, playerTrackCol, playerTrackRow);
-				
-				var boundingResult = utils.rectIntersect(tileCollisionRect, whichPlayer.boundingBox);
-				if(boundingResult){
-					// whichPlayer.spriteAnim = whichPlayer.hurtAnim;
-					if(!whichPlayer.state.isHurt){
-						
-						console.log(whichPlayer.name + " touched a thorn!");
-						 // healthInterval = intervalCall(whichPlayer.takeDamage(1), 100000);
-						whichPlayer.takeDamage(1);
-						// player.spriteAnim = player.hurtAnim;
-					}
-					
-				}
+			var boundingResult = utils.rectIntersect(tileCollisionRect, whichPlayer.boundingBox);
+			if (boundingResult) {
+				whichPlayer.health++;
+				worldGrid[tileindex] = -1;
 
 			}
 
-				//TILEHERE IS VINES_POISONOUS
-			if(	tileLeftHere == VINES_POISONOUS || 
-				tileRightHere == VINES_POISONOUS || 
-				tileUnderHere == VINES_POISONOUS || 
-				tileOverHere == VINES_POISONOUS ){
 
-				tileNearbyCollisionCheck(tileLeftHere, tileRightHere, tileUnderHere, tileOverHere, VINES_POISONOUS, playerTrackCol, playerTrackRow);
-				
-				var boundingResult = utils.rectIntersect(tileCollisionRect, whichPlayer.boundingBox);
-				if(boundingResult){
-					// whichPlayer.spriteAnim = whichPlayer.hurtAnim;
-					if(!whichPlayer.state.isHurt){
+		}
+
+
+		//TILEHERE IS THORN
+		if (tileLeftHere == THORNS ||
+			tileRightHere == THORNS ||
+			tileUnderHere == THORNS ||
+			tileOverHere == THORNS) {
+
+			tileNearbyCollisionCheck(tileLeftHere, tileRightHere, tileUnderHere, tileOverHere, THORNS, playerTrackCol, playerTrackRow);
+
+			var boundingResult = utils.rectIntersect(tileCollisionRect, whichPlayer.boundingBox);
+			if (boundingResult) {
+				// whichPlayer.spriteAnim = whichPlayer.hurtAnim;
+				if (!whichPlayer.state.isHurt) {
+
+					console.log(whichPlayer.name + " touched a thorn!");
+					// healthInterval = intervalCall(whichPlayer.takeDamage(1), 100000);
+					whichPlayer.takeDamage(1);
+					// player.spriteAnim = player.hurtAnim;
+				}
+
+			}
+
+		}
+
+		//TILEHERE IS VINES_POISONOUS
+		if (tileLeftHere == VINES_POISONOUS ||
+			tileRightHere == VINES_POISONOUS ||
+			tileUnderHere == VINES_POISONOUS ||
+			tileOverHere == VINES_POISONOUS) {
+
+			tileNearbyCollisionCheck(tileLeftHere, tileRightHere, tileUnderHere, tileOverHere, VINES_POISONOUS, playerTrackCol, playerTrackRow);
+
+			var boundingResult = utils.rectIntersect(tileCollisionRect, whichPlayer.boundingBox);
+			if (boundingResult) {
+				// whichPlayer.spriteAnim = whichPlayer.hurtAnim;
+				if (!whichPlayer.state.isHurt) {
 					console.log(whichPlayer.name + " hurt by a vines");
 					whichPlayer.takeDamage(1);
-					}
-					
 				}
-			
-				// var boundingResult = utils.rectIntersect(tileCollisionRect, whichPlayer.boundingBox);
-				// if(boundingResult){
-				// 	// whichPlayer.spriteAnim = whichPlayer.hurtAnim;
-					// console.log("I'm hurt");
-				// }
-			}
-
-			if (tileUnderHere >= SLIME_PIT_LEFT_TOP && tileUnderHere <= SLIME_PIT_RIGHT_BOTTOM){
-				console.log(whichPlayer.name + " touched a slime!");
-				whichPlayer.takeDamage(1);
 
 			}
-			
 
-			if (tileHere == WORLD_GOAL) {
-				console.log(whichPlayer.name + " WINS!");
-				loadLevel(levelOne);
-			} // end of track found
-			
-	
-	
+			// var boundingResult = utils.rectIntersect(tileCollisionRect, whichPlayer.boundingBox);
+			// if(boundingResult){
+			// 	// whichPlayer.spriteAnim = whichPlayer.hurtAnim;
+			// console.log("I'm hurt");
+			// }
+		}
+
+		if (tileUnderHere >= SLIME_PIT_LEFT_TOP && tileUnderHere <= SLIME_PIT_RIGHT_BOTTOM) {
+			console.log(whichPlayer.name + " touched a slime!");
+			whichPlayer.takeDamage(1);
+
+		}
+
+
+		if (tileHere == WORLD_GOAL) {
+			console.log(whichPlayer.name + " WINS!");
+			loadLevel(levelOne);
+		} // end of track found
+
+
+
 
 	} // end of valid col and row
 } // end of playerTrackHandling func
@@ -388,15 +393,15 @@ function drawWorld() {
 
 
 			//converting to see what this tile kind here index means 
-            
+
 			//Used for TIleset
-            var tilesetRow = tileKindHere > 0 ? Math.floor(tileKindHere / 3) : 0; 
-            var tilesetCol = tileKindHere > 0 ? Math.floor(tileKindHere % 3) : 0; //Here 3 is columns in tileset
+			var tilesetRow = tileKindHere > 0 ? Math.floor(tileKindHere / 3) : 0;
+			var tilesetCol = tileKindHere > 0 ? Math.floor(tileKindHere % 3) : 0; //Here 3 is columns in tileset
 
 
-		    
+
 			// var useImg = trackPics[tileKindHere];
-            
+
 			// if (tileVisible(drawTileX, drawTileY)) {
 			// 	if (!useImg) {
 			// 		console.log("Missing trackPics[" + tileKindHere + "] in drawTracks!");
@@ -413,41 +418,41 @@ function drawWorld() {
 			// 		console.log("Missing trackPics[" + tileKindHere + "] in drawTracks!");
 			// 		break;
 			// 	}
-				
+
 			// }
 
-			if(tileKindHere != WORLD_BACKGROUND){
-				
+			if (tileKindHere != WORLD_BACKGROUND) {
 
-				if(isTileAnimated(tileKindHere)){
-				
+
+				if (isTileAnimated(tileKindHere)) {
+
 					var animatedTile = returnAnimatedTileSprites(tileKindHere);
 					animatedTile.update();
-					animatedTile.draw(animatedTile.frameIndex, frameRow, drawTileX + WORLD_W/2, drawTileY + WORLD_H/2, false, false);
+					animatedTile.draw(animatedTile.frameIndex, frameRow, drawTileX + WORLD_W / 2, drawTileY + WORLD_H / 2, false, false);
 
 					// console.log("Animated Tile comes here");
 
 
 
 				}
-				else{
-					if(tileKindHere == CRATE){
+				else {
+					if (tileKindHere == CRATE) {
 
-						canvasContext.drawImage(crateBox,drawTileX,drawTileY);
+						canvasContext.drawImage(crateBox, drawTileX, drawTileY);
 					}
 
 					canvasContext.drawImage(slickTileSet,
-			        tilesetCol * WORLD_W, tilesetRow * WORLD_H, // top-left corner of tile art, multiple of tile width for clipped image
-			        WORLD_W, WORLD_H, // get full tile size from source
-			        drawTileX, drawTileY, // x,y top-left corner for image destination
-			        WORLD_W, WORLD_H); // stretch or shrink coordinates
+						tilesetCol * WORLD_W, tilesetRow * WORLD_H, // top-left corner of tile art, multiple of tile width for clipped image
+						WORLD_W, WORLD_H, // get full tile size from source
+						drawTileX, drawTileY, // x,y top-left corner for image destination
+						WORLD_W, WORLD_H); // stretch or shrink coordinates
 
 				}
 
-				
-		
 
-				
+
+
+
 			}
 			drawTileX += WORLD_W;
 			arrayIndex++;
@@ -490,9 +495,9 @@ function setTileAtPositionToType(position, newType) {
 
 
 
-function isTransparentInBackground(tile){
+function isTransparentInBackground(tile) {
 
-	return(
+	return (
 		tile == DOUBLE_PLATFORM_LEFT_BOTTOM ||
 		tile == DOUBLE_PLATFORM_MIDDLE_BOTTOM ||
 		tile == DOUBLE_PLATFORM_RIGHT_BOTTOM ||
@@ -504,20 +509,20 @@ function isTransparentInBackground(tile){
 		tile == SLIME_PIT_MIDDLE_TOP ||
 		tile == SLIME_PIT_RIGHT_TOP ||
 		tile == GREEN_VINE_WEBS ||
-		tile == THORNS || 
+		tile == THORNS ||
 		VINES_POISONOUS ||
 		CRATE
-		);
+	);
 
 }
 
-function isTileAnimated(tile){
+function isTileAnimated(tile) {
 
-	return(
+	return (
 		tile == SLIME_PIT_LEFT_TOP_ANIM ||
 		tile == SLIME_PIT_MIDDLE_TOP_ANIM ||
 		tile == SLIME_PIT_RIGHT_TOP_ANIM ||
 		tile == PICKUP
-		);
+	);
 
 }
