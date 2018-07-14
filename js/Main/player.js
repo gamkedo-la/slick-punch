@@ -9,16 +9,15 @@ const PLAYER_COLLISION_PADDING = 5;
 
 
 function playerClass() {
-	this.pos = vector.create(75, 75);
+    this.pos = vector.create(75, 75);
 	this.speed = vector.create(0, 0);
-
 	this.playerPic; // which picture to use
 	this.name = "Player Character";
 	this.health = 5;
 
 	// @todo split up attack-state into multiple states to make playing sounds/animation easier
 	this.state = {
-		'isOnGround': true,
+	    'isOnGround': true,
 		'isIdle': true,
 		'isInMotion': false,
 		'isMovingLeft': false, //Required to set character flip.
@@ -31,20 +30,20 @@ function playerClass() {
 		'isDead': false
 		
 	};
-
+	//For collision
 	this.boundingBox = {}
-
-	this.radius = 35;
 	this.width = 80;
 	this.height = 80;
 	this.ang = 0;
 	this.removeMe = false;
 
+	//Needed for keeping trak of player animation 
 	this.tickCount = 0;
 	this.ticksPerFrame = 5;
 	this.spriteAnim = null;
 	this.framesAnim = null;
 
+	//Tracking input keys to player movement
 	this.keyHeld_Right = false;
 	this.keyHeld_Left = false;
 	this.keyHeld_Down = false;
@@ -53,11 +52,14 @@ function playerClass() {
 	this.keyHeld_Jump = false;
 	this.keyHeld_Defend = false;
 
-	this.keyHeld_Up_lastframe = false; // don't jump >1x per keypress
+	// don't jump >1x per keypress
+	this.keyHeld_Up_lastframe = false; 
 
+	//Set for tracking punch sound
 	this.punchTimer = false;
 	this.punchFrameCount = 4;
 
+	//Control keys for player
 	this.controlKeyRight = null;
 	this.controlKeyLeft = null;
 	this.controlKeyUp = null;
@@ -75,7 +77,6 @@ function playerClass() {
 	this.walkJumpAnim = new SpriteSheetClass(playerWalkJumpAnim, this.width, this.height, 5); //5 frames
 	this.highKickAnim = new SpriteSheetClass(playerHighKickAnim, this.width, this.height, 6); //6 frames
 	this.crouchAnim = new SpriteSheetClass(playerCrouchAnim, this.width, this.height, 4, 4, false); //4 frames
-
 	this.explosiveFallAnim = new SpriteSheetClass(playerIdleJumpAnim, this.width, this.height, 8); //8 frames
 	this.hurtAnim = new SpriteSheetClass(playerHurtAnim, this.width, this.height, 3); //3 frames
 	this.FlipAnim = new SpriteSheetClass(playerFlipAnim, this.width, this.height, 5); //5 frames
@@ -84,9 +85,7 @@ function playerClass() {
 	this.uppercutAnim = new SpriteSheetClass(playerUppercutAnim, this.width, this.height, 6); //4 frames
 	this.deadAnim = new SpriteSheetClass(playerDeadAnim, this.width, this.height, 8); //8 frames
 
-
-
-
+	//TODO : Used for combo moves
 	this.attackAnimArr = [this.highKickAnim, this.leftJabAnim, this.punchAnim]
 
 	//Used for animation.
@@ -97,9 +96,9 @@ function playerClass() {
 	this.justPunched = false;
 	this.justJumped = false;
 	this.justKicked = false;
-
 	this.doubleJumpCount = 0;
 
+	//TODO : Might not need this
 	this.checkAnimationCompletion = function(){
 
 	}
@@ -118,7 +117,6 @@ function playerClass() {
 			this.state[key] = val;
 		}
 	};
-
 
 	this.setupInput = function (upKey, rightKey, downKey, leftKey, attackKey, jumpKey, defendKey) {
 		this.controlKeyUp = upKey;
@@ -140,14 +138,8 @@ function playerClass() {
 			console.log("PLAYER HAS 0 HP - todo: gameover/respawn");
 			this.state.isDead = true;
 			setTimeout(this.resetDeadHAnimation.bind(this), 500);
-
-
-
 		}
-		
 		this.resetHurtTimeout = setTimeout(this.resetHurtAnimation.bind(this), 1000);
-		
-		
 	}
 
 
@@ -156,7 +148,6 @@ function playerClass() {
 	}
 
 	this.resetDeadHAnimation = function(){
-		
 		loadLevel(levelOne)
 	}
 
@@ -180,7 +171,6 @@ function playerClass() {
 			'isDead': false
 			
 		};
-
 		for (var eachRow = 0; eachRow < WORLD_ROWS; eachRow++) {
 			for (var eachCol = 0; eachCol < WORLD_COLS; eachCol++) {
 				var arrayIndex = rowColToArrayIndex(eachCol, eachRow);
@@ -203,46 +193,38 @@ function playerClass() {
 		this.boundingBox.height = this.height;
 		this.boundingBox.x = this.pos.x - this.boundingBox.width/2;
 		this.boundingBox.y = this.pos.y - this.boundingBox.height/2;
-		
 
 		if (this.state['isOnGround']) {
-
 			this.speed.x *= GROUND_FRICTION;
 			this.doubleJumpCount = 0;
-
 		} 
-
 		else { // in the air
 				this.speed.x *= AIR_RESISTANCE;
-				this.speed.y += GRAVITY;
-				
+				this.speed.y += GRAVITY;	
 				// improve this
 				if (this.speed.y > this.boundingBox.height/2 + PLAYER_COLLISION_PADDING) { 
 					this.speed.y = this.boundingBox.height/2 + PLAYER_COLLISION_PADDING;
 				}
 		}
-
+		//Left movement
 		if (this.keyHeld_Left) {
 				//this.setStateToFalse(); //setting every value of object to false; // might be buggy
-
 				this.setStateValueTo("isInMotion", true);
 				this.setStateValueTo("isMovingLeft", true);
 				this.speed.x = -RUN_SPEED;
-			}
-
+		}
+		//Right movement
 		else if (this.keyHeld_Right) {
 			//this.setStateToFalse();
 			this.setStateValueTo("isInMotion", true);
 			this.setStateValueTo("isMovingLeft", false);
 			this.speed.x = RUN_SPEED;
 		}
-
 		else {
 			this.setStateValueTo("isInMotion", false);		
 			this.setStateValueTo("isIdle", true);
-		}
+		}	
 
-	
 		//For crouched movement 
 		if (this.keyHeld_Down || this.keyHeld_Up) {
 				//Up for uppercut
@@ -256,8 +238,6 @@ function playerClass() {
 			//Down for spin kick
 			this.setStateValueTo("isCrouching", false);
 			this.setStateValueTo("isIdle", true);
-
-
 		}
 
 		if (this.keyHeld_Attack) {
@@ -270,15 +250,11 @@ function playerClass() {
 				}
 				else {
 					this.punchTimer--;
-				}
-
-
-			
+				}			
 				this.boundingBox.width = this.width/1.5;
 				this.boundingBox.x = this.pos.x - this.boundingBox.width/2;
 				
 				if(this.keyHeld_Up && this.state.isCrouching){
-					
 						// this.speed.y -= 0.05;
 						// this.state.isOnGround = false;
 				}
@@ -288,11 +264,9 @@ function playerClass() {
 			this.punchTimer = false;
 		}
 
-
 		if (this.keyHeld_Jump && !this.keyHeld_Up_lastframe) {
 			// this.setStateToFalse();
 			this.keyHeld_Up_lastframe = true;
-
 			if (this.state['isOnGround']) { // regular jump
 				playJumpSound();
 				//console.log("Normal Jump!");
@@ -307,18 +281,13 @@ function playerClass() {
 				this.speed.y -= DOUBLE_JUMP_POWER;
 				this.doubleJumpCount++;
 				// this.setStateToFalse();
-
 				this.setStateValueTo("isOnGround", false);
 			} else {
 				//console.log("Ignoring triple jump...");
 			}
 		}
-
-	
-
 		// avoid multiple jumps from the same keypress
 		this.keyHeld_Up_lastframe = this.keyHeld_Jump;
-
 		// if (this.state.isAttacking) {
 		// 	this.state.isIdle = false;
 		// 	this.state.isInMotion = false;
@@ -350,11 +319,9 @@ function playerClass() {
 			this.speed.x = 0;
 		}
 
-
 		//Checking if player is falling or jumping.
 		if (this.speed.y < 0 && isPlatformAtPixelCoord(this.pos.x, this.pos.y - this.boundingBox.height/2)) {
-
-			this.pos.y = (Math.floor(this.pos.y / WORLD_H)) * WORLD_H + this.boundingBox.height/2;
+		    this.pos.y = (Math.floor(this.pos.y / WORLD_H)) * WORLD_H + this.boundingBox.height/2;
 			this.speed.y = 0;
 		}
 
@@ -364,7 +331,6 @@ function playerClass() {
 			this.setStateValueTo("isOnGround", true);
 			this.speed.y = 0;
 		}
-
 
 		//checks for air/empty space
 		else if (!isPlatformAtPixelCoord(this.pos.x, this.pos.y + this.height/2 + PLAYER_COLLISION_PADDING *2)) {
@@ -382,7 +348,6 @@ function playerClass() {
 		if (this.speed.x > 0 && isPlatformAtPixelCoord(this.pos.x + this.boundingBox.width/2, this.pos.y)) {
 			this.pos.x = (1 + Math.floor(this.pos.x / WORLD_W)) * WORLD_W - this.boundingBox.width/2;
 		}
-
 
 		this.pos.addTo(this.speed) // same as above, but for vertical
 		playerWorldHandling(this);
@@ -402,13 +367,10 @@ function playerClass() {
 
 
 	this.draw = function () {
-
 		//TODO : Each animation should take atmost 1 sec to complete. 
 		//TODO : Clean all code. 
 		//TODO : Jump, Attack animation should work Only once
 		//TODO : Crouch should run once and stick to that position. 
-
-
 		if (this.state['isIdle']) {
 			this.spriteAnim = this.idleAnim;
 			// this.framesAnim = this.spriteAnim.frameNum;
@@ -425,19 +387,15 @@ function playerClass() {
 		if (this.state['isDead'] ) {
 			this.spriteAnim = this.deadAnim;
 		}
-
-			//Crouch Animation
+		//Crouch Animation
 		if (this.state['isCrouching']) {
 			this.spriteAnim = this.crouchAnim;
 			if(this.state.isInMotion){
 				this.spriteAnim = this.rollAnim;
-
 			}
 		}
-
 		// if (this.state['isInMotion'] && this.state['isCrouching']) {
 		// }
-
 		if (this.state['isAttacking']) {
 			this.spriteAnim = this.punchAnim;
 			if(this.state.isCrouching){
@@ -448,11 +406,8 @@ function playerClass() {
 					this.spriteAnim = this.crouchedKickAnim;
 				}
 			}
-
 			// this.attackAnimArr[Math.floor(Math.random()*this.attackAnimArr.length)];
 		}
-
-
 		//is Jumping or falling
 		if (!this.state['isOnGround']) {
 			this.spriteAnim = this.idleJumpAnim;
@@ -460,31 +415,23 @@ function playerClass() {
 				this.spriteAnim = this.FlipAnim;
 			}
 		}
-
 		if (this.state['isAttacking'] && !this.state['isOnGround']) {
 				this.spriteAnim = this.highKickAnim;
 				// this.attackAnimArr[Math.floor(Math.random()*this.attackAnimArr.length)];
 		}
-
-
-	
-
 		//Once crouch animation complete. Call a function to draw in fixed state instead of animation. 
 		//final drawing of sprite.
 		if (this.spriteAnim !=null) {			
 			//TODO :Change this.frameRow and used it for animating consilated spritesheet of player character
 			this.spriteAnim.draw(this.spriteAnim.frameIndex, this.frameRow, this.pos.x, this.pos.y, this.ang, this.state.isMovingLeft);
 			// console.log(this.spriteAnim.frameIndex);
-		
 		}
-
 	}
 }
 
 function isPlatformAtPixelCoord(hitPixelX, hitPixelY) {
 	var tileCol = hitPixelX / WORLD_W;
 	var tileRow = hitPixelY / WORLD_H;
-
 	// using Math.floor to round down to the nearest whole number
 	tileCol = Math.floor(tileCol);
 	tileRow = Math.floor(tileRow);
@@ -494,22 +441,16 @@ function isPlatformAtPixelCoord(hitPixelX, hitPixelY) {
 
 		var brickIndex = rowColToArrayIndex(tileCol, tileRow);
 		var tileHere = worldGrid[brickIndex];
-		return tileCollidable(tileHere);
-		
-	}
-
-	
+		return tileCollidable(tileHere);	
+	}	
 }
 
-
+//Just add any tile you want to act as collidable
 function tileCollidable(tile){
 		return ( 
 			tile != WORLD_BACKGROUND &&
 			tile != PICKUP &&
 			tile != CRATE
-			//Add boxes background elements here. 
-			//
-			)
-			// return tile > 0;
-	
+			
+			);
 }

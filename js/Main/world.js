@@ -35,8 +35,8 @@ var levelOne = [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9
 	9, 25, -2, -1, -1, -1, -1, -1, 30, 30, 30, -1, -1, -5, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 25, 25, 25, 25, 25, 14,
 	9, 25, -1, -1, -1, -1, -1, 30, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 25, 14,
 	9, 25, -1, -1, -1, -1, -1, -1, -1, -1, 29, -1, -1, -1, -1, -1, 27, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 25, 14,
-	9, 25, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 25, 14,
-	9, 25, 3, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 25, 14,
+	9, 25, 0, -1,-1,-1, -1, -1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 25, 14,
+	9, 25, 3, -1, -1,-1, -1, -1, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 25, 14,
 	9, 25, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 4, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 25, 14,
 	9, 25, -1, 29, -1, -1, -1, -1, -1, -1, -1, -1, 29, -1, -1, -1, -1, -1, -1, -1, -1, 4, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 25, 14,
 	9, 25, -1, 40, 40, 40, 40, -1, -1, -1, -1, -1, 49, -1, -1, -5, -1, -1, -1, -1, -1, -1, 4, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 25, 14,
@@ -80,11 +80,6 @@ var levelOne = [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9
 	12, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 12, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, -15, -16, -16, 16, -17, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 11,
 ];
 
-
-// { varName: diamondPickupAnim, theFile: "pickup.png" },
-// { varName: crateAnim, theFile: "crate.png" },
-// { varName: flyingEnemyAnim, theFile: "flyingEnemy.png" },
-
 // Used for frame animation. Update to more optimized format
 var frameRow = 0;
 
@@ -121,7 +116,6 @@ const SLIME_PIT_RIGHT_TOP = 17;
 const SLIME_PIT_LEFT_TOP_ANIM = -15;
 const SLIME_PIT_MIDDLE_TOP_ANIM = -16;
 const SLIME_PIT_RIGHT_TOP_ANIM = -17;
-
 
 const SLIME_PIT_LEFT_CENTER = 18;
 const SLIME_PIT_MIDDLE_CENTER = 19;
@@ -162,10 +156,6 @@ var slimeMiddleBlobSprite = new SpriteSheetClass(slimeMiddleBlobAnim, WORLD_W, W
 var slimeRightBlobSprite = new SpriteSheetClass(slimeRightBlobAnim, WORLD_W, WORLD_H, 8, 5); // 8 frames, 5 ticks 
 var diamondSprite = new SpriteSheetClass(diamondPickupAnim, WORLD_W / 2, WORLD_H / 2, 2, 20); // 8 frames, 5 ticks 
 
-
-
-
-
 function returnAnimatedTileSprites(tileKindHere) {
 	switch (tileKindHere) {
 		case SLIME_PIT_LEFT_TOP_ANIM:
@@ -183,7 +173,6 @@ function returnAnimatedTileSprites(tileKindHere) {
 	}
 }
 
-
 function returnTileTypeAtColRow(col, row) {
 	if (col >= 0 && col < WORLD_COLS &&
 		row >= 0 && row < WORLD_ROWS) {
@@ -193,7 +182,6 @@ function returnTileTypeAtColRow(col, row) {
 		console.log("TileHere is" + worldGrid[rowColToArrayIndex(col, row)]);
 	}
 }
-
 
 function tileHarmsPlayer(tile) {
 	return (tile == SLIME_PIT_LEFT_TOP ||
@@ -213,11 +201,6 @@ function tileHarmsPlayer(tile) {
 		tile == GREEN_VINE_WEBS ||
 		tile == THORNS ||
 		tile == VINES_POISONOUS)
-}
-
-
-function isPickupItem(tile) {
-
 }
 
 function tileNearbyCollisionCheck(tileLeftHere, tileRightHere, tileUnderHere, tileOverHere, tileType, playerTrackCol, playerTrackRow) {
@@ -247,8 +230,6 @@ function tileNearbyCollisionCheck(tileLeftHere, tileRightHere, tileUnderHere, ti
 	}
 }
 
-
-
 function playerWorldHandling(whichPlayer) {
 	var playerTrackCol = Math.floor(whichPlayer.pos.x / WORLD_W);
 	var playerTrackRow = Math.floor(whichPlayer.pos.y / WORLD_H);
@@ -273,23 +254,15 @@ function playerWorldHandling(whichPlayer) {
 			width: WORLD_W,
 			height: WORLD_H
 		};
-
-
 		if (tileHere == PICKUP) {
 			tileCollisionRect.width = WORLD_W / 2;
 			tileCollisionRect.height = WORLD_H / 2;
-
 			var boundingResult = utils.rectIntersect(tileCollisionRect, whichPlayer.boundingBox);
 			if (boundingResult) {
 				whichPlayer.health++;
 				worldGrid[tileindex] = -1;
-
 			}
-
-
 		}
-
-
 		//TILEHERE IS THORN
 		if (tileLeftHere == THORNS ||
 			tileRightHere == THORNS ||
@@ -308,11 +281,8 @@ function playerWorldHandling(whichPlayer) {
 					whichPlayer.takeDamage(1);
 					// player.spriteAnim = player.hurtAnim;
 				}
-
 			}
-
 		}
-
 		//TILEHERE IS VINES_POISONOUS
 		if (tileLeftHere == VINES_POISONOUS ||
 			tileRightHere == VINES_POISONOUS ||
@@ -328,9 +298,7 @@ function playerWorldHandling(whichPlayer) {
 					console.log(whichPlayer.name + " hurt by a vines");
 					whichPlayer.takeDamage(1);
 				}
-
 			}
-
 			// var boundingResult = utils.rectIntersect(tileCollisionRect, whichPlayer.boundingBox);
 			// if(boundingResult){
 			// 	// whichPlayer.spriteAnim = whichPlayer.hurtAnim;
@@ -341,23 +309,14 @@ function playerWorldHandling(whichPlayer) {
 		if (tileUnderHere >= SLIME_PIT_LEFT_TOP && tileUnderHere <= SLIME_PIT_RIGHT_BOTTOM) {
 			console.log(whichPlayer.name + " touched a slime!");
 			whichPlayer.takeDamage(1);
-
 		}
-
 
 		if (tileHere == WORLD_GOAL) {
 			console.log(whichPlayer.name + " WINS!");
 			loadLevel(levelOne);
 		} // end of track found
-
-
-
-
 	} // end of valid col and row
 } // end of playerTrackHandling func
-
-
-
 
 function rowColToArrayIndex(col, row) {
 	return col + WORLD_COLS * row;
@@ -372,36 +331,20 @@ function tileVisible(tx, ty) {
 		(ty <= camPanY + canvas.height));
 }
 
-
 function drawWorld() {
-
-
-
 	var arrayIndex = 0;
 	var drawTileX = 0;
 	var drawTileY = 0;
 
 	for (var eachRow = 0; eachRow < WORLD_ROWS; eachRow++) {
 		for (var eachCol = 0; eachCol < WORLD_COLS; eachCol++) {
-
-
-
 			var arrayIndex = rowColToArrayIndex(eachCol, eachRow);
 			var tileKindHere = worldGrid[arrayIndex];
-
-
-
-
 			//converting to see what this tile kind here index means 
-
 			//Used for TIleset
 			var tilesetRow = tileKindHere > 0 ? Math.floor(tileKindHere / 3) : 0;
 			var tilesetCol = tileKindHere > 0 ? Math.floor(tileKindHere % 3) : 0; //Here 3 is columns in tileset
-
-
-
 			// var useImg = trackPics[tileKindHere];
-
 			// if (tileVisible(drawTileX, drawTileY)) {
 			// 	if (!useImg) {
 			// 		console.log("Missing trackPics[" + tileKindHere + "] in drawTracks!");
@@ -409,59 +352,36 @@ function drawWorld() {
 			// 	}
 			// }
 			// canvasContext.drawImage(useImg, drawTileX, drawTileY);
-
 			// var useImg = trackPics[tileKindHere];
-
-
 			// if (tileVisible(drawTileX, drawTileY)) {
 			// 	if (!useImg) {
 			// 		console.log("Missing trackPics[" + tileKindHere + "] in drawTracks!");
 			// 		break;
 			// 	}
-
 			// }
-
 			if (tileKindHere != WORLD_BACKGROUND) {
-
-
 				if (isTileAnimated(tileKindHere)) {
-
 					var animatedTile = returnAnimatedTileSprites(tileKindHere);
 					animatedTile.update();
 					animatedTile.draw(animatedTile.frameIndex, frameRow, drawTileX + WORLD_W / 2, drawTileY + WORLD_H / 2, false, false);
-
-					// console.log("Animated Tile comes here");
-
-
-
 				}
 				else {
 					if (tileKindHere == CRATE) {
-
 						canvasContext.drawImage(crateBox, drawTileX, drawTileY);
 					}
-
 					canvasContext.drawImage(slickTileSet,
 						tilesetCol * WORLD_W, tilesetRow * WORLD_H, // top-left corner of tile art, multiple of tile width for clipped image
 						WORLD_W, WORLD_H, // get full tile size from source
 						drawTileX, drawTileY, // x,y top-left corner for image destination
 						WORLD_W, WORLD_H); // stretch or shrink coordinates
-
 				}
-
-
-
-
-
 			}
 			drawTileX += WORLD_W;
 			arrayIndex++;
-
 		} // end of for each col
 		drawTileY += WORLD_H;
 		drawTileX = 0;
 	} // end of for each row
-
 } // end of drawWorld func
 
 function placeEntityOnWorldTileType(whichEntity, tileTypeToCheck) {
@@ -492,11 +412,7 @@ function setTileAtPositionToType(position, newType) {
 	worldGrid[arrayIndex] = newType;
 }
 
-
-
-
 function isTransparentInBackground(tile) {
-
 	return (
 		tile == DOUBLE_PLATFORM_LEFT_BOTTOM ||
 		tile == DOUBLE_PLATFORM_MIDDLE_BOTTOM ||
@@ -513,11 +429,9 @@ function isTransparentInBackground(tile) {
 		VINES_POISONOUS ||
 		CRATE
 	);
-
 }
 
 function isTileAnimated(tile) {
-
 	return (
 		tile == SLIME_PIT_LEFT_TOP_ANIM ||
 		tile == SLIME_PIT_MIDDLE_TOP_ANIM ||

@@ -12,23 +12,19 @@ var playerHighKickAnim = document.createElement("img");
 var playerIdleAnim = document.createElement("img");
 var playerCrouchAnim = document.createElement("img");
 var playerDeadAnim = document.createElement("img");
-var playerexplosiveFallAnim = document.createElement("img"); //playerExplosiveFall.png'
-var playerHurtAnim = document.createElement("img"); //playerHurtsheet.png'
-var playerFlipAnim = document.createElement("img"); //playerJumpFlip.png'
-var playerRollAnim = document.createElement("img"); //playerRollsheet.png
-var playerCrouchedKickAnim = document.createElement("img"); //playerCrouchedKicksheet.png
-var playerNormalKickAnim = document.createElement("img"); //playerNormalKick.png
-var playerUppercutAnim = document.createElement("img"); //playerUppercutSheet.png
-
+var playerexplosiveFallAnim = document.createElement("img"); 
+var playerHurtAnim = document.createElement("img"); 
+var playerFlipAnim = document.createElement("img");
+var playerRollAnim = document.createElement("img");
+var playerCrouchedKickAnim = document.createElement("img"); 
+var playerNormalKickAnim = document.createElement("img");
+var playerUppercutAnim = document.createElement("img"); 
 var slimeLeftBlobAnim = document.createElement("img");
 var slimeMiddleBlobAnim = document.createElement("img");
 var slimeRightBlobAnim = document.createElement("img");
-
-
-var diamondPickupAnim = document.createElement("img"); //pickup.png'
-var crateBox = document.createElement("img"); //crate.png'
-var flyingEnemyAnim = document.createElement("img"); //flyingEnemy.png'
-
+var diamondPickupAnim = document.createElement("img");
+var crateBox = document.createElement("img"); 
+var flyingEnemyAnim = document.createElement("img"); 
 var slickTileSet = document.createElement("img");
 var platformTileSet = document.createElement("img");
 
@@ -68,8 +64,6 @@ function loadImages() {
 		{ varName: playerIdleJumpAnim, theFile: "playerIdleJumpsheet.png" },
 		{ varName: playerHighKickAnim, theFile: "playerHighKicksheet.png" },
 		{ varName: playerCrouchAnim, theFile: "playerCrouchSheet.png" },
-
-
 		{ varName: playerexplosiveFallAnim, theFile: "playerExplosiveFall.png" },
 		{ varName: playerHurtAnim, theFile: "playerHurtsheet.png" },
 		{ varName: playerFlipAnim, theFile: "playerJumpFlip.png" },
@@ -84,8 +78,6 @@ function loadImages() {
 		{ varName: slimeLeftBlobAnim, theFile: "slimeLeftBloop.png" },
 		{ varName: slimeMiddleBlobAnim, theFile: "slimeMiddleBloop.png" },
 		{ varName: slimeRightBlobAnim, theFile: "slimeRightBloop.png" },
-
-
 		{ varName: scrollBackground, theFile: "background.png" },
 		// { trackType: WORLD_GOAL, theFile: "goal.png" },
 		{ trackType: WORLD_BACKGROUND, theFile: "background35.png" },

@@ -1,5 +1,3 @@
-
-
 //For current movement.
 const KEY_LEFT_ARROW = 37;// moves left
 const KEY_UP_ARROW = 38; // Prepares for upercut
@@ -11,24 +9,13 @@ const KEY_C = 67; // Defend
 const KEY_M = 77; // For music
 const KEY_D = 68;
 
-
-// const KEY_W = 87; 
-
-
-// const KEY_A = 65; // Object 1
-// const KEY_S = 83; // Object 2
-// const KEY_D = 68; // Object 3
-
-
-// var mouseX = 0;
-// var mouseY = 0;
+//TODO : Make attacks more smooth
+//TODO : COmbo moves
 
 function setupInput() {
 	// canvas.addEventListener('mousemove', updateMousePos);
-
 	document.addEventListener('keydown', keyPressed);
 	document.addEventListener('keyup', keyReleased);
-
 	// greenCar.setupInput(KEY_W, KEY_D, KEY_S, KEY_A);
 	player.setupInput(KEY_UP_ARROW, KEY_RIGHT_ARROW, KEY_DOWN_ARROW, KEY_LEFT_ARROW, KEY_Z, KEY_X, KEY_C );
 } 
@@ -76,7 +63,6 @@ function keyPressed(evt) {
 	// console.log("Key pressed: "+evt.keyCode);
 	// keySet(evt, greenCar, true);
 	keySet(evt, player, true);
-
 	//Attack mode as soon as you press key 
 	//Shouldn't work if kept pressed. 
 
@@ -93,13 +79,9 @@ function keyReleased(evt) {
 	if (evt.keyCode == KEY_M) {
 		musicEnabled = !musicEnabled;
 	}
-
 	if (evt.keyCode == KEY_D) {
 		debug = !debug;
 	}
-
-
-
 	// if(evt.keyCode == KEY_Z && player.state.isAttacking){		
 	// 	player.setStateValueTo("isIdle", true);
 	// 	player.setStateValueTo("isAttacking", false);

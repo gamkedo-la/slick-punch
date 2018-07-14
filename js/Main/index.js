@@ -1,10 +1,7 @@
 var canvas, canvasContext;
-
 var player = new playerClass();
 var enemy = new playerClass();
-
 var flyingEnemies = []; // an array of flyingEnemy
-
 var score;
 var debug = false;
 var enemyObjArr = [];
@@ -12,10 +9,8 @@ var enemyObjArr = [];
 window.onload = function () {
 	canvas = document.getElementById('gameCanvas');
 	canvasContext = canvas.getContext('2d');
-
 	colorRect(0, 0, canvas.width, canvas.height, 'black');
 	colorText("LOADING IMAGES", canvas.width / 2, canvas.height / 2, 'white');
-
 	loadImages();
 	loadSounds();
 };
@@ -44,7 +39,6 @@ function spawnFlyingEnemies() {
 				py = eachRow * WORLD_H + WORLD_H / 2;
 
 				flyingEnemies.push(new flyingEnemyClass(px, py));
-
 			}
 		}
 	}
@@ -58,7 +52,6 @@ function loadLevel(whichLevel) {
 	player.reset(playerPic, "Player", 3);
 	enemy.reset(enemyPic, "Enemy", 5);
 	score = 0;
-
 	spawnFlyingEnemies();
 }
 
@@ -82,32 +75,22 @@ function moveAll() {
 	}
 
 	playBGM(currentLevel);
-
 	platformList.update();
 }
 
 function drawAll() {
-
-
 	canvasContext.drawImage(scrollBackground, 0, 0);
-
-
-
-
 	canvasContext.save(); // needed to undo this .translate() used for scroll
 	// this next line is like subtracting camPanX and camPanY from every
 	// canvasContext draw operation up until we call canvasContext.restore
 	// this way we can just draw them at their "actual" position coordinates
-
 	canvasContext.translate(-camPanX, -camPanY);
 	drawWorld();
 	platformList.draw();
 	player.draw();
-
 	// if (!enemy.remove) {
 	// 	enemy.draw();
 	// }
-
 	for (var num = 0; num < flyingEnemies.length; num++) {
 		flyingEnemies[num].draw();
 	}
@@ -119,16 +102,11 @@ function drawAll() {
 			strokedRect(tileCollisionRect.x, tileCollisionRect.y, tileCollisionRect.width, tileCollisionRect.height, "2", "green");
 
 		}
-
-
-
 		// for(int i = 0 ; i < enemyObjArr.length; i++ ){
 		// 	console.log("hey");
 		// 	// strokedRect(enemyObjArr[i].x, enemyObjArr[i].y, enemyObjArr[i].width, enemyObjArr[i].height, "2", "red"); 
 		// }
 	}
-
-
 	canvasContext.restore();
 	colorText(`Score : ${score}`, 30, 30, "yellow", "30px Tahoma");
 	colorText(`Health : ${player.health}`, 30, 60, "yellow", "30px Tahoma");

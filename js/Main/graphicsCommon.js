@@ -92,21 +92,15 @@ function colorText(showWords,textX,textY,fillColor,fontface,textAlign = 'left',o
 function getFontWeight(font) {
   canvasContext.save();
   canvasContext.font = this.buttonFont;
-  
   var weight = parseInt(font.match(/\d+/)[0]); //regex match the first string of digits
-  
-  canvasContext.restore();
-  
+  canvasContext.restore();  
   return weight;
 }
 
 function getTextWidth(txt, font) {
   canvasContext.save();
   canvasContext.font = font;
-  
   var width = canvasContext.measureText(txt).width;
-  
   canvasContext.restore();
-  
   return width;
 }

@@ -10,7 +10,6 @@ var camPanY = 0.0;
 
 //scroll cam
 function cameraFollow() {
-
     var cameraFocusCenterX = camPanX + canvas.width/2;
     var cameraFocusCenterY = camPanY + canvas.height/2;
     var playerDistFromCameraFocusX = Math.abs(player.pos.x - cameraFocusCenterX);
