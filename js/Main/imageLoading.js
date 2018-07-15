@@ -28,6 +28,8 @@ var flyingEnemyAnim = document.createElement("img");
 var slickTileSet = document.createElement("img");
 var platformTileSet = document.createElement("img");
 var menuBackground = document.createElement("img");
+var menuBackgroundEmpty = document.createElement("img");
+
 
 
 var trackPics = [];
@@ -82,6 +84,7 @@ function loadImages() {
 		{ varName: slimeRightBlobAnim, theFile: "slimeRightBloop.png" },
 		{ varName: scrollBackground, theFile: "background.png" },
 		{ varName: menuBackground, theFile: "menuImage.png" },
+		{ varName: menuBackgroundEmpty, theFile: "menuBackgroundEmpty.png" },
 
 
 		

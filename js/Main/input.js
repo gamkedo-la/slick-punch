@@ -1,4 +1,4 @@
-//Player Movement
+// Player Movement
 const KEY_LEFT_ARROW = 37;
 const KEY_UP_ARROW = 38; 
 const KEY_RIGHT_ARROW = 39; 
@@ -9,16 +9,15 @@ const KEY_X = 88;
 const KEY_M = 77; 
 // Toggle Debug
 const KEY_D = 68;
-//Used for menu Screen
+// Used for menu Screen
 const KEY_C = 67;
 const KEY_H = 72;
 const KEY_P = 80;
 const KEY_S = 83;
-
+const KEY_ENTER = 13;
 
 //TODO : Make attacks more smooth
 //TODO : COmbo moves
-
 function setupInput() {
 	// canvas.addEventListener('mousemove', updateMousePos);
 	document.addEventListener('keydown', keyPressed);
@@ -89,17 +88,33 @@ function keyReleased(evt) {
 	if (evt.keyCode == KEY_D) {
 		debug = !debug;
 	}
-	if (evt.keyCode == KEY_P) {
-		debug = !debug;
+	if (evt.keyCode == KEY_C) {
+		if(windowState.mainMenu){
+	  			openCredits();
+	  		}
 	}
 	if (evt.keyCode == KEY_H) {
-		debug = !debug;
+			if(windowState.mainMenu){
+	  			openHelp();
+	  		}
+		
 	}
-	if (evt.keyCode == KEY_C) {
-		debug = !debug;
+	if (evt.keyCode == KEY_P) {
+		if(windowState.mainMenu){
+	  			startGame();
+	  		}
+		
 	}
 	if (evt.keyCode == KEY_S) {
-		debug = !debug;
+		if(windowState.mainMenu){
+	  		setSoundSystem();
+	  	}
+	}
+	if (evt.keyCode == KEY_ENTER) {
+		if(windowState.credits || windowState.help || windowState.sound){
+	  			windowState.mainMenu = true;
+	  		}
+		
 	}
 	// if(evt.keyCode == KEY_Z && player.state.isAttacking){		
 	// 	player.setStateValueTo("isIdle", true);

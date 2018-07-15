@@ -86,16 +86,13 @@ mainMenu = {
 			this.sliders[i].width = 200;
 			this.sliders[i].height = 10;
 			this.sliders[i].x = canvas.width/2  - 5 - this.sliders[i].width/2;
-			//Return value 50 -> 10
-			this.sliders[i].y = this.buttons[this.buttons.length - 1].bounds.y + 50 + (i + 1) * sliderSpacing;
-			
+			this.sliders[i].y = 120 + (i + 1) * sliderSpacing;
 			this.sliders[i].handleWidth = 30;
 			this.sliders[i].handleHeight = 30;
 			this.sliders[i].handleY = this.sliders[i].y - this.sliders[i].handleHeight/2 + this.sliders[i].height/2;
 			this.sliders[i].getHandleX = function() {
 				return this.x + this.handlePosition * (this.width - this.handleWidth);
-			};
-			
+			};			
 			this.sliders[i].active = false;
 		}
 	},
@@ -109,7 +106,6 @@ mainMenu = {
 		}
 		
 		var sliders = this.sliders;
-		
 		for(var i = 0; i < sliders.length; i++){
 			if(mouseInside(sliders[i].getHandleX(), sliders[i].handleY, sliders[i].handleWidth, sliders[i].handleHeight)) {
 				sliders[i].active = true;
@@ -163,17 +159,19 @@ mainMenu = {
 				canvasContext.globalAlpha = tempAlpha;
 			}
 		}
-		
+	},
+
+	drawSliders: function(opacity = 1){
 		var sliders = this.sliders;
 		for(var i = 0; i < sliders.length; i++) {
-			colorRect(sliders[i].x, sliders[i].y, sliders[i].width, sliders[i].height, "yellow");
+			colorRect(sliders[i].x, sliders[i].y, sliders[i].width, sliders[i].height, "white");
 			colorRect(sliders[i].getHandleX(), sliders[i].handleY, sliders[i].handleWidth, sliders[i].handleHeight, "purple");
 			
 			var txtX = sliders[i].x + sliders[i].width/2;
-			var txtY = sliders[i].y - getFontWeight(this.buttonFont) + sliders[i].spacing;
+			var txtY = sliders[i].y  - sliders[i].spacing;
 			colorText(sliders[i].txt, txtX, txtY, this.textColor, this.buttonFont, "center", opacity);
 		}
-	},
+	}
 };
 
 var clamp = function(n, min, max) {

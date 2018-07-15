@@ -64,16 +64,18 @@ function updateAll() {
 }
 
 function moveAll() {
-	cameraFollow();
-	player.move();
-	if (!enemy.remove) {
-		enemy.move();
+	if(gameRunning){
+		cameraFollow();
+		player.move();
+		if (!enemy.remove) {
+			enemy.move();
+		}
+		for (var num = 0; num < flyingEnemies.length; num++) {
+			flyingEnemies[num].move();
+		}
+		playBGM(currentLevel);
+		platformList.update();
 	}
-	for (var num = 0; num < flyingEnemies.length; num++) {
-		flyingEnemies[num].move();
-	}
-	playBGM(currentLevel);
-	platformList.update();
 }
 
 function drawAll() {
