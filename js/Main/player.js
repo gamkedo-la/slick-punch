@@ -7,7 +7,6 @@ const GRAVITY = 0.55;
 const MAX_AIR_JUMPS = 1; // double jump
 const PLAYER_COLLISION_PADDING = 5;
 
-
 function playerClass() {
     this.pos = vector.create(75, 75);
 	this.speed = vector.create(0, 0);
@@ -28,7 +27,6 @@ function playerClass() {
 		'isAnimating' : false, // Used to set state between animation and final.
 		'isHurt': false,
 		'isDead': false
-		
 	};
 	//For collision
 	this.boundingBox = {}
@@ -142,7 +140,6 @@ function playerClass() {
 		this.resetHurtTimeout = setTimeout(this.resetHurtAnimation.bind(this), 1000);
 	}
 
-
 	this.resetHurtAnimation = function(){
 		this.state.isHurt = false;
 	}
@@ -150,7 +147,6 @@ function playerClass() {
 	this.resetDeadHAnimation = function(){
 		loadLevel(levelOne)
 	}
-
 
 	this.reset = function (whichImage, playerName, health) {
 		this.name = playerName;
@@ -186,9 +182,7 @@ function playerClass() {
 		console.log("NO PLAYER START FOUND!");
 	} // end of playerReset func
 
-
 	this.move = function () {
-
 		this.boundingBox.width = this.width/3;
 		this.boundingBox.height = this.height;
 		this.boundingBox.x = this.pos.x - this.boundingBox.width/2;
@@ -314,24 +308,20 @@ function playerClass() {
 		else {
 			this.justJumped = true;
 		}
-
 		if(this.state.isOnGround && this.state.isAttacking){
 			this.speed.x = 0;
 		}
-
 		//Checking if player is falling or jumping.
 		if (this.speed.y < 0 && isPlatformAtPixelCoord(this.pos.x, this.pos.y - this.boundingBox.height/2)) {
 		    this.pos.y = (Math.floor(this.pos.y / WORLD_H)) * WORLD_H + this.boundingBox.height/2;
 			this.speed.y = 0;
 		}
-
 		if (this.speed.y > 0 && isPlatformAtPixelCoord(this.pos.x, this.pos.y + this.height/2 - PLAYER_COLLISION_PADDING*2 )) {
 
 			this.pos.y = (1 + Math.floor(this.pos.y / WORLD_H)) * WORLD_H - this.height/2 + PLAYER_COLLISION_PADDING;
 			this.setStateValueTo("isOnGround", true);
 			this.speed.y = 0;
 		}
-
 		//checks for air/empty space
 		else if (!isPlatformAtPixelCoord(this.pos.x, this.pos.y + this.height/2 + PLAYER_COLLISION_PADDING *2)) {
 			// if(!this.state.isAttacking && !this.state.isCrouching){
@@ -340,7 +330,6 @@ function playerClass() {
 			// }
 			this.setStateValueTo("isOnGround", false);
 		}
-
 		if (this.speed.x < 0 && isPlatformAtPixelCoord(this.pos.x - this.boundingBox.width/2, this.pos.y)) {
 			this.pos.x = (Math.floor(this.pos.x / WORLD_W)) * WORLD_W + this.boundingBox.width/2;
 		}
@@ -348,7 +337,6 @@ function playerClass() {
 		if (this.speed.x > 0 && isPlatformAtPixelCoord(this.pos.x + this.boundingBox.width/2, this.pos.y)) {
 			this.pos.x = (1 + Math.floor(this.pos.x / WORLD_W)) * WORLD_W - this.boundingBox.width/2;
 		}
-
 		this.pos.addTo(this.speed) // same as above, but for vertical
 		playerWorldHandling(this);
 		if(this.spriteAnim != null){
@@ -363,8 +351,6 @@ function playerClass() {
 		// }
 		// this.incrementTick();
 	} // end of player.move function
-
-
 
 	this.draw = function () {
 		//TODO : Each animation should take atmost 1 sec to complete. 
@@ -429,31 +415,3 @@ function playerClass() {
 	}
 }
 
-function isPlatformAtPixelCoord(hitPixelX, hitPixelY) {
-	var tileCol = hitPixelX / WORLD_W;
-	var tileRow = hitPixelY / WORLD_H;
-	// using Math.floor to round down to the nearest whole number
-	tileCol = Math.floor(tileCol);
-	tileRow = Math.floor(tileRow);
-
-	if (tileCol > 0 && tileCol <= WORLD_COLS &&
-		tileRow > 0 && tileRow <= WORLD_ROWS) {
-
-		var brickIndex = rowColToArrayIndex(tileCol, tileRow);
-		var tileHere = worldGrid[brickIndex];
-		return tileCollidable(tileHere);	
-	}	
-}
-
-//Just add any tile you want to act as collidable
-function tileCollidable(tile){
-		return ( 
-			tile != WORLD_BACKGROUND &&
-			tile != PICKUP &&
-			tile != CRATE &&
-			tile !=  PLATFORM_RIGHT &&
-			tile !=  PLATFORM_LEFT &&
-			tile !=  PLATFORM_UP &&
-			tile !=  PLATFORM_DOWN 			
-			);
-}

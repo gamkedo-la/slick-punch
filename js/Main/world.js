@@ -33,10 +33,10 @@ var levelOne = [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9
 	9, 25, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 14,
 	9, 25, -1, -1, -1, -5, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 25, 25, 25, 25, 25, 25, 25, 25, 25, 14,
 	9, 25, -2, -1, -1, -1, -1, -1, 30, 30, 30, -1, -1, -5, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 25, 25, 25, 25, 25, 14,
-	9, 25, -1, 40, -1, -1, -1, 30, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 25, 14,
-	9, 25, -1, -1, -1, -1, -1, -1, -1, -1, 29, -1, -1, -1, -1, -1, 27, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 25, 14,
-	9, 25, 0, -1,-1,-1, -1, -1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 25, 14,
-	9, 25, 3, -1, -1,-1, -1, -1, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 25, 14,
+	9, 25, -1, 40, -1, -1, -1, 30, -1, -1, -1, -1, -1, -1, -3, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 25, 14,
+	9, 25, -1, -1, -1, -1, -1, -1, -1, -6, -1, -1, -1, -1, -1, -1, -6, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 25, 14,
+	9, 25,  0,  1,  1,  1,  1,  1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 25, 14,
+	9, 25,  3, -1, -1, -1,  7,  7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 25, 14,
 	9, 25, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 4, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 25, 14,
 	9, 25, -1, 29, -1, -1, -1, -1, -1, -1, -1, -1, 29, -1, -1, -1, -1, -1, -1, -1, -1, 4, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 25, 14,
 	9, 25, -1, 40, 40, 40, 40, -1, -1, -1, -1, -1, 49, -1, -1, -5, -1, -1, -1, -1, -1, -1, 4, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 25, 14,
@@ -146,15 +146,19 @@ PLATFORM_SPEEDS[PLATFORM_DOWN] = vector.create(0, 1);
 
 // const WORLD_PLATFORM = 1;
 const WORLD_PLAYERSTART = -2;
-const WORLD_ENEMYSTART = -3;
+const WORLD_ENEMY_DUMB_START = -3;
+const WORLD_ENEMY_DUMB_DEST = -6;
+
 const WORLD_GOAL = -4;
 
 const WORLD_FLYING_ENEMY = -5; // spawns a flyingEnemy.js
 
-var slimeLeftBlobSprite = new SpriteSheetClass(slimeLeftBlobAnim, WORLD_W, WORLD_H, 8, 5); // 8 frames, 5 ticks 
-var slimeMiddleBlobSprite = new SpriteSheetClass(slimeMiddleBlobAnim, WORLD_W, WORLD_H, 8, 20); // 8 frames
-var slimeRightBlobSprite = new SpriteSheetClass(slimeRightBlobAnim, WORLD_W, WORLD_H, 8, 5); // 8 frames, 5 ticks 
-var diamondSprite = new SpriteSheetClass(diamondPickupAnim, WORLD_W / 2, WORLD_H / 2, 2, 60); // 2 frames, 20 ticks 
+const slimeLeftBlobSprite = new SpriteSheetClass(slimeLeftBlobAnim, WORLD_W, WORLD_H, 8, 5); // 8 frames, 5 ticks 
+const slimeMiddleBlobSprite = new SpriteSheetClass(slimeMiddleBlobAnim, WORLD_W, WORLD_H, 8, 20); // 8 frames
+const slimeRightBlobSprite = new SpriteSheetClass(slimeRightBlobAnim, WORLD_W, WORLD_H, 8, 5); // 8 frames, 5 ticks 
+const diamondSprite = new SpriteSheetClass(diamondPickupAnim, WORLD_W / 2, WORLD_H / 2, 2, 60); // 2 frames, 20 ticks 
+
+
 
 function returnAnimatedTileSprites(tileKindHere) {
 	switch (tileKindHere) {
@@ -204,27 +208,21 @@ function tileHarmsPlayer(tile) {
 }
 
 function tileNearbyCollisionCheck(tileLeftHere, tileRightHere, tileUnderHere, tileOverHere, tileType, playerTrackCol, playerTrackRow) {
-
 	tileCollisionRect = {
 		x: (playerTrackCol) * WORLD_W,
 		y: playerTrackRow * WORLD_H,
 		width: WORLD_W,
 		height: WORLD_H
 	};
-
 	if (tileLeftHere == tileType) {
 		tileCollisionRect.x = (playerTrackCol - 1) * WORLD_W;
-
 	}
-
 	if (tileRightHere == tileType) {
 		tileCollisionRect.x = (playerTrackCol + 1) * WORLD_W;
 	}
-
 	if (tileUnderHere == tileType) {
 		tileCollisionRect.y = (playerTrackRow + 1) * WORLD_H;
 	}
-
 	if (tileOverHere == tileType) {
 		tileCollisionRect.y = (playerTrackRow - 1) * WORLD_H;
 	}
@@ -254,7 +252,11 @@ function playerWorldHandling(whichPlayer) {
 			width: WORLD_W,
 			height: WORLD_H
 		};
-		if (tileHere == PICKUP) {
+
+		if(whichPlayer.name == "dumb Enemy" && tileHere == WORLD_ENEMY_DUMB_DEST ){
+			whichPlayer.toggleDirection = !whichPlayer.toggleDirection;
+		}
+		if (tileHere == PICKUP && whichPlayer.name == "Player") {
 			tileCollisionRect.width = WORLD_W / 2;
 			tileCollisionRect.height = WORLD_H / 2;
 			var boundingResult = utils.rectIntersect(tileCollisionRect, whichPlayer.boundingBox);
@@ -359,7 +361,7 @@ function drawWorld() {
 			// 		break;
 			// 	}
 			// }
-			if (tileKindHere != WORLD_BACKGROUND) {
+			if (tileKindHere != WORLD_BACKGROUND && tileKindHere != WORLD_ENEMY_DUMB_DEST) {
 				if (isTileAnimated(tileKindHere)) {
 					var animatedTile = returnAnimatedTileSprites(tileKindHere);
 					animatedTile.update();
@@ -439,4 +441,34 @@ function isTileAnimated(tile) {
 		tile == PICKUP
 	);
 
+}
+
+function isPlatformAtPixelCoord(hitPixelX, hitPixelY) {
+	var tileCol = hitPixelX / WORLD_W;
+	var tileRow = hitPixelY / WORLD_H;
+	// using Math.floor to round down to the nearest whole number
+	tileCol = Math.floor(tileCol);
+	tileRow = Math.floor(tileRow);
+
+	if (tileCol > 0 && tileCol <= WORLD_COLS &&
+		tileRow > 0 && tileRow <= WORLD_ROWS) {
+
+		var brickIndex = rowColToArrayIndex(tileCol, tileRow);
+		var tileHere = worldGrid[brickIndex];
+		return tileCollidable(tileHere);	
+	}	
+}
+
+//Just add any tile you want to act as collidable
+function tileCollidable(tile){
+		return ( 
+			tile != WORLD_BACKGROUND &&
+			tile != PICKUP &&
+			tile != CRATE &&
+			tile !=  PLATFORM_RIGHT &&
+			tile !=  PLATFORM_LEFT &&
+			tile !=  PLATFORM_UP &&
+			tile !=  PLATFORM_DOWN &&
+			tile != WORLD_ENEMY_DUMB_DEST 
+			);
 }

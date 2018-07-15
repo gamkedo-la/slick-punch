@@ -45,6 +45,16 @@ function playJumpSound() {
 	jumpSound.play();
 }
 
+// function playLandSound() {
+// 	jumpSound.volume = 0.5;
+// 	jumpSound.play();
+// }
+
+// function playHitSound() {
+// 	jumpSound.volume = 0.5;
+// 	jumpSound.play();
+// }
+
 // When adding new audio, make sure to declare a variable at the top of the script
 // Then add it here, and set the file name, the rest is easy!
 function loadSounds() {

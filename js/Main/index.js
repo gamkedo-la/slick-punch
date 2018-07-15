@@ -1,6 +1,6 @@
 var canvas, canvasContext;
 var player = new playerClass();
-var enemy = new playerClass();
+var enemy = new dumbEnemyClass();
 var flyingEnemies = []; // an array of flyingEnemy
 var score;
 var debug = false;
@@ -52,7 +52,7 @@ function loadLevel(whichLevel) {
 	worldGrid = whichLevel.slice();
 	platformList.parseWorld();
 	player.reset(playerPic, "Player", 3);
-	enemy.reset(enemyPic, "Enemy", 5);
+	enemy.reset(enemyPic, "dumb Enemy", 5);
 	score = 0;
 	spawnFlyingEnemies();
 }
@@ -67,6 +67,8 @@ function moveAll() {
 	if(gameRunning){
 		cameraFollow();
 		player.move();
+		enemy.move();
+
 		if (!enemy.remove) {
 			enemy.move();
 		}
@@ -91,6 +93,7 @@ function drawAll() {
 		drawWorld();
 		platformList.draw();
 		player.draw();
+		enemy.draw();
 		// if (!enemy.remove) {
 		// 	enemy.draw();
 		// }
