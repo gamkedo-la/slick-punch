@@ -154,7 +154,7 @@ const WORLD_FLYING_ENEMY = -5; // spawns a flyingEnemy.js
 var slimeLeftBlobSprite = new SpriteSheetClass(slimeLeftBlobAnim, WORLD_W, WORLD_H, 8, 5); // 8 frames, 5 ticks 
 var slimeMiddleBlobSprite = new SpriteSheetClass(slimeMiddleBlobAnim, WORLD_W, WORLD_H, 8, 20); // 8 frames
 var slimeRightBlobSprite = new SpriteSheetClass(slimeRightBlobAnim, WORLD_W, WORLD_H, 8, 5); // 8 frames, 5 ticks 
-var diamondSprite = new SpriteSheetClass(diamondPickupAnim, WORLD_W / 2, WORLD_H / 2, 2, 20); // 8 frames, 5 ticks 
+var diamondSprite = new SpriteSheetClass(diamondPickupAnim, WORLD_W / 2, WORLD_H / 2, 2, 60); // 2 frames, 20 ticks 
 
 function returnAnimatedTileSprites(tileKindHere) {
 	switch (tileKindHere) {
