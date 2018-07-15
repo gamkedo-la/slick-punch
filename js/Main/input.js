@@ -26,20 +26,6 @@ function setupInput() {
 	player.setupInput(KEY_UP_ARROW, KEY_RIGHT_ARROW, KEY_DOWN_ARROW, KEY_LEFT_ARROW, KEY_Z, KEY_X, KEY_C );
 } 
 
-// function updateMousePos(evt) {
-// 	var rect = canvas.getBoundingClientRect();
-// 	var root = document.documentElement;
-
-// 	mouseX = evt.clientX - rect.left - root.scrollLeft;
-// 	mouseY = evt.clientY - rect.top - root.scrollTop;
-
-// 	// cheat / hack to test car in any position
-// 	/*carX = mouseX;
-// 	carY = mouseY;
-// 	carSpeedX = 4;
-// 	carSpeedY = -4;*/
-// }
-
 function keySet(keyEvent, whichPlayer, setTo) {
 	if(keyEvent.keyCode == whichPlayer.controlKeyLeft) {
 		whichPlayer.keyHeld_Left = setTo;
@@ -96,14 +82,12 @@ function keyReleased(evt) {
 	if (evt.keyCode == KEY_H) {
 			if(windowState.mainMenu){
 	  			openHelp();
-	  		}
-		
+	  		}		
 	}
 	if (evt.keyCode == KEY_P) {
 		if(windowState.mainMenu){
 	  			startGame();
-	  		}
-		
+	  		}		
 	}
 	if (evt.keyCode == KEY_S) {
 		if(windowState.mainMenu){

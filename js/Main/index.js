@@ -59,7 +59,6 @@ function loadLevel(whichLevel) {
 }
 
 function updateAll() {
-
 	moveAll();
 	drawAll();
 }

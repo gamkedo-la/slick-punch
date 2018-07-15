@@ -167,13 +167,10 @@ function dumbEnemyClass() {
             this.keyHeld_Attack = true;
             this.state.isMovingLeft = (player.pos.x - this.pos.x) > 0 ? false : true;
             player.takeDamage(1);
-        }else{
+        }
+        else{
             this.keyHeld_Attack = false;
         }
-        // else if(utils.distance(player.pos,this.pos) > 20){
-        //    current_direction = true;
-        // }
-        console.log(utils.distance(player.pos,this.pos));
 
         if (this.state['isOnGround']) {
             this.speed.x *= GROUND_FRICTION;

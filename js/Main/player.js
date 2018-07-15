@@ -137,7 +137,7 @@ function playerClass() {
 			this.state.isDead = true;
 			setTimeout(this.resetDeadAnimation.bind(this), 500);
 		}
-		this.resetHurtTimeout = setTimeout(this.resetHurtAnimation.bind(this), 1000);
+		this.resetHurtTimeout = setTimeout(this.resetHurtAnimation.bind(this), 700);
 	}
 
 	this.resetHurtAnimation = function(){
@@ -238,6 +238,9 @@ function playerClass() {
 				this.setStateValueTo("isIdle", false);
 				this.setStateValueTo("isInMotion", false);
 				this.setStateValueTo("isAttacking", true);
+				// if(utils.distance(player.pos,this.pos) < 60){
+		  //           player.takeDamage(1);
+		  //       }
 				if (!this.punchTimer) {
 					this.punchTimer = this.punchFrameCount;
 					playPunchSound();
