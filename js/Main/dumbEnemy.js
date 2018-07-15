@@ -92,7 +92,7 @@ function dumbEnemyClass() {
         if (this.health <= 0) {
             console.log("Enemy HAS 0 HP - todo: gameover/respawn");
             this.state.isDead = true;
-            setTimeout(this.resetDeadHAnimation.bind(this), 500);
+            setTimeout(this.resetDeadAnimation.bind(this), 500);
         }
         this.resetHurtTimeout = setTimeout(this.resetHurtAnimation.bind(this), 1000);
     }
@@ -102,7 +102,7 @@ function dumbEnemyClass() {
         this.state.isHurt = false;
     }
 
-    this.resetDeadHAnimation = function(){
+    this.resetDeadAnimation = function(){
         // loadLevel(levelOne);
     }
 
@@ -161,12 +161,12 @@ function dumbEnemyClass() {
             current_direction = this.keyHeld_Left;
 
         }
-        
-        if(utils.distance(player.pos,this.pos) < 55){
+        if(utils.distance(player.pos,this.pos) < 60){
             this.keyHeld_Left = false;
             this.keyHeld_Right = false;
             this.keyHeld_Attack = true;
             this.state.isMovingLeft = (player.pos.x - this.pos.x) > 0 ? false : true;
+            player.takeDamage(1);
         }else{
             this.keyHeld_Attack = false;
         }
@@ -207,8 +207,6 @@ function dumbEnemyClass() {
             this.setStateValueTo("isInMotion", false);      
             this.setStateValueTo("isIdle", true);
         }   
-
-        
 
         if (this.keyHeld_Attack) {
                 this.setStateValueTo("isIdle", false);

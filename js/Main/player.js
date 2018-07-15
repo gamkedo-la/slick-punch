@@ -135,7 +135,7 @@ function playerClass() {
 		if (this.health <= 0) {
 			console.log("PLAYER HAS 0 HP - todo: gameover/respawn");
 			this.state.isDead = true;
-			setTimeout(this.resetDeadHAnimation.bind(this), 500);
+			setTimeout(this.resetDeadAnimation.bind(this), 500);
 		}
 		this.resetHurtTimeout = setTimeout(this.resetHurtAnimation.bind(this), 1000);
 	}
@@ -144,7 +144,7 @@ function playerClass() {
 		this.state.isHurt = false;
 	}
 
-	this.resetDeadHAnimation = function(){
+	this.resetDeadAnimation = function(){
 		loadLevel(levelOne)
 	}
 

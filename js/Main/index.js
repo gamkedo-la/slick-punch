@@ -30,6 +30,7 @@ function imageLoadingDoneSoStartGame() {
 }
 
 function spawnFlyingEnemies() {
+	flyingEnemies = [];
 	console.log("Spawning flying enemies...");
 	// spawn flying enemies by scanning the level data
 	var spawnCounter = 0;
@@ -124,13 +125,5 @@ function startGame() {
     timeStartedActive = timeStarted;
     timeElapsedInSeconds = 0;
     frameCount = 0;
-    shotsFired = 0;
-    shotsHit = 0;
-    shotsHitShips = 0;
-    shotsHitAliens = 0;
-    shotsHitParachutes = 0;
-    shipsTotal = 0;
-    gunShipsTotal = 0;
-    dropShipsTotal = 0;
     gameRunning = true;
 }
