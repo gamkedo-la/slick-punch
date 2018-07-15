@@ -111,10 +111,18 @@ function keyReleased(evt) {
 	  	}
 	}
 	if (evt.keyCode == KEY_ENTER) {
-		if(windowState.credits || windowState.help || windowState.sound){
-	  			windowState.mainMenu = true;
-	  		}
-		
+		if(windowState.credits){
+	  		windowState.mainMenu = true;
+	  		windowState.credits = false;
+	  	}
+	  	if(windowState.help){
+	  		windowState.mainMenu = true;
+	  		windowState.help = false;
+	  	}
+	  	if(windowState.sound){
+	  		windowState.mainMenu = true;
+	  		windowState.sound = false;
+	  	}		
 	}
 	// if(evt.keyCode == KEY_Z && player.state.isAttacking){		
 	// 	player.setStateValueTo("isIdle", true);

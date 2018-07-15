@@ -37,8 +37,8 @@ function mainMenuStates() {
 		var creditsFont = "16px Tahoma";
 		var creditsNameFont = "bold 16px Tahoma";
 		var creditsLines = [
-			"Vignesh Ramesh:",
-			"Christer McFunkyPants"
+			"Vignesh Ramesh: Something",
+			"Christer McFunkyPants: Something more"
 		];
 		for(var i=0;i<creditsLines.length;i++) {
 			var creditor = creditsLines[i].split(":");
@@ -50,8 +50,9 @@ function mainMenuStates() {
 			}
 			colorText(creditor[0],textX,textY ,TEXT_COLOR,creditsNameFont,"left",opacity); textY += textSkip;
 			colorText(creditor[1],textX  + 15,textY ,TEXT_COLOR,creditsFont,"left",opacity); textY += textSkip;
-			colorText(creditor[2],textX  + 15,textY ,TEXT_COLOR,creditsFont,"left",opacity); textY += textSkip;
-
+			if(creditWidth > canvas.width){
+				colorText(creditor[2],textX  + 15,textY ,TEXT_COLOR,creditsFont,"left",opacity); textY += textSkip;
+			}
 		}
 		colorText('Press [Enter] to go Back to Menu',canvas.width/2 , 550,TEXT_COLOR,"30px Tahoma","center",opacity);
 	}

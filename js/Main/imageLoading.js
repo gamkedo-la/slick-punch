@@ -84,10 +84,7 @@ function loadImages() {
 		{ varName: slimeRightBlobAnim, theFile: "slimeRightBloop.png" },
 		{ varName: scrollBackground, theFile: "background.png" },
 		{ varName: menuBackground, theFile: "menuImage.png" },
-		{ varName: menuBackgroundEmpty, theFile: "menuBackgroundEmpty.png" },
-
-
-		
+		{ varName: menuBackgroundEmpty, theFile: "menuBackgroundEmpty.png" },		
 		// { trackType: WORLD_GOAL, theFile: "goal.png" },
 		{ trackType: WORLD_BACKGROUND, theFile: "background35.png" },
 		// { trackType: WORLD_PLATFORM, theFile: "platform.png" },
