@@ -31,7 +31,6 @@ var platformList = new (function() {
 			col++;
 			arrayIndex = rowColToArrayIndex(col, row);
 		}
-
 		var platformWidth = Math.max(3, col - startCol);
 
 		// Start over again to find the platform end position
@@ -130,7 +129,6 @@ function Platform(type, platformWidth, startCol, startRow, endCol, endRow) {
 		if (x < startX || endX < x || y < startY || endY < y) {
 			direction = direction.multiply(-1);
 		}
-
 		x += direction.x;
 		y += direction.y;
 	};

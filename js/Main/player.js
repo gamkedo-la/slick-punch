@@ -450,7 +450,10 @@ function tileCollidable(tile){
 		return ( 
 			tile != WORLD_BACKGROUND &&
 			tile != PICKUP &&
-			tile != CRATE
-			
+			tile != CRATE &&
+			tile !=  PLATFORM_RIGHT &&
+			tile !=  PLATFORM_LEFT &&
+			tile !=  PLATFORM_UP &&
+			tile !=  PLATFORM_DOWN 			
 			);
 }
