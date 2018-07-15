@@ -149,17 +149,31 @@ function dumbEnemyClass() {
         this.boundingBox.height = this.height;
         this.boundingBox.x = this.pos.x - this.boundingBox.width/2;
         this.boundingBox.y = this.pos.y - this.boundingBox.height/2;
-
+        var current_direction; 
         if(this.toggleDirection){
             this.keyHeld_Left = false;
             this.keyHeld_Right = true;
+            current_direction = this.keyHeld_Right;
         } 
         else{
             this.keyHeld_Left = true;
             this.keyHeld_Right = false;
+            current_direction = this.keyHeld_Left;
+
         }
         
-        
+        if(utils.distance(player.pos,this.pos) < 55){
+            this.keyHeld_Left = false;
+            this.keyHeld_Right = false;
+            this.keyHeld_Attack = true;
+            this.state.isMovingLeft = (player.pos.x - this.pos.x) > 0 ? false : true;
+        }else{
+            this.keyHeld_Attack = false;
+        }
+        // else if(utils.distance(player.pos,this.pos) > 20){
+        //    current_direction = true;
+        // }
+        console.log(utils.distance(player.pos,this.pos));
 
         if (this.state['isOnGround']) {
             this.speed.x *= GROUND_FRICTION;
