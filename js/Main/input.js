@@ -1,13 +1,20 @@
-//For current movement.
-const KEY_LEFT_ARROW = 37;// moves left
-const KEY_UP_ARROW = 38; // Prepares for upercut
-const KEY_RIGHT_ARROW = 39; // moves right
-const KEY_DOWN_ARROW = 40; // crouches for crouched move
-const KEY_Z = 90; // Attack
-const KEY_X = 88; //Jump
-const KEY_C = 67; // Defend
-const KEY_M = 77; // For music
+//Player Movement
+const KEY_LEFT_ARROW = 37;
+const KEY_UP_ARROW = 38; 
+const KEY_RIGHT_ARROW = 39; 
+const KEY_DOWN_ARROW = 40; 
+const KEY_Z = 90; 
+const KEY_X = 88;
+// Toggle music
+const KEY_M = 77; 
+// Toggle Debug
 const KEY_D = 68;
+//Used for menu Screen
+const KEY_C = 67;
+const KEY_H = 72;
+const KEY_P = 80;
+const KEY_S = 83;
+
 
 //TODO : Make attacks more smooth
 //TODO : COmbo moves
@@ -80,6 +87,18 @@ function keyReleased(evt) {
 		musicEnabled = !musicEnabled;
 	}
 	if (evt.keyCode == KEY_D) {
+		debug = !debug;
+	}
+	if (evt.keyCode == KEY_P) {
+		debug = !debug;
+	}
+	if (evt.keyCode == KEY_H) {
+		debug = !debug;
+	}
+	if (evt.keyCode == KEY_C) {
+		debug = !debug;
+	}
+	if (evt.keyCode == KEY_S) {
 		debug = !debug;
 	}
 	// if(evt.keyCode == KEY_Z && player.state.isAttacking){		

@@ -58,6 +58,7 @@ function loadLevel(whichLevel) {
 }
 
 function updateAll() {
+
 	moveAll();
 	drawAll();
 }
@@ -76,33 +77,55 @@ function moveAll() {
 }
 
 function drawAll() {
-	canvasContext.drawImage(scrollBackground, 0, 0);
-	canvasContext.save(); // needed to undo this .translate() used for scroll
-	// this next line is like subtracting camPanX and camPanY from every
-	// canvasContext draw operation up until we call canvasContext.restore
-	// this way we can just draw them at their "actual" position coordinates
-	canvasContext.translate(-camPanX, -camPanY);
-	drawWorld();
-	platformList.draw();
-	player.draw();
-	// if (!enemy.remove) {
-	// 	enemy.draw();
-	// }
-	for (var num = 0; num < flyingEnemies.length; num++) {
-		flyingEnemies[num].draw();
-	}
-	if (debug) {
-		strokedRect(player.boundingBox.x, player.boundingBox.y, player.boundingBox.width, player.boundingBox.height, "2", "yellow");
-		colorCircle(player.pos.x, player.pos.y, 2, "green");
-		if (tileCollisionRect != undefined) {
-			strokedRect(tileCollisionRect.x, tileCollisionRect.y, tileCollisionRect.width, tileCollisionRect.height, "2", "green");
-		}
-		// for(int i = 0 ; i < enemyObjArr.length; i++ ){
-		// 	console.log("hey");
-		// 	// strokedRect(enemyObjArr[i].x, enemyObjArr[i].y, enemyObjArr[i].width, enemyObjArr[i].height, "2", "red"); 
+	 if (!gameRunning) {
+        mainMenuStates();
+    } else {
+		canvasContext.drawImage(scrollBackground, 0, 0);
+		canvasContext.save(); // needed to undo this .translate() used for scroll
+		// this next line is like subtracting camPanX and camPanY from every
+		// canvasContext draw operation up until we call canvasContext.restore
+		// this way we can just draw them at their "actual" position coordinates
+		canvasContext.translate(-camPanX, -camPanY);
+		drawWorld();
+		platformList.draw();
+		player.draw();
+		// if (!enemy.remove) {
+		// 	enemy.draw();
 		// }
+		for (var num = 0; num < flyingEnemies.length; num++) {
+			flyingEnemies[num].draw();
+		}
+		if (debug) {
+			strokedRect(player.boundingBox.x, player.boundingBox.y, player.boundingBox.width, player.boundingBox.height, "2", "yellow");
+			colorCircle(player.pos.x, player.pos.y, 2, "green");
+			if (tileCollisionRect != undefined) {
+				strokedRect(tileCollisionRect.x, tileCollisionRect.y, tileCollisionRect.width, tileCollisionRect.height, "2", "green");
+			}
+			// for(int i = 0 ; i < enemyObjArr.length; i++ ){
+			// 	console.log("hey");
+			// 	// strokedRect(enemyObjArr[i].x, enemyObjArr[i].y, enemyObjArr[i].width, enemyObjArr[i].height, "2", "red"); 
+			// }
+		}
+		canvasContext.restore();
+		colorText(`Score : ${score}`, 30, 30, "yellow", "30px Tahoma");
+		colorText(`Health : ${player.health}`, 30, 60, "yellow", "30px Tahoma");
 	}
-	canvasContext.restore();
-	colorText(`Score : ${score}`, 30, 30, "yellow", "30px Tahoma");
-	colorText(`Health : ${player.health}`, 30, 60, "yellow", "30px Tahoma");
 } 
+
+function startGame() {
+    windowState.help = false;
+    windowState.mainMenu = false;
+    timeStarted = new Date().getTime();
+    timeStartedActive = timeStarted;
+    timeElapsedInSeconds = 0;
+    frameCount = 0;
+    shotsFired = 0;
+    shotsHit = 0;
+    shotsHitShips = 0;
+    shotsHitAliens = 0;
+    shotsHitParachutes = 0;
+    shipsTotal = 0;
+    gunShipsTotal = 0;
+    dropShipsTotal = 0;
+    gameRunning = true;
+}

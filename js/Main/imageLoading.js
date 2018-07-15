@@ -27,6 +27,8 @@ var crateBox = document.createElement("img");
 var flyingEnemyAnim = document.createElement("img"); 
 var slickTileSet = document.createElement("img");
 var platformTileSet = document.createElement("img");
+var menuBackground = document.createElement("img");
+
 
 var trackPics = [];
 
@@ -79,6 +81,10 @@ function loadImages() {
 		{ varName: slimeMiddleBlobAnim, theFile: "slimeMiddleBloop.png" },
 		{ varName: slimeRightBlobAnim, theFile: "slimeRightBloop.png" },
 		{ varName: scrollBackground, theFile: "background.png" },
+		{ varName: menuBackground, theFile: "menuImage.png" },
+
+
+		
 		// { trackType: WORLD_GOAL, theFile: "goal.png" },
 		{ trackType: WORLD_BACKGROUND, theFile: "background35.png" },
 		// { trackType: WORLD_PLATFORM, theFile: "platform.png" },

@@ -1,8 +1,8 @@
 // Anchor positions are from center of top button
 mainMenu = {
 	titleFont: "40px Tahoma",
-    buttonFont: "20px Tahoma",
-
+    buttonFont: "40px pinscher",
+    textColor : "black",
 	fontOverhangRatio: 4/5, // Currently 4/5 is correct for "Tahoma" font. Change if font changes
 	
 	//Must initialize these after the canvas has been set up
@@ -17,31 +17,30 @@ mainMenu = {
 			anchorY: canvas.height/2  + 30,
 			verticalSpacing: 2,
 		};
-		
 		// Buttons are also given a "bounds" property further down
 		this.buttons = [
 			{
-				txt: "[H] for Help",
-				onClick: openHelp,
-			},
-			{
-				txt: "[C] for Credits",
-				onClick: openCredits,
-			},
-			{
-				txt: "[Enter] to Play",
+				txt: "[P]lay",
 				onClick: startGame,
 			},
 			{
-				txt : "[T] for Two Player Mode",
-				onClick : startTwoPlayerMode,
+				txt: "[H]elp",
+				onClick: openHelp,
+			},
+			{
+				txt: "[C]redits",
+				onClick: openCredits,
+			},
+			{
+				txt: "[S]ound",
+				onClick: setSoundSystem,
 			},
 		];
 		
 		this.sliders = [
 			{
 				txt : "Music Volume",
-				handlePosition : musicVolume,
+				// handlePosition : musicVolume,
 				onSlide : function(volume){
 					setMusicVolume(volume);
 					localStorage.setItem("musicVolume", musicVolume);
@@ -49,7 +48,7 @@ mainMenu = {
 			},
 			{
 				txt : "Effects Volume",
-				handlePosition : effectsVolume,
+				// handlePosition : effectsVolume,
 				onSlide : function(volume){
 					setEffectsVolume(volume);
 					localStorage.setItem("effectsVolume", effectsVolume);
@@ -87,7 +86,8 @@ mainMenu = {
 			this.sliders[i].width = 200;
 			this.sliders[i].height = 10;
 			this.sliders[i].x = canvas.width/2  - 5 - this.sliders[i].width/2;
-			this.sliders[i].y = this.buttons[this.buttons.length - 1].bounds.y + 10 + (i + 1) * sliderSpacing;
+			//Return value 50 -> 10
+			this.sliders[i].y = this.buttons[this.buttons.length - 1].bounds.y + 50 + (i + 1) * sliderSpacing;
 			
 			this.sliders[i].handleWidth = 30;
 			this.sliders[i].handleHeight = 30;
@@ -150,7 +150,7 @@ mainMenu = {
 			var posX = bounds.x + prop.padding;
 			var posY = bounds.y + prop.padding + fontOverhangAdjustment;
 			
-			colorText(this.buttons[i].txt, posX, posY, "white", this.buttonFont, "left", opacity);
+			colorText(this.buttons[i].txt, posX, posY, this.textColor, this.buttonFont, "left", opacity);
 			
 			if(debug) { // draw bounds for buttons in semi-transparent colors
 				var colors = ["red", "green", "blue", "aqua", "fuchaia", "yellow"];
@@ -158,7 +158,7 @@ mainMenu = {
 				var tempAlpha = canvasContext.globalAlpha;
 				canvasContext.globalAlpha = 0.2;
 				
-				drawRect(bounds.x, bounds.y, bounds.width, bounds.height, colors[i]);
+				colorRect(bounds.x, bounds.y, bounds.width, bounds.height, colors[i]);
 				
 				canvasContext.globalAlpha = tempAlpha;
 			}
@@ -166,12 +166,12 @@ mainMenu = {
 		
 		var sliders = this.sliders;
 		for(var i = 0; i < sliders.length; i++) {
-			drawRect(sliders[i].x, sliders[i].y, sliders[i].width, sliders[i].height, "yellow");
-			drawRect(sliders[i].getHandleX(), sliders[i].handleY, sliders[i].handleWidth, sliders[i].handleHeight, "purple");
+			colorRect(sliders[i].x, sliders[i].y, sliders[i].width, sliders[i].height, "yellow");
+			colorRect(sliders[i].getHandleX(), sliders[i].handleY, sliders[i].handleWidth, sliders[i].handleHeight, "purple");
 			
 			var txtX = sliders[i].x + sliders[i].width/2;
 			var txtY = sliders[i].y - getFontWeight(this.buttonFont) + sliders[i].spacing;
-			colorText(sliders[i].txt, txtX, txtY, "white", this.buttonFont, "center", opacity);
+			colorText(sliders[i].txt, txtX, txtY, this.textColor, this.buttonFont, "center", opacity);
 		}
 	},
 };
