@@ -1,11 +1,11 @@
-function SpriteSheetClass(sheetIn, widthPerFrame, heightPerFrame, frameNum, ticksPerFrame, loop){
+function SpriteSheetClass(sheetIn, widthPerFrame, heightPerFrame, loop, frameNum, ticksPerFrame){
     var sheet = sheetIn;
     var width = widthPerFrame;
     var height = heightPerFrame;
     this.frameNum = frameNum || 1;
     var ticksPerFrame = ticksPerFrame || 4;
     var tickCount = 0;
-    var loop = loop || true;
+    var loop = loop;
     this.frameIndex = 0;
 
   

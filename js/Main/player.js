@@ -67,21 +67,21 @@ function playerClass() {
 	this.controlKeyDefend = null;
 
 	// Animation generation. 
-	this.walkAnim = new SpriteSheetClass(playerWalkAnim, this.width, this.height, 10); // 10 frames
-	this.punchAnim = new SpriteSheetClass(playerPunchAnim, this.width, this.height, this.punchFrameCount); //4frames
-	this.idleAnim = new SpriteSheetClass(playerIdleAnim, this.width, this.height, 7); //7 frames
-	this.idleJumpAnim = new SpriteSheetClass(playerIdleJumpAnim, this.width, this.height, 5); //6 frames
-	this.leftJabAnim = new SpriteSheetClass(playerLeftJabAnim, this.width, this.height, 7); //7 frames
-	this.walkJumpAnim = new SpriteSheetClass(playerWalkJumpAnim, this.width, this.height, 5); //5 frames
-	this.highKickAnim = new SpriteSheetClass(playerHighKickAnim, this.width, this.height, 6); //6 frames
-	this.crouchAnim = new SpriteSheetClass(playerCrouchAnim, this.width, this.height, 4, 4, false); //4 frames
-	this.explosiveFallAnim = new SpriteSheetClass(playerIdleJumpAnim, this.width, this.height, 8); //8 frames
-	this.hurtAnim = new SpriteSheetClass(playerHurtAnim, this.width, this.height, 3); //3 frames
-	this.FlipAnim = new SpriteSheetClass(playerFlipAnim, this.width, this.height, 5); //5 frames
-	this.rollAnim = new SpriteSheetClass(playerRollAnim, this.width, this.height, 7); //7 frames
-	this.crouchedKickAnim = new SpriteSheetClass(playerCrouchedKickAnim, this.width, this.height, 4); //4 frames
-	this.uppercutAnim = new SpriteSheetClass(playerUppercutAnim, this.width, this.height, 6); //4 frames
-	this.deadAnim = new SpriteSheetClass(playerDeadAnim, this.width, this.height, 8); //8 frames
+	this.walkAnim = new SpriteSheetClass(playerWalkAnim, this.width, this.height, true, 10); // 10 frames
+	this.punchAnim = new SpriteSheetClass(playerPunchAnim, this.width, this.height, true, this.punchFrameCount); //4frames
+	this.idleAnim = new SpriteSheetClass(playerIdleAnim, this.width, this.height, true, 7); //7 frames
+	this.idleJumpAnim = new SpriteSheetClass(playerIdleJumpAnim, this.width, this.height, true, 5); //6 frames
+	this.leftJabAnim = new SpriteSheetClass(playerLeftJabAnim, this.width, this.height, true, 7); //7 frames
+	this.walkJumpAnim = new SpriteSheetClass(playerWalkJumpAnim, this.width, this.height, true, 5); //5 frames
+	this.highKickAnim = new SpriteSheetClass(playerHighKickAnim, this.width, this.height, true, 6); //6 frames
+	this.crouchAnim = new SpriteSheetClass(playerCrouchAnim, this.width, this.height, false, 4, 4); //4 frames
+	this.explosiveFallAnim = new SpriteSheetClass(playerIdleJumpAnim, this.width, this.height, true, 8); //8 frames
+	this.hurtAnim = new SpriteSheetClass(playerHurtAnim, this.width, this.height, true, 3); //3 frames
+	this.FlipAnim = new SpriteSheetClass(playerFlipAnim, this.width, this.height, true, 5); //5 frames
+	this.rollAnim = new SpriteSheetClass(playerRollAnim, this.width, this.height,  true, 7); //7 frames
+	this.crouchedKickAnim = new SpriteSheetClass(playerCrouchedKickAnim, this.width, this.height, true, 4); //4 frames
+	this.uppercutAnim = new SpriteSheetClass(playerUppercutAnim, this.width, this.height, true, 6); //4 frames
+	this.deadAnim = new SpriteSheetClass(playerDeadAnim, this.width, this.height, true, 8); //8 frames
 
 	//TODO : Used for combo moves
 	this.attackAnimArr = [this.highKickAnim, this.leftJabAnim, this.punchAnim]
@@ -220,7 +220,7 @@ function playerClass() {
 		}	
 
 		//For crouched movement 
-		if (this.keyHeld_Down || this.keyHeld_Up) {
+		if (this.keyHeld_Down) {
 				//Up for uppercut
 				this.setStateValueTo("isIdle", false);
 				// this.setStateValueTo("isInMotion", false);
@@ -342,7 +342,7 @@ function playerClass() {
 		}
 		this.pos.addTo(this.speed) // same as above, but for vertical
 		playerWorldHandling(this);
-		if(this.spriteAnim != null){
+		if(this.spriteAnim != null) {
 			this.spriteAnim.update();
 
 		}
