@@ -112,8 +112,7 @@ function drawAll() {
 			// }
 		}
 		canvasContext.restore();
-		colorText(`Score : ${score}`, 30, 30, "yellow", "30px Tahoma");
-		colorText(`Health : ${player.health}`, 30, 60, "yellow", "30px Tahoma");
+		drawUI();
 	}
 } 
 
