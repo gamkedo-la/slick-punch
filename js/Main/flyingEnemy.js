@@ -85,8 +85,13 @@ function flyingEnemyClass(x, y) {
         this.boundingBox.x = this.pos.x - this.boundingBox.width / 2;
         this.boundingBox.y = this.pos.y - this.boundingBox.height / 2;
 
-        if(utils.distance(player.pos,this.pos) < 60){
-            player.takeDamage(1);
+        if(utils.distance(player.pos,this.pos) < 30){
+            if(player.state.isAttacking){
+                this.takeDamage(1);
+            }
+            else{
+                player.takeDamage(1);
+            }
         }
 
         if (this.state['isFlying']) {

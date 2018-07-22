@@ -164,8 +164,9 @@ function dumbEnemyClass() {
         if(utils.distance(player.pos,this.pos) < 60){
             this.keyHeld_Left = false;
             this.keyHeld_Right = false;
-            this.keyHeld_Attack = true;
+            this.keyHeld_Attack = Math.random() > 0.2;
             this.state.isMovingLeft = (player.pos.x - this.pos.x) > 0 ? false : true;
+
             player.takeDamage(1);
         }
         else{

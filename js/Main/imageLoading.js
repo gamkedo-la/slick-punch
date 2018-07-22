@@ -29,6 +29,20 @@ var slickTileSet = document.createElement("img");
 var platformTileSet = document.createElement("img");
 var menuBackground = document.createElement("img");
 var menuBackgroundEmpty = document.createElement("img");
+var menuBackgroundEmpty = document.createElement("img");
+
+var doorAnimation = document.createElement("img");
+var redKeyAnimation = document.createElement("img");
+var greenKeyAnimation = document.createElement("img");
+var blueKeyAnimation = document.createElement("img");
+var venomDog = document.createElement("img");
+var venomDogIdle = document.createElement("img");
+
+
+
+
+
+
 
 
 
@@ -85,6 +99,14 @@ function loadImages() {
 		{ varName: scrollBackground, theFile: "background.png" },
 		{ varName: menuBackground, theFile: "menuImage.png" },
 		{ varName: menuBackgroundEmpty, theFile: "menuBackgroundEmpty.png" },		
+
+		{ varName: doorAnimation, theFile: "door.png" },		
+		{ varName: redKeyAnimation, theFile: "keyRed.png" },		
+		{ varName: greenKeyAnimation, theFile: "keyGreen.png" },		
+		{ varName: blueKeyAnimation, theFile: "keyBlue.png" },		
+		{ varName: venomDog, theFile: "venomDog2.png" },		
+		{ varName: venomDogIdle, theFile: "venomDog2Idle.png" },		
+
 		// { trackType: WORLD_GOAL, theFile: "goal.png" },
 		{ trackType: WORLD_BACKGROUND, theFile: "background35.png" },
 		// { trackType: WORLD_PLATFORM, theFile: "platform.png" },
