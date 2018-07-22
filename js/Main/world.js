@@ -18,7 +18,7 @@ var levelOne = [25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 
 				25, -1, -1, -1, 35, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 25,
 				25, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 25, 25, -1, -1, -1, -1, -1, -1, -1, -1, 25,
 				25, -1, 34, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 25,
-				25, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 25,
+				25, -1, -1, -1, -1, -1, 30, 30, 30, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 25,
 				25, -1, -1, -1, -1, -1, -1, -6, -1, -1, -1, -1, -1, -1, -1, -6, -1, -1, -1, -1, -1, -1, 25,
 				25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25];
 
@@ -132,9 +132,6 @@ const DOOR_BLUE = 33;
 const KEY_RED = 34;
 const KEY_GREEN = 35;
 const KEY_BLUE = 36;
-
-
-
 const PLATFORM_RIGHT = 40;
 const PLATFORM_LEFT = 41;
 const PLATFORM_UP = 42;
@@ -161,9 +158,9 @@ const slimeLeftBlobSprite = new SpriteSheetClass(slimeLeftBlobAnim, WORLD_W, WOR
 const slimeMiddleBlobSprite = new SpriteSheetClass(slimeMiddleBlobAnim, WORLD_W, WORLD_H, 8, 20); // 8 frames
 const slimeRightBlobSprite = new SpriteSheetClass(slimeRightBlobAnim, WORLD_W, WORLD_H, 8, 5); // 8 frames, 5 ticks 
 const diamondSprite = new SpriteSheetClass(diamondPickupAnim, WORLD_W / 2, WORLD_H / 2, 2, 60); // 2 frames, 60 ticks 
-const redKeySprite = new SpriteSheetClass(redKeyAnimation, 32, 32, 2, 30); // 2 frames, 60 ticks 
-const greenKeySprite = new SpriteSheetClass(greenKeyAnimation, 32, 32, 2, 30); // 2 frames, 60 ticks 
-const blueKeySprite = new SpriteSheetClass(blueKeyAnimation, 32, 32, 2, 30); // 2 frames, 60 ticks 
+const redKeySprite = new SpriteSheetClass(redKeyAnimation, 32, 32, 2, 60); // 2 frames, 60 ticks 
+const greenKeySprite = new SpriteSheetClass(greenKeyAnimation, 32, 32, 2, 60); // 2 frames, 60 ticks 
+const blueKeySprite = new SpriteSheetClass(blueKeyAnimation, 32, 32, 2, 60); // 2 frames, 60 ticks 
 
 
 function returnAnimatedTileSprites(tileKindHere) {
@@ -186,6 +183,9 @@ function returnAnimatedTileSprites(tileKindHere) {
 		case KEY_BLUE:
 			return blueKeySprite;
 			break;
+		case PICKUP:
+			return diamondSprite;
+			break;	
 	}
 }
 
