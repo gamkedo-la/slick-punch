@@ -165,6 +165,7 @@ const redKeySprite = new SpriteSheetClass(redKeyAnimation, 32, 32, 2, 30); // 2 
 const greenKeySprite = new SpriteSheetClass(greenKeyAnimation, 32, 32, 2, 30); // 2 frames, 60 ticks 
 const blueKeySprite = new SpriteSheetClass(blueKeyAnimation, 32, 32, 2, 30); // 2 frames, 60 ticks 
 
+
 function returnAnimatedTileSprites(tileKindHere) {
 	switch (tileKindHere) {
 		case SLIME_PIT_LEFT_TOP_ANIM:

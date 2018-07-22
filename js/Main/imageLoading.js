@@ -28,6 +28,7 @@ var slickTileSet = document.createElement("img");
 var platformTileSet = document.createElement("img");
 var menuBackground = document.createElement("img");
 var menuBackgroundEmpty = document.createElement("img");
+<<<<<<< HEAD
 var menuBackgroundEmpty = document.createElement("img");
 
 var redKeyAnimation = document.createElement("img");
@@ -40,6 +41,11 @@ var doorAnimationRed = document.createElement("img");
 var doorAnimationBlue = document.createElement("img");
 var doorAnimationGreen = document.createElement("img");
 var goal = document.createElement("img");
+=======
+var heartEmpty = document.createElement("img");
+var heartHalf = document.createElement("img");
+var heartFull = document.createElement("img");
+>>>>>>> ac96c149757c642654d14bc23f3c6787ad4b19eb
 
 var trackPics = [];
 
@@ -93,6 +99,7 @@ function loadImages() {
 		{ varName: slimeRightBlobAnim, theFile: "slimeRightBloop.png" },
 		{ varName: scrollBackground, theFile: "background.png" },
 		{ varName: menuBackground, theFile: "menuImage.png" },
+
 		{ varName: menuBackgroundEmpty, theFile: "menuBackgroundEmpty.png" },		
 
 		{ varName: doorAnimationRed, theFile: "doorYellow.png" },
@@ -105,7 +112,12 @@ function loadImages() {
 		// { varName: venomDog, theFile: "venomDog2.png" },		
 		// { varName: venomDogIdle, theFile: "venomDog2Idle.png" },	
 		{ varName: goal, theFile: "goal.png" },		
-		// { trackType: WORLD_BACKGROUND, theFile: "background35.png" },
+		{ varName: menuBackgroundEmpty, theFile: "menuBackgroundEmpty.png" },
+		{ varName: heartEmpty, theFile: "EmptyHeart.png" },
+		{ varName: heartHalf, theFile: "HalfHeart.png" },
+		{ varName: heartFull, theFile: "Heart.png" },
+		// { trackType: WORLD_GOAL, theFile: "goal.png" },
+		{ trackType: WORLD_BACKGROUND, theFile: "background35.png" },
 		// { trackType: WORLD_PLATFORM, theFile: "platform.png" },
 		// { trackType: WORLD_HAZARD, theFile: "hazard.png" },
 		// {trackType: WORLD_GOAL, theFile: "track_goal.png"}

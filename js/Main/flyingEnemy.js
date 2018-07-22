@@ -47,7 +47,7 @@ function flyingEnemyClass(x, y) {
     this.framesAnim = null;
 
     // Animation generation. 
-    this.flyingAnim = new SpriteSheetClass(flyingEnemyAnim, this.width, this.height, 3); // 3 frames
+    this.flyingAnim = new SpriteSheetClass(flyingEnemyAnim, this.width, this.height, true, 3); // 3 frames
     this.frameRow = 0;
 
     //sets all values of state object to false

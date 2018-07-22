@@ -47,9 +47,9 @@ function dumbEnemyClass() {
     this.keyHeld_Attack = false;
 
     // Animation generation. 
-    this.walkAnim = new SpriteSheetClass(playerWalkAnim, this.width, this.height, 10, 10); // 10 frames
-    this.punchAnim = new SpriteSheetClass(playerPunchAnim, this.width, this.height, this.punchFrameCount); //4frames
-    this.idleAnim = new SpriteSheetClass(playerIdleAnim, this.width, this.height, 7); //7 frames
+    this.walkAnim = new SpriteSheetClass(playerWalkAnim, this.width, this.height, true, 10, 10); // 10 frames
+    this.punchAnim = new SpriteSheetClass(playerPunchAnim, this.width, this.height, true, this.punchFrameCount); //4frames
+    this.idleAnim = new SpriteSheetClass(playerIdleAnim, this.width, this.height, true, 7); //7 frames
     //TODO : Used for combo moves
     this.attackAnimArr = [this.highKickAnim, this.leftJabAnim, this.punchAnim]
 

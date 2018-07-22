@@ -6,11 +6,15 @@ var score;
 var debug = false;
 var enemyObjArr = [];
 var gameRunning = false;
+var timeLimit = 600; //Level time limit in seconds. Set high for now to avoid running out of time while testing.
+var timeRemaining;
 //Might be redundant
 var timeStarted;
 var timeStartedActive;
 var timeElapsedInSeconds = 0;
 var frameCount = 0;
+
+const FRAMES_PER_SECOND = 60
 
 window.onload = function () {
 	canvas = document.getElementById('gameCanvas');
@@ -23,8 +27,7 @@ window.onload = function () {
 };
 
 function imageLoadingDoneSoStartGame() {
-	var framesPerSecond = 60;
-	setInterval(updateAll, 1000 / framesPerSecond);
+	setInterval(updateAll, 1000 / FRAMES_PER_SECOND);
 	setupInput();
 	loadLevel(levelOne);
 }
@@ -56,6 +59,7 @@ function loadLevel(whichLevel) {
 	enemy.reset(enemyPic, "dumb Enemy", 5);
 	score = 0;
 	spawnFlyingEnemies();
+	timeRemaining = timeLimit;
 }
 
 function updateAll() {
@@ -112,14 +116,14 @@ function drawAll() {
 			// }
 		}
 		canvasContext.restore();
-		colorText(`Score : ${score}`, 30, 30, "yellow", "30px Tahoma");
-		colorText(`Health : ${player.health}`, 30, 60, "yellow", "30px Tahoma");
+		drawUI();
 	}
 } 
 
 function startGame() {
     windowState.help = false;
     windowState.mainMenu = false;
+	timeRemaining = timeLimit;
     timeStarted = new Date().getTime();
     timeStartedActive = timeStarted;
     timeElapsedInSeconds = 0;
