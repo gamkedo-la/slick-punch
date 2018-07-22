@@ -1,6 +1,5 @@
 var playerPic = document.createElement("img");
 var enemyPic = document.createElement("img");
-
 var playerJumpAnim = document.createElement("img");
 var playerPunchAnim = document.createElement("img");
 var playerWalkAnim = document.createElement("img");
@@ -31,7 +30,6 @@ var menuBackground = document.createElement("img");
 var menuBackgroundEmpty = document.createElement("img");
 var menuBackgroundEmpty = document.createElement("img");
 
-var doorAnimation = document.createElement("img");
 var redKeyAnimation = document.createElement("img");
 var greenKeyAnimation = document.createElement("img");
 var blueKeyAnimation = document.createElement("img");
@@ -41,15 +39,7 @@ var venomDogIdle = document.createElement("img");
 var doorAnimationRed = document.createElement("img");
 var doorAnimationBlue = document.createElement("img");
 var doorAnimationGreen = document.createElement("img");
-
-
-
-
-
-
-
-
-
+var goal = document.createElement("img");
 
 var trackPics = [];
 
@@ -112,10 +102,9 @@ function loadImages() {
 		{ varName: redKeyAnimation, theFile: "keyRed.png" },		
 		{ varName: greenKeyAnimation, theFile: "keyGreen.png" },		
 		{ varName: blueKeyAnimation, theFile: "keyBlue.png" },		
-		{ varName: venomDog, theFile: "venomDog2.png" },		
-		{ varName: venomDogIdle, theFile: "venomDog2Idle.png" },		
-
-		// { trackType: WORLD_GOAL, theFile: "goal.png" },
+		// { varName: venomDog, theFile: "venomDog2.png" },		
+		// { varName: venomDogIdle, theFile: "venomDog2Idle.png" },	
+		{ varName: goal, theFile: "goal.png" },		
 		// { trackType: WORLD_BACKGROUND, theFile: "background35.png" },
 		// { trackType: WORLD_PLATFORM, theFile: "platform.png" },
 		// { trackType: WORLD_HAZARD, theFile: "hazard.png" },

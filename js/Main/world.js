@@ -10,14 +10,14 @@ var levelOne = [25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 
 				25, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 25,
 				25, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 25,
 				25, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 25,
-				25, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 25,
+				25, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 31, -7,
 				25, -1, -1, -1, -2, -1, -1, -1, -1, -1, -1, -3, -1, -1, -1, 25, 25, 25, 25, 25, 25, 25, 25,
 				25, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 25,
 				25, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 25,
-				25, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 25,
-				25, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 25,
+				25, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 36, -1, -1, -1, -1, -1, -1, -1, -1, -1, 25,
+				25, -1, -1, -1, 35, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 25,
 				25, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 25, 25, -1, -1, -1, -1, -1, -1, -1, -1, 25,
-				25, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 25,
+				25, -1, 34, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 25,
 				25, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 25,
 				25, -1, -1, -1, -1, -1, -1, -6, -1, -1, -1, -1, -1, -1, -1, -6, -1, -1, -1, -1, -1, -1, 25,
 				25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25];
@@ -76,11 +76,8 @@ var levelOne = [25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 
 
 // Used for frame animation. Update to more optimized format
 var frameRow = 0;
-
-
 var worldGrid = [];
 var currentLevel = 1; // This needs to get incremented every time a level is completed
-
 const WORLD_BACKGROUND = -1;
 
 const DOUBLE_PLATFORM_LEFT_TOP = 0;
@@ -129,11 +126,21 @@ const VINES_POISONOUS = 28;
 const CRATE = 29;
 const PICKUP = 30;
 
+const DOOR_RED = 31;
+const DOOR_GREEN = 32;
+const DOOR_BLUE = 33;
+const KEY_RED = 34;
+const KEY_GREEN = 35;
+const KEY_BLUE = 36;
+
+
+
 const PLATFORM_RIGHT = 40;
 const PLATFORM_LEFT = 41;
 const PLATFORM_UP = 42;
 const PLATFORM_DOWN = 43;
 const PLATFORM_DESTINATION = 49;
+
 var PLATFORM_SPEEDS = [];
 PLATFORM_SPEEDS[PLATFORM_RIGHT] = vector.create(1, 0);
 PLATFORM_SPEEDS[PLATFORM_LEFT] = vector.create(-1, 0);
@@ -144,25 +151,19 @@ PLATFORM_SPEEDS[PLATFORM_DOWN] = vector.create(0, 1);
 const WORLD_PLAYERSTART = -2;
 const WORLD_ENEMY_DUMB_START = -3;
 const WORLD_ENEMY_DUMB_DEST = -6;
-const WORLD_GOAL = -4;
+const WORLD_GOAL = -7;
 const WORLD_FLYING_ENEMY = -5; // spawns a flyingEnemy.js
-
-// const DOOR 
-
-
-		// { varName: doorAnimation, theFile: "door.png" },		
-		// { varName: redKeyAnimation, theFile: "keyRed.png" },		
-		// { varName: greenKeyAnimation, theFile: "keyGreen.png" },		
-		// { varName: blueKeyAnimation, theFile: "keyBlue.png" },		
+	
 		// { varName: venomDog, theFile: "venomDog2.png" },		
 		// { varName: venomDogIdle, theFile: "venomDog2Idle.png" },	
 
 const slimeLeftBlobSprite = new SpriteSheetClass(slimeLeftBlobAnim, WORLD_W, WORLD_H, 8, 5); // 8 frames, 5 ticks 
 const slimeMiddleBlobSprite = new SpriteSheetClass(slimeMiddleBlobAnim, WORLD_W, WORLD_H, 8, 20); // 8 frames
 const slimeRightBlobSprite = new SpriteSheetClass(slimeRightBlobAnim, WORLD_W, WORLD_H, 8, 5); // 8 frames, 5 ticks 
-const diamondSprite = new SpriteSheetClass(diamondPickupAnim, WORLD_W / 2, WORLD_H / 2, 2, 60); // 2 frames, 20 ticks 
-
-
+const diamondSprite = new SpriteSheetClass(diamondPickupAnim, WORLD_W / 2, WORLD_H / 2, 2, 60); // 2 frames, 60 ticks 
+const redKeySprite = new SpriteSheetClass(redKeyAnimation, 32, 32, 2, 30); // 2 frames, 60 ticks 
+const greenKeySprite = new SpriteSheetClass(greenKeyAnimation, 32, 32, 2, 30); // 2 frames, 60 ticks 
+const blueKeySprite = new SpriteSheetClass(blueKeyAnimation, 32, 32, 2, 30); // 2 frames, 60 ticks 
 
 function returnAnimatedTileSprites(tileKindHere) {
 	switch (tileKindHere) {
@@ -175,8 +176,14 @@ function returnAnimatedTileSprites(tileKindHere) {
 		case SLIME_PIT_RIGHT_TOP_ANIM:
 			return slimeRightBlobSprite;
 			break;
-		case PICKUP:
-			return diamondSprite;
+		case KEY_RED:
+			return redKeySprite;
+			break;
+		case KEY_GREEN:
+			return greenKeySprite;
+			break;
+		case KEY_BLUE:
+			return blueKeySprite;
 			break;
 	}
 }
@@ -260,14 +267,32 @@ function playerWorldHandling(whichPlayer) {
 		if(whichPlayer.name == "dumb Enemy" && tileHere == WORLD_ENEMY_DUMB_DEST ){
 			whichPlayer.toggleDirection = !whichPlayer.toggleDirection;
 		}
-		if (tileHere == PICKUP && whichPlayer.name == "Player") {
-			tileCollisionRect.width = WORLD_W / 2;
-			tileCollisionRect.height = WORLD_H / 2;
-			var boundingResult = utils.rectIntersect(tileCollisionRect, whichPlayer.boundingBox);
-			if (boundingResult) {
-				whichPlayer.health++;
+		if (whichPlayer.name == "Player") {
+			if(tileHere == PICKUP){
+				tileCollisionRect.width = WORLD_W / 2;
+				tileCollisionRect.height = WORLD_H / 2;
+				var boundingResult = utils.rectIntersect(tileCollisionRect, whichPlayer.boundingBox);
+				if (boundingResult) {
+					whichPlayer.health++;
+					worldGrid[tileindex] = -1;
+				}
+			}
+			if(tileHere == KEY_RED){
+				whichPlayer.key_red = true;
+				console.log("Got a Red key");
 				worldGrid[tileindex] = -1;
 			}
+			if(tileHere == KEY_BLUE){
+				whichPlayer.key_blue = true;
+				console.log("Got a Blue key");
+				worldGrid[tileindex] = -1;
+			}
+			if(tileHere == KEY_GREEN){
+				whichPlayer.key_green = true;
+				console.log("Got a green key");
+				worldGrid[tileindex] = -1;
+			}
+			
 		}
 		//TILEHERE IS THORN
 		if (tileLeftHere == THORNS ||
@@ -372,8 +397,21 @@ function drawWorld() {
 					animatedTile.draw(animatedTile.frameIndex, frameRow, drawTileX + WORLD_W / 2, drawTileY + WORLD_H / 2, false, false);
 				}
 				else {
+					//Need to update this to proper tileset
 					if (tileKindHere == CRATE) {
 						canvasContext.drawImage(crateBox, drawTileX, drawTileY);
+					}
+					if (tileKindHere == WORLD_GOAL) {
+						canvasContext.drawImage(goal, drawTileX, drawTileY);
+					}
+					if (tileKindHere == DOOR_BLUE) {
+						canvasContext.drawImage(doorAnimationBlue, drawTileX, drawTileY);
+					}
+					if (tileKindHere == DOOR_GREEN) {
+						canvasContext.drawImage(doorAnimationGreen, drawTileX, drawTileY);
+					}
+					if (tileKindHere == DOOR_RED) {
+						canvasContext.drawImage(doorAnimationRed, drawTileX, drawTileY);
 					}
 					canvasContext.drawImage(slickTileSet,
 						tilesetCol * WORLD_W, tilesetRow * WORLD_H, // top-left corner of tile art, multiple of tile width for clipped image
@@ -432,8 +470,11 @@ function isTransparentInBackground(tile) {
 		tile == SLIME_PIT_RIGHT_TOP ||
 		tile == GREEN_VINE_WEBS ||
 		tile == THORNS ||
-		VINES_POISONOUS ||
-		CRATE
+		tile == VINES_POISONOUS ||
+		tile == CRATE ||
+		tile == DOOR_RED ||
+		tile == DOOR_GREEN ||
+		tile == DOOR_BLUE
 	);
 }
 
@@ -442,7 +483,10 @@ function isTileAnimated(tile) {
 		tile == SLIME_PIT_LEFT_TOP_ANIM ||
 		tile == SLIME_PIT_MIDDLE_TOP_ANIM ||
 		tile == SLIME_PIT_RIGHT_TOP_ANIM ||
-		tile == PICKUP
+		tile == PICKUP ||
+		tile == KEY_RED ||
+		tile == KEY_BLUE ||
+		tile == KEY_GREEN
 	);
 
 }
@@ -469,6 +513,9 @@ function tileCollidable(tile){
 			tile != WORLD_BACKGROUND &&
 			tile != PICKUP &&
 			tile != CRATE &&
-			tile != WORLD_ENEMY_DUMB_DEST 
-			);
+			tile != WORLD_ENEMY_DUMB_DEST &&
+			tile != KEY_RED &&
+			tile != KEY_BLUE &&
+			tile != KEY_GREEN
+		);
 }
