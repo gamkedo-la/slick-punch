@@ -28,24 +28,18 @@ var slickTileSet = document.createElement("img");
 var platformTileSet = document.createElement("img");
 var menuBackground = document.createElement("img");
 var menuBackgroundEmpty = document.createElement("img");
-<<<<<<< HEAD
-var menuBackgroundEmpty = document.createElement("img");
-
 var redKeyAnimation = document.createElement("img");
 var greenKeyAnimation = document.createElement("img");
 var blueKeyAnimation = document.createElement("img");
 var venomDog = document.createElement("img");
 var venomDogIdle = document.createElement("img");
-
 var doorAnimationRed = document.createElement("img");
 var doorAnimationBlue = document.createElement("img");
 var doorAnimationGreen = document.createElement("img");
 var goal = document.createElement("img");
-=======
 var heartEmpty = document.createElement("img");
 var heartHalf = document.createElement("img");
 var heartFull = document.createElement("img");
->>>>>>> ac96c149757c642654d14bc23f3c6787ad4b19eb
 
 var trackPics = [];
 
