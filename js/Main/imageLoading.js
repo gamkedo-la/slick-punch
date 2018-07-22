@@ -38,6 +38,11 @@ var blueKeyAnimation = document.createElement("img");
 var venomDog = document.createElement("img");
 var venomDogIdle = document.createElement("img");
 
+var doorAnimationRed = document.createElement("img");
+var doorAnimationBlue = document.createElement("img");
+var doorAnimationGreen = document.createElement("img");
+
+
 
 
 
@@ -100,7 +105,10 @@ function loadImages() {
 		{ varName: menuBackground, theFile: "menuImage.png" },
 		{ varName: menuBackgroundEmpty, theFile: "menuBackgroundEmpty.png" },		
 
-		{ varName: doorAnimation, theFile: "door.png" },		
+		{ varName: doorAnimationRed, theFile: "doorYellow.png" },
+		{ varName: doorAnimationBlue, theFile: "doorBlue.png" },		
+		{ varName: doorAnimationGreen, theFile: "doorGreen.png" },		
+
 		{ varName: redKeyAnimation, theFile: "keyRed.png" },		
 		{ varName: greenKeyAnimation, theFile: "keyGreen.png" },		
 		{ varName: blueKeyAnimation, theFile: "keyBlue.png" },		
@@ -108,7 +116,7 @@ function loadImages() {
 		{ varName: venomDogIdle, theFile: "venomDog2Idle.png" },		
 
 		// { trackType: WORLD_GOAL, theFile: "goal.png" },
-		{ trackType: WORLD_BACKGROUND, theFile: "background35.png" },
+		// { trackType: WORLD_BACKGROUND, theFile: "background35.png" },
 		// { trackType: WORLD_PLATFORM, theFile: "platform.png" },
 		// { trackType: WORLD_HAZARD, theFile: "hazard.png" },
 		// {trackType: WORLD_GOAL, theFile: "track_goal.png"}
