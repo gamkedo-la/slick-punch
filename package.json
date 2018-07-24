@@ -4,7 +4,9 @@
   "description": "A fighting platformer game made in js",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --mode production",
+    "start": "webpack-dev-server --open --mode development"
   },
   "repository": {
     "type": "git",
@@ -23,6 +25,9 @@
   ],
   "author": "Gamkedo Club",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gamkedo-la/slick-punch/issues"
+  },
   "dependencies": {
     "webpack": "^4.16.1",
     "webpack-cli": "^3.1.0"
@@ -41,10 +46,7 @@
     "eslint-loader": "^2.0.0",
     "eslint-plugin-import": "^2.13.0",
     "eslint-plugin-jsx-a11y": "^6.1.0",
-    "style-loader": "^0.21.0",
+    "style-loader": "^0.21.0"
   },
-  "bugs": {
-    "url": "https://github.com/gamkedo-la/slick-punch/issues"
-  },
-  "homepage": "https://github.com/gamkedo-la/slick-punch#readme"
+    "homepage": "https://github.com/gamkedo-la/slick-punch#readme",
 }
