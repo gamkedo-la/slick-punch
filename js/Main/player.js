@@ -68,7 +68,7 @@ function playerClass() {
 
 	// Animation generation. 
 	this.walkAnim = new SpriteSheetClass(playerWalkAnim, this.width, this.height, true, 10); // 10 frames
-	this.punchAnim = new SpriteSheetClass(playerPunchAnim, this.width, this.height, true, this.punchFrameCount); //4frames
+	this.punchAnim = new SpriteSheetClass(playerPunchAnim, this.width, this.height, false, this.punchFrameCount); //4frames
 	this.idleAnim = new SpriteSheetClass(playerIdleAnim, this.width, this.height, true, 7); //7 frames
 	this.idleJumpAnim = new SpriteSheetClass(playerIdleJumpAnim, this.width, this.height, true, 5); //6 frames
 	this.leftJabAnim = new SpriteSheetClass(playerLeftJabAnim, this.width, this.height, true, 7); //7 frames
@@ -82,6 +82,9 @@ function playerClass() {
 	this.crouchedKickAnim = new SpriteSheetClass(playerCrouchedKickAnim, this.width, this.height, true, 4); //4 frames
 	this.uppercutAnim = new SpriteSheetClass(playerUppercutAnim, this.width, this.height, true, 6); //4 frames
 	this.deadAnim = new SpriteSheetClass(playerDeadAnim, this.width, this.height, true, 8); //8 frames
+
+	// Need  a key for punches, Other for kick 
+	// Combo moves on multiple sucessful hits. 
 
 	//TODO : Used for combo moves
 	this.attackAnimArr = [this.highKickAnim, this.leftJabAnim, this.punchAnim]
@@ -408,7 +411,7 @@ function playerClass() {
 				this.spriteAnim = this.highKickAnim;
 				// this.attackAnimArr[Math.floor(Math.random()*this.attackAnimArr.length)];
 		}
-		//Once crouch animation complete. Call a function to draw in fixed state instead of animation. 
+		//TODO: Once crouch animation complete. Call a function to draw in fixed state instead of animation. 
 		//final drawing of sprite.
 		if (this.spriteAnim !=null) {			
 			//TODO :Change this.frameRow and used it for animating consilated spritesheet of player character

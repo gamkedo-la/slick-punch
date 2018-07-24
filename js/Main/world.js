@@ -10,7 +10,7 @@ var levelOne = [25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 
 				25, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 25,
 				25, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 25,
 				25, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 25,
-				25, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 31, -7,
+				25, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 25,
 				25, -1, -1, -1, -2, -1, -1, -1, -1, -1, -1, -3, -1, -1, -1, 25, 25, 25, 25, 25, 25, 25, 25,
 				25, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 25,
 				25, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 25,
@@ -154,13 +154,13 @@ const WORLD_FLYING_ENEMY = -5; // spawns a flyingEnemy.js
 		// { varName: venomDog, theFile: "venomDog2.png" },		
 		// { varName: venomDogIdle, theFile: "venomDog2Idle.png" },	
 
-const slimeLeftBlobSprite = new SpriteSheetClass(slimeLeftBlobAnim, WORLD_W, WORLD_H, 8, 5); // 8 frames, 5 ticks 
-const slimeMiddleBlobSprite = new SpriteSheetClass(slimeMiddleBlobAnim, WORLD_W, WORLD_H, 8, 20); // 8 frames
-const slimeRightBlobSprite = new SpriteSheetClass(slimeRightBlobAnim, WORLD_W, WORLD_H, 8, 5); // 8 frames, 5 ticks 
-const diamondSprite = new SpriteSheetClass(diamondPickupAnim, WORLD_W / 2, WORLD_H / 2, 2, 60); // 2 frames, 60 ticks 
-const redKeySprite = new SpriteSheetClass(redKeyAnimation, 32, 32, 2, 60); // 2 frames, 60 ticks 
-const greenKeySprite = new SpriteSheetClass(greenKeyAnimation, 32, 32, 2, 60); // 2 frames, 60 ticks 
-const blueKeySprite = new SpriteSheetClass(blueKeyAnimation, 32, 32, 2, 60); // 2 frames, 60 ticks 
+const slimeLeftBlobSprite = new SpriteSheetClass(slimeLeftBlobAnim, WORLD_W, WORLD_H, true, 8, 5); // 8 frames, 5 ticks 
+const slimeMiddleBlobSprite = new SpriteSheetClass(slimeMiddleBlobAnim, WORLD_W, WORLD_H, true, 8, 20); // 8 frames
+const slimeRightBlobSprite = new SpriteSheetClass(slimeRightBlobAnim, WORLD_W, WORLD_H, true, 8, 5); // 8 frames, 5 ticks 
+const diamondSprite = new SpriteSheetClass(diamondPickupAnim, WORLD_W / 2, WORLD_H / 2, true, 2, 60); // 2 frames, 60 ticks 
+const redKeySprite = new SpriteSheetClass(redKeyAnimation, 32, 32, true, 2, 30); // 2 frames, 60 ticks 
+const greenKeySprite = new SpriteSheetClass(greenKeyAnimation, 32, 32, true, 2, 60); // 2 frames, 60 ticks 
+const blueKeySprite = new SpriteSheetClass(blueKeyAnimation, 32, 32, 2, true, 60); // 2 frames, 60 ticks 
 
 
 function returnAnimatedTileSprites(tileKindHere) {
