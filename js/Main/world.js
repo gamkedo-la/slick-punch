@@ -270,13 +270,15 @@ function playerWorldHandling(whichPlayer) {
 		}
 		if (whichPlayer.name == "Player") {
 			if(tileHere == PICKUP){
-				tileCollisionRect.width = WORLD_W / 2;
-				tileCollisionRect.height = WORLD_H / 2;
-				var boundingResult = utils.rectIntersect(tileCollisionRect, whichPlayer.boundingBox);
-				if (boundingResult) {
-					whichPlayer.health++;
-					worldGrid[tileindex] = -1;
-				}
+				whichPlayer.health++;
+				worldGrid[tileindex] = -1;
+				// tileCollisionRect.width = WORLD_W / 2;
+				// tileCollisionRect.height = WORLD_H / 2;
+				// var boundingResult = utils.rectIntersect(tileCollisionRect, whichPlayer.boundingBox);
+				// if (boundingResult) {
+				// 	whichPlayer.health++;
+				// 	worldGrid[tileindex] = -1;
+				// }
 			}
 			if(tileHere == KEY_RED){
 				whichPlayer.key_red = true;
