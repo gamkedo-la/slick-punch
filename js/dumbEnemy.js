@@ -23,7 +23,7 @@ function dumbEnemyClass() {
         'isInMotion': false,
         'isMovingLeft': false, //Required to set character flip.
         'isAttacking': false, //combo punches, kick on 3 continuos punch
-        'isAnimating' : false, // Used to set state between animation and final.
+        'isAnimating': false, // Used to set state between animation and final.
         'isDead': false
     };
     //For collision
@@ -64,20 +64,20 @@ function dumbEnemyClass() {
     this.doubleJumpCount = 0;
 
     //TODO : Might not need this
-    this.checkAnimationCompletion = function(){
+    this.checkAnimationCompletion = function () {
 
     }
 
     //sets all values of state object to false
-    this.setStateToFalse = function (){
-        for(key in this.state){
+    this.setStateToFalse = function () {
+        for (key in this.state) {
             this.state[key] = false;
         }
     };
 
     //sets value of given key pf state object to value passed
-    this.setStateValueTo = function (key, val){
-        if(this.state.hasOwnProperty(key)){
+    this.setStateValueTo = function (key, val) {
+        if (this.state.hasOwnProperty(key)) {
             // console.log("Setting" + key + ":" + val);
             this.state[key] = val;
         }
@@ -85,24 +85,26 @@ function dumbEnemyClass() {
 
     this.takeDamage = function (howMuch) {
         console.log("Damage received: " + howMuch);
-        if(this.health > 0 && !this.state.isHurt){
+        if (this.health > 0 && !this.state.isHurt) {
             this.health -= howMuch;
             this.state.isHurt = true;
+            enemyHitEffect(this.pos.x, this.pos.y);
         }
         if (this.health <= 0) {
             console.log("Enemy HAS 0 HP - todo: gameover/respawn");
             this.state.isDead = true;
             setTimeout(this.resetDeadAnimation.bind(this), 500);
+            enemyDeathEffect(this.pos.x, this.pos.y);
         }
         this.resetHurtTimeout = setTimeout(this.resetHurtAnimation.bind(this), 1000);
     }
 
 
-    this.resetHurtAnimation = function(){
+    this.resetHurtAnimation = function () {
         this.state.isHurt = false;
     }
 
-    this.resetDeadAnimation = function(){
+    this.resetDeadAnimation = function () {
         // loadLevel(levelOne);
     }
 
@@ -121,10 +123,10 @@ function dumbEnemyClass() {
             'isFacingUp': false, //Might be redundant
             'isAttacking': false, //combo punches, kick on 3 continuos punch
             'isDefending': false,
-            'isAnimating' : false, // Used to set state between animation and final.
+            'isAnimating': false, // Used to set state between animation and final.
             'isHurt': false,
             'isDead': false
-            
+
         };
         this.counter = 0;
         for (var eachRow = 0; eachRow < WORLD_ROWS; eachRow++) {
@@ -145,23 +147,23 @@ function dumbEnemyClass() {
 
     this.move = function () {
 
-        this.boundingBox.width = this.width/3;
+        this.boundingBox.width = this.width / 3;
         this.boundingBox.height = this.height;
-        this.boundingBox.x = this.pos.x - this.boundingBox.width/2;
-        this.boundingBox.y = this.pos.y - this.boundingBox.height/2;
-        var current_direction; 
-        if(this.toggleDirection){
+        this.boundingBox.x = this.pos.x - this.boundingBox.width / 2;
+        this.boundingBox.y = this.pos.y - this.boundingBox.height / 2;
+        var current_direction;
+        if (this.toggleDirection) {
             this.keyHeld_Left = false;
             this.keyHeld_Right = true;
             current_direction = this.keyHeld_Right;
-        } 
-        else{
+        }
+        else {
             this.keyHeld_Left = true;
             this.keyHeld_Right = false;
             current_direction = this.keyHeld_Left;
 
         }
-        if(utils.distance(player.pos,this.pos) < 60){
+        if (utils.distance(player.pos, this.pos) < 60) {
             this.keyHeld_Left = false;
             this.keyHeld_Right = false;
             this.keyHeld_Attack = Math.random() > 0.2;
@@ -169,30 +171,30 @@ function dumbEnemyClass() {
 
             player.takeDamage(1);
         }
-        else{
+        else {
             this.keyHeld_Attack = false;
         }
 
         if (this.state['isOnGround']) {
             this.speed.x *= GROUND_FRICTION;
             this.doubleJumpCount = 0;
-        } 
+        }
         else { // in the air
-                this.speed.x *= AIR_RESISTANCE;
-                this.speed.y += GRAVITY;    
-                // improve this
-                if (this.speed.y > this.boundingBox.height/2 + PLAYER_COLLISION_PADDING) { 
-                    this.speed.y = this.boundingBox.height/2 + PLAYER_COLLISION_PADDING;
-                }
+            this.speed.x *= AIR_RESISTANCE;
+            this.speed.y += GRAVITY;
+            // improve this
+            if (this.speed.y > this.boundingBox.height / 2 + PLAYER_COLLISION_PADDING) {
+                this.speed.y = this.boundingBox.height / 2 + PLAYER_COLLISION_PADDING;
+            }
         }
 
 
         //Left movement
         if (this.keyHeld_Left) {
-                //this.setStateToFalse(); //setting every value of object to false; // might be buggy
-                this.setStateValueTo("isInMotion", true);
-                this.setStateValueTo("isMovingLeft", true);
-                this.speed.x = -DUMB_RUN_SPEED;
+            //this.setStateToFalse(); //setting every value of object to false; // might be buggy
+            this.setStateValueTo("isInMotion", true);
+            this.setStateValueTo("isMovingLeft", true);
+            this.speed.x = -DUMB_RUN_SPEED;
         }
         //Right movement
         else if (this.keyHeld_Right) {
@@ -202,35 +204,35 @@ function dumbEnemyClass() {
             this.speed.x = DUMB_RUN_SPEED;
         }
         else {
-            this.setStateValueTo("isInMotion", false);      
+            this.setStateValueTo("isInMotion", false);
             this.setStateValueTo("isIdle", true);
-        }   
+        }
 
         if (this.keyHeld_Attack) {
-                this.setStateValueTo("isIdle", false);
-                this.setStateValueTo("isInMotion", false);
-                this.setStateValueTo("isAttacking", true);
-                if (!this.punchTimer) {
-                    this.punchTimer = this.punchFrameCount;
-                    playPunchSound();
-                }
-                else {
-                    this.punchTimer--;
-                }           
-                this.boundingBox.width = this.width/1.5;
-                this.boundingBox.x = this.pos.x - this.boundingBox.width/2;
-                
-                if(this.keyHeld_Up && this.state.isCrouching){
-                        // this.speed.y -= 0.05;
-                        // this.state.isOnGround = false;
-                }
+            this.setStateValueTo("isIdle", false);
+            this.setStateValueTo("isInMotion", false);
+            this.setStateValueTo("isAttacking", true);
+            if (!this.punchTimer) {
+                this.punchTimer = this.punchFrameCount;
+                playPunchSound();
+            }
+            else {
+                this.punchTimer--;
+            }
+            this.boundingBox.width = this.width / 1.5;
+            this.boundingBox.x = this.pos.x - this.boundingBox.width / 2;
+
+            if (this.keyHeld_Up && this.state.isCrouching) {
+                // this.speed.y -= 0.05;
+                // this.state.isOnGround = false;
+            }
         }
-        else{
+        else {
             this.setStateValueTo("isAttacking", false);
             this.punchTimer = false;
         }
 
-       
+
         // avoid multiple jumps from the same keypress
         this.keyHeld_Up_lastframe = this.keyHeld_Jump;
         if (!this.state.isAttacking) {
@@ -241,30 +243,30 @@ function dumbEnemyClass() {
 
         if (this.state['isOnGround']) {
             this.justJumped = false;
-        } 
+        }
         else {
             this.justJumped = true;
         }
 
-        if(this.state.isOnGround && this.state.isAttacking){
+        if (this.state.isOnGround && this.state.isAttacking) {
             this.speed.x = 0;
         }
 
         //Checking if player is falling or jumping.
-        if (this.speed.y < 0 && isPlatformAtPixelCoord(this.pos.x, this.pos.y - this.boundingBox.height/2)) {
-            this.pos.y = (Math.floor(this.pos.y / WORLD_H)) * WORLD_H + this.boundingBox.height/2;
+        if (this.speed.y < 0 && isPlatformAtPixelCoord(this.pos.x, this.pos.y - this.boundingBox.height / 2)) {
+            this.pos.y = (Math.floor(this.pos.y / WORLD_H)) * WORLD_H + this.boundingBox.height / 2;
             this.speed.y = 0;
         }
 
-        if (this.speed.y > 0 && isPlatformAtPixelCoord(this.pos.x, this.pos.y + this.height/2 - PLAYER_COLLISION_PADDING*2 )) {
+        if (this.speed.y > 0 && isPlatformAtPixelCoord(this.pos.x, this.pos.y + this.height / 2 - PLAYER_COLLISION_PADDING * 2)) {
 
-            this.pos.y = (1 + Math.floor(this.pos.y / WORLD_H)) * WORLD_H - this.height/2 + PLAYER_COLLISION_PADDING;
+            this.pos.y = (1 + Math.floor(this.pos.y / WORLD_H)) * WORLD_H - this.height / 2 + PLAYER_COLLISION_PADDING;
             this.setStateValueTo("isOnGround", true);
             this.speed.y = 0;
         }
 
         //checks for air/empty space
-        else if (!isPlatformAtPixelCoord(this.pos.x, this.pos.y + this.height/2 + PLAYER_COLLISION_PADDING *2)) {
+        else if (!isPlatformAtPixelCoord(this.pos.x, this.pos.y + this.height / 2 + PLAYER_COLLISION_PADDING * 2)) {
             // if(!this.state.isAttacking && !this.state.isCrouching){
             //  this.setStateValueTo("isOnGround", false);
 
@@ -272,17 +274,17 @@ function dumbEnemyClass() {
             this.setStateValueTo("isOnGround", false);
         }
 
-        if (this.speed.x < 0 && isPlatformAtPixelCoord(this.pos.x - this.boundingBox.width/2, this.pos.y)) {
-            this.pos.x = (Math.floor(this.pos.x / WORLD_W)) * WORLD_W + this.boundingBox.width/2;
+        if (this.speed.x < 0 && isPlatformAtPixelCoord(this.pos.x - this.boundingBox.width / 2, this.pos.y)) {
+            this.pos.x = (Math.floor(this.pos.x / WORLD_W)) * WORLD_W + this.boundingBox.width / 2;
         }
 
-        if (this.speed.x > 0 && isPlatformAtPixelCoord(this.pos.x + this.boundingBox.width/2, this.pos.y)) {
-            this.pos.x = (1 + Math.floor(this.pos.x / WORLD_W)) * WORLD_W - this.boundingBox.width/2;
+        if (this.speed.x > 0 && isPlatformAtPixelCoord(this.pos.x + this.boundingBox.width / 2, this.pos.y)) {
+            this.pos.x = (1 + Math.floor(this.pos.x / WORLD_W)) * WORLD_W - this.boundingBox.width / 2;
         }
 
         this.pos.addTo(this.speed) // same as above, but for vertical
         playerWorldHandling(this);
-        if(this.spriteAnim != null){
+        if (this.spriteAnim != null) {
             this.spriteAnim.update();
 
         }
@@ -303,26 +305,26 @@ function dumbEnemyClass() {
         //TODO : Jump, Attack animation should work Only once
         //TODO : Crouch should run once and stick to that position. 
 
-        if (this.state['isInMotion'] ) {
+        if (this.state['isInMotion']) {
             this.spriteAnim = this.walkAnim;
         }
 
-        if (this.state['isHurt'] ) {
+        if (this.state['isHurt']) {
             this.spriteAnim = this.hurtAnim;
         }
 
-        if (this.state['isDead'] ) {
+        if (this.state['isDead']) {
             this.spriteAnim = this.deadAnim;
         }
         // if (this.state['isInMotion'] && this.state['isCrouching']) {
         // }
         if (this.state['isAttacking']) {
             this.spriteAnim = this.punchAnim;
-            if(this.state.isCrouching){
-                if(this.keyHeld_Up){
+            if (this.state.isCrouching) {
+                if (this.keyHeld_Up) {
                     this.spriteAnim = this.uppercutAnim;
                 }
-                else{
+                else {
                     this.spriteAnim = this.crouchedKickAnim;
                 }
             }
@@ -330,7 +332,7 @@ function dumbEnemyClass() {
         }
         //Once crouch animation complete. Call a function to draw in fixed state instead of animation. 
         //final drawing of sprite.
-        if (this.spriteAnim !=null) {           
+        if (this.spriteAnim != null) {
             //TODO :Change this.frameRow and used it for animating consilated spritesheet of player character
             this.spriteAnim.draw(this.spriteAnim.frameIndex, this.frameRow, this.pos.x, this.pos.y, this.ang, this.state.isMovingLeft);
             // console.log(this.spriteAnim.frameIndex);

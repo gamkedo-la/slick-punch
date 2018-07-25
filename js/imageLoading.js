@@ -11,19 +11,19 @@ const playerHighKickAnim = document.createElement("img");
 const playerIdleAnim = document.createElement("img");
 const playerCrouchAnim = document.createElement("img");
 const playerDeadAnim = document.createElement("img");
-const playerexplosiveFallAnim = document.createElement("img"); 
-const playerHurtAnim = document.createElement("img"); 
+const playerexplosiveFallAnim = document.createElement("img");
+const playerHurtAnim = document.createElement("img");
 const playerFlipAnim = document.createElement("img");
 const playerRollAnim = document.createElement("img");
-const playerCrouchedKickAnim = document.createElement("img"); 
+const playerCrouchedKickAnim = document.createElement("img");
 const playerNormalKickAnim = document.createElement("img");
-const playerUppercutAnim = document.createElement("img"); 
+const playerUppercutAnim = document.createElement("img");
 const slimeLeftBlobAnim = document.createElement("img");
 const slimeMiddleBlobAnim = document.createElement("img");
 const slimeRightBlobAnim = document.createElement("img");
 const diamondPickupAnim = document.createElement("img");
-const crateBox = document.createElement("img"); 
-const flyingEnemyAnim = document.createElement("img"); 
+const crateBox = document.createElement("img");
+const flyingEnemyAnim = document.createElement("img");
 const slickTileSet = document.createElement("img");
 const platformTileSet = document.createElement("img");
 const menuBackground = document.createElement("img");
@@ -40,6 +40,7 @@ const goal = document.createElement("img");
 const heartEmpty = document.createElement("img");
 const heartHalf = document.createElement("img");
 const heartFull = document.createElement("img");
+const particlePic = document.createElement("img");
 
 var trackPics = [];
 
@@ -94,15 +95,15 @@ function loadImages() {
 		{ varName: scrollBackground, theFile: "background.png" },
 		{ varName: menuBackground, theFile: "menuImage.png" },
 		{ varName: doorAnimationRed, theFile: "doorYellow.png" },
-		{ varName: doorAnimationBlue, theFile: "doorBlue.png" },		
-		{ varName: doorAnimationGreen, theFile: "doorGreen.png" },		
+		{ varName: doorAnimationBlue, theFile: "doorBlue.png" },
+		{ varName: doorAnimationGreen, theFile: "doorGreen.png" },
 
-		{ varName: redKeyAnimation, theFile: "keyRed.png" },		
-		{ varName: greenKeyAnimation, theFile: "keyGreen.png" },		
-		{ varName: blueKeyAnimation, theFile: "keyBlue.png" },		
+		{ varName: redKeyAnimation, theFile: "keyRed.png" },
+		{ varName: greenKeyAnimation, theFile: "keyGreen.png" },
+		{ varName: blueKeyAnimation, theFile: "keyBlue.png" },
 		// { varName: venomDog, theFile: "venomDog2.png" },		
 		// { varName: venomDogIdle, theFile: "venomDog2Idle.png" },	
-		{ varName: goal, theFile: "goal.png" },		
+		{ varName: goal, theFile: "goal.png" },
 		{ varName: menuBackgroundEmpty, theFile: "menuBackgroundEmpty.png" },
 		{ varName: heartEmpty, theFile: "EmptyHeart.png" },
 		{ varName: heartHalf, theFile: "HalfHeart.png" },
@@ -112,6 +113,8 @@ function loadImages() {
 		// { trackType: WORLD_PLATFORM, theFile: "platform.png" },
 		// { trackType: WORLD_HAZARD, theFile: "hazard.png" },
 		// {trackType: WORLD_GOAL, theFile: "track_goal.png"}
+
+		{ varName: particlePic, theFile: "particle.png" },
 
 	];
 

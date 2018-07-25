@@ -65,10 +65,11 @@ function loadLevel(whichLevel) {
 function updateAll() {
 	moveAll();
 	drawAll();
+	particles.update();
 }
 
 function moveAll() {
-	if(gameRunning){
+	if (gameRunning) {
 		cameraFollow();
 		player.move();
 		enemy.move();
@@ -85,48 +86,49 @@ function moveAll() {
 }
 
 function drawAll() {
-	 if (!gameRunning) {
-        mainMenuStates();
-    } else {
+	if (!gameRunning) {
+		mainMenuStates();
+	} else {
 		canvasContext.drawImage(scrollBackground, 0, 0);
 		canvasContext.save(); // needed to undo this .translate() used for scroll
-			// this next line is like subtracting camPanX and camPanY from every
-			// canvasContext draw operation up until we call canvasContext.restore
-			// this way we can just draw them at their "actual" position coordinates
-			canvasContext.translate(-camPanX, -camPanY);
-			drawWorld();
-			platformList.draw();
-			player.draw();
-			enemy.draw();
-			// if (!enemy.remove) {
-			// 	enemy.draw();
+		// this next line is like subtracting camPanX and camPanY from every
+		// canvasContext draw operation up until we call canvasContext.restore
+		// this way we can just draw them at their "actual" position coordinates
+		canvasContext.translate(-camPanX, -camPanY);
+		drawWorld();
+		platformList.draw();
+		player.draw();
+		enemy.draw();
+		// if (!enemy.remove) {
+		// 	enemy.draw();
+		// }
+		for (var num = 0; num < flyingEnemies.length; num++) {
+			flyingEnemies[num].draw();
+		}
+		if (debug) {
+			strokedRect(player.boundingBox.x, player.boundingBox.y, player.boundingBox.width, player.boundingBox.height, "2", "yellow");
+			colorCircle(player.pos.x, player.pos.y, 2, "green");
+			if (tileCollisionRect != undefined) {
+				strokedRect(tileCollisionRect.x, tileCollisionRect.y, tileCollisionRect.width, tileCollisionRect.height, "2", "green");
+			}
+			// for(int i = 0 ; i < enemyObjArr.length; i++ ){
+			// 	console.log("hey");
+			// 	// strokedRect(enemyObjArr[i].x, enemyObjArr[i].y, enemyObjArr[i].width, enemyObjArr[i].height, "2", "red"); 
 			// }
-			for (var num = 0; num < flyingEnemies.length; num++) {
-				flyingEnemies[num].draw();
-			}
-			if (debug) {
-				strokedRect(player.boundingBox.x, player.boundingBox.y, player.boundingBox.width, player.boundingBox.height, "2", "yellow");
-				colorCircle(player.pos.x, player.pos.y, 2, "green");
-				if (tileCollisionRect != undefined) {
-					strokedRect(tileCollisionRect.x, tileCollisionRect.y, tileCollisionRect.width, tileCollisionRect.height, "2", "green");
-				}
-				// for(int i = 0 ; i < enemyObjArr.length; i++ ){
-				// 	console.log("hey");
-				// 	// strokedRect(enemyObjArr[i].x, enemyObjArr[i].y, enemyObjArr[i].width, enemyObjArr[i].height, "2", "red"); 
-				// }
-			}
+		}
 		canvasContext.restore();
 		drawUI();
+		particles.draw();
 	}
-} 
+}
 
 function startGame() {
-    windowState.help = false;
-    windowState.mainMenu = false;
+	windowState.help = false;
+	windowState.mainMenu = false;
 	timeRemaining = timeLimit;
-    timeStarted = new Date().getTime();
-    timeStartedActive = timeStarted;
-    timeElapsedInSeconds = 0;
-    frameCount = 0;
-    gameRunning = true;
+	timeStarted = new Date().getTime();
+	timeStartedActive = timeStarted;
+	timeElapsedInSeconds = 0;
+	frameCount = 0;
+	gameRunning = true;
 }
