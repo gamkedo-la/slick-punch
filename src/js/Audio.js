@@ -59,8 +59,8 @@ function playJumpSound() {
 // Then add it here, and set the file name, the rest is easy!
 function loadSounds() {
 	setFormat();
-	firstSong = new Audio("./sound/deepdark" + audioFormat);
-	punchSound = new Audio("./sound/punch" + audioFormat);
-	jumpSound = new Audio("./sound/jump" + audioFormat);
-	kickSound = new Audio("./sound/Kick" + audioFormat);
+	firstSong = new Audio("./src/sound/deepdark" + audioFormat);
+	punchSound = new Audio("./src/sound/punch" + audioFormat);
+	jumpSound = new Audio("./src/sound/jump" + audioFormat);
+	kickSound = new Audio("./src/sound/Kick" + audioFormat);
 }

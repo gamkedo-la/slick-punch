@@ -11,7 +11,7 @@ module.exports = {
             	    options: {
             	             failOnError: false,
             	             failOnWarning: false,
-                           fix: false
+                           fix: true
             	    },
             	  },
             ]
@@ -48,8 +48,8 @@ module.exports = {
 
   plugins: [
     new HtmlWebPackPlugin({
-      template: "./index.html",
-      filename: "./index.html"
+      template: "index.html",
+      filename: "index.html"
     })
   ]
 };
