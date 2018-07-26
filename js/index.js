@@ -14,6 +14,7 @@ var timeStartedActive;
 var timeElapsedInSeconds = 0;
 var frameCount = 0;
 
+
 const FRAMES_PER_SECOND = 60
 
 window.onload = function () {
@@ -80,7 +81,7 @@ function moveAll() {
 		for (var num = 0; num < flyingEnemies.length; num++) {
 			flyingEnemies[num].move();
 		}
-		playBGM(currentLevel);
+
 		platformList.update();
 	}
 }
@@ -113,7 +114,7 @@ function drawAll() {
 			}
 			// for(int i = 0 ; i < enemyObjArr.length; i++ ){
 			// 	console.log("hey");
-			// 	// strokedRect(enemyObjArr[i].x, enemyObjArr[i].y, enemyObjArr[i].width, enemyObjArr[i].height, "2", "red"); 
+			// 	// strokedRect(enemyObjArr[i].x, enemyObjArr[i].y, enemyObjArr[i].width, enemyObjArr[i].height, "2", "red");
 			// }
 		}
 		canvasContext.restore();
@@ -131,4 +132,6 @@ function startGame() {
 	timeElapsedInSeconds = 0;
 	frameCount = 0;
 	gameRunning = true;
+	loadAndPlayNewBackgroundSong();
+	console.log(whichSong.src);
 }
