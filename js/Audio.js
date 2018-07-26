@@ -4,6 +4,11 @@ var firstSong;
 var punchSound;
 var jumpSound;
 var kickSound;
+let arrayOfBackgroundSongs = ["./sound/deepdark", "./sound/Dilse house", "./sound/slickPunchJam", "./sound/slickPunchJam2"];
+function getRandomInt(min, max) {
+		return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
 
 function setFormat() {
 	var audio = new Audio();
@@ -21,6 +26,7 @@ function playBGM(whichLevel) {
 	var whichSong;
 
 	if (whichLevel == 1) {
+
 		whichSong = firstSong;
 		whichSong.volume = 0.8;
 		whichSong.loop = true;
@@ -59,7 +65,8 @@ function playJumpSound() {
 // Then add it here, and set the file name, the rest is easy!
 function loadSounds() {
 	setFormat();
-	firstSong = new Audio("./sound/deepdark" + audioFormat);
+	firstSong = new Audio(arrayOfBackgroundSongs[getRandomInt(0,arrayOfBackgroundSongs.length)] + audioFormat);
+	console.log(firstSong);
 	punchSound = new Audio("./sound/punch" + audioFormat);
 	jumpSound = new Audio("./sound/jump" + audioFormat);
 	kickSound = new Audio("./sound/Kick" + audioFormat);
