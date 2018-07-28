@@ -41,7 +41,12 @@ function keySet(keyEvent, whichPlayer, setTo) {
 		whichPlayer.keyHeld_Down = setTo;
 	}
 	if(keyEvent.keyCode == whichPlayer.controlKeyAttack) {
-		whichPlayer.keyHeld_Attack = setTo;
+		if(setTo == false){
+			//Wait for attack to complete and then set attack state to false;
+			setTimeout(function(){whichPlayer.keyHeld_Attack = setTo;},1000);
+			// This has a problem. I still need to take care of in the end frame test
+
+		}
 	}
 	if(keyEvent.keyCode == whichPlayer.controlKeyJump) {
 		whichPlayer.keyHeld_Jump = setTo;
@@ -51,9 +56,12 @@ function keySet(keyEvent, whichPlayer, setTo) {
 	}
 }
 
+// I want the animation to complete even if I release the button
+
+
+
 function keyPressed(evt) {
 	// console.log("Key pressed: "+evt.keyCode);
-	// keySet(evt, greenCar, true);
 	keySet(evt, player, true);
 	//Attack mode as soon as you press key 
 	//Shouldn't work if kept pressed. 
