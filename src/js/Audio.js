@@ -4,6 +4,26 @@ var firstSong;
 var punchSound;
 var jumpSound;
 var kickSound;
+let arrayOfBackgroundSongs = ["./sound/deepdark", "./sound/Dilse house", "./sound/slickPunchJam", "./sound/slickPunchJam2"];
+function getRandomInt(min, max) {
+		return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function loadAndPlayNewBackgroundSong() {
+	randomBackgroundSongArrayIndex = getRandomInt(0,arrayOfBackgroundSongs.length - 1);
+	randomSong = arrayOfBackgroundSongs[randomBackgroundSongArrayIndex];
+
+	whichSong.src = randomSong + audioFormat;
+	whichSong.volume = 0.8;
+	whichSong.loop = true;
+	whichSong.play();
+
+	if (musicEnabled == false) {
+		whichSong.pause();
+		whichSong.currentTime = 0;
+	}
+}
+
 
 function setFormat() {
 	var audio = new Audio();
@@ -17,23 +37,7 @@ function setFormat() {
 
 // This runs every frame, so it should play the song again once it ends.
 // We can have multiple songs, and specify which levels we'd like those songs to play on.
-function playBGM(whichLevel) {
-	var whichSong;
 
-	if (whichLevel == 1) {
-		whichSong = firstSong;
-		whichSong.volume = 0.8;
-		whichSong.loop = true;
-		whichSong.play();
-	} else {
-		console.log('audio for level not found! add song to playBGM, and make sure to increment currentLevel every time we get to the end of a level!');
-	}
-
-	if (musicEnabled == false) {
-		whichSong.pause();
-		whichSong.currentTime = 0;
-	}
-}
 
 function playPunchSound() {
 	punchSound.volume = 0.1;

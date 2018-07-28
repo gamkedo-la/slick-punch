@@ -7,20 +7,20 @@ var tileCollisionRect; // Used for displaying currently colliding rect
 
 
 var levelOne = [25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25,
-				25, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 25,
-				25, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 25,
-				25, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 25,
-				25, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 25,
-				25, -1, -1, -1, -2, -1, -1, -1, -1, -1, -1, -3, -1, -1, -1, 25, 25, 25, 25, 25, 25, 25, 25,
-				25, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 25,
-				25, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 25,
-				25, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 36, -1, -1, -1, -1, -1, -1, -1, -1, -1, 25,
-				25, -1, -1, -1, 35, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 25,
-				25, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 25, 25, -1, -1, -1, -1, -1, -1, -1, -1, 25,
-				25, -1, 34, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 25,
-				25, -1, -1, -1, -1, -1, 30, 30, 30, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 25,
-				25, -1, -1, -1, -1, -1, -1, -6, -1, -1, -1, -1, -1, -1, -1, -6, -1, -1, -1, -1, -1, -1, 25,
-				25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25];
+	25, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 25,
+	25, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 25,
+	25, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -5, -1, -1, -1, -1, -1, 25,
+	25, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 25,
+	25, -1, -1, -1, -2, -1, -1, -1, -1, -1, -1, -3, -1, -1, -1, 25, 25, 25, 25, 25, 25, 25, 25,
+	25, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 25,
+	25, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 25,
+	25, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 36, -1, -1, -1, -1, -1, -1, -1, -1, -1, 25,
+	25, -1, -1, -1, 35, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 25,
+	25, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 25, 25, -1, -1, -1, -1, -1, -1, -1, -1, 25,
+	25, -1, 34, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 25,
+	25, -1, -1, -1, -1, -1, 30, 30, 30, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -5, -1, -1, 25,
+	25, -1, -1, -1, -1, -1, -1, -6, -1, -1, -1, -1, -1, -1, -1, -6, -1, -1, -1, -1, -1, -1, 25,
+	25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25];
 
 // var levelOne = [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 14,
 // 	9, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 14,
@@ -150,9 +150,9 @@ const WORLD_ENEMY_DUMB_START = -3;
 const WORLD_ENEMY_DUMB_DEST = -6;
 const WORLD_GOAL = -7;
 const WORLD_FLYING_ENEMY = -5; // spawns a flyingEnemy.js
-	
-		// { varName: venomDog, theFile: "venomDog2.png" },		
-		// { varName: venomDogIdle, theFile: "venomDog2Idle.png" },	
+
+// { varName: venomDog, theFile: "venomDog2.png" },		
+// { varName: venomDogIdle, theFile: "venomDog2Idle.png" },	
 
 const slimeLeftBlobSprite = new SpriteSheetClass(slimeLeftBlobAnim, WORLD_W, WORLD_H, true, 8, 5); // 8 frames, 5 ticks 
 const slimeMiddleBlobSprite = new SpriteSheetClass(slimeMiddleBlobAnim, WORLD_W, WORLD_H, true, 8, 20); // 8 frames
@@ -185,7 +185,7 @@ function returnAnimatedTileSprites(tileKindHere) {
 			break;
 		case PICKUP:
 			return diamondSprite;
-			break;	
+			break;
 	}
 }
 
@@ -265,11 +265,11 @@ function playerWorldHandling(whichPlayer) {
 			height: WORLD_H
 		};
 
-		if(whichPlayer.name == "dumb Enemy" && tileHere == WORLD_ENEMY_DUMB_DEST ){
+		if (whichPlayer.name == "dumb Enemy" && tileHere == WORLD_ENEMY_DUMB_DEST) {
 			whichPlayer.toggleDirection = !whichPlayer.toggleDirection;
 		}
 		if (whichPlayer.name == "Player") {
-			if(tileHere == PICKUP){
+			if (tileHere == PICKUP) {
 				whichPlayer.health++;
 				worldGrid[tileindex] = -1;
 				// tileCollisionRect.width = WORLD_W / 2;
@@ -280,22 +280,22 @@ function playerWorldHandling(whichPlayer) {
 				// 	worldGrid[tileindex] = -1;
 				// }
 			}
-			if(tileHere == KEY_RED){
+			if (tileHere == KEY_RED) {
 				whichPlayer.key_red = true;
 				console.log("Got a Red key");
 				worldGrid[tileindex] = -1;
 			}
-			if(tileHere == KEY_BLUE){
+			if (tileHere == KEY_BLUE) {
 				whichPlayer.key_blue = true;
 				console.log("Got a Blue key");
 				worldGrid[tileindex] = -1;
 			}
-			if(tileHere == KEY_GREEN){
+			if (tileHere == KEY_GREEN) {
 				whichPlayer.key_green = true;
 				console.log("Got a green key");
 				worldGrid[tileindex] = -1;
 			}
-			
+
 		}
 		//TILEHERE IS THORN
 		if (tileLeftHere == THORNS ||
@@ -506,19 +506,19 @@ function isPlatformAtPixelCoord(hitPixelX, hitPixelY) {
 
 		var brickIndex = rowColToArrayIndex(tileCol, tileRow);
 		var tileHere = worldGrid[brickIndex];
-		return tileCollidable(tileHere);	
-	}	
+		return tileCollidable(tileHere);
+	}
 }
 
 //Just add any tile you want to act as collidable
-function tileCollidable(tile){
-		return ( 
-			tile != WORLD_BACKGROUND &&
-			tile != PICKUP &&
-			tile != CRATE &&
-			tile != WORLD_ENEMY_DUMB_DEST &&
-			tile != KEY_RED &&
-			tile != KEY_BLUE &&
-			tile != KEY_GREEN
-		);
+function tileCollidable(tile) {
+	return (
+		tile != WORLD_BACKGROUND &&
+		tile != PICKUP &&
+		tile != CRATE &&
+		tile != WORLD_ENEMY_DUMB_DEST &&
+		tile != KEY_RED &&
+		tile != KEY_BLUE &&
+		tile != KEY_GREEN
+	);
 }

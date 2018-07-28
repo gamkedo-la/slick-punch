@@ -9,7 +9,7 @@ function flyingEnemyClass(x, y) {
 
     this.playerPic; // which picture to use
     this.name = "Flying Enemy";
-    this.health = 1;
+    this.health = 3;
 
     this.spawnPoint = vector.create(x, y);
     const FLYING_HORIZ_RANGE = 100; // px from spawnPoint
@@ -66,16 +66,28 @@ function flyingEnemyClass(x, y) {
     };
 
 
+    this.resetHurt = function () {
+        this.state.isHurt = false;
+    }
+
     this.takeDamage = function (howMuch) {
-        console.log("flyingEnemy damage received: " + howMuch);
+        console.log("flyingEnemy damage received: HP = " + this.health + " - " + howMuch);
         if (this.health > 0 && !this.state.isHurt) {
             this.health -= howMuch;
             this.state.isHurt = true;
+            flyingEnemyHitEffect(this.pos.x, this.pos.y);
+            // knockback
+            this.pos.x += Math.random() * 8 - 4;
+            this.pos.y += Math.random() * 8 - 6;
         }
         if (this.health <= 0) {
-            console.log("FLYING ENEMY HAS 0 HP - todo: gameover/respawn");
+            console.log("FLYING ENEMY HAS 0 HP");
+            flyingEnemyDeathEffect(this.pos.x, this.pos.y);
+            this.pos.x = -9999999;
+            this.pos.y = -9999999;
             this.state.isDead = true;
         }
+        this.resetHurtTimeout = setTimeout(this.resetHurt.bind(this), 1000);
     }
 
     this.move = function () {
@@ -85,16 +97,18 @@ function flyingEnemyClass(x, y) {
         this.boundingBox.x = this.pos.x - this.boundingBox.width / 2;
         this.boundingBox.y = this.pos.y - this.boundingBox.height / 2;
 
-        if(utils.distance(player.pos,this.pos) < 30){
-            if(player.state.isAttacking){
-                this.takeDamage(1);
-            }
-            else{
-                player.takeDamage(1);
-            }
+        if (this.state.isDead) return;
+
+        // close enough to hit?
+        if (player.state.isAttacking && (utils.distance(player.pos, this.pos) < 80)) {
+            this.takeDamage(1);
+        }
+        // close enough to get hit?
+        else if (!player.state.isAttacking && utils.distance(player.pos, this.pos) < 40) {
+            player.takeDamage(1);
         }
 
-        if (this.state['isFlying']) {
+        if (this.state.isFlying) {
 
             var phaseOffset = this.spawnPoint.x * 5555 + this.spawnPoint.x * 3213; // randomish
             this.speed.x = Math.cos((performance.now() + phaseOffset) / FLYING_SPEED_SCALE) * FLYING_HORIZ_MAX_SPEED;
@@ -115,12 +129,12 @@ function flyingEnemyClass(x, y) {
             this.pos.y = (Math.floor(this.pos.y / WORLD_H)) * WORLD_H + this.boundingBox.height / 2;
             this.speed.y = 0;
         }
-
+    
         if (this.speed.x < 0 && isPlatformAtPixelCoord(this.pos.x - this.boundingBox.width / 2, this.pos.y)) {
             this.pos.x = (Math.floor(this.pos.x / WORLD_W)) * WORLD_W + this.boundingBox.width / 2;
             this.speed.x = 0;
         }
-
+    
         if (this.speed.x > 0 && isPlatformAtPixelCoord(this.pos.x + this.boundingBox.width / 2, this.pos.y)) {
             this.pos.x = (1 + Math.floor(this.pos.x / WORLD_W)) * WORLD_W - this.boundingBox.width / 2;
             this.speed.x = 0;
@@ -160,6 +174,10 @@ function flyingEnemyClass(x, y) {
 
     this.draw = function () {
 
+        if (this.state.isDead) { // don't draw
+            return;
+        }
+
         if (this.state['isFlying']) {
             this.spriteAnim = this.flyingAnim;
         }
@@ -170,7 +188,7 @@ function flyingEnemyClass(x, y) {
         if (this.state['isHurt']) {
             this.spriteAnim = this.hurtAnim;
         }
-
+    
         if (this.state['isDead']) {
             this.spriteAnim = this.deadAnim;
         }
