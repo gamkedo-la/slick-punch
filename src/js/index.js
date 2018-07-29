@@ -23,7 +23,8 @@ window.onload = function () {
 	colorRect(0, 0, canvas.width, canvas.height, 'black');
 	colorText("LOADING IMAGES", canvas.width / 2, canvas.height / 2, 'white');
 	loadImages();
-	loadSounds();
+	// loadSounds();
+	dilseMusic.loopSong();
 	mainMenu.initialize();
 };
 
@@ -132,6 +133,6 @@ function startGame() {
 	timeElapsedInSeconds = 0;
 	frameCount = 0;
 	gameRunning = true;
-	loadAndPlayNewBackgroundSong();
-	console.log(whichSong.src);
+	// loadAndPlayNewBackgroundSong();
+	// console.log(whichSong.src);
 }

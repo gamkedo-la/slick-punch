@@ -98,8 +98,11 @@ const slickPunchJam2Music = new backgroundMusicClass("slickpunch_jam2");
 
 let currentBackgroundMusic;
 
-let soundVolume = document.getElementById('soundVolume').defaultValue;
-let musicVolume = document.getElementById('musicVolume').defaultValue;
+// let soundVolume = document.getElementById('soundVolume').defaultValue;
+// let musicVolume = document.getElementById('musicVolume').defaultValue;
+
+let musicVolume = 1;
+let soundVolume = 0.5;
 
 
 function setFormat() {
@@ -122,7 +125,7 @@ function backgroundMusicClass(filename) {
             musicSound.pause();
             musicSound = null;
         }
-        musicSound = new Audio("./audio/music/" + audioFormat.slice(1, audioFormat.length) + "/"  + filename + audioFormat);
+        musicSound = new Audio("./src/audio/music/" + audioFormat.slice(1, audioFormat.length) + "/"  + filename + audioFormat);
         musicSound.volume = musicVolume;
         musicSound.loop = true;
         musicSound.play();
@@ -151,8 +154,8 @@ function SoundOverlapsClass(filename) {
     setFormat();
 
     var altSoundTurn = false;
-    var mainSound = new Audio("./audio/sound/" + audioFormat.slice(1, audioFormat.length) + "/"  + filename + audioFormat);
-    var altSound = new Audio("./audio/sound/" + audioFormat.slice(1, audioFormat.length) + "/"  + filename + audioFormat);
+    var mainSound = new Audio("./src/audio/sounds/" + audioFormat.slice(1, audioFormat.length) + "/"  + filename + audioFormat);
+    var altSound = new Audio("./src/audio/sounds/" + audioFormat.slice(1, audioFormat.length) + "/"  + filename + audioFormat);
 
     this.play = function() {
         if (altSoundTurn) {
