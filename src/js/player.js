@@ -270,14 +270,14 @@ function playerClass() {
 			// this.setStateToFalse();
 			this.keyHeld_Up_lastframe = true;
 			if (this.state['isOnGround']) { // regular jump
-				playJumpSound();
+				jumpSound.play();
 				//console.log("Normal Jump!");
 				this.speed.y -= JUMP_POWER;
 				// this.setStateToFalse();
 				this.setStateValueTo("isOnGround", false);
 			}
 			else if (this.doubleJumpCount < MAX_AIR_JUMPS) { // in the air?
-				playJumpSound();
+				jumpSound.play();
 				//console.log("Double Jump!");
 				this.speed.y = 0;
 				this.speed.y -= DOUBLE_JUMP_POWER;
