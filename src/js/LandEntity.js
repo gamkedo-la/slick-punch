@@ -1,11 +1,11 @@
-// const GROUND_FRICTION = 0.7;
-// const AIR_RESISTANCE = 0.975;
-// const RUN_SPEED = 3.0;
-// const JUMP_POWER = 8;
-// const DOUBLE_JUMP_POWER = 10; // we need more force to counteract gravity in air
-// const GRAVITY = 0.55;
-// const MAX_AIR_JUMPS = 1; // double jump
-// const PLAYER_COLLISION_PADDING = 5;
+const GROUND_FRICTION = 0.7;
+const AIR_RESISTANCE = 0.975;
+const RUN_SPEED = 3.0;
+const JUMP_POWER = 8;
+const DOUBLE_JUMP_POWER = 10; // we need more force to counteract gravity in air
+const GRAVITY = 0.55;
+const MAX_AIR_JUMPS = 1; // double jump
+const PLAYER_COLLISION_PADDING = 5;
 
 //Has collision code for platform 
 //Had properties that help check player Collision
@@ -14,6 +14,21 @@ const PLAYER_HEALTH = 3;
 const DUMB_WALK_ENEMY = 1;
 const RUNNING_ZOMBIE_ENEMY = 1; 
 
+//constants created instead of just texts to make sure no one 
+//mispells and assigns different state
+const ON_GROUND = 'isOnGround';
+const IDLE = 'isIdle';
+const IN_MOTION = 'isInMotion';
+const MOVING_LEFT = 'isMovingLeft';
+const CROUCHING = 'isCrouching';
+const FACING_UP = 'isFacingUp';
+const ATTACKING = 'isAttacking';
+const DEFENDING = 'isDefending';
+const ANIMATING = 'isAnimating';
+const IS_HURT = 'isHurt'
+const IS_DEAD = 'isDead'
+const IS_FLYING = 'isFlying'
+
 function entityClass() {
 	//Need to check which variables are used outside and only expose them in code. 
     this.pos = vector.create(75, 75);
@@ -21,22 +36,22 @@ function entityClass() {
 	this.playerPic; // which picture to use
 	this.name = "Entity";
 	this.health = 5;
-	this.valueInWorldIndex = 999; //Change this when inhereiting
+	this.valueInWorldIndex = 999; //Change this when inheriting
 
 	// @todo split up attack-state into multiple states to make playing sounds/animation easier
 	this.state = {
-	    'isOnGround': true,
-		'isIdle': true,
-		'isInMotion': false,
-		'isMovingLeft': false,  // Required to set character flip.
-		'isCrouching': false,
-		'isFacingUp': false,    // Might be redundant
-		'isAttacking': false,   // Combo punches, kick on 3 continuos punch
-		'isDefending': false,
-		'isAnimating' : false,  // Used to set state between animation and final.
-		'isHurt': false,
-		'isDead': false,
-		"isFlying": false;
+	    ON_GROUND: true,
+		IDLE: true,
+		IN_MOTION: false,
+		MOVING_LEFT: false,  // Required to set character flip.
+		CROUCHING: false,
+		FACING_UP: false,    // Might be redundant
+		ATTACKING: false,   // Combo punches, kick on 3 continuos punch
+		DEFENDING: false,
+		ANIMATING : false,  // Used to set state between animation and final.
+		IS_HURT: false,
+		IS_DEAD: false,
+		IS_FLYING: false;
 	};
 
 	//For collision
