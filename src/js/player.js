@@ -248,7 +248,8 @@ function playerClass() {
 			//       }
 			if (!this.punchTimer) {
 				this.punchTimer = this.punchFrameCount;
-				playPunchSound();
+				// playPunchSound();
+				
 			}
 			else {
 				this.punchTimer--;

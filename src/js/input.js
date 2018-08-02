@@ -41,12 +41,13 @@ function keySet(keyEvent, whichPlayer, setTo) {
 		whichPlayer.keyHeld_Down = setTo;
 	}
 	if(keyEvent.keyCode == whichPlayer.controlKeyAttack) {
-		if(setTo == false){
-			//Wait for attack to complete and then set attack state to false;
-			setTimeout(function(){whichPlayer.keyHeld_Attack = setTo;},1000);
-			// This has a problem. I still need to take care of in the end frame test
+		whichPlayer.keyHeld_Attack = setTo;
+		// if(setTo == false){
+		// 	//Wait for attack to complete and then set attack state to false;
+		// 	setTimeout(function(){},1000);
+		// 	// This has a problem. I still need to take care of in the end frame test
 
-		}
+		// }
 	}
 	if(keyEvent.keyCode == whichPlayer.controlKeyJump) {
 		whichPlayer.keyHeld_Jump = setTo;
@@ -76,6 +77,7 @@ function keyReleased(evt) {
 	// console.log("Key pressed: "+evt.keyCode);
 	keySet(evt, player, false);
 
+	//APPLY SWITCH CASE HERE.
 	if (evt.keyCode == KEY_M) {
 		musicEnabled = !musicEnabled;
 	}
