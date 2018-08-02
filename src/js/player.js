@@ -29,6 +29,8 @@ const PLAYER_HEALTH = 3;
 const DUMB_WALK_ENEMY = 1;
 const RUNNING_ZOMBIE_ENEMY = 1; 
 
+const PLAYER_ATTACK_POWER = 1;
+
 
 function playerClass() {
 	this.pos = vector.create(75, 75);
@@ -125,11 +127,6 @@ function playerClass() {
 	this.justKicked = false;
 	this.doubleJumpCount = 0;
 
-	//TODO : Might not need this
-	this.checkAnimationCompletion = function () {
-
-	}
-
 	//sets all values of state object to false
 	this.setStateToFalse = function () {
 		for (key in this.state) {
@@ -166,9 +163,9 @@ function playerClass() {
 			console.log("PLAYER HAS 0 HP - todo: gameover/respawn");
 			this.state.isDead = true;
 			playerDeathEffect(this.pos.x, this.pos.y);
-			setTimeout(this.resetGame.bind(this), 500);
+			setTimeout(this.resetGame.bind(this), 800);
 		}
-		this.resetHurtTimeout = setTimeout(this.resetHurtAnimation.bind(this), 700);
+		this.resetHurtTimeout = setTimeout(this.resetHurtAnimation.bind(this), 500);
 	}
 
 	this.resetHurtAnimation = function () {
@@ -184,6 +181,7 @@ function playerClass() {
 		this.playerPic = whichImage;
 		this.health = PLAYER_HEALTH;
 		this.doubleJumpCount = 0;
+		this.attackPower = PLAYER_ATTACK_POWER;
 		this.state = {
 			'isOnGround': true,
 			'isIdle': true,
@@ -200,6 +198,8 @@ function playerClass() {
 		};
 		this.setEntityPosition(WORLD_PLAYERSTART);
 	} // end of playerReset func
+
+	window.player = this;
 
 	this.setEntityPosition = function(entityWorldIndex){
 		for (var eachRow = 0; eachRow < WORLD_ROWS; eachRow++) {

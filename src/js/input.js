@@ -12,6 +12,7 @@ const KEY_D = 68;
 // Used for menu Screen
 const KEY_C = 67;
 const KEY_H = 72;
+const KEY_O = 79;
 const KEY_P = 80;
 const KEY_S = 83;
 const KEY_ENTER = 13;
@@ -76,50 +77,49 @@ function keyPressed(evt) {
 function keyReleased(evt) {
 	// console.log("Key pressed: "+evt.keyCode);
 	keySet(evt, player, false);
-
-	//APPLY SWITCH CASE HERE.
-	if (evt.keyCode == KEY_M) {
-		musicEnabled = !musicEnabled;
-	}
-	if (evt.keyCode == KEY_D) {
-		debug = !debug;
-	}
-	if (evt.keyCode == KEY_C) {
-		if(windowState.mainMenu){
-	  			openCredits();
-	  		}
-	}
-	if (evt.keyCode == KEY_H) {
+	switch(evt.keyCode){
+		case KEY_M:
+			musicEnabled = !musicEnabled;
+			break;
+		case KEY_D:
+			musicEnabled = !musicEnabled;
+			break;
+		case KEY_O:
+			debug = !debug;
+			break;
+		case KEY_C:
+			if(windowState.mainMenu){
+		  			openCredits();
+		  	}
+		  	break;
+		case KEY_H:
 			if(windowState.mainMenu){
 	  			openHelp();
-	  		}		
-	}
-	if (evt.keyCode == KEY_P) {
-		if(windowState.mainMenu){
+	  		}
+	  		break;
+	  	case KEY_P:
+	  		if(windowState.mainMenu){
 	  			startGame();
-	  		}		
+	  		}	
+	  		break;
+	  	case KEY_S:
+	  		if(windowState.mainMenu){
+		  		setSoundSystem();
+		  	}
+	  		break;
+	  	case KEY_ENTER:
+		  	if(windowState.credits){
+		  		windowState.mainMenu = true;
+		  		windowState.credits = false;
+		  	}
+		  	if(windowState.help){
+		  		windowState.mainMenu = true;
+		  		windowState.help = false;
+		  	}
+		  	if(windowState.sound){
+		  		windowState.mainMenu = true;
+		  		windowState.sound = false;
+		  	}	
+		  	break;	
 	}
-	if (evt.keyCode == KEY_S) {
-		if(windowState.mainMenu){
-	  		setSoundSystem();
-	  	}
-	}
-	if (evt.keyCode == KEY_ENTER) {
-		if(windowState.credits){
-	  		windowState.mainMenu = true;
-	  		windowState.credits = false;
-	  	}
-	  	if(windowState.help){
-	  		windowState.mainMenu = true;
-	  		windowState.help = false;
-	  	}
-	  	if(windowState.sound){
-	  		windowState.mainMenu = true;
-	  		windowState.sound = false;
-	  	}		
-	}
-	// if(evt.keyCode == KEY_Z && player.state.isAttacking){		
-	// 	player.setStateValueTo("isIdle", true);
-	// 	player.setStateValueTo("isAttacking", false);
-	// }
 }
