@@ -19,7 +19,7 @@ var levelOne = [25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 
 	25, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 25, 25, -1, -1, -1, -1, -1, -1, -1, -1, 25,
 	25, -1, 34, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 25,
 	25, -1, -1, -1, -1, -1, 30, 30, 30, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -5, -1, -1, 25,
-	25, -1, -1, -1, -1, -1, -1, -6, -1, -1, -1, -1, -1, -1, -1, -6, -1, -1, -1, -1, -1, -1, 25,
+	25, -1, -1, 29, -1, -1, -1, -6, -1, -1, -1, -1, -1, -1, -1, -6, -1, -1, -1, -1, -1, -1, 25,
 	25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25];
 
 // var levelOne = [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 14,
@@ -158,9 +158,11 @@ const slimeLeftBlobSprite = new SpriteSheetClass(slimeLeftBlobAnim, WORLD_W, WOR
 const slimeMiddleBlobSprite = new SpriteSheetClass(slimeMiddleBlobAnim, WORLD_W, WORLD_H, true, 8, 20); // 8 frames
 const slimeRightBlobSprite = new SpriteSheetClass(slimeRightBlobAnim, WORLD_W, WORLD_H, true, 8, 5); // 8 frames, 5 ticks 
 const diamondSprite = new SpriteSheetClass(diamondPickupAnim, WORLD_W / 2, WORLD_H / 2, true, 2, 60); // 2 frames, 60 ticks 
-const redKeySprite = new SpriteSheetClass(redKeyAnimation, 32, 32, true, 2, 30); // 2 frames, 60 ticks 
+const redKeySprite = new SpriteSheetClass(redKeyAnimation, 32, 32, true, 2, 60); // 2 frames, 60 ticks 
 const greenKeySprite = new SpriteSheetClass(greenKeyAnimation, 32, 32, true, 2, 60); // 2 frames, 60 ticks 
-const blueKeySprite = new SpriteSheetClass(blueKeyAnimation, 32, 32, 2, true, 60); // 2 frames, 60 ticks 
+const blueKeySprite = new SpriteSheetClass(blueKeyAnimation, 32, 32, true, 2, 60); // 2 frames, 60 ticks
+/*const blueKeySprite = new SpriteSheetClass(blueKeyAnimation, 32, 32, true, 2, 60); // 2 frames, 60 ticks*/ // same as above?
+//const crateBoxSprite = new  SpriteSheetClass(crateBoxAnim, 35, 35, true, 5, 60); // 2 frames, 60 ticks
 
 
 function returnAnimatedTileSprites(tileKindHere) {
