@@ -57,7 +57,7 @@ function spawnFlyingEnemies() {
 function loadLevel(whichLevel) {
 	worldGrid = whichLevel.slice();
 	platformList.parseWorld();
-	player.reset(playerPic, "Player", 3);
+	player.init(playerPic, "Player");
 	enemy.reset(enemyPic, "dumb Enemy", 5);
 	score = 0;
 	spawnFlyingEnemies();
@@ -75,14 +75,12 @@ function moveAll() {
 		cameraFollow();
 		player.move();
 		enemy.move();
-
 		if (!enemy.remove) {
 			enemy.move();
 		}
 		for (var num = 0; num < flyingEnemies.length; num++) {
 			flyingEnemies[num].move();
 		}
-
 		platformList.update();
 	}
 }
@@ -90,7 +88,8 @@ function moveAll() {
 function drawAll() {
 	if (!gameRunning) {
 		mainMenuStates();
-	} else {
+	} 
+	else {
 		canvasContext.drawImage(scrollBackground, 0, 0);
 		canvasContext.save(); // needed to undo this .translate() used for scroll
 		// this next line is like subtracting camPanX and camPanY from every

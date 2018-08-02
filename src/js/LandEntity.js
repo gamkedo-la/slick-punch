@@ -40,18 +40,18 @@ function entityClass() {
 
 	// @todo split up attack-state into multiple states to make playing sounds/animation easier
 	this.state = {
-	    ON_GROUND: true,
-		IDLE: true,
-		IN_MOTION: false,
-		MOVING_LEFT: false,  // Required to set character flip.
-		CROUCHING: false,
-		FACING_UP: false,    // Might be redundant
-		ATTACKING: false,   // Combo punches, kick on 3 continuos punch
-		DEFENDING: false,
-		ANIMATING : false,  // Used to set state between animation and final.
-		IS_HURT: false,
-		IS_DEAD: false,
-		IS_FLYING: false;
+		'isOnGround': true,
+		'isIdle': true,
+		'isInMotion': false,
+		'isMovingLeft': false, //Required to set character flip.
+		'isCrouching': false,
+		'isFacingUp': false, //Might be redundant
+		'isAttacking': false, //combo punches, kick on 3 continuos punch
+		'isDefending': false,
+		'isAnimating': false, // Used to set state between animation and final.
+		'isHurt': false,
+		'isDead': false,
+		'isFlying': false
 	};
 
 	//For collision
@@ -71,47 +71,42 @@ function entityClass() {
 	//Used for animation.
 	//TODO :Change this.frameRow and used it for animating consilated spritesheet of player character
 	this.frameRow = 0;
+}
 
-	//Used to track sound play and pause.
-	this.justPunched = false;
-	this.justJumped = false;
-	this.justKicked = false;
-	this.doubleJumpCount = 0;
 
-	//TODO : Might not need this
-	this.checkAnimationCompletion = function(){}
-
-	//sets all values of state object to false
-	this.setStateToFalse = function (){
-		for(key in this.state){
-			this.state[key] = false;
-		}
-	};
-
-	//sets value of given key pf state object to value passed
-	this.setStateValueTo = function (key, val){
-		if(this.state.hasOwnProperty(key)){
-			// console.log("Setting" + key + ":" + val);
-			this.state[key] = val;
-		}
-	};
-
-	this.takeDamage = function (howMuch) {
-		console.log("Damage received:  " + howMuch + " by " + this.name);
-		//TODO: Improve this. Currently only effects health till isHurt is active. 
-		if(this.health > 0 && !this.state.isHurt){
-			this.health -= howMuch;
-			this.state.isHurt = true;
-		}
-		if (this.health <= 0) {
-			console.log("PLAYER HAS 0 HP - todo: gameover/respawn");
-			this.state.isDead = true;
-			if(	this.name == "Player"){
-				setTimeout(this.resetDeadAnimation.bind(this), 500);
-			}
-		}
-		this.resetHurtTimeout = setTimeout(this.resetHurtAnimation.bind(this), 700);
+// Sets all values of state object to false
+// Used in conjunction with setValue to as default state is Idle
+entityClass.prototype.setStateToFalse = function (){
+	for(key in this.state){
+		this.state[key] = false;
 	}
+};
+
+//sets value of given key of state object to value passed
+entityClass.prototype.setStateValueTo = function (key, val){
+	if(this.state.hasOwnProperty(key)){
+		// console.log("Setting" + key + ":" + val);
+		this.state[key] = val;
+	}
+};
+
+//how much would be attack power for each entity
+entityClass.prototype.takeDamage = function (howMuch) {
+	console.log("Damage received:  " + howMuch + " by " + this.name);
+	//TODO: Improve this. Currently only effects health till isHurt is active. 
+	if(this.health > 0 && !this.state.isHurt){
+		this.health -= howMuch;
+		this.state.isHurt = true;
+	}
+	if (this.health <= 0) {
+		console.log("PLAYER HAS 0 HP - todo: gameover/respawn");
+		this.state.isDead = true;
+		if(	this.name == "Player"){
+			setTimeout(this.resetDeadAnimation.bind(this), 500);
+		}
+	}
+	this.resetHurtTimeout = setTimeout(this.resetHurtAnimation.bind(this), 700);
+}
 
 	this.resetHurtAnimation = function(){
 		this.state.isHurt = false;
@@ -178,5 +173,4 @@ function entityClass() {
 			// console.log(this.spriteAnim.frameIndex);
 		}
 	}
-}
 

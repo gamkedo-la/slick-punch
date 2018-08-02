@@ -7,12 +7,35 @@ const GRAVITY = 0.55;
 const MAX_AIR_JUMPS = 1; // double jump
 const PLAYER_COLLISION_PADDING = 5;
 
+//constants created instead of just texts to make sure no one 
+//mispells and assigns different state
+const ON_GROUND = 'isOnGround';
+const IDLE = 'isIdle';
+const IN_MOTION = 'isInMotion';
+const MOVING_LEFT = 'isMovingLeft';
+const CROUCHING = 'isCrouching';
+const FACING_UP = 'isFacingUp';
+const ATTACKING = 'isAttacking';
+const DEFENDING = 'isDefending';
+const ANIMATING = 'isAnimating';
+const IS_HURT = 'isHurt'
+const IS_DEAD = 'isDead'
+const IS_FLYING = 'isFlying'
+
+//Has collision code for platform 
+//Had properties that help check player Collision
+const FLYING_ENEMY_HEALTH = 1;
+const PLAYER_HEALTH = 3;
+const DUMB_WALK_ENEMY = 1;
+const RUNNING_ZOMBIE_ENEMY = 1; 
+
+
 function playerClass() {
 	this.pos = vector.create(75, 75);
 	this.speed = vector.create(0, 0);
 	this.playerPic; // which picture to use
-	this.name = "Player Character";
-	this.health = 5;
+	this.name;
+	this.health;
 
 	// @todo split up attack-state into multiple states to make playing sounds/animation easier
 	this.state = {
@@ -26,8 +49,11 @@ function playerClass() {
 		'isDefending': false,
 		'isAnimating': false, // Used to set state between animation and final.
 		'isHurt': false,
-		'isDead': false
+		'isDead': false,
+		'isFlying': false
 	};
+
+	// window.state = this.state;
 	//For collision
 	this.boundingBox = {}
 	this.width = 80;
@@ -140,7 +166,7 @@ function playerClass() {
 			console.log("PLAYER HAS 0 HP - todo: gameover/respawn");
 			this.state.isDead = true;
 			playerDeathEffect(this.pos.x, this.pos.y);
-			setTimeout(this.resetDeadAnimation.bind(this), 500);
+			setTimeout(this.resetGame.bind(this), 500);
 		}
 		this.resetHurtTimeout = setTimeout(this.resetHurtAnimation.bind(this), 700);
 	}
@@ -149,14 +175,14 @@ function playerClass() {
 		this.state.isHurt = false;
 	}
 
-	this.resetDeadAnimation = function () {
+	this.resetGame = function () {
 		loadLevel(levelOne)
 	}
 
-	this.reset = function (whichImage, playerName, health) {
+	this.init = function (whichImage, playerName) {
 		this.name = playerName;
 		this.playerPic = whichImage;
-		this.health = health;
+		this.health = PLAYER_HEALTH;
 		this.doubleJumpCount = 0;
 		this.state = {
 			'isOnGround': true,
@@ -169,13 +195,17 @@ function playerClass() {
 			'isDefending': false,
 			'isAnimating': false, // Used to set state between animation and final.
 			'isHurt': false,
-			'isDead': false
-
+			'isDead': false,
+			'isFlying': false
 		};
+		this.setEntityPosition(WORLD_PLAYERSTART);
+	} // end of playerReset func
+
+	this.setEntityPosition = function(entityWorldIndex){
 		for (var eachRow = 0; eachRow < WORLD_ROWS; eachRow++) {
 			for (var eachCol = 0; eachCol < WORLD_COLS; eachCol++) {
 				var arrayIndex = rowColToArrayIndex(eachCol, eachRow);
-				if (worldGrid[arrayIndex] == WORLD_PLAYERSTART) {
+				if (worldGrid[arrayIndex] == entityWorldIndex) {
 					worldGrid[arrayIndex] = WORLD_BACKGROUND;
 					// this.ang = -Math.PI/2;
 					this.pos.x = eachCol * WORLD_W + WORLD_W / 2;
@@ -184,8 +214,8 @@ function playerClass() {
 				} // end of player start if
 			} // end of col for
 		} // end of row for
-		console.log("NO PLAYER START FOUND!");
-	} // end of playerReset func
+		console.log("NO" + this.name + "START FOUND!");
+	}
 
 	this.move = function () {
 		this.boundingBox.width = this.width / 3;
@@ -249,7 +279,7 @@ function playerClass() {
 			if (!this.punchTimer) {
 				this.punchTimer = this.punchFrameCount;
 				// playPunchSound();
-				
+
 			}
 			else {
 				this.punchTimer--;
@@ -350,7 +380,6 @@ function playerClass() {
 		playerWorldHandling(this);
 		if (this.spriteAnim != null) {
 			this.spriteAnim.update();
-
 		}
 		// this.boundingBox = {
 		// 	x: this.pos.x - this.width/4,
