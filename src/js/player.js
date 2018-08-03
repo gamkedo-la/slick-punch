@@ -18,9 +18,9 @@ const FACING_UP = 'isFacingUp';
 const ATTACKING = 'isAttacking';
 const DEFENDING = 'isDefending';
 const ANIMATING = 'isAnimating';
-const IS_HURT = 'isHurt'
-const IS_DEAD = 'isDead'
-const IS_FLYING = 'isFlying'
+const HURT = 'isHurt'
+const DEAD = 'isDead'
+const FLYING = 'isFlying'
 
 //Has collision code for platform 
 //Had properties that help check player Collision
@@ -282,13 +282,12 @@ function playerClass() {
 			this.boundingBox.x = this.pos.x - this.boundingBox.width / 2;
 
 			if (this.keyHeld_Up && this.state.isCrouching) {
-				// this.speed.y -= 0.05;
-				// this.state.isOnGround = false;
+				this.speed.y -= 0.05;
+				this.state.isOnGround = false;
 			}
 		}
 		else {
 			this.setStateValueTo(ATTACKING, false);
-			// this.punchTimer = false;
 		}
 
 		if (this.keyHeld_Jump && !this.keyHeld_Up_lastframe) {
@@ -314,68 +313,65 @@ function playerClass() {
 		this.keyHeld_Up_lastframe = this.keyHeld_Jump;
 
 		//Checking if player is falling or jumping.
-		if (this.speed.y < 0 && isPlatformAtPixelCoord(this.pos.x, this.pos.y - this.boundingBox.height / 2)) {
-			this.pos.y = (Math.floor(this.pos.y / WORLD_H)) * WORLD_H + this.boundingBox.height / 2;
-			this.speed.y = 0;
+		//Get bounding box border coordinates and perform the same functionality for each point
+		if (this.speed.y < 0 && 
+			(isPlatformAtPixelCoord(this.pos.x + this.boundingBox.width/2, this.pos.y - this.boundingBox.height / 2) ||
+			isPlatformAtPixelCoord(this.pos.x - this.boundingBox.width/2, this.pos.y - this.boundingBox.height / 2))) {
+				this.pos.setY((Math.floor(this.pos.y / WORLD_H)) * WORLD_H + this.boundingBox.height / 2);
+				this.speed.setY(0);
 		}
-		if (this.speed.y > 0 && isPlatformAtPixelCoord(this.pos.x, this.pos.y + this.height / 2 - PLAYER_COLLISION_PADDING * 2)) {
 
-			this.pos.y = (1 + Math.floor(this.pos.y / WORLD_H)) * WORLD_H - this.height / 2 + PLAYER_COLLISION_PADDING;
+		if (this.speed.y > 0 && isPlatformAtPixelCoord(this.pos.x, this.pos.y + this.boundingBox.height / 2 - PLAYER_COLLISION_PADDING * 2)) {
+			this.pos.setY((1 + Math.floor(this.pos.y / WORLD_H)) * WORLD_H - this.boundingBox.height / 2 + PLAYER_COLLISION_PADDING);	
 			this.setStateValueTo(ON_GROUND, true);
-			this.speed.y = 0;
+			this.speed.setY(0);
 		}
 		//checks for air/empty space
 		else if (!isPlatformAtPixelCoord(this.pos.x, this.pos.y + this.height / 2 + PLAYER_COLLISION_PADDING * 2)) {
-			// if(!this.state.isAttacking && !this.state.isCrouching){
-			// 	this.setStateValueTo("isOnGround", false);
-
-			// }
 			this.setStateValueTo(ON_GROUND, false);
 		}
-		if (this.speed.x < 0 && isPlatformAtPixelCoord(this.pos.x - this.boundingBox.width / 2, this.pos.y)) {
+		//Sideways collision
+		if (this.speed.x < 0 && 
+			(isPlatformAtPixelCoord(this.pos.x - this.boundingBox.width / 2, this.pos.y + this.boundingBox.height/4) ||
+			isPlatformAtPixelCoord(this.pos.x - this.boundingBox.width / 2, this.pos.y - this.boundingBox.height/4))){
 			this.pos.x = (Math.floor(this.pos.x / WORLD_W)) * WORLD_W + this.boundingBox.width / 2;
 		}
 
-		if (this.speed.x > 0 && isPlatformAtPixelCoord(this.pos.x + this.boundingBox.width / 2, this.pos.y)) {
+		if (this.speed.x > 0 && 
+			(isPlatformAtPixelCoord(this.pos.x + this.boundingBox.width / 2, this.pos.y + this.boundingBox.height/4) ||
+			 isPlatformAtPixelCoord(this.pos.x + this.boundingBox.width / 2, this.pos.y - this.boundingBox.height/4))) {
 			this.pos.x = (1 + Math.floor(this.pos.x / WORLD_W)) * WORLD_W - this.boundingBox.width / 2;
 		}
+
 		this.pos.addTo(this.speed) // same as above, but for vertical
 		playerWorldHandling(this);
+
 		if (this.spriteAnim != null) {
 			this.spriteAnim.update();
 		}
-		// this.boundingBox = {
-		// 	x: this.pos.x - this.width/4,
-		// 	y: this.pos.y - this.height/2,
-		// 	width: this.width/2,
-		// 	height: this.height
-		// }
-		// this.incrementTick();
-	} // end of player.move function
+	}
 
-	this.draw = function () {
-		//TODO : Each animation should take atmost 1 sec to complete. 
-		//TODO : Clean all code. 
+	this.draw = function () { 
 		//TODO : Jump, Attack animation should work Only once
-		//TODO : Crouch should run once and stick to that position. 
-		if (this.state['isIdle']) {
+		//TODO : Reset punch animation loop 
+		if (this.state[IDLE]) {
 			this.spriteAnim = this.idleAnim;
 			// this.framesAnim = this.spriteAnim.frameNum;
 		}
 
-		if (this.state['isInMotion']) {
+		if (this.state[IN_MOTION]) {
 			this.spriteAnim = this.walkAnim;
 		}
 
-		if (this.state['isHurt']) {
+		if (this.state[HURT]) {
 			this.spriteAnim = this.hurtAnim;
 		}
 
-		if (this.state['isDead']) {
+		if (this.state[DEAD]) {
 			this.spriteAnim = this.deadAnim;
 		}
 		//Crouch Animation
-		if (this.state['isCrouching']) {
+		if (this.state[CROUCHING]) {
 			this.spriteAnim = this.crouchAnim;
 			if (this.state.isInMotion) {
 				this.spriteAnim = this.rollAnim;
@@ -383,7 +379,7 @@ function playerClass() {
 		}
 		// if (this.state['isInMotion'] && this.state['isCrouching']) {
 		// }
-		if (this.state['isAttacking']) {
+		if (this.state[ATTACKING]) {
 			this.spriteAnim = this.punchAnim;
 			if (this.state.isCrouching) {
 				if (this.keyHeld_Up) {
@@ -393,16 +389,15 @@ function playerClass() {
 					this.spriteAnim = this.crouchedKickAnim;
 				}
 			}
-			// this.attackAnimArr[Math.floor(Math.random()*this.attackAnimArr.length)];
 		}
 		//is Jumping or falling
-		if (!this.state['isOnGround']) {
+		if (!this.state[ON_GROUND]) {
 			this.spriteAnim = this.idleJumpAnim;
 			if (this.keyHeld_Up) {
 				this.spriteAnim = this.FlipAnim;
 			}
 		}
-		if (this.state['isAttacking'] && !this.state['isOnGround']) {
+		if (this.state[ATTACKING] && !this.state[ON_GROUND]) {
 			this.spriteAnim = this.highKickAnim;
 			// this.attackAnimArr[Math.floor(Math.random()*this.attackAnimArr.length)];
 		}
