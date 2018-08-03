@@ -59,9 +59,6 @@ function keySet(keyEvent, whichPlayer, setTo) {
 }
 
 // I want the animation to complete even if I release the button
-
-
-
 function keyPressed(evt) {
 	// console.log("Key pressed: "+evt.keyCode);
 	keySet(evt, player, true);

@@ -1,6 +1,6 @@
 const GROUND_FRICTION = 0.7;
 const AIR_RESISTANCE = 0.975;
-const RUN_SPEED = 3.0;
+const PLAYER_RUN_SPEED = 3.0;
 const JUMP_POWER = 8;
 const DOUBLE_JUMP_POWER = 10; // we need more force to counteract gravity in air
 const GRAVITY = 0.55;
@@ -104,7 +104,7 @@ function playerClass() {
 	this.highKickAnim = new SpriteSheetClass(playerHighKickAnim, this.width, this.height, true, 6); //6 frames
 	this.crouchAnim = new SpriteSheetClass(playerCrouchAnim, this.width, this.height, false, 4, 4); //4 frames
 	this.explosiveFallAnim = new SpriteSheetClass(playerIdleJumpAnim, this.width, this.height, true, 8); //8 frames
-	this.hurtAnim = new SpriteSheetClass(playerHurtAnim, this.width, this.height, true, 3); //3 frames
+	this.hurtAnim = new SpriteSheetClass(playerHurtAnim, this.width, this.height, true, 3, 8); //3 frames
 	this.FlipAnim = new SpriteSheetClass(playerFlipAnim, this.width, this.height, true, 5); //5 frames
 	this.rollAnim = new SpriteSheetClass(playerRollAnim, this.width, this.height, true, 7); //7 frames
 	this.crouchedKickAnim = new SpriteSheetClass(playerCrouchedKickAnim, this.width, this.height, true, 4); //4 frames
@@ -223,13 +223,15 @@ function playerClass() {
 		this.boundingBox.x = this.pos.x - this.boundingBox.width / 2;
 		this.boundingBox.y = this.pos.y - this.boundingBox.height / 2;
 
-		if (this.state['isOnGround']) {
-			this.speed.x *= GROUND_FRICTION;
+		if (this.state[ON_GROUND]) {
+			// this.speed.x *= GROUND_FRICTION;
+			this.speed.setX(this.speed.x * GROUND_FRICTION);
 			this.doubleJumpCount = 0;
 		}
-		else { // in the air
-			this.speed.x *= AIR_RESISTANCE;
-			this.speed.y += GRAVITY;
+		else { 
+			// in the air
+			this.speed.setX(this.speed.x * AIR_RESISTANCE);
+			this.speed.setY(this.speed.y + GRAVITY);
 			// improve this
 			if (this.speed.y > this.boundingBox.height / 2 + PLAYER_COLLISION_PADDING) {
 				this.speed.y = this.boundingBox.height / 2 + PLAYER_COLLISION_PADDING;
@@ -238,52 +240,44 @@ function playerClass() {
 		//Left movement
 		if (this.keyHeld_Left) {
 			//this.setStateToFalse(); //setting every value of object to false; // might be buggy
-			this.setStateValueTo("isInMotion", true);
-			this.setStateValueTo("isMovingLeft", true);
-			this.speed.x = -RUN_SPEED;
+			this.setStateValueTo(IN_MOTION, true);
+			this.setStateValueTo(MOVING_LEFT, true);
+			this.speed.setX(-PLAYER_RUN_SPEED);
 		}
 		//Right movement
 		else if (this.keyHeld_Right) {
 			//this.setStateToFalse();
-			this.setStateValueTo("isInMotion", true);
-			this.setStateValueTo("isMovingLeft", false);
-			this.speed.x = RUN_SPEED;
+			this.setStateValueTo(IN_MOTION, true);
+			this.setStateValueTo(MOVING_LEFT, false);
+			this.speed.setX(PLAYER_RUN_SPEED);
+			// this.speed.x = PLAYER_RUN_SPEED;
 		}
 		else {
-			this.setStateValueTo("isInMotion", false);
-			this.setStateValueTo("isIdle", true);
+			this.setStateValueTo(IN_MOTION, false);
+			this.setStateValueTo(IDLE, true);
 		}
-
 		//For crouched movement 
 		if (this.keyHeld_Down) {
 			//Up for uppercut
-			this.setStateValueTo("isIdle", false);
-			// this.setStateValueTo("isInMotion", false);
-			this.setStateValueTo("isCrouching", true);
+			this.setStateValueTo(IDLE, false);
+			this.setStateValueTo(CROUCHING, true);
 			this.boundingBox.height = this.height / 2;
 			this.boundingBox.y = this.pos.y - this.boundingBox.height / 2;
 		}
 		else {
 			//Down for spin kick
-			this.setStateValueTo("isCrouching", false);
-			this.setStateValueTo("isIdle", true);
+			this.setStateValueTo(CROUCHING, false);
+			this.setStateValueTo(IDLE, true);
 		}
 
 		if (this.keyHeld_Attack) {
-			this.setStateValueTo("isIdle", false);
-			this.setStateValueTo("isInMotion", false);
-			this.setStateValueTo("isAttacking", true);
+			this.setStateValueTo(IDLE, false);
+			this.setStateValueTo(IN_MOTION, false);
+			this.setStateValueTo(ATTACKING, true);
 			// if(utils.distance(player.pos,this.pos) < 60){
 			//           player.takeDamage(1);
 			//       }
-			if (!this.punchTimer) {
-				this.punchTimer = this.punchFrameCount;
-				// playPunchSound();
-
-			}
-			else {
-				this.punchTimer--;
-			}
+			punchSound.play();
 			this.boundingBox.width = this.width / 1.5;
 			this.boundingBox.x = this.pos.x - this.boundingBox.width / 2;
 
@@ -293,8 +287,8 @@ function playerClass() {
 			}
 		}
 		else {
-			this.setStateValueTo("isAttacking", false);
-			this.punchTimer = false;
+			this.setStateValueTo(ATTACKING, false);
+			// this.punchTimer = false;
 		}
 
 		if (this.keyHeld_Jump && !this.keyHeld_Up_lastframe) {
@@ -302,54 +296,23 @@ function playerClass() {
 			this.keyHeld_Up_lastframe = true;
 			if (this.state['isOnGround']) { // regular jump
 				jumpSound.play();
-				//console.log("Normal Jump!");
-				this.speed.y -= JUMP_POWER;
-				// this.setStateToFalse();
-				this.setStateValueTo("isOnGround", false);
+				this.speed.setY( this.speed.getY() - JUMP_POWER);
+				this.setStateValueTo(ON_GROUND, false);
 			}
 			else if (this.doubleJumpCount < MAX_AIR_JUMPS) { // in the air?
 				jumpSound.play();
-				//console.log("Double Jump!");
-				this.speed.y = 0;
-				this.speed.y -= DOUBLE_JUMP_POWER;
+				this.speed.setY(0);
+				this.speed.setY( this.speed.getY() - JUMP_POWER);
 				this.doubleJumpCount++;
-				// this.setStateToFalse();
-				this.setStateValueTo("isOnGround", false);
-			} else {
-				//console.log("Ignoring triple jump...");
+				this.setStateValueTo(ON_GROUND, false);
+			} 
+			else {
+				console.log("Ignoring triple jump...");
 			}
 		}
 		// avoid multiple jumps from the same keypress
 		this.keyHeld_Up_lastframe = this.keyHeld_Jump;
-		// if (this.state.isAttacking) {
-		// 	this.state.isIdle = false;
-		// 	this.state.isInMotion = false;
-		// 	if (this.name == "Player") {
-		// 		if (distance(enemy.pos.x, enemy.pos.y, this.pos.x, this.pos.y) < 30) {
-		// 			enemy.remove = true;
-		// 		}
-		// 	}
-		// 	if (this.justPunched == false) {
-		// 		playPunchSound();
-		// 	}
-		// }
 
-		// We need to set "justPunched", so that we do not play the punch sound every frame
-		if (!this.state.isAttacking) {
-			this.justPunched = false;
-		} else {
-			this.justPunched = true;
-		}
-
-		if (this.state['isOnGround']) {
-			this.justJumped = false;
-		}
-		else {
-			this.justJumped = true;
-		}
-		if (this.state.isOnGround && this.state.isAttacking) {
-			this.speed.x = 0;
-		}
 		//Checking if player is falling or jumping.
 		if (this.speed.y < 0 && isPlatformAtPixelCoord(this.pos.x, this.pos.y - this.boundingBox.height / 2)) {
 			this.pos.y = (Math.floor(this.pos.y / WORLD_H)) * WORLD_H + this.boundingBox.height / 2;
@@ -358,7 +321,7 @@ function playerClass() {
 		if (this.speed.y > 0 && isPlatformAtPixelCoord(this.pos.x, this.pos.y + this.height / 2 - PLAYER_COLLISION_PADDING * 2)) {
 
 			this.pos.y = (1 + Math.floor(this.pos.y / WORLD_H)) * WORLD_H - this.height / 2 + PLAYER_COLLISION_PADDING;
-			this.setStateValueTo("isOnGround", true);
+			this.setStateValueTo(ON_GROUND, true);
 			this.speed.y = 0;
 		}
 		//checks for air/empty space
@@ -367,7 +330,7 @@ function playerClass() {
 			// 	this.setStateValueTo("isOnGround", false);
 
 			// }
-			this.setStateValueTo("isOnGround", false);
+			this.setStateValueTo(ON_GROUND, false);
 		}
 		if (this.speed.x < 0 && isPlatformAtPixelCoord(this.pos.x - this.boundingBox.width / 2, this.pos.y)) {
 			this.pos.x = (Math.floor(this.pos.x / WORLD_W)) * WORLD_W + this.boundingBox.width / 2;
