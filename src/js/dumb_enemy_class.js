@@ -63,11 +63,6 @@ function dumbEnemyClass() {
     this.justKicked = false;
     this.doubleJumpCount = 0;
 
-    //TODO : Might not need this
-    this.checkAnimationCompletion = function () {
-
-    }
-
     //sets all values of state object to false
     this.setStateToFalse = function () {
         for (key in this.state) {

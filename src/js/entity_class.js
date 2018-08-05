@@ -1,12 +1,13 @@
 const GROUND_FRICTION = 0.7;
 const AIR_RESISTANCE = 0.975;
-const RUN_SPEED = 3.0;
 const JUMP_POWER = 8;
 const DOUBLE_JUMP_POWER = 10; // we need more force to counteract gravity in air
 const GRAVITY = 0.55;
 const MAX_AIR_JUMPS = 1; // double jump
 const PLAYER_COLLISION_PADDING = 5;
 
+//constants created instead of just texts to make sure no one 
+//mispells and assigns different state
 const ON_GROUND = 'isOnGround';
 const IDLE = 'isIdle';
 const IN_MOTION = 'isInMotion';
@@ -28,24 +29,11 @@ const RUNNING_ZOMBIE_ATTACK_POWER = 1.5;
 
 const PLAYER_ATTACK_POWER = 1.5;
 const PLAYER_HEALTH = 3;
+const PLAYER_RUN_SPEED = 3.0;
 
 const ENEMY_DUMB_ATTACK_POWER = 1;
 const ENEMY_DUMB_HEALTH = 1;
 
-//constants created instead of just texts to make sure no one 
-//mispells and assigns different state
-const ON_GROUND = 'isOnGround';
-const IDLE = 'isIdle';
-const IN_MOTION = 'isInMotion';
-const MOVING_LEFT = 'isMovingLeft';
-const CROUCHING = 'isCrouching';
-const FACING_UP = 'isFacingUp';
-const ATTACKING = 'isAttacking';
-const DEFENDING = 'isDefending';
-const ANIMATING = 'isAnimating';
-const IS_HURT = 'isHurt'
-const IS_DEAD = 'isDead'
-const IS_FLYING = 'isFlying'
 
 function entityClass() {
 	//Need to check which variables are used outside and only expose them in code. 
@@ -116,17 +104,17 @@ entityClass.prototype.takeDamage = function (howMuch) {
     this.state[HURT] = true;
     playerHitEffect(this.pos.x, this.pos.y);
   }
-	if (this.health <= 0) {
-		console.log("PLAYER HAS 0 HP - todo: gameover/respawn");
-    this.state[DEAD] = true;
-		if(	this.name == "Player"){
+  if( this.name == "Player"){
+	  if (this.health <= 0) {
+		  console.log("PLAYER HAS 0 HP - todo: gameover/respawn");
+      this.state[DEAD] = true;
 			setTimeout(this.resetGame.bind(this), 500);
 		}
 	}
 	this.resetHurtTimeout = setTimeout(this.resetHurtAnimation.bind(this), 700);
 }
 
-playerClass.prototype.resetGame = function () {
+entityClass.prototype.resetGame = function () {
   loadLevel(levelOne)
 }
 
@@ -152,24 +140,23 @@ entityClass.prototype.init = function (whichImage, playerName) {
     'isDead': false,
     'isFlying': false
   };
-  var entityToWorldValue;
   switch(playerName){
     case "Player":
-      entityToWorldValue = WORLD_PLAYERSTART;
+      this.valueInWorldIndex = WORLD_PLAYERSTART;
       this.attackPower = PLAYER_ATTACK_POWER;
       this.health = PLAYER_HEALTH;
       break;
     case "Dumb Enemy":
-      entityToWorldValue = WORLD_ENEMY_DUMB_START;
+      this.valueInWorldIndex = WORLD_ENEMY_DUMB_START;
       this.attackPower = ENEMY_DUMB_ATTACK_POWER;
       this.health = ENEMY_DUMB_HEALTH;
       break;
 
   }
-  this.setEntityPosition(entityToWorldValue);
+  this.addEntityToWorld();
 } // end of playerReset func
 
-entityClass.prototype.addEntityToWorld(){
+entityClass.prototype.addEntityToWorld = function(){
 	for (var eachRow = 0; eachRow < WORLD_ROWS; eachRow++) {
 		for (var eachCol = 0; eachCol < WORLD_COLS; eachCol++) {
 			var arrayIndex = rowColToArrayIndex(eachCol, eachRow);

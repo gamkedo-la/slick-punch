@@ -1,51 +1,8 @@
-const GROUND_FRICTION = 0.7;
-const AIR_RESISTANCE = 0.975;
-const PLAYER_RUN_SPEED = 3.0;
-const JUMP_POWER = 8;
-const DOUBLE_JUMP_POWER = 10; // we need more force to counteract gravity in air
-const GRAVITY = 0.55;
-const MAX_AIR_JUMPS = 1; // double jump
-const PLAYER_COLLISION_PADDING = 5;
 
-//constants created instead of just texts to make sure no one 
-//mispells and assigns different state
 
 function playerClass() {
-	this.pos = vector.create(75, 75);
-	this.speed = vector.create(0, 0);
-	this.playerPic; // which picture to use
-	this.name;
-	this.health;
 
-	// @todo split up attack-state into multiple states to make playing sounds/animation easier
-	this.state = {
-		'isOnGround': true,
-		'isIdle': true,
-		'isInMotion': false,
-		'isMovingLeft': false, //Required to set character flip.
-		'isCrouching': false,
-		'isFacingUp': false, //Might be redundant
-		'isAttacking': false, //combo punches, kick on 3 continuos punch
-		'isDefending': false,
-		'isAnimating': false, // Used to set state between animation and final.
-		'isHurt': false,
-		'isDead': false,
-		'isFlying': false
-	};
-
-	// window.state = this.state;
-	//For collision
-	this.boundingBox = {}
-	this.width = 80;
-	this.height = 80;
-	this.ang = 0;
-	this.removeMe = false;
-
-	//Needed for keeping trak of player animation 
-	this.tickCount = 0;
-	this.ticksPerFrame = 5;
-	this.spriteAnim = null;
-	this.framesAnim = null;
+  Object.getPrototypeOf(playerClass.prototype).constructor.call(this);
 
 	//Tracking input keys to player movement
 	this.keyHeld_Right = false;
@@ -93,14 +50,9 @@ function playerClass() {
 	// Combo moves on multiple sucessful hits. 
 
 	//TODO : Used for combo moves
-	this.attackAnimArr = [this.highKickAnim, this.leftJabAnim, this.punchAnim]
-
-	//Used for animation.
-	//TODO :Change this.frameRow and used it for animating consilated spritesheet of player character
-	this.frameRow = 0;
+	// this.attackAnimArr = [this.highKickAnim, this.leftJabAnim, this.punchAnim];
 	this.doubleJumpCount = 0;
 
-  Object.getPrototypeOf(playerClass.prototype).constructor.call(this);
 }
 
 playerClass.prototype = Object.create(entityClass.prototype);
