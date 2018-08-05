@@ -23,6 +23,7 @@ const slimeMiddleBlobAnim = document.createElement("img");
 const slimeRightBlobAnim = document.createElement("img");
 const diamondPickupAnim = document.createElement("img");
 const crateBox = document.createElement("img");
+const crateBoxAnim = document.createElement("img");
 const flyingEnemyAnim = document.createElement("img");
 const slickTileSet = document.createElement("img");
 const platformTileSet = document.createElement("img");
@@ -88,6 +89,7 @@ function loadImages() {
 		{ varName: playerUppercutAnim, theFile: "playerUppercutsheet.png" },
 		{ varName: diamondPickupAnim, theFile: "pickup.png" },
 		{ varName: crateBox, theFile: "crate.png" },
+		{ varName: crateBoxAnim, theFile: "crateAnim.png" },
 		{ varName: flyingEnemyAnim, theFile: "flyingEnemy.png" },
 		{ varName: slimeLeftBlobAnim, theFile: "slimeLeftBloop.png" },
 		{ varName: slimeMiddleBlobAnim, theFile: "slimeMiddleBloop.png" },
