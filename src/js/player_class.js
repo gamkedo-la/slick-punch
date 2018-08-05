@@ -9,28 +9,6 @@ const PLAYER_COLLISION_PADDING = 5;
 
 //constants created instead of just texts to make sure no one 
 //mispells and assigns different state
-const ON_GROUND = 'isOnGround';
-const IDLE = 'isIdle';
-const IN_MOTION = 'isInMotion';
-const MOVING_LEFT = 'isMovingLeft';
-const CROUCHING = 'isCrouching';
-const FACING_UP = 'isFacingUp';
-const ATTACKING = 'isAttacking';
-const DEFENDING = 'isDefending';
-const ANIMATING = 'isAnimating';
-const HURT = 'isHurt'
-const DEAD = 'isDead'
-const FLYING = 'isFlying'
-
-//Has collision code for platform 
-//Had properties that help check player Collision
-const FLYING_ENEMY_HEALTH = 1;
-const PLAYER_HEALTH = 3;
-const DUMB_WALK_ENEMY = 1;
-const RUNNING_ZOMBIE_ENEMY = 1; 
-
-const PLAYER_ATTACK_POWER = 1;
-
 
 function playerClass() {
 	this.pos = vector.create(75, 75);
@@ -122,22 +100,10 @@ function playerClass() {
 	this.frameRow = 0;
 	this.doubleJumpCount = 0;
 
+  Object.getPrototypeOf(playerClass.prototype).constructor.call(this);
 }
 
-//sets all values of state object to false
-playerClass.prototype.setStateToFalse = function () {
-  for (key in this.state) {
-    this.state[key] = false;
-  }
-};
-
-//sets value of given key pf state object to value passed
-playerClass.prototype.setStateValueTo = function (key, val) {
-  if (this.state.hasOwnProperty(key)) {
-    // console.log("Setting" + key + ":" + val);
-    this.state[key] = val;
-  }
-};
+playerClass.prototype = Object.create(entityClass.prototype);
 
 playerClass.prototype.setupInput = function (upKey, rightKey, downKey, leftKey, attackKey, jumpKey, defendKey) {
   this.controlKeyUp = upKey;
@@ -149,73 +115,11 @@ playerClass.prototype.setupInput = function (upKey, rightKey, downKey, leftKey, 
   this.controlKeyDefend = defendKey;
 }
 
- playerClass.prototype.takeDamage = function (howMuch) {
-  console.log("Damage received: " + howMuch);
-  if (this.health > 0 && !this.state[HURT]) {
-    this.health -= howMuch;
-    this.state[HURT] = true;
-    playerHitEffect(this.pos.x, this.pos.y);
-  }
-  if (this.health <= 0) {
-    console.log("PLAYER HAS 0 HP - todo: gameover/respawn");
-    this.state[DEAD] = true;
-    playerDeathEffect(this.pos.x, this.pos.y);
-    setTimeout(this.resetGame.bind(this), 1000);
-  }
-  this.resetHurtTimeout = setTimeout(this.resetHurtAnimation.bind(this), 500);
-}
-
- playerClass.prototype.resetHurtAnimation = function () {
-  this.state[HURT] = false;
-}
-
- playerClass.prototype.resetGame = function () {
+playerClass.prototype.resetGame = function () {
   loadLevel(levelOne)
 }
 
- playerClass.prototype.init = function (whichImage, playerName) {
-  this.name = playerName;
-  this.playerPic = whichImage;
-  this.health = PLAYER_HEALTH;
-  this.doubleJumpCount = 0;
-  this.attackPower = PLAYER_ATTACK_POWER;
-  this.state = {
-    'isOnGround': true,
-    'isIdle': true,
-    'isInMotion': false,
-    'isMovingLeft': false, //Required to set character flip.
-    'isCrouching': false,
-    'isFacingUp': false, //Might be redundant
-    'isAttacking': false, //combo punches, kick on 3 continuos punch
-    'isDefending': false,
-    'isAnimating': false, // Used to set state between animation and final.
-    'isHurt': false,
-    'isDead': false,
-    'isFlying': false
-  };
-  this.setEntityPosition(WORLD_PLAYERSTART);
-} // end of playerReset func
-
-
-
-
- playerClass.prototype.setEntityPosition = function(entityWorldIndex){
-  for (var eachRow = 0; eachRow < WORLD_ROWS; eachRow++) {
-    for (var eachCol = 0; eachCol < WORLD_COLS; eachCol++) {
-      var arrayIndex = rowColToArrayIndex(eachCol, eachRow);
-      if (worldGrid[arrayIndex] == entityWorldIndex) {
-        worldGrid[arrayIndex] = WORLD_BACKGROUND;
-        // this.ang = -Math.PI/2;
-        this.pos.x = eachCol * WORLD_W + WORLD_W / 2;
-        this.pos.y = eachRow * WORLD_H + WORLD_H / 2;
-        return;
-      } // end of player start if
-    } // end of col for
-  } // end of row for
-  console.log("NO" + this.name + "START FOUND!");
-}
-
- playerClass.prototype.move = function () {
+playerClass.prototype.move = function () {
   this.boundingBox.width = this.width / 3;
   this.boundingBox.height = this.height;
   this.boundingBox.x = this.pos.x - this.boundingBox.width / 2;

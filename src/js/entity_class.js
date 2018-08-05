@@ -7,8 +7,19 @@ const GRAVITY = 0.55;
 const MAX_AIR_JUMPS = 1; // double jump
 const PLAYER_COLLISION_PADDING = 5;
 
-//Has collision code for platform 
-//Had properties that help check player Collision
+const ON_GROUND = 'isOnGround';
+const IDLE = 'isIdle';
+const IN_MOTION = 'isInMotion';
+const MOVING_LEFT = 'isMovingLeft';
+const CROUCHING = 'isCrouching';
+const FACING_UP = 'isFacingUp';
+const ATTACKING = 'isAttacking';
+const DEFENDING = 'isDefending';
+const ANIMATING = 'isAnimating';
+const HURT = 'isHurt'
+const DEAD = 'isDead'
+const FLYING = 'isFlying'
+
 const FLYING_ENEMY_HEALTH = 1;
 const FLYING_ENEMY_ATTACK_POWER = 2;
 
@@ -38,11 +49,11 @@ const IS_FLYING = 'isFlying'
 
 function entityClass() {
 	//Need to check which variables are used outside and only expose them in code. 
-    this.pos = vector.create(75, 75);
+  this.pos = vector.create(75, 75);
 	this.speed = vector.create(0, 0);
-	this.playerPic; // which picture to use
-	this.name = "Entity";
-	this.health = 5;
+	this.pic; // which picture to use
+	this.name;
+	this.health;
 	this.valueInWorldIndex = 999; //Change this when inheriting
 
 	// @todo split up attack-state into multiple states to make playing sounds/animation easier
@@ -80,7 +91,6 @@ function entityClass() {
 	this.frameRow = 0;
 }
 
-
 // Sets all values of state object to false
 // Used in conjunction with setValue to as default state is Idle
 entityClass.prototype.setStateToFalse = function (){
@@ -110,10 +120,14 @@ entityClass.prototype.takeDamage = function (howMuch) {
 		console.log("PLAYER HAS 0 HP - todo: gameover/respawn");
     this.state[DEAD] = true;
 		if(	this.name == "Player"){
-			setTimeout(this.resetDeadAnimation.bind(this), 500);
+			setTimeout(this.resetGame.bind(this), 500);
 		}
 	}
 	this.resetHurtTimeout = setTimeout(this.resetHurtAnimation.bind(this), 700);
+}
+
+playerClass.prototype.resetGame = function () {
+  loadLevel(levelOne)
 }
 
 entityClass.prototype.resetHurtAnimation = function () {
@@ -122,7 +136,7 @@ entityClass.prototype.resetHurtAnimation = function () {
 
 entityClass.prototype.init = function (whichImage, playerName) {
   this.name = playerName;
-  this.playerPic = whichImage;
+  this.pic = whichImage;
   this.doubleJumpCount = 0;
   this.state = {
     'isOnGround': true,
@@ -155,9 +169,7 @@ entityClass.prototype.init = function (whichImage, playerName) {
   this.setEntityPosition(entityToWorldValue);
 } // end of playerReset func
 
-
-
-function addEntityToWorld(){
+entityClass.prototype.addEntityToWorld(){
 	for (var eachRow = 0; eachRow < WORLD_ROWS; eachRow++) {
 		for (var eachCol = 0; eachCol < WORLD_COLS; eachCol++) {
 			var arrayIndex = rowColToArrayIndex(eachCol, eachRow);
@@ -171,27 +183,5 @@ function addEntityToWorld(){
 		} // end of col for
 	} // end of row for
 	console.log("NO" + this.name + "START FOUND!");
-}
-
-this.move = function () {
-	this.boundingBox.width = this.width/3;
-	this.boundingBox.height = this.height;
-	this.boundingBox.x = this.pos.x - this.boundingBox.width/2;
-	this.boundingBox.y = this.pos.y - this.boundingBox.height/2;
-} // end of player.move function
-
-this.draw = function () {
-	//TODO : Each animation should take atmost 1 sec to complete. 
-	//TODO : Clean all code. 
-	//TODO : Jump, Attack animation should work Only once
-	if (this.state['isIdle']) {
-		this.spriteAnim = this.idleAnim;
-		// this.framesAnim = this.spriteAnim.frameNum;
-	}
-	if (this.spriteAnim !=null) {			
-		//TODO :Change this.frameRow and used it for animating consilated spritesheet of player character
-		this.spriteAnim.draw(this.spriteAnim.frameIndex, this.frameRow, this.pos.x, this.pos.y, this.ang, this.state.isMovingLeft);
-		// console.log(this.spriteAnim.frameIndex);
-	}
 }
 
