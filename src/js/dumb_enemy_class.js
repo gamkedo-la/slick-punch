@@ -12,7 +12,6 @@ function dumbEnemyClass() {
     // Animation generation. 
     this.walkAnim = new SpriteSheetClass(dumbEnemyWalkAnim, this.width, this.height, true, 4, 20); // 10 frames
     this.punchAnim = new SpriteSheetClass(dumbEnemyAttackAnim, this.width, this.height, true, 3, 10); //4frames
-
 }
 
 dumbEnemyClass.prototype = Object.create(entityClass.prototype);
@@ -34,13 +33,13 @@ dumbEnemyClass.prototype.move = function () {
         this.keyHeld_Right = false;
         current_direction = this.keyHeld_Left;
     }
-
-    if (utils.distance(player.pos, this.pos) < 60) {
+    // Unique to
+    if (utils.distance(player.pos, this.pos) < 60 ){
         this.keyHeld_Left = false;
         this.keyHeld_Right = false;
-        this.keyHeld_Attack = Math.random() * 2 < 0.2;
+        this.keyHeld_Attack = Math.random() < 0.2;
         this.state.isMovingLeft = (player.pos.x - this.pos.x) > 0 ? false : true;
-        player.takeDamage(this.attackPowerpp);
+        player.takeDamage(this.attackPower);
     }
     else {
         this.keyHeld_Attack = false;
@@ -85,7 +84,8 @@ dumbEnemyClass.prototype.move = function () {
         this.setStateValueTo(IDLE, false);
         this.setStateValueTo(IN_MOTION, false);
         this.setStateValueTo(ATTACKING, true);
-        punchSound.play();
+        kickSound.play();
+
         this.boundingBox.width = this.width / 1.5;
         this.boundingBox.x = this.pos.x - this.boundingBox.width / 2;
       }

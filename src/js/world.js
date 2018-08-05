@@ -274,6 +274,9 @@ function entityWorldHandling(whichPlayer) {
 			if (tileHere == PICKUP) {
 				whichPlayer.health++;
 				worldGrid[tileindex] = -1;
+        console.log("Picked up something");
+        scorePickupSound.play();
+
 				// tileCollisionRect.width = WORLD_W / 2;
 				// tileCollisionRect.height = WORLD_H / 2;
 				// var boundingResult = utils.rectIntersect(tileCollisionRect, whichPlayer.boundingBox);
@@ -286,16 +289,19 @@ function entityWorldHandling(whichPlayer) {
 				whichPlayer.key_red = true;
 				console.log("Got a Red key");
 				worldGrid[tileindex] = -1;
+        playerKeySound.play();
 			}
 			if (tileHere == KEY_BLUE) {
 				whichPlayer.key_blue = true;
 				console.log("Got a Blue key");
 				worldGrid[tileindex] = -1;
+        playerKeySound.play();
 			}
 			if (tileHere == KEY_GREEN) {
 				whichPlayer.key_green = true;
 				console.log("Got a green key");
 				worldGrid[tileindex] = -1;
+        playerKeySound.play();
 			}
 
 		}

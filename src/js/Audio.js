@@ -9,20 +9,19 @@ const enemyHitSound = new SoundOverlapsClass("enemy_hit");
 const enemyHurtSound = new SoundOverlapsClass("enemy_hurt");
 const healthBoostSound = new SoundOverlapsClass("health_boost");
 const landOnGroundSound = new SoundOverlapsClass("land_on_ground");
-const playerCoinSound = new SoundOverlapsClass("player_coin");
+const playerKeySound = new SoundOverlapsClass("player_coin");
 const playerDieSound = new SoundOverlapsClass("player_die");
 const playerHitSound = new SoundOverlapsClass("player_hit");
 const scorePickupSound = new SoundOverlapsClass("score_pickup");
 const strangeEnemySound = new SoundOverlapsClass("strange_enemy");
 //Background Music
-const deepdarkMusic = new backgroundMusicClass("deepdark");
+const deepdarkMusic = new backgroundMusicClass("deep_dark");
 const dilseMusic = new backgroundMusicClass("dilse_house");
 const fightingBossMusic = new backgroundMusicClass("fighting_boss2");
 const gameOverMusic = new backgroundMusicClass("game_over");
-const overDueGameMusic = new backgroundMusicClass("overdue-gameover");
+const overDueGameMusic = new backgroundMusicClass("overdue_gameover");
 const slickPunchJamMusic = new backgroundMusicClass("slickpunch_jam");
 const slickPunchJam2Music = new backgroundMusicClass("slickpunch_jam2");
-
 
 let currentBackgroundMusic;
 

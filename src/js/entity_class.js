@@ -27,12 +27,12 @@ const FLYING_ENEMY_ATTACK_POWER = 2;
 const RUNNING_ZOMBIE_ENEMY = 1; 
 const RUNNING_ZOMBIE_ATTACK_POWER = 1.5; 
 
+const ENEMY_DUMB_HEALTH = 1;
+const ENEMY_DUMB_ATTACK_POWER = 1;
+
 const PLAYER_ATTACK_POWER = 1.5;
 const PLAYER_HEALTH = 3;
 const PLAYER_RUN_SPEED = 3.0;
-
-const ENEMY_DUMB_ATTACK_POWER = 1;
-const ENEMY_DUMB_HEALTH = 1;
 
 
 function entityClass() {
@@ -105,9 +105,11 @@ entityClass.prototype.takeDamage = function (howMuch) {
     playerHitEffect(this.pos.x, this.pos.y);
   }
   if( this.name == "Player"){
+    playerHitSound.play();
 	  if (this.health <= 0) {
 		  console.log("PLAYER HAS 0 HP - todo: gameover/respawn");
       this.state[DEAD] = true;
+      playerDieSound.play();
 			setTimeout(this.resetGame.bind(this), 500);
 		}
 	}

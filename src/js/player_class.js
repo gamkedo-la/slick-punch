@@ -76,8 +76,8 @@ playerClass.prototype.move = function () {
     this.speed.setX(this.speed.x * AIR_RESISTANCE);
     this.speed.setY(this.speed.y + GRAVITY);
     // improve this
-    if (this.speed.y > this.boundingBox.height / 2 + PLAYER_COLLISION_PADDING) {
-      this.speed.y = this.boundingBox.height / 2 + PLAYER_COLLISION_PADDING;
+    if (this.speed.y > this.pos.y +  this.boundingBox.height / 2 + PLAYER_COLLISION_PADDING) {
+      this.speed.y = this.pos.y + this.boundingBox.height / 2 + PLAYER_COLLISION_PADDING;
     }
   }
   //Left and Right movement

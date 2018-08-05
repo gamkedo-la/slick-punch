@@ -23,8 +23,7 @@ window.onload = function () {
 	colorRect(0, 0, canvas.width, canvas.height, 'black');
 	colorText("LOADING IMAGES", canvas.width / 2, canvas.height / 2, 'white');
 	loadImages();
-	// loadSounds();
-	dilseMusic.loopSong();
+	deepdarkMusic.loopSong();
 	mainMenu.initialize();
 };
 
@@ -126,12 +125,14 @@ function drawAll() {
 function startGame() {
 	windowState.help = false;
 	windowState.mainMenu = false;
-	timeRemaining = timeLimit;
-	timeStarted = new Date().getTime();
-	timeStartedActive = timeStarted;
-	timeElapsedInSeconds = 0;
+	// timeRemaining = timeLimit;
+	// timeStarted = new Date().getTime();
+	// timeStartedActive = timeStarted;
+	// timeElapsedInSeconds = 0;
 	frameCount = 0;
 	gameRunning = true;
+  deepdarkMusic.pauseSound();
+  slickPunchJamMusic.loopSong();
 	// loadAndPlayNewBackgroundSong();
 	// console.log(whichSong.src);
 }
