@@ -58,7 +58,7 @@ function loadLevel(whichLevel) {
 	worldGrid = whichLevel.slice();
 	platformList.parseWorld();
 	player.init(playerPic, "Player");
-	enemy.reset(enemyPic, "dumb Enemy", 5);
+	enemy.init(enemyPic, "Dumb Enemy");
 	score = 0;
 	spawnFlyingEnemies();
 	timeRemaining = timeLimit;

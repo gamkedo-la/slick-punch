@@ -242,7 +242,7 @@ function tileNearbyCollisionCheck(tileLeftHere, tileRightHere, tileUnderHere, ti
 	}
 }
 
-function playerWorldHandling(whichPlayer) {
+function entityWorldHandling(whichPlayer) {
 	var playerTrackCol = Math.floor(whichPlayer.pos.x / WORLD_W);
 	var playerTrackRow = Math.floor(whichPlayer.pos.y / WORLD_H);
 	// var healthInterval;
@@ -267,7 +267,7 @@ function playerWorldHandling(whichPlayer) {
 			height: WORLD_H
 		};
 
-		if (whichPlayer.name == "dumb Enemy" && tileHere == WORLD_ENEMY_DUMB_DEST) {
+		if (whichPlayer.name == "Dumb Enemy" && tileHere == WORLD_ENEMY_DUMB_DEST) {
 			whichPlayer.toggleDirection = !whichPlayer.toggleDirection;
 		}
 		if (whichPlayer.name == "Player") {

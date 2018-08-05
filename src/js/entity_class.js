@@ -143,12 +143,10 @@ entityClass.prototype.init = function (whichImage, playerName) {
   switch(playerName){
     case "Player":
       this.valueInWorldIndex = WORLD_PLAYERSTART;
-      this.attackPower = PLAYER_ATTACK_POWER;
       this.health = PLAYER_HEALTH;
       break;
     case "Dumb Enemy":
       this.valueInWorldIndex = WORLD_ENEMY_DUMB_START;
-      this.attackPower = ENEMY_DUMB_ATTACK_POWER;
       this.health = ENEMY_DUMB_HEALTH;
       break;
 

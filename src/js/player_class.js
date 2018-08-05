@@ -1,5 +1,3 @@
-
-
 function playerClass() {
 
   Object.getPrototypeOf(playerClass.prototype).constructor.call(this);
@@ -12,14 +10,10 @@ function playerClass() {
 	this.keyHeld_Attack = false;
 	this.keyHeld_Jump = false;
 	this.keyHeld_Defend = false;
+  this.attackPower = PLAYER_ATTACK_POWER;
 
 	// don't jump >1x per keypress
 	this.keyHeld_Up_lastframe = false;
-
-	//Set for tracking punch sound
-	this.punchTimer = false;
-	this.punchFrameCount = 4;
-
 	//Control keys for player
 	this.controlKeyRight = null;
 	this.controlKeyLeft = null;
@@ -31,7 +25,7 @@ function playerClass() {
 
 	// Animation generation. 
 	this.walkAnim = new SpriteSheetClass(playerWalkAnim, this.width, this.height, true, 10); // 10 frames
-	this.punchAnim = new SpriteSheetClass(playerPunchAnim, this.width, this.height, false, this.punchFrameCount); //4frames
+	this.punchAnim = new SpriteSheetClass(playerPunchAnim, this.width, this.height, false, 4); //4frames
 	this.idleAnim = new SpriteSheetClass(playerIdleAnim, this.width, this.height, true, 7); //7 frames
 	this.idleJumpAnim = new SpriteSheetClass(playerIdleJumpAnim, this.width, this.height, true, 5); //6 frames
 	this.leftJabAnim = new SpriteSheetClass(playerLeftJabAnim, this.width, this.height, true, 7); //7 frames
@@ -52,7 +46,6 @@ function playerClass() {
 	//TODO : Used for combo moves
 	// this.attackAnimArr = [this.highKickAnim, this.leftJabAnim, this.punchAnim];
 	this.doubleJumpCount = 0;
-
 }
 
 playerClass.prototype = Object.create(entityClass.prototype);
@@ -65,10 +58,6 @@ playerClass.prototype.setupInput = function (upKey, rightKey, downKey, leftKey, 
   this.controlKeyAttack = attackKey;
   this.controlKeyJump = jumpKey;
   this.controlKeyDefend = defendKey;
-}
-
-playerClass.prototype.resetGame = function () {
-  loadLevel(levelOne)
 }
 
 playerClass.prototype.move = function () {
@@ -91,7 +80,7 @@ playerClass.prototype.move = function () {
       this.speed.y = this.boundingBox.height / 2 + PLAYER_COLLISION_PADDING;
     }
   }
-  //Left movement
+  //Left and Right movement
   if (this.keyHeld_Left) {
     //this.setStateToFalse(); //setting every value of object to false; // might be buggy
     this.setStateValueTo(IN_MOTION, true);
@@ -110,6 +99,9 @@ playerClass.prototype.move = function () {
     this.setStateValueTo(IN_MOTION, false);
     this.setStateValueTo(IDLE, true);
   }
+
+
+
   //For crouched movement 
   if (this.keyHeld_Down) {
     //Up for uppercut
@@ -128,9 +120,6 @@ playerClass.prototype.move = function () {
     this.setStateValueTo(IDLE, false);
     this.setStateValueTo(IN_MOTION, false);
     this.setStateValueTo(ATTACKING, true);
-    // if(utils.distance(player.pos,this.pos) < 60){
-    //           player.takeDamage(1);
-    //       }
     punchSound.play();
     this.boundingBox.width = this.width / 1.5;
     this.boundingBox.x = this.pos.x - this.boundingBox.width / 2;
@@ -142,6 +131,11 @@ playerClass.prototype.move = function () {
   }
   else {
     this.setStateValueTo(ATTACKING, false);
+  }
+
+  //Remove this code if you want to reverse kick with movement. 
+  if (this.state[ON_GROUND] && this.state[ATTACKING]) {
+        this.speed.x = 0;
   }
 
   if (this.keyHeld_Jump && !this.keyHeld_Up_lastframe) {
@@ -198,7 +192,7 @@ playerClass.prototype.move = function () {
   }
 
   this.pos.addTo(this.speed) // same as above, but for vertical
-  playerWorldHandling(this);
+  entityWorldHandling(this);
 
   if (this.spriteAnim != null) {
     this.spriteAnim.update();
