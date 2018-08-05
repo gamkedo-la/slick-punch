@@ -42,6 +42,8 @@ const heartEmpty = document.createElement("img");
 const heartHalf = document.createElement("img");
 const heartFull = document.createElement("img");
 const particlePic = document.createElement("img");
+const dumbEnemyWalkAnim = document.createElement("img");
+const dumbEnemyAttackAnim = document.createElement("img");
 
 var trackPics = [];
 
@@ -99,7 +101,8 @@ function loadImages() {
 		{ varName: doorAnimationRed, theFile: "doorYellow.png" },
 		{ varName: doorAnimationBlue, theFile: "doorBlue.png" },
 		{ varName: doorAnimationGreen, theFile: "doorGreen.png" },
-
+    { varName: dumbEnemyWalkAnim, theFile: "enemyWalkSprite.png" },
+    { varName: dumbEnemyAttackAnim, theFile: "enemyPunchSprite.png" },
 		{ varName: redKeyAnimation, theFile: "keyRed.png" },
 		{ varName: greenKeyAnimation, theFile: "keyGreen.png" },
 		{ varName: blueKeyAnimation, theFile: "keyBlue.png" },
@@ -115,7 +118,6 @@ function loadImages() {
 		// { trackType: WORLD_PLATFORM, theFile: "platform.png" },
 		// { trackType: WORLD_HAZARD, theFile: "hazard.png" },
 		// {trackType: WORLD_GOAL, theFile: "track_goal.png"}
-
 		{ varName: particlePic, theFile: "particle.png" },
 
 	];

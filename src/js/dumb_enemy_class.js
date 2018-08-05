@@ -10,9 +10,9 @@ function dumbEnemyClass() {
     this.keyHeld_Attack = false;
 
     // Animation generation. 
-    this.walkAnim = new SpriteSheetClass(playerWalkAnim, this.width, this.height, true, 10, 10); // 10 frames
-    this.punchAnim = new SpriteSheetClass(playerPunchAnim, this.width, this.height, true, 4); //4frames
-    this.idleAnim = new SpriteSheetClass(playerIdleAnim, this.width, this.height, true, 7); //7 frames
+    this.walkAnim = new SpriteSheetClass(dumbEnemyWalkAnim, this.width, this.height, true, 4, 20); // 10 frames
+    this.punchAnim = new SpriteSheetClass(dumbEnemyAttackAnim, this.width, this.height, true, 3, 10); //4frames
+
 }
 
 dumbEnemyClass.prototype = Object.create(entityClass.prototype);
