@@ -32,11 +32,11 @@ const menuBackgroundEmpty = document.createElement("img");
 const redKeyAnimation = document.createElement("img");
 const greenKeyAnimation = document.createElement("img");
 const blueKeyAnimation = document.createElement("img");
-const venomDog = document.createElement("img");
+const venomDogPic = document.createElement("img");
 const venomDogIdle = document.createElement("img");
-const doorAnimationRed = document.createElement("img");
-const doorAnimationBlue = document.createElement("img");
-const doorAnimationGreen = document.createElement("img");
+const doorRed = document.createElement("img");
+const doorBlue = document.createElement("img");
+const doorGreen = document.createElement("img");
 const goal = document.createElement("img");
 const heartEmpty = document.createElement("img");
 const heartHalf = document.createElement("img");
@@ -44,6 +44,7 @@ const heartFull = document.createElement("img");
 const particlePic = document.createElement("img");
 const dumbEnemyWalkAnim = document.createElement("img");
 const dumbEnemyAttackAnim = document.createElement("img");
+const doorLower = document.createElement("img");
 
 var trackPics = [];
 
@@ -98,16 +99,18 @@ function loadImages() {
 		{ varName: slimeRightBlobAnim, theFile: "slimeRightBloop.png" },
 		{ varName: scrollBackground, theFile: "background.png" },
 		{ varName: menuBackground, theFile: "menuImage.png" },
-		{ varName: doorAnimationRed, theFile: "doorYellow.png" },
-		{ varName: doorAnimationBlue, theFile: "doorBlue.png" },
-		{ varName: doorAnimationGreen, theFile: "doorGreen.png" },
+		{ varName: doorRed, theFile: "doorYellow.png" },
+		{ varName: doorBlue, theFile: "doorBlue.png" },
+		{ varName: doorGreen, theFile: "doorGreen.png" },
+    { varName: doorLower, theFile: "doorLower.png" },
+
     { varName: dumbEnemyWalkAnim, theFile: "enemyWalkSprite.png" },
     { varName: dumbEnemyAttackAnim, theFile: "enemyPunchSprite.png" },
 		{ varName: redKeyAnimation, theFile: "keyRed.png" },
 		{ varName: greenKeyAnimation, theFile: "keyGreen.png" },
 		{ varName: blueKeyAnimation, theFile: "keyBlue.png" },
-		// { varName: venomDog, theFile: "venomDog2.png" },		
-		// { varName: venomDogIdle, theFile: "venomDog2Idle.png" },	
+		{ varName: venomDogPic, theFile: "venomDog2.png" },		
+		{ varName: venomDogIdle, theFile: "venomDog2Idle.png" },	
 		{ varName: goal, theFile: "goal.png" },
 		{ varName: menuBackgroundEmpty, theFile: "menuBackgroundEmpty.png" },
 		{ varName: heartEmpty, theFile: "EmptyHeart.png" },

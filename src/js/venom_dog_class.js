@@ -1,7 +1,5 @@
-const DUMB_RUN_SPEED = 0.8;
-
-function dumbEnemyClass() {
-    Object.getPrototypeOf(dumbEnemyClass.prototype).constructor.call(this);
+function venomDogClass() {
+    Object.getPrototypeOf(venomDogClass.prototype).constructor.call(this);
     this.toggleDirection = false;
     this.attackPower = ENEMY_DUMB_ATTACK_POWER;
     //Control keys for dumbEnemy
@@ -9,15 +7,18 @@ function dumbEnemyClass() {
     this.keyHeld_Left = false;
     this.keyHeld_Attack = false;
 
+    this.width = 150;
+    this.height = 150;
     // Animation generation. 
-    this.walkAnim = new SpriteSheetClass(dumbEnemyWalkAnim, this.width, this.height, true, 4, 20); // 10 frames
-    this.punchAnim = new SpriteSheetClass(dumbEnemyAttackAnim, this.width, this.height, true, 3, 10); //4frames
+    this.idleAnim = new SpriteSheetClass(venomDogIdle, this.width, this.height, true, 2, 10); // 10 frames
+    // this.walkAnim = new SpriteSheetClass(dumbEnemyWalkAnim, this.width, this.height, true, 2, 6); // 10 frames
+
 }
 
-dumbEnemyClass.prototype = Object.create(entityClass.prototype);
+venomDogClass.prototype = Object.create(entityClass.prototype);
 
-dumbEnemyClass.prototype.move = function () {
-    this.boundingBox.width = this.width / 3;
+venomDogClass.prototype.move = function () {
+      this.boundingBox.width = this.width / 3;
     this.boundingBox.height = this.height;
     this.boundingBox.x = this.pos.x - this.boundingBox.width / 2;
     this.boundingBox.y = this.pos.y - this.boundingBox.height / 2;
@@ -97,6 +98,7 @@ dumbEnemyClass.prototype.move = function () {
         this.speed.x = 0;
     }
 
+
     //Checking if player is falling or jumping.
     //Get bounding box border coordinates and perform the same functionality for each point
     if (this.speed.y < 0 && 
@@ -137,15 +139,9 @@ dumbEnemyClass.prototype.move = function () {
 } // end of player.move function
 
 
-dumbEnemyClass.prototype.draw = function () {
-    if (this.state[IN_MOTION]) {
-        this.spriteAnim = this.walkAnim;
-    }
-
-    if (this.state[ATTACKING]) {
-        this.spriteAnim = this.punchAnim;
-    }
-    //Once crouch animation complete. Call a function to draw in fixed state instead of animation. 
+venomDogClass.prototype.draw = function () {
+    this.spriteAnim = this.idleAnim;
+   
     //final drawing of sprite.
     if (this.spriteAnim != null) {
         //TODO :Change this.frameRow and used it for animating consilated spritesheet of player character

@@ -1,6 +1,8 @@
 var canvas, canvasContext;
 var player = new playerClass();
 var enemy = new dumbEnemyClass();
+var venomDog = new venomDogClass();
+
 var flyingEnemies = []; // an array of flyingEnemy
 var score;
 var debug = false;
@@ -58,6 +60,8 @@ function loadLevel(whichLevel) {
 	platformList.parseWorld();
 	player.init(playerPic, "Player");
 	enemy.init(enemyPic, "Dumb Enemy");
+  venomDog.init(venomDogPic, "Venom Dog");
+
 	score = 0;
 	spawnFlyingEnemies();
 	timeRemaining = timeLimit;

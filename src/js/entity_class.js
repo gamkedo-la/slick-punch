@@ -34,6 +34,9 @@ const PLAYER_ATTACK_POWER = 1.5;
 const PLAYER_HEALTH = 3;
 const PLAYER_RUN_SPEED = 3.0;
 
+const ENEMY_VENOM_DOG_HEALTH = 10;
+const ENEMY_VENOM_DOG_ATTACK_POWER = 1;
+
 
 function entityClass() {
 	//Need to check which variables are used outside and only expose them in code. 
@@ -49,12 +52,12 @@ function entityClass() {
 		'isOnGround': true,
 		'isIdle': true,
 		'isInMotion': false,
-		'isMovingLeft': false, //Required to set character flip.
+		'isMovingLeft': false, 
 		'isCrouching': false,
 		'isFacingUp': false, //Might be redundant
-		'isAttacking': false, //combo punches, kick on 3 continuos punch
+		'isAttacking': false, 
 		'isDefending': false,
-		'isAnimating': false, // Used to set state between animation and final.
+		'isAnimating': false,
 		'isHurt': false,
 		'isDead': false,
 		'isFlying': false
@@ -151,7 +154,10 @@ entityClass.prototype.init = function (whichImage, playerName) {
       this.valueInWorldIndex = WORLD_ENEMY_DUMB_START;
       this.health = ENEMY_DUMB_HEALTH;
       break;
-
+    case "Venom Dog":
+      this.valueInWorldIndex = WORLD_VENOM_DOG;
+      this.health = ENEMY_VENOM_DOG_HEALTH;
+      break;
   }
   this.addEntityToWorld();
 } // end of playerReset func

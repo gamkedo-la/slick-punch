@@ -7,7 +7,6 @@ const PLAYER_DIST_FROM_CENTER_BEFORE_CAMERA_PAN_Y = 60;
 var camPanX = 0.0;
 var camPanY = 0.0;
 
-
 //scroll cam
 function cameraFollow() {
     var cameraFocusCenterX = camPanX + canvas.width/2;

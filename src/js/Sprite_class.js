@@ -7,12 +7,13 @@ function SpriteSheetClass(sheetIn, widthPerFrame, heightPerFrame, loop, frameNum
     var tickCount = 0;
     var loop = loop;
     this.frameIndex = 0;
-
   
-    this.draw = function(col, row, atX, atY, withAngle, flippedX = false, flippedY = false) {
+    this.draw = function(col, row, atX, atY, withAngle, flippedX, flippedY) {
         canvasContext.save();
         canvasContext.translate(atX, atY);
         canvasContext.rotate(withAngle);
+        flippedX = flippedX || false;
+        flippedY = flippedY || false;
         canvasContext.scale(flippedX ? -1 : 1, flippedY ? -1 : 1);
 
          canvasContext.drawImage(sheet,
