@@ -1,3 +1,4 @@
+let audioFormat;
 //Sounds
 const punchSound = new SoundOverlapsClass("punch");
 const kickSound = new SoundOverlapsClass("kick");
@@ -21,7 +22,7 @@ const gameOverMusic = new backgroundMusicClass("game_over");
 const overDueGameMusic = new backgroundMusicClass("overdue_gameover");
 const slickPunchJamMusic = new backgroundMusicClass("slickpunch_jam");
 const slickPunchJam2Music = new backgroundMusicClass("slickpunch_jam2");
-let audioFormat = "";
+
 let currentBackgroundMusic;
 // let soundVolume = document.getElementById('soundVolume').defaultValue;
 // let musicVolume = document.getElementById('musicVolume').defaultValue;
