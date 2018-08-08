@@ -61,7 +61,7 @@ playerClass.prototype.setupInput = function (upKey, rightKey, downKey, leftKey, 
 }
 
 playerClass.prototype.move = function () {
-  this.boundingBox.width = this.width / 3;
+  this.boundingBox.width = this.width / 4;
   this.boundingBox.height = this.height;
   this.boundingBox.x = this.pos.x - this.boundingBox.width / 2;
   this.boundingBox.y = this.pos.y - this.boundingBox.height / 2;
@@ -100,12 +100,12 @@ playerClass.prototype.move = function () {
     this.setStateValueTo(IDLE, true);
   }
   //For crouched movement 
-  if (this.keyHeld_Down) {
+  if (this.keyHeld_Down && this.state[ON_GROUND]) {
     //Up for uppercut
     this.setStateValueTo(IDLE, false);
     this.setStateValueTo(CROUCHING, true);
-    this.boundingBox.height = this.height / 2;
-    this.boundingBox.y = this.pos.y - this.boundingBox.height / 2;
+    this.boundingBox.height = this.height / 1.5;
+    this.boundingBox.y = this.pos.y - this.boundingBox.height/1.5;
   }
   else {
     //Down for spin kick
@@ -156,7 +156,7 @@ playerClass.prototype.move = function () {
   // avoid multiple jumps from the same keypress
   this.keyHeld_Up_lastframe = this.keyHeld_Jump;
   this.entityCollisionHandling();
-  this.pos.addTo(this.speed) // same as above, but for vertical
+  this.pos.addTo(this.speed);
   this.playerWorldHandling();
 
   if (this.spriteAnim != null) {
@@ -164,116 +164,11 @@ playerClass.prototype.move = function () {
   }
 }
 
- playerClass.prototype.playerWorldHandling = function () { 
-    var playerTrackCol = Math.floor(this.pos.x / WORLD_W);
-  var playerTrackRow = Math.floor(this.pos.y / WORLD_H);
-  // var healthInterval;
-  var tileindex = rowColToArrayIndex(playerTrackCol, playerTrackRow);
+playerClass.prototype.playerCollides = function(obj){
+  return utils.rectIntersect(obj.boundingBox, this.boundingBox);
+}
 
-  //I have player bounding box. 
-  // All I have to do 
-
-  if (playerTrackCol >= 0 && playerTrackCol < WORLD_COLS &&
-    playerTrackRow >= 0 && playerTrackRow < WORLD_ROWS) {
-
-    var tileHere = returnTileTypeAtColRow(playerTrackCol, playerTrackRow);
-    var tileUnderHere = returnTileTypeAtColRow(playerTrackCol, playerTrackRow + 1);
-    var tileRightHere = returnTileTypeAtColRow(playerTrackCol + 1, playerTrackRow);
-    var tileLeftHere = returnTileTypeAtColRow(playerTrackCol - 1, playerTrackRow);
-    var tileOverHere = returnTileTypeAtColRow(playerTrackCol, playerTrackRow - 1);
-
-    tileCollisionRect = {
-      x: (playerTrackCol) * WORLD_W,
-      y: playerTrackRow * WORLD_H,
-      width: WORLD_W,
-      height: WORLD_H
-    };
-
-    if (this.name == "Player") {
-      if (tileHere == PICKUP) {
-        this.health++;
-        worldGrid[tileindex] = -1;
-        console.log("Picked up something");
-        scorePickupSound.play();
-
-        // tileCollisionRect.width = WORLD_W / 2;
-        // tileCollisionRect.height = WORLD_H / 2;
-        // var boundingResult = utils.rectIntersect(tileCollisionRect, this.boundingBox);
-        // if (boundingResult) {
-        //  this.health++;
-        //  worldGrid[tileindex] = -1;
-        // }
-      }
-      if (tileHere == KEY_RED) {
-        this.key_red = true;
-        console.log("Got a Red key");
-        worldGrid[tileindex] = -1;
-        playerKeySound.play();
-      }
-      if (tileHere == KEY_BLUE) {
-        this.key_blue = true;
-        console.log("Got a Blue key");
-        worldGrid[tileindex] = -1;
-        playerKeySound.play();
-      }
-      if (tileHere == KEY_GREEN) {
-        this.key_green = true;
-        console.log("Got a green key");
-        worldGrid[tileindex] = -1;
-        playerKeySound.play();
-      }
-
-    }
-    //TILEHERE IS THORN
-    if (tileLeftHere == THORNS ||
-      tileRightHere == THORNS ||
-      tileUnderHere == THORNS ||
-      tileOverHere == THORNS) {
-
-      tileNearbyCollisionCheck(tileLeftHere, tileRightHere, tileUnderHere, tileOverHere, THORNS, playerTrackCol, playerTrackRow);
-
-      var boundingResult = utils.rectIntersect(tileCollisionRect, this.boundingBox);
-      if (boundingResult) {
-        // this.spriteAnim = this.hurtAnim;
-        if (!this.state.isHurt) {
-
-          console.log(this.name + " touched a thorn!");
-          // healthInterval = intervalCall(this.takeDamage(1), 100000);
-          this.takeDamage(1);
-          // player.spriteAnim = player.hurtAnim;
-        }
-      }
-    }
-    //TILEHERE IS VINES_POISONOUS
-    if (tileLeftHere == VINES_POISONOUS ||
-      tileRightHere == VINES_POISONOUS ||
-      tileUnderHere == VINES_POISONOUS ||
-      tileOverHere == VINES_POISONOUS) {
-
-      tileNearbyCollisionCheck(tileLeftHere, tileRightHere, tileUnderHere, tileOverHere, VINES_POISONOUS, playerTrackCol, playerTrackRow);
-
-      var boundingResult = utils.rectIntersect(tileCollisionRect, this.boundingBox);
-      if (boundingResult) {
-        // this.spriteAnim = this.hurtAnim;
-        if (!this.state.isHurt) {
-          console.log(this.name + " hurt by a vines");
-          this.takeDamage(1);
-        }
-      }
-      // var boundingResult = utils.rectIntersect(tileCollisionRect, this.boundingBox);
-      // if(boundingResult){
-      //  // this.spriteAnim = this.hurtAnim;
-      // console.log("I'm hurt");
-      // }
-    }
-
-    if (tileUnderHere >= SLIME_PIT_LEFT_TOP && tileUnderHere <= SLIME_PIT_RIGHT_BOTTOM) {
-      console.log(this.name + " touched a slime!");
-      this.takeDamage(1);
-    }
-
-  } // end of valid col and row
- }
+playerClass.prototype.playerWorldHandling = function () {}
 
  playerClass.prototype.draw = function () { 
   //TODO : Jump, Attack animation should work Only once
@@ -334,3 +229,25 @@ playerClass.prototype.move = function () {
     // console.log(this.spriteAnim.frameIndex);
   }
 }
+
+
+// function tileNearbyCollisionCheck(tileLeftHere, tileRightHere, tileUnderHere, tileOverHere, tileType, playerTrackCol, playerTrackRow) {
+//   tileCollisionRect = {
+//     x: (playerTrackCol) * WORLD_W,
+//     y: playerTrackRow * WORLD_H,
+//     width: WORLD_W,
+//     height: WORLD_H
+//   };
+//   if (tileLeftHere == tileType) {
+//     tileCollisionRect.x = (playerTrackCol - 1) * WORLD_W;
+//   }
+//   if (tileRightHere == tileType) {
+//     tileCollisionRect.x = (playerTrackCol + 1) * WORLD_W;
+//   }
+//   if (tileUnderHere == tileType) {
+//     tileCollisionRect.y = (playerTrackRow + 1) * WORLD_H;
+//   }
+//   if (tileOverHere == tileType) {
+//     tileCollisionRect.y = (playerTrackRow - 1) * WORLD_H;
+//   }
+// }

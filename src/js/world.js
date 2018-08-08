@@ -154,27 +154,6 @@ function tileHarmsPlayer(tile) {
 		tile == VINES_POISONOUS)
 }
 
-function tileNearbyCollisionCheck(tileLeftHere, tileRightHere, tileUnderHere, tileOverHere, tileType, playerTrackCol, playerTrackRow) {
-	tileCollisionRect = {
-		x: (playerTrackCol) * WORLD_W,
-		y: playerTrackRow * WORLD_H,
-		width: WORLD_W,
-		height: WORLD_H
-	};
-	if (tileLeftHere == tileType) {
-		tileCollisionRect.x = (playerTrackCol - 1) * WORLD_W;
-	}
-	if (tileRightHere == tileType) {
-		tileCollisionRect.x = (playerTrackCol + 1) * WORLD_W;
-	}
-	if (tileUnderHere == tileType) {
-		tileCollisionRect.y = (playerTrackRow + 1) * WORLD_H;
-	}
-	if (tileOverHere == tileType) {
-		tileCollisionRect.y = (playerTrackRow - 1) * WORLD_H;
-	}
-}
-
 function rowColToArrayIndex(col, row) {
 	return col + WORLD_COLS * row;
 }
@@ -197,25 +176,12 @@ function drawWorld() {
 		for (var eachCol = 0; eachCol < WORLD_COLS; eachCol++) {
 			var arrayIndex = rowColToArrayIndex(eachCol, eachRow);
 			var tileKindHere = worldGrid[arrayIndex];
+
 			//converting to see what this tile kind here index means 
 			//Used for TIleset
 			var tilesetRow = tileKindHere > 0 ? Math.floor(tileKindHere / 3) : 0;
 			var tilesetCol = tileKindHere > 0 ? Math.floor(tileKindHere % 3) : 0; //Here 3 is columns in tileset
-			// var useImg = trackPics[tileKindHere];
-			// if (tileVisible(drawTileX, drawTileY)) {
-			// 	if (!useImg) {
-			// 		console.log("Missing trackPics[" + tileKindHere + "] in drawTracks!");
-			// 		break;
-			// 	}
-			// }
-			// canvasContext.drawImage(useImg, drawTileX, drawTileY);
-			// var useImg = trackPics[tileKindHere];
-			// if (tileVisible(drawTileX, drawTileY)) {
-			// 	if (!useImg) {
-			// 		console.log("Missing trackPics[" + tileKindHere + "] in drawTracks!");
-			// 		break;
-			// 	}
-			// }
+
 			if (tileKindHere != WORLD_BACKGROUND && tileKindHere != WORLD_ENEMY_DUMB_DEST) {
 				if (isTileAnimated(tileKindHere)) {
 					var animatedTile = returnAnimatedTileSprites(tileKindHere);
@@ -327,8 +293,8 @@ function isPlatformAtPixelCoord(hitPixelX, hitPixelY) {
 	if (tileCol > 0 && tileCol <= WORLD_COLS &&
 		tileRow > 0 && tileRow <= WORLD_ROWS) {
 
-		var brickIndex = rowColToArrayIndex(tileCol, tileRow);
-		var tileHere = worldGrid[brickIndex];
+		var tileIndex = rowColToArrayIndex(tileCol, tileRow);
+		var tileHere = worldGrid[tileIndex];
 		return tileCollidable(tileHere);
 	}
 }
@@ -342,6 +308,6 @@ function tileCollidable(tile) {
 		tile != WORLD_ENEMY_DUMB_DEST &&
 		tile != KEY_RED &&
 		tile != KEY_BLUE &&
-		tile != KEY_GREEN
+		tile != KEY_GREEN 
 	);
 }
