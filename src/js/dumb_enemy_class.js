@@ -99,13 +99,22 @@ dumbEnemyClass.prototype.move = function () {
 
     this.entityCollisionHandling();
     this.pos.addTo(this.speed) // same as above, but for vertical
-    entityWorldHandling(this);
-
+    this.enemyWorldHandling();
+    
     if (this.spriteAnim != null) {
       this.spriteAnim.update();
     }
 } // end of player.move function
 
+dumbEnemyClass.prototype.enemyWorldHandling = function () {
+    var worldCol = Math.floor(this.pos.getX() / WORLD_W);
+    var worldRow = Math.floor(this.pos.getY() / WORLD_H);
+    var tileHere = returnTileTypeAtColRow(worldCol, worldRow);
+
+    if (tileHere == WORLD_ENEMY_DUMB_DEST) {
+      this.toggleDirection = !this.toggleDirection;
+    }
+}
 
 dumbEnemyClass.prototype.draw = function () {
     if (this.state[IN_MOTION]) {

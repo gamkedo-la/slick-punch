@@ -157,12 +157,123 @@ playerClass.prototype.move = function () {
   this.keyHeld_Up_lastframe = this.keyHeld_Jump;
   this.entityCollisionHandling();
   this.pos.addTo(this.speed) // same as above, but for vertical
-  entityWorldHandling(this);
+  this.playerWorldHandling();
 
   if (this.spriteAnim != null) {
     this.spriteAnim.update();
   }
 }
+
+ playerClass.prototype.playerWorldHandling = function () { 
+    var playerTrackCol = Math.floor(this.pos.x / WORLD_W);
+  var playerTrackRow = Math.floor(this.pos.y / WORLD_H);
+  // var healthInterval;
+  var tileindex = rowColToArrayIndex(playerTrackCol, playerTrackRow);
+
+  //I have player bounding box. 
+  // All I have to do 
+
+  if (playerTrackCol >= 0 && playerTrackCol < WORLD_COLS &&
+    playerTrackRow >= 0 && playerTrackRow < WORLD_ROWS) {
+
+    var tileHere = returnTileTypeAtColRow(playerTrackCol, playerTrackRow);
+    var tileUnderHere = returnTileTypeAtColRow(playerTrackCol, playerTrackRow + 1);
+    var tileRightHere = returnTileTypeAtColRow(playerTrackCol + 1, playerTrackRow);
+    var tileLeftHere = returnTileTypeAtColRow(playerTrackCol - 1, playerTrackRow);
+    var tileOverHere = returnTileTypeAtColRow(playerTrackCol, playerTrackRow - 1);
+
+    tileCollisionRect = {
+      x: (playerTrackCol) * WORLD_W,
+      y: playerTrackRow * WORLD_H,
+      width: WORLD_W,
+      height: WORLD_H
+    };
+
+    if (this.name == "Player") {
+      if (tileHere == PICKUP) {
+        this.health++;
+        worldGrid[tileindex] = -1;
+        console.log("Picked up something");
+        scorePickupSound.play();
+
+        // tileCollisionRect.width = WORLD_W / 2;
+        // tileCollisionRect.height = WORLD_H / 2;
+        // var boundingResult = utils.rectIntersect(tileCollisionRect, this.boundingBox);
+        // if (boundingResult) {
+        //  this.health++;
+        //  worldGrid[tileindex] = -1;
+        // }
+      }
+      if (tileHere == KEY_RED) {
+        this.key_red = true;
+        console.log("Got a Red key");
+        worldGrid[tileindex] = -1;
+        playerKeySound.play();
+      }
+      if (tileHere == KEY_BLUE) {
+        this.key_blue = true;
+        console.log("Got a Blue key");
+        worldGrid[tileindex] = -1;
+        playerKeySound.play();
+      }
+      if (tileHere == KEY_GREEN) {
+        this.key_green = true;
+        console.log("Got a green key");
+        worldGrid[tileindex] = -1;
+        playerKeySound.play();
+      }
+
+    }
+    //TILEHERE IS THORN
+    if (tileLeftHere == THORNS ||
+      tileRightHere == THORNS ||
+      tileUnderHere == THORNS ||
+      tileOverHere == THORNS) {
+
+      tileNearbyCollisionCheck(tileLeftHere, tileRightHere, tileUnderHere, tileOverHere, THORNS, playerTrackCol, playerTrackRow);
+
+      var boundingResult = utils.rectIntersect(tileCollisionRect, this.boundingBox);
+      if (boundingResult) {
+        // this.spriteAnim = this.hurtAnim;
+        if (!this.state.isHurt) {
+
+          console.log(this.name + " touched a thorn!");
+          // healthInterval = intervalCall(this.takeDamage(1), 100000);
+          this.takeDamage(1);
+          // player.spriteAnim = player.hurtAnim;
+        }
+      }
+    }
+    //TILEHERE IS VINES_POISONOUS
+    if (tileLeftHere == VINES_POISONOUS ||
+      tileRightHere == VINES_POISONOUS ||
+      tileUnderHere == VINES_POISONOUS ||
+      tileOverHere == VINES_POISONOUS) {
+
+      tileNearbyCollisionCheck(tileLeftHere, tileRightHere, tileUnderHere, tileOverHere, VINES_POISONOUS, playerTrackCol, playerTrackRow);
+
+      var boundingResult = utils.rectIntersect(tileCollisionRect, this.boundingBox);
+      if (boundingResult) {
+        // this.spriteAnim = this.hurtAnim;
+        if (!this.state.isHurt) {
+          console.log(this.name + " hurt by a vines");
+          this.takeDamage(1);
+        }
+      }
+      // var boundingResult = utils.rectIntersect(tileCollisionRect, this.boundingBox);
+      // if(boundingResult){
+      //  // this.spriteAnim = this.hurtAnim;
+      // console.log("I'm hurt");
+      // }
+    }
+
+    if (tileUnderHere >= SLIME_PIT_LEFT_TOP && tileUnderHere <= SLIME_PIT_RIGHT_BOTTOM) {
+      console.log(this.name + " touched a slime!");
+      this.takeDamage(1);
+    }
+
+  } // end of valid col and row
+ }
 
  playerClass.prototype.draw = function () { 
   //TODO : Jump, Attack animation should work Only once
