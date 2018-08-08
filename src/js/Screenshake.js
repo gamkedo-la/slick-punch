@@ -1,8 +1,6 @@
 // SCREENSHAKE - a simple html element wiggler for "juice"
 // made for gamkedo with love from mcfunkypants
 
-//pseudoLudo here,practicing  git commits,will remove it soon
-
 var screen_shakes = 0; // frames of screenshake used as player feedback for when we take damage
 var screen_shake_pivot_x = 0;
 var screen_shake_pivot_y = 0;
