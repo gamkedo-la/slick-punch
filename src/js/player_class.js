@@ -99,9 +99,6 @@ playerClass.prototype.move = function () {
     this.setStateValueTo(IN_MOTION, false);
     this.setStateValueTo(IDLE, true);
   }
-
-
-
   //For crouched movement 
   if (this.keyHeld_Down) {
     //Up for uppercut
@@ -132,12 +129,11 @@ playerClass.prototype.move = function () {
   else {
     this.setStateValueTo(ATTACKING, false);
   }
-
+  //TODO: convert this.speed.x -> this.speed.getX
   //Remove this code if you want to reverse kick with movement. 
   if (this.state[ON_GROUND] && this.state[ATTACKING]) {
         this.speed.x = 0;
   }
-
   if (this.keyHeld_Jump && !this.keyHeld_Up_lastframe) {
     // this.setStateToFalse();
     this.keyHeld_Up_lastframe = true;
@@ -159,38 +155,7 @@ playerClass.prototype.move = function () {
   }
   // avoid multiple jumps from the same keypress
   this.keyHeld_Up_lastframe = this.keyHeld_Jump;
-
-  //Checking if player is falling or jumping.
-  //Get bounding box border coordinates and perform the same functionality for each point
-  if (this.speed.y < 0 && 
-    (isPlatformAtPixelCoord(this.pos.x + this.boundingBox.width/2, this.pos.y - this.boundingBox.height / 2) ||
-    isPlatformAtPixelCoord(this.pos.x - this.boundingBox.width/2, this.pos.y - this.boundingBox.height / 2))) {
-      this.pos.setY((Math.floor(this.pos.y / WORLD_H)) * WORLD_H + this.boundingBox.height / 2);
-      this.speed.setY(0);
-  }
-
-  if (this.speed.y > 0 && isPlatformAtPixelCoord(this.pos.x, this.pos.y + this.boundingBox.height / 2 - PLAYER_COLLISION_PADDING * 2)) {
-    this.pos.setY((1 + Math.floor(this.pos.y / WORLD_H)) * WORLD_H - this.boundingBox.height / 2 + PLAYER_COLLISION_PADDING); 
-    this.setStateValueTo(ON_GROUND, true);
-    this.speed.setY(0);
-  }
-  //checks for air/empty space
-  else if (!isPlatformAtPixelCoord(this.pos.x, this.pos.y + this.height / 2 + PLAYER_COLLISION_PADDING * 2)) {
-    this.setStateValueTo(ON_GROUND, false);
-  }
-  //Sideways collision
-  if (this.speed.x < 0 && 
-    (isPlatformAtPixelCoord(this.pos.x - this.boundingBox.width / 2, this.pos.y + this.boundingBox.height/4) ||
-    isPlatformAtPixelCoord(this.pos.x - this.boundingBox.width / 2, this.pos.y - this.boundingBox.height/4))){
-    this.pos.x = (Math.floor(this.pos.x / WORLD_W)) * WORLD_W + this.boundingBox.width / 2;
-  }
-
-  if (this.speed.x > 0 && 
-    (isPlatformAtPixelCoord(this.pos.x + this.boundingBox.width / 2, this.pos.y + this.boundingBox.height/4) ||
-     isPlatformAtPixelCoord(this.pos.x + this.boundingBox.width / 2, this.pos.y - this.boundingBox.height/4))) {
-    this.pos.x = (1 + Math.floor(this.pos.x / WORLD_W)) * WORLD_W - this.boundingBox.width / 2;
-  }
-
+  this.entityCollisionHandling();
   this.pos.addTo(this.speed) // same as above, but for vertical
   entityWorldHandling(this);
 

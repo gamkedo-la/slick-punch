@@ -5,7 +5,6 @@ const DOUBLE_JUMP_POWER = 10; // we need more force to counteract gravity in air
 const GRAVITY = 0.55;
 const MAX_AIR_JUMPS = 1; // double jump
 const PLAYER_COLLISION_PADDING = 5;
-
 //constants created instead of just texts to make sure no one 
 //mispells and assigns different state
 const ON_GROUND = 'isOnGround';
@@ -37,6 +36,8 @@ const PLAYER_RUN_SPEED = 3.0;
 const ENEMY_VENOM_DOG_HEALTH = 10;
 const ENEMY_VENOM_DOG_ATTACK_POWER = 1;
 
+//Manages the list of entity
+let entityList = []; 
 
 function entityClass() {
 	//Need to check which variables are used outside and only expose them in code. 
@@ -160,6 +161,8 @@ entityClass.prototype.init = function (whichImage, playerName) {
       break;
   }
   this.addEntityToWorld();
+  entityList.push(this);
+  console.log(this);
 } // end of playerReset func
 
 entityClass.prototype.addEntityToWorld = function(){
@@ -178,3 +181,41 @@ entityClass.prototype.addEntityToWorld = function(){
 	console.log("NO" + this.name + "START FOUND!");
 }
 
+entityClass.prototype.entityCollisionHandling = function(){
+   //Checking if player is falling or jumping.
+   //Get bounding box border coordinates and perform the same functionality for each point
+   const falling_down = this.speed.getY() < 0;
+   const moving_left = this.speed.getX() < 0
+   const moving_right = this.speed.getX() > 0
+   const jumping = this.speed.getY() > 0;
+   if (this.speed.getY() < 0 && 
+    (isPlatformAtPixelCoord(this.pos.getX() + this.boundingBox.width/2, this.pos.getY() - this.boundingBox.height / 2) ||
+     isPlatformAtPixelCoord(this.pos.getX() - this.boundingBox.width/2, this.pos.getY() - this.boundingBox.height / 2))) {
+      this.pos.setY((Math.floor(this.pos.getY() / WORLD_H)) * WORLD_H + this.boundingBox.height / 2);
+      this.speed.setY(0);
+   }
+ 
+  if (this.speed.y > 0 && 
+     (isPlatformAtPixelCoord(this.pos.getX()  + this.boundingBox.width/2, this.pos.getY() + this.boundingBox.height / 2 - PLAYER_COLLISION_PADDING * 2) || 
+      isPlatformAtPixelCoord(this.pos.getX()  - this.boundingBox.width/2, this.pos.getY() + this.boundingBox.height / 2 - PLAYER_COLLISION_PADDING * 2))) {
+      this.pos.setY((1 + Math.floor(this.pos.getY() / WORLD_H)) * WORLD_H - this.boundingBox.height / 2 + PLAYER_COLLISION_PADDING); 
+        this.setStateValueTo(ON_GROUND, true);
+        this.speed.setY(0);
+  }
+  //checks for air/empty space
+  else if (!isPlatformAtPixelCoord(this.pos.getX(), this.pos.getY() + this.height / 2 + PLAYER_COLLISION_PADDING * 2)) {
+    this.setStateValueTo(ON_GROUND, false);
+  }
+  //Sideways collision
+  if (this.speed.x < 0 && 
+    (isPlatformAtPixelCoord(this.pos.getX() - this.boundingBox.width / 2, this.pos.getY() + this.boundingBox.height/4) ||
+    isPlatformAtPixelCoord(this.pos.getX() - this.boundingBox.width / 2, this.pos.getY() - this.boundingBox.height/4))){
+    this.pos.setX((Math.floor(this.pos.getX() / WORLD_W)) * WORLD_W + this.boundingBox.width / 2);
+  }
+
+  if (this.speed.x > 0 && 
+    (isPlatformAtPixelCoord(this.pos.getX() + this.boundingBox.width / 2, this.pos.getY() + this.boundingBox.height/4) ||
+     isPlatformAtPixelCoord(this.pos.getX() + this.boundingBox.width / 2, this.pos.getY() - this.boundingBox.height/4))) {
+    this.pos.setX((1 + Math.floor(this.pos.getX() / WORLD_W)) * WORLD_W - this.boundingBox.width / 2);
+  }
+}
