@@ -211,19 +211,26 @@ entityClass.prototype.entityCollisionHandling = function(){
      isPlatformAtPixelCoord(this.pos.getX() - this.boundingBox.width/2, this.pos.getY() - this.boundingBox.height / 2))) {
       this.pos.setY((Math.floor(this.pos.getY() / WORLD_H)) * WORLD_H + this.boundingBox.height / 2);
       this.speed.setY(0);
+      this.setStateValueTo(ON_GROUND, false);
    }
  
   if (this.speed.y > 0 && 
      (isPlatformAtPixelCoord(this.pos.getX()  + this.boundingBox.width/2, this.pos.getY() + this.boundingBox.height / 2 - PLAYER_COLLISION_PADDING * 2) || 
       isPlatformAtPixelCoord(this.pos.getX()  - this.boundingBox.width/2, this.pos.getY() + this.boundingBox.height / 2 - PLAYER_COLLISION_PADDING * 2))) {
-      this.pos.setY((1 + Math.floor(this.pos.getY() / WORLD_H)) * WORLD_H - this.boundingBox.height / 2 + PLAYER_COLLISION_PADDING); 
+        this.pos.setY((1 + Math.floor(this.pos.getY() / WORLD_H)) * WORLD_H - this.boundingBox.height / 2 + PLAYER_COLLISION_PADDING); 
         this.setStateValueTo(ON_GROUND, true);
         this.speed.setY(0);
   }
+
   //checks for air/empty space
-  else if (!isPlatformAtPixelCoord(this.pos.getX(), this.pos.getY() + this.height / 2 + PLAYER_COLLISION_PADDING * 2)) {
-    this.setStateValueTo(ON_GROUND, false);
+  else if ( !isPlatformAtPixelCoord(this.pos.getX() - this.boundingBox.width/2, this.pos.getY() + this.boundingBox.height / 2 + PLAYER_COLLISION_PADDING * 2 ) &&
+            !isPlatformAtPixelCoord(this.pos.getX() + this.boundingBox.width/2, this.pos.getY() + this.boundingBox.height / 2 + PLAYER_COLLISION_PADDING * 2) &&
+            !isPlatformAtPixelCoord(this.pos.getX() - this.boundingBox.width/2, this.pos.getY() + this.boundingBox.height / 2 - PLAYER_COLLISION_PADDING * 2) &&
+            !isPlatformAtPixelCoord(this.pos.getX() + this.boundingBox.width/2, this.pos.getY() + this.boundingBox.height / 2 - PLAYER_COLLISION_PADDING * 2) 
+            ) {
+               this.setStateValueTo(ON_GROUND, false);
   }
+
   //Sideways collision
   if (this.speed.x < 0 && 
     (isPlatformAtPixelCoord(this.pos.getX() - this.boundingBox.width / 2, this.pos.getY() + this.boundingBox.height/4) ||
@@ -236,4 +243,33 @@ entityClass.prototype.entityCollisionHandling = function(){
      isPlatformAtPixelCoord(this.pos.getX() + this.boundingBox.width / 2, this.pos.getY() - this.boundingBox.height/4))) {
     this.pos.setX((1 + Math.floor(this.pos.getX() / WORLD_W)) * WORLD_W - this.boundingBox.width / 2);
   }
+
+  //Pushing player if only one leg is on platform
+  if(this.state[MOVING_LEFT]){
+    if(isPlatformAtPixelCoord(this.pos.getX() - this.boundingBox.width/2, this.pos.getY() + this.boundingBox.height / 2 + PLAYER_COLLISION_PADDING * 2 ) &&
+      !isPlatformAtPixelCoord(this.pos.getX(), this.pos.getY() + this.boundingBox.height / 2 + PLAYER_COLLISION_PADDING * 2 )
+    ){
+      this.pos.setX(this.pos.getX() - PLAYER_COLLISION_PADDING)
+    }
+    if(isPlatformAtPixelCoord(this.pos.getX() + this.boundingBox.width/2, this.pos.getY() + this.boundingBox.height / 2 + PLAYER_COLLISION_PADDING * 2 ) &&
+      !isPlatformAtPixelCoord(this.pos.getX(), this.pos.getY() + this.boundingBox.height / 2 + PLAYER_COLLISION_PADDING * 2 )
+    ){
+      this.pos.setX(this.pos.getX() - PLAYER_COLLISION_PADDING/2)
+    }
+  }
+  else{
+     if(isPlatformAtPixelCoord(this.pos.getX() + this.boundingBox.width/2, this.pos.getY() + this.boundingBox.height / 2 + PLAYER_COLLISION_PADDING * 2 ) &&
+       !isPlatformAtPixelCoord(this.pos.getX(), this.pos.getY() + this.boundingBox.height / 2 + PLAYER_COLLISION_PADDING * 2 )
+    ){
+      this.pos.setX(this.pos.getX() + PLAYER_COLLISION_PADDING)
+    }
+     if(isPlatformAtPixelCoord(this.pos.getX() - this.boundingBox.width/2, this.pos.getY() + this.boundingBox.height / 2 + PLAYER_COLLISION_PADDING * 2 ) &&
+       !isPlatformAtPixelCoord(this.pos.getX(), this.pos.getY() + this.boundingBox.height / 2 + PLAYER_COLLISION_PADDING * 2 )
+    ){
+      this.pos.setX(this.pos.getX() + PLAYER_COLLISION_PADDING/2)
+    }
+  }
+  
+
+
 }
