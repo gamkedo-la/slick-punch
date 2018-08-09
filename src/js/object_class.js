@@ -1,5 +1,5 @@
 //TODO: change name to itemClass and change all reference
-function ObjectClass(posX, posY, width, height, tileKindHere){
+function ItemClass(posX, posY, width, height, tileKindHere){
 	
 	var tileKindHere = tileKindHere;
 	this.boundingBox = {
@@ -113,4 +113,4 @@ function ObjectClass(posX, posY, width, height, tileKindHere){
 	}
 }
 
-window.obArr = ObjectArr;
+window.obArr = ItemArr;
