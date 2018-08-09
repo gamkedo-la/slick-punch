@@ -70,6 +70,8 @@ const WORLD_ENEMY_DUMB_DEST = -6;
 const WORLD_GOAL = -7;
 const WORLD_FLYING_ENEMY = -5; // spawns a flyingEnemy.js
 const WORLD_VENOM_DOG = -8;
+var ObjectArr = [];
+
 
 // { varName: venomDog, theFile: "venomDog2.png" },		
 // { varName: venomDogIdle, theFile: "venomDog2Idle.png" },	
@@ -121,7 +123,7 @@ function returnTileTypeAtColRow(col, row) {
 	}
 }
 
-function tileHarmsPlayer(tile) {
+function tileHarms(tile) {
 	return (tile == SLIME_PIT_LEFT_TOP ||
 		tile == SLIME_PIT_MIDDLE_TOP ||
 		tile == SLIME_PIT_RIGHT_TOP ||
@@ -176,7 +178,7 @@ function drawWorld() {
 					animatedTile.draw(animatedTile.frameIndex, frameRow, drawTileX + WORLD_W / 2, drawTileY + WORLD_H / 2, false, false);
 				}
 				else {
-					//Need to update this to proper tileset
+					//TODO Need to update this to proper tileset
 					if (tileKindHere == CRATE) {
 						canvasContext.drawImage(crateBox, drawTileX, drawTileY);
 					}
@@ -199,6 +201,7 @@ function drawWorld() {
 						WORLD_W, WORLD_H); // stretch or shrink coordinates
 				}
 			}
+
 			drawTileX += WORLD_W;
 			arrayIndex++;
 		} // end of for each col
@@ -282,12 +285,12 @@ function isPlatformAtPixelCoord(hitPixelX, hitPixelY) {
 
 		var tileIndex = rowColToArrayIndex(tileCol, tileRow);
 		var tileHere = worldGrid[tileIndex];
-		return tileCollidable(tileHere);
+		return istileCollidable(tileHere);
 	}
 }
 
-//Just add any tile you want to act as collidable
-function tileCollidable(tile) {
+//Just add any tile you don't want to act as collidable
+function istileCollidable(tile) {
 	return (
 		tile != WORLD_BACKGROUND &&
 		tile != PICKUP &&
@@ -297,4 +300,13 @@ function tileCollidable(tile) {
 		tile != KEY_BLUE &&
 		tile != KEY_GREEN 
 	);
+}
+
+function isPickable(tile){
+  return (
+    tile == PICKUP &&
+    tile == KEY_RED &&
+    tile == KEY_BLUE &&
+    tile == KEY_GREEN 
+  );
 }
