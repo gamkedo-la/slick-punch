@@ -1,3 +1,5 @@
+
+//Convert all constant to enum 
 const WORLD_W = 35;
 const WORLD_H = 35;
 // const WORLD_W = 50;
@@ -86,6 +88,30 @@ const blueKeySprite = new SpriteSheetClass(blueKeyAnimation, 32, 32, true, 2, 60
 /*const blueKeySprite = new SpriteSheetClass(blueKeyAnimation, 32, 32, true, 2, 60); // 2 frames, 60 ticks*/ // same as above?
 //const crateBoxSprite = new  SpriteSheetClass(crateBoxAnim, 35, 35, true, 5, 60); // 2 frames, 60 ticks
 
+function intializeCollidableObjects(){
+  var arrayIndex = 0;
+  var drawTileX = 0;
+  var drawTileY = 0;
+  for (var eachRow = 0; eachRow < WORLD_ROWS; eachRow++) {
+    for (var eachCol = 0; eachCol < WORLD_COLS; eachCol++) {
+      var arrayIndex = rowColToArrayIndex(eachCol, eachRow);
+      var tileKindHere = worldGrid[arrayIndex];
+      if(tileHarms(tileKindHere) || isPickable(tileKindHere)){
+        ObjectArr.push(new ObjectClass(drawTileX, 
+                                       drawTileY,
+                                       WORLD_W,
+                                       WORLD_H,
+                                       tileKindHere
+                                      ));
+      }
+
+      drawTileX += WORLD_W;
+      arrayIndex++;
+    } // end of for each col
+    drawTileY += WORLD_H;
+    drawTileX = 0;
+  }
+}
 
 function returnAnimatedTileSprites(tileKindHere) {
 	switch (tileKindHere) {
@@ -202,6 +228,7 @@ function drawWorld() {
 				}
 			}
 
+   
 			drawTileX += WORLD_W;
 			arrayIndex++;
 		} // end of for each col

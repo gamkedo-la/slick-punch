@@ -58,20 +58,10 @@ function countLoadedImagesAndLaunchIfReady(f) {
 	}
 }
 
-function beginLoadingImage(imgVar, fileName) {
-	imgVar.onload = countLoadedImagesAndLaunchIfReady.bind(this, fileName);
-	imgVar.src = "src/images/" + fileName;
+function beginLoadingImage(imgObj) {
+	imgObj.varName.onload = countLoadedImagesAndLaunchIfReady.bind(this, imgObj.theFile);
+	imgObj.varName.src = "src/images/" + imgObj.theFile;
   
-  if(tileHarms(tileKindHere) || isPickable(tileKindHere)){
-      for(var i = 0; i < imageList.length; i++){
-          ObjectArr.push(new ObjectClass(tilesetCol * WORLD_W, 
-                                     tilesetRow * WORLD_H,
-                                     WORLD_W,
-                                     WORLD_H,
-                                     tileKindHere
-                                    ));
-      }
-  }
 }
 
 function loadImageForTrackCode(trackCode, fileName) {
@@ -81,12 +71,12 @@ function loadImageForTrackCode(trackCode, fileName) {
 
 function loadImages() {
 	imageList = [
+    //Still frames
 		{ varName: playerPic, theFile: "player.png" },
 		{ varName: enemyPic, theFile: "enemy.png" },
+    //player SpriteSheet
 		{ varName: playerPunchAnim, theFile: "playerPunchsheet.png" },
 		{ varName: playerWalkAnim, theFile: "playerWalksheet.png" },
-		{ varName: slickTileSet, theFile: "slickTileset2.png" },
-		{ varName: platformTileSet, theFile: "platformTileSet.png" },
 		{ varName: playerLeftJabAnim, theFile: "playerLeftJabsheet.png" },
 		{ varName: playerWalkJumpAnim, theFile: "playerWalkJumpsheet.png" },
 		{ varName: playerIdleAnim, theFile: "playerIdlesheet.png" },
@@ -101,29 +91,39 @@ function loadImages() {
 		{ varName: playerCrouchedKickAnim, theFile: "playerCrouchedKicksheet.png" },
 		{ varName: playerNormalKickAnim, theFile: "playerNormalKick.png" },
 		{ varName: playerUppercutAnim, theFile: "playerUppercutsheet.png" },
-		{ varName: diamondPickupAnim, theFile: "pickup.png", width: 35, height: 35 },
-		{ varName: crateBox, theFile: "crate.png", width: 35, height: 35},
-		{ varName: crateBoxAnim, theFile: "crateAnim.png", width: 35, height: 35 },
-		{ varName: flyingEnemyAnim, theFile: "flyingEnemy.png", width: 35, height: 35 },
-		{ varName: slimeLeftBlobAnim, theFile: "slimeLeftBloop.png", width: 35, height: 35 },
+    //Flying enemy
+    { varName: flyingEnemyAnim, theFile: "flyingEnemy.png", width: 35, height: 35, tileKindHere: 1 },
+    //Tilesheet
+    { varName: platformTileSet, theFile: "platformTileSet.png" },
+    { varName: slickTileSet, theFile: "slickTileset2.png" },
+    //Destroyable Objects
+    { varName: diamondPickupAnim, theFile: "pickup.png", width: 35, height: 35},
+    { varName: crateBox, theFile: "crate.png", width: 35, height: 35},
+    { varName: crateBoxAnim, theFile: "crateAnim.png", width: 35, height: 35},
+	   //Slime animation
+		{ varName: slimeLeftBlobAnim, theFile: "slimeLeftBloop.png", width: 35, height: 35},
 		{ varName: slimeMiddleBlobAnim, theFile: "slimeMiddleBloop.png", width: 35, height: 35 },
-		{ varName: slimeRightBlobAnim, theFile: "slimeRightBloop.png", width: 35, height: 35 },
-		{ varName: scrollBackground, theFile: "background.png", width: 35, height: 35 },
-		{ varName: menuBackground, theFile: "menuImage.png", width: 35, height: 35 },
-		{ varName: doorRed, theFile: "doorYellow.png", width: 35, height: 35 },
-		{ varName: doorBlue, theFile: "doorBlue.png", width: 35, height: 35 },
-		{ varName: doorGreen, theFile: "doorGreen.png", width: 35, height: 35 },
-    { varName: doorLower, theFile: "doorLower.png", width: 35, height: 35 },
-    { varName: dumbEnemyWalkAnim, theFile: "enemyWalkSprite.png", width: 35, height: 35 },
-    { varName: dumbEnemyAttackAnim, theFile: "enemyPunchSprite.png", width: 35, height: 35 },
-		{ varName: redKeyAnimation, theFile: "keyRed.png", width: 35, height: 35 },
-		{ varName: greenKeyAnimation, theFile: "keyGreen.png", width: 35, height: 35 },
-		{ varName: blueKeyAnimation, theFile: "keyBlue.png", width: 35, height: 35 },
-		{ varName: venomDogPic, theFile: "venomDog2.png", width: 35, height: 35 },		
-		{ varName: venomDogIdle, theFile: "venomDog2Idle.png", width: 35, height: 35 },	
-		{ varName: goal, theFile: "goal.png", width: 35, height: 35 },
-		{ varName: menuBackgroundEmpty, theFile: "menuBackgroundEmpty.png", width: 35, height: 35 },
-		{ varName: heartEmpty, theFile: "EmptyHeart.png", width: 35, height: 35 },
+		{ varName: slimeRightBlobAnim, theFile: "slimeRightBloop.png", width: 35, height: 35},
+		//Doors
+		{ varName: doorRed, theFile: "doorYellow.png", width: 35, height: 35},
+		{ varName: doorBlue, theFile: "doorBlue.png", width: 35, height: 35},
+		{ varName: doorGreen, theFile: "doorGreen.png", width: 35, height: 35},
+    { varName: doorLower, theFile: "doorLower.png", width: 35, height: 35},
+    //Keys Animtaion
+		{ varName: redKeyAnimation, theFile: "keyRed.png", width: 35, height: 35},
+		{ varName: greenKeyAnimation, theFile: "keyGreen.png", width: 35, height: 35},
+		{ varName: blueKeyAnimation, theFile: "keyBlue.png", width: 35, height: 35},
+    //Venom Dog animation
+		{ varName: venomDogPic, theFile: "venomDog2.png", width: 35, height: 35},		
+		{ varName: venomDogIdle, theFile: "venomDog2Idle.png", width: 35, height: 35},	
+    //goal
+		{ varName: goal, theFile: "goal.png", width: 35, height: 35},
+    //MenuBackground
+    { varName: scrollBackground, theFile: "background.png", width: 35, height: 35},
+    { varName: menuBackground, theFile: "menuImage.png", width: 35, height: 35},
+		{ varName: menuBackgroundEmpty, theFile: "menuBackgroundEmpty.png", width: 35, height: 35},
+		//Heart images
+    { varName: heartEmpty, theFile: "EmptyHeart.png", width: 35, height: 35},
 		{ varName: heartHalf, theFile: "HalfHeart.png", width: 35, height: 35 },
 		{ varName: heartFull, theFile: "Heart.png", width: 35, height: 35 },
 		// { trackType: WORLD_GOAL, theFile: "goal.png" },
@@ -138,7 +138,7 @@ function loadImages() {
 
 	for (var i = 0; i < imageList.length; i++) {
 		if (imageList[i].varName != undefined) {
-			beginLoadingImage(imageList[i].varName, imageList[i].theFile);
+			beginLoadingImage(imageList[i]);
 		} 
 	}
 }

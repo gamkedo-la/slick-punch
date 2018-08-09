@@ -59,6 +59,7 @@ function loadLevel(whichLevel) {
 	player.init(playerPic, "Player");
 	enemy.init(enemyPic, "Dumb Enemy");
   venomDog.init(venomDogPic, "Venom Dog");
+  intializeCollidableObjects();
 	score = 0;
 	spawnFlyingEnemies();
 	timeRemaining = timeLimit;
