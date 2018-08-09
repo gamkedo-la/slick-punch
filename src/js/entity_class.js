@@ -2,7 +2,7 @@ const GROUND_FRICTION = 0.7;
 const AIR_RESISTANCE = 0.975;
 const JUMP_POWER = 8;
 const DOUBLE_JUMP_POWER = 10; // we need more force to counteract gravity in air
-const GRAVITY = 0.55;
+const GRAVITY = 0.65;
 const MAX_AIR_JUMPS = 1; // double jump
 const PLAYER_COLLISION_PADDING = 5;
 //constants created instead of just texts to make sure no one 
@@ -22,17 +22,13 @@ const FLYING = 'isFlying'
 
 const FLYING_ENEMY_HEALTH = 1;
 const FLYING_ENEMY_ATTACK_POWER = 2;
-
 const RUNNING_ZOMBIE_ENEMY = 1; 
 const RUNNING_ZOMBIE_ATTACK_POWER = 1.5; 
-
 const ENEMY_DUMB_HEALTH = 1;
 const ENEMY_DUMB_ATTACK_POWER = 1;
-
 const PLAYER_ATTACK_POWER = 1.5;
 const PLAYER_HEALTH = 3;
 const PLAYER_RUN_SPEED = 3.0;
-
 const ENEMY_VENOM_DOG_HEALTH = 10;
 const ENEMY_VENOM_DOG_ATTACK_POWER = 1;
 
@@ -70,7 +66,6 @@ function entityClass() {
 	this.height = 80;
 	this.ang = 0;
 	this.removeMe = false;
-
 	//Needed for keeping trak of player animation 
 	this.tickCount = 0;
 	this.ticksPerFrame = 5;
@@ -179,6 +174,31 @@ entityClass.prototype.addEntityToWorld = function(){
 		} // end of col for
 	} // end of row for
 	console.log("NO" + this.name + "START FOUND!");
+}
+
+entityClass.prototype.setInitialBoundingBox = function(width, height){
+  this.boundingBox.width = width;
+  this.boundingBox.height = height;
+  this.boundingBox.x = this.pos.x - this.boundingBox.width / 2;
+  this.boundingBox.y = this.pos.y - this.boundingBox.height / 2;
+}
+
+entityClass.prototype.setWorldPhysics = function(){
+  if (this.state[ON_GROUND]) {
+    // this.speed.x *= GROUND_FRICTION;
+    this.speed.setX(this.speed.x * GROUND_FRICTION);
+    this.doubleJumpCount = 0;
+  }
+  else { 
+    // in the air
+    this.speed.setX(this.speed.getX() * AIR_RESISTANCE);
+    //Add gravity every second instead of every frame
+    this.speed.setY(this.speed.getY() + GRAVITY);
+    // improve this
+    if (this.speed.getX() > this.pos.getX() +  this.boundingBox.height / 2 + PLAYER_COLLISION_PADDING) {
+      this.speed.getY() = this.pos.getY() + this.boundingBox.height / 2 + PLAYER_COLLISION_PADDING;
+    }
+  }
 }
 
 entityClass.prototype.entityCollisionHandling = function(){

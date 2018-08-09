@@ -15,8 +15,6 @@ var timeStarted;
 var timeStartedActive;
 var timeElapsedInSeconds = 0;
 var frameCount = 0;
-
-
 const FRAMES_PER_SECOND = 60
 
 window.onload = function () {
@@ -61,7 +59,6 @@ function loadLevel(whichLevel) {
 	player.init(playerPic, "Player");
 	enemy.init(enemyPic, "Dumb Enemy");
   venomDog.init(venomDogPic, "Venom Dog");
-
 	score = 0;
 	spawnFlyingEnemies();
 	timeRemaining = timeLimit;

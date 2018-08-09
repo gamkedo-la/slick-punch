@@ -103,7 +103,6 @@ function loadImages() {
 		{ varName: doorBlue, theFile: "doorBlue.png" },
 		{ varName: doorGreen, theFile: "doorGreen.png" },
     { varName: doorLower, theFile: "doorLower.png" },
-
     { varName: dumbEnemyWalkAnim, theFile: "enemyWalkSprite.png" },
     { varName: dumbEnemyAttackAnim, theFile: "enemyPunchSprite.png" },
 		{ varName: redKeyAnimation, theFile: "keyRed.png" },

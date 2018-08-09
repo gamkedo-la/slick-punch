@@ -61,25 +61,9 @@ playerClass.prototype.setupInput = function (upKey, rightKey, downKey, leftKey, 
 }
 
 playerClass.prototype.move = function () {
-  this.boundingBox.width = this.width / 4;
-  this.boundingBox.height = this.height;
-  this.boundingBox.x = this.pos.x - this.boundingBox.width / 2;
-  this.boundingBox.y = this.pos.y - this.boundingBox.height / 2;
+  this.setInitialBoundingBox(this.width / 4, this.height);
+  this.setWorldPhysics();
 
-  if (this.state[ON_GROUND]) {
-    // this.speed.x *= GROUND_FRICTION;
-    this.speed.setX(this.speed.x * GROUND_FRICTION);
-    this.doubleJumpCount = 0;
-  }
-  else { 
-    // in the air
-    this.speed.setX(this.speed.x * AIR_RESISTANCE);
-    this.speed.setY(this.speed.y + GRAVITY);
-    // improve this
-    if (this.speed.y > this.pos.y +  this.boundingBox.height / 2 + PLAYER_COLLISION_PADDING) {
-      this.speed.y = this.pos.y + this.boundingBox.height / 2 + PLAYER_COLLISION_PADDING;
-    }
-  }
   //Left and Right movement
   if (this.keyHeld_Left) {
     //this.setStateToFalse(); //setting every value of object to false; // might be buggy
