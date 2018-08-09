@@ -153,52 +153,57 @@ playerClass.prototype.playerCollides = function(obj){
 }
 
 playerClass.prototype.playerWorldHandling = function () {
-    var playerTrackCol = Math.floor(this.pos.x / WORLD_W);
-    var playerTrackRow = Math.floor(this.pos.y / WORLD_H);
+      for(var i = 0; i < itemArr.length; i++ ){
+        boundingBox = itemArr[i].boundingBox;
+        if(utils.rectIntersect(boundingBox, this.boundingBox)){
+          itemArr[i].returnEffect();
+        }
+      }
 
-
+    // var playerTrackCol = Math.floor(this.pos.x / WORLD_W);
+    // var playerTrackRow = Math.floor(this.pos.y / WORLD_H);
 
     //Tile center position = 0,0 draw position + worldW/2 - width/2 - simillarly for height.. 
     //Once we have tile position we can create a bounding box for it which can be used in collision detection.
 
   // var healthInterval;
-  var tileindex = rowColToArrayIndex(playerTrackCol, playerTrackRow);
-  //I have player bounding box. 
-  // All I have to do 
-  if (playerTrackCol >= 0 && playerTrackCol < WORLD_COLS &&
-    playerTrackRow >= 0 && playerTrackRow < WORLD_ROWS) {
+  // var tileindex = rowColToArrayIndex(playerTrackCol, playerTrackRow);
+  // //I have player bounding box. 
+  // // All I have to do 
+  // if (playerTrackCol >= 0 && playerTrackCol < WORLD_COLS &&
+  //   playerTrackRow >= 0 && playerTrackRow < WORLD_ROWS) {
 
-    var tileHere = returnTileTypeAtColRow(playerTrackCol, playerTrackRow);
+  //   var tileHere = returnTileTypeAtColRow(playerTrackCol, playerTrackRow);
 
 
    
-      if (tileHere == PICKUP) {
-        this.health++;
-        worldGrid[tileindex] = -1;
-        console.log("Picked up something");
-        scorePickupSound.play();
+  //     if (tileHere == PICKUP) {
+  //       this.health++;
+  //       worldGrid[tileindex] = -1;
+  //       console.log("Picked up something");
+  //       scorePickupSound.play();
 
-      }
-      if (tileHere == KEY_RED ) {
-        this.key_red = true;
-        console.log("Got a Red key");
-        worldGrid[tileindex] = -1;
-        playerKeySound.play();
-      }
-      if (tileHere == KEY_BLUE) {
-        this.key_blue = true;
-        console.log("Got a Blue key");
-        worldGrid[tileindex] = -1;
-        playerKeySound.play();
-      }
-      if (tileHere == KEY_GREEN) {
-        this.key_green = true;
-        console.log("Got a green key");
-        worldGrid[tileindex] = -1;
-        playerKeySound.play();
-      }
+  //     }
+  //     if (tileHere == KEY_RED ) {
+  //       this.key_red = true;
+  //       console.log("Got a Red key");
+  //       worldGrid[tileindex] = -1;
+  //       playerKeySound.play();
+  //     }
+  //     if (tileHere == KEY_BLUE) {
+  //       this.key_blue = true;
+  //       console.log("Got a Blue key");
+  //       worldGrid[tileindex] = -1;
+  //       playerKeySound.play();
+  //     }
+  //     if (tileHere == KEY_GREEN) {
+  //       this.key_green = true;
+  //       console.log("Got a green key");
+  //       worldGrid[tileindex] = -1;
+  //       playerKeySound.play();
+  //     }
   
-  }
+  // }
 }
 
  playerClass.prototype.draw = function () { 

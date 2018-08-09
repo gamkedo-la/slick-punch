@@ -64,39 +64,39 @@ ItemClass.prototype.setName = function(){
 }
 
 ItemClass.prototype.returnEffect = function(){
-		if(this.name = "Slime"){
+		if(this.name == "Slime"){
 			console.log("You touched" + this.name);
 		}
 		//use as lava
-		if(this.name = "Lava"){
+		if(this.name == "Lava"){
 			console.log("You touched" + this.name);
 		}
 
-		if(this.name = "Webs"){
+		if(this.name == "Webs"){
 			console.log("You touched" + this.name);
 		}
 
-		if(this.name = "Thorns"){
+		if(this.name == "Thorns"){
 			console.log("You touched" + this.name);
 		}
 
-		if(this.name = "Vines"){
+		if(this.name == "Vines"){
 			console.log("You touched" + this.name);		 	
 		}
 
-		if(this.name = "Diamond"){
+		if(this.name == "Diamond"){
 			console.log("You touched" + this.name);
 		}
 
-		if(this.name = "Red Key"){
+		if(this.name == "Red Key"){
 			console.log("You touched" + this.name);
 		}
 
-		if(this.name = "Blue Key"){
+		if(this.name == "Blue Key"){
 			console.log("You touched" + this.name);
 		}
 
-		if(this.name = "Green Key"){
+		if(this.name == "Green Key"){
 			console.log("You touched" + this.name);
 		}		
 	}
