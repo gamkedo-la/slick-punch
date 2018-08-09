@@ -202,19 +202,20 @@ entityClass.prototype.setWorldPhysics = function(){
 entityClass.prototype.entityCollisionHandling = function(){
    //Checking if player is falling or jumping.
    //Get bounding box border coordinates and perform the same functionality for each point
-   const falling_down = this.speed.getY() < 0;
+   const jumping = this.speed.getY() < 0;
    const moving_left = this.speed.getX() < 0
    const moving_right = this.speed.getX() > 0
-   const jumping = this.speed.getY() > 0;
-   if (this.speed.getY() < 0 && 
+   const falling_down = this.speed.getY() > 0;
+
+   if (jumping && 
     (isPlatformAtPixelCoord(this.pos.getX() + this.boundingBox.width/2, this.pos.getY() - this.boundingBox.height / 2) ||
      isPlatformAtPixelCoord(this.pos.getX() - this.boundingBox.width/2, this.pos.getY() - this.boundingBox.height / 2))) {
-      this.pos.setY((Math.floor(this.pos.getY() / WORLD_H)) * WORLD_H + this.boundingBox.height / 2);
+     // this.pos.setY((Math.floor(this.pos.getY() / WORLD_H)) * WORLD_H + this.boundingBox.height / 2);
       this.speed.setY(0);
       this.setStateValueTo(ON_GROUND, false);
    }
  
-  if (this.speed.y > 0 && 
+  if (falling_down && 
      (isPlatformAtPixelCoord(this.pos.getX()  + this.boundingBox.width/2, this.pos.getY() + this.boundingBox.height / 2 - PLAYER_COLLISION_PADDING * 2) || 
       isPlatformAtPixelCoord(this.pos.getX()  - this.boundingBox.width/2, this.pos.getY() + this.boundingBox.height / 2 - PLAYER_COLLISION_PADDING * 2))) {
         this.pos.setY((1 + Math.floor(this.pos.getY() / WORLD_H)) * WORLD_H - this.boundingBox.height / 2 + PLAYER_COLLISION_PADDING); 
@@ -232,13 +233,13 @@ entityClass.prototype.entityCollisionHandling = function(){
   }
 
   //Sideways collision
-  if (this.speed.x < 0 && 
+  if (moving_left && 
     (isPlatformAtPixelCoord(this.pos.getX() - this.boundingBox.width / 2, this.pos.getY() + this.boundingBox.height/4) ||
     isPlatformAtPixelCoord(this.pos.getX() - this.boundingBox.width / 2, this.pos.getY() - this.boundingBox.height/4))){
     this.pos.setX((Math.floor(this.pos.getX() / WORLD_W)) * WORLD_W + this.boundingBox.width / 2);
   }
 
-  if (this.speed.x > 0 && 
+  if (moving_right && 
     (isPlatformAtPixelCoord(this.pos.getX() + this.boundingBox.width / 2, this.pos.getY() + this.boundingBox.height/4) ||
      isPlatformAtPixelCoord(this.pos.getX() + this.boundingBox.width / 2, this.pos.getY() - this.boundingBox.height/4))) {
     this.pos.setX((1 + Math.floor(this.pos.getX() / WORLD_W)) * WORLD_W - this.boundingBox.width / 2);
