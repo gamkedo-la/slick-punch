@@ -113,10 +113,10 @@ function drawAll() {
 			if (tileCollisionRect != undefined) {
 				strokedRect(tileCollisionRect.x, tileCollisionRect.y, tileCollisionRect.width, tileCollisionRect.height, "2", "green");
 			}
-			// for(int i = 0 ; i < enemyObjArr.length; i++ ){
-			// 	console.log("hey");
-			// 	// strokedRect(enemyObjArr[i].x, enemyObjArr[i].y, enemyObjArr[i].width, enemyObjArr[i].height, "2", "red");
-			// }
+			for(var i = 0; i < itemArr.length; i++ ){
+        boundingBox = itemArr[i].boundingBox;
+				strokedRect(boundingBox.x, boundingBox.y, boundingBox.width, boundingBox.height, "2", "blue");
+			}
 		}
 		canvasContext.restore();
 		drawUI();

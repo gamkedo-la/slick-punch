@@ -71,7 +71,7 @@ const WORLD_ENEMY_DUMB_DEST = -6;
 const WORLD_GOAL = -7;
 const WORLD_FLYING_ENEMY = -5; // spawns a flyingEnemy.js
 const WORLD_VENOM_DOG = -8;
-var ItemArr = [];
+var itemArr = [];
 
 // { varName: venomDog, theFile: "venomDog2.png" },		
 // { varName: venomDogIdle, theFile: "venomDog2Idle.png" },	
@@ -94,7 +94,7 @@ function intializeCollidableObjects(){
       var arrayIndex = rowColToArrayIndex(eachCol, eachRow);
       var tileKindHere = worldGrid[arrayIndex];
       if(tileHarms(tileKindHere) || isPickable(tileKindHere)){
-        ItemArr.push(new ItemClass(drawTileX, 
+        itemArr.push(new ItemClass(drawTileX, 
                                        drawTileY,
                                        WORLD_W,
                                        WORLD_H,

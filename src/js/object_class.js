@@ -101,4 +101,4 @@ ItemClass.prototype.returnEffect = function(){
 		}		
 	}
 
-window.obArr = ItemArr;
+window.obArr = itemArr;
