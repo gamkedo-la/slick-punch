@@ -16,9 +16,9 @@ const FACING_UP = 'isFacingUp';
 const ATTACKING = 'isAttacking';
 const DEFENDING = 'isDefending';
 const ANIMATING = 'isAnimating';
-const HURT = 'isHurt'
-const DEAD = 'isDead'
-const FLYING = 'isFlying'
+const HURT = 'isHurt';
+const DEAD = 'isDead';
+const FLYING = 'isFlying';
 
 const FLYING_ENEMY_HEALTH = 1;
 const FLYING_ENEMY_ATTACK_POWER = 2;
@@ -31,6 +31,7 @@ const PLAYER_HEALTH = 3;
 const PLAYER_RUN_SPEED = 3.0;
 const ENEMY_VENOM_DOG_HEALTH = 10;
 const ENEMY_VENOM_DOG_ATTACK_POWER = 1;
+const BOX_HEALTH = 0.5;
 
 //Manages the list of entity
 let entityList = []; 
@@ -153,6 +154,10 @@ entityClass.prototype.init = function (whichImage, playerName) {
     case "Venom Dog":
       this.valueInWorldIndex = WORLD_VENOM_DOG;
       this.health = ENEMY_VENOM_DOG_HEALTH;
+      break;
+    case "Box":
+      this.valueInWorldIndex = CRATE;
+      this.health = BOX_HEALTH;
       break;
   }
   this.addEntityToWorld();

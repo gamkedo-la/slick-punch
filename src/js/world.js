@@ -78,12 +78,11 @@ var itemArr = [];
 const slimeLeftBlobSprite = new SpriteSheetClass(slimeLeftBlobAnim, WORLD_W, WORLD_H, true, 8, 5); // 8 frames, 5 ticks 
 const slimeMiddleBlobSprite = new SpriteSheetClass(slimeMiddleBlobAnim, WORLD_W, WORLD_H, true, 8, 20); // 8 frames
 const slimeRightBlobSprite = new SpriteSheetClass(slimeRightBlobAnim, WORLD_W, WORLD_H, true, 8, 5); // 8 frames, 5 ticks 
-const diamondSprite = new SpriteSheetClass(diamondPickupAnim, WORLD_W / 2, WORLD_H / 2, true, 2, 60); // 2 frames, 60 ticks 
-const redKeySprite = new SpriteSheetClass(redKeyAnimation, 32, 32, true, 2, 60); // 2 frames, 60 ticks 
-const greenKeySprite = new SpriteSheetClass(greenKeyAnimation, 32, 32, true, 2, 60); // 2 frames, 60 ticks 
-const blueKeySprite = new SpriteSheetClass(blueKeyAnimation, 32, 32, true, 2, 60); // 2 frames, 60 ticks
+const diamondSprite = new SpriteSheetClass(diamondPickupAnim, WORLD_W / 2, WORLD_H / 2, true, 2, 18); // 2 frames, 18 ticks 
+const redKeySprite = new SpriteSheetClass(redKeyAnimation, 32, 32, true, 2, 18); // 2 frames, 18 ticks 
+const greenKeySprite = new SpriteSheetClass(greenKeyAnimation, 32, 32, true, 2, 18); // 2 frames, 18 ticks 
+const blueKeySprite = new SpriteSheetClass(blueKeyAnimation, 32, 32, true, 2, 18); // 2 frames, 18 ticks
 /*const blueKeySprite = new SpriteSheetClass(blueKeyAnimation, 32, 32, true, 2, 60); // 2 frames, 60 ticks*/ // same as above?
-//const crateBoxSprite = new  SpriteSheetClass(crateBoxAnim, 35, 35, true, 5, 60); // 2 frames, 60 ticks
 
 function intializeCollidableObjects(){
   var arrayIndex = 0;
@@ -194,9 +193,9 @@ function drawWorld() {
 				}
 				else {
 					//TODO Need to update this to proper tileset
-					if (tileKindHere == CRATE) {
-						canvasContext.drawImage(crateBox, drawTileX, drawTileY);
-					}
+					/*if (tileKindHere == CRATE) {
+						canvasContext.drawImage(crateBoxPic, drawTileX, drawTileY);
+					}*/
 					if (tileKindHere == WORLD_GOAL) {
 						canvasContext.drawImage(goal, drawTileX, drawTileY);
 					}
@@ -216,7 +215,6 @@ function drawWorld() {
 						WORLD_W, WORLD_H); // stretch or shrink coordinates
 				}
 			}
-
    
 			drawTileX += WORLD_W;
 			arrayIndex++;

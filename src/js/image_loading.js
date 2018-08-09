@@ -22,7 +22,7 @@ const slimeLeftBlobAnim = document.createElement("img");
 const slimeMiddleBlobAnim = document.createElement("img");
 const slimeRightBlobAnim = document.createElement("img");
 const diamondPickupAnim = document.createElement("img");
-const crateBox = document.createElement("img");
+const crateBoxPic = document.createElement("img");
 const crateBoxAnim = document.createElement("img");
 const flyingEnemyAnim = document.createElement("img");
 const slickTileSet = document.createElement("img");
@@ -98,7 +98,7 @@ function loadImages() {
     { varName: slickTileSet, theFile: "slickTileset2.png" },
     //Destroyable Objects
     { varName: diamondPickupAnim, theFile: "pickup.png", width: 35, height: 35},
-    { varName: crateBox, theFile: "crate.png", width: 35, height: 35},
+    { varName: crateBoxPic, theFile: "crate.png", width: 35, height: 35},
     { varName: crateBoxAnim, theFile: "crateAnim.png", width: 35, height: 35},
 	   //Slime animation
 		{ varName: slimeLeftBlobAnim, theFile: "slimeLeftBloop.png", width: 35, height: 35},

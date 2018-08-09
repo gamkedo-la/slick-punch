@@ -16,7 +16,7 @@ function SpriteSheetClass(sheetIn, widthPerFrame, heightPerFrame, loop, frameNum
         flippedY = flippedY || false;
         canvasContext.scale(flippedX ? -1 : 1, flippedY ? -1 : 1);
 
-         canvasContext.drawImage(sheet,
+        canvasContext.drawImage(sheet,
                                  col * width, row * height,
                                  width, height,
                                 -width/2, -height/2,
@@ -25,7 +25,7 @@ function SpriteSheetClass(sheetIn, widthPerFrame, heightPerFrame, loop, frameNum
     };
 
     this.update = function(){
-        tickCount ++;
+        tickCount++;
         if (tickCount > ticksPerFrame) {
             tickCount = 0;
             // If the current frame index is in range 

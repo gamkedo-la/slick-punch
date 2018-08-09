@@ -18,7 +18,7 @@ function venomDogClass() {
 venomDogClass.prototype = Object.create(entityClass.prototype);
 
 venomDogClass.prototype.move = function () {
-      this.boundingBox.width = this.width / 3;
+    /*this.boundingBox.width = this.width / 3;
     this.boundingBox.height = this.height;
     this.boundingBox.x = this.pos.x - this.boundingBox.width / 2;
     this.boundingBox.y = this.pos.y - this.boundingBox.height / 2;
@@ -135,7 +135,7 @@ venomDogClass.prototype.move = function () {
 
     if (this.spriteAnim != null) {
       this.spriteAnim.update();
-    }
+    }*/
 } // end of player.move function
 
 

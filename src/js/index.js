@@ -2,6 +2,7 @@ var canvas, canvasContext;
 var player = new playerClass();
 var enemy = new dumbEnemyClass();
 var venomDog = new venomDogClass();
+var box = new boxClass();
 
 var flyingEnemies = []; // an array of flyingEnemy
 var score;
@@ -15,7 +16,7 @@ var timeStarted;
 var timeStartedActive;
 var timeElapsedInSeconds = 0;
 var frameCount = 0;
-const FRAMES_PER_SECOND = 60
+const FRAMES_PER_SECOND = 60;
 
 window.onload = function () {
 	canvas = document.getElementById('gameCanvas');
@@ -56,10 +57,12 @@ function spawnFlyingEnemies() {
 function loadLevel(whichLevel) {
 	worldGrid = whichLevel.slice();
 	platformList.parseWorld();
+	entityList = [];
 	player.init(playerPic, "Player");
 	enemy.init(enemyPic, "Dumb Enemy");
-  venomDog.init(venomDogPic, "Venom Dog");
-  intializeCollidableObjects();
+  	venomDog.init(venomDogPic, "Venom Dog");
+  	box.init(crateBoxPic, "Box");
+  	intializeCollidableObjects();
 	score = 0;
 	spawnFlyingEnemies();
 	timeRemaining = timeLimit;
@@ -74,10 +77,13 @@ function updateAll() {
 function moveAll() {
 	if (gameRunning) {
 		cameraFollow();
-		player.move();
+		//player.move();
 		enemy.move();
 		if (!enemy.remove) {
 			enemy.move();
+		}
+		for (var i = 0; i < entityList.length; i++) {
+			entityList[i].move();
 		}
 		for (var num = 0; num < flyingEnemies.length; num++) {
 			flyingEnemies[num].move();
@@ -99,11 +105,14 @@ function drawAll() {
 		canvasContext.translate(-camPanX, -camPanY);
 		drawWorld();
 		platformList.draw();
-		player.draw();
-		enemy.draw();
+		//player.draw();
+		//enemy.draw();
 		// if (!enemy.remove) {
 		// 	enemy.draw();
 		// }
+		for (var i = 0; i < entityList.length; i++) {
+			entityList[i].draw();
+		}
 		for (var num = 0; num < flyingEnemies.length; num++) {
 			flyingEnemies[num].draw();
 		}
