@@ -1,116 +1,104 @@
 //TODO: change name to itemClass and change all reference
 function ItemClass(posX, posY, width, height, tileKindHere){
 	
-	var tileKindHere = tileKindHere;
+	this.tileKindHere = tileKindHere;
 	this.boundingBox = {
 		width : width,
 		height: height,
 		x: posX,
 		y: posY
 	};
+ 	this.name = this.setName();
+}
 
-	this.setName = function(){
-		if(tileKindHere == SLIME_PIT_LEFT_TOP ||
-		   tileKindHere == SLIME_PIT_MIDDLE_TOP ||
-		   tileKindHere == SLIME_PIT_RIGHT_TOP ||
-		   tileKindHere == SLIME_PIT_LEFT_TOP_ANIM ||
-		   tileKindHere == SLIME_PIT_MIDDLE_TOP_ANIM ||
-		   tileKindHere == SLIME_PIT_RIGHT_TOP_ANIM ||
-		   tileKindHere == SLIME_PIT_LEFT_CENTER ||
-		   tileKindHere == SLIME_PIT_MIDDLE_CENTER ||
-		   tileKindHere == SLIME_PIT_RIGHT_CENTER ||
-		   tileKindHere == SLIME_PIT_LEFT_BOTTOM ||
-		   tileKindHere == SLIME_PIT_MIDDLE_BOTTOM ||
-		   tileKindHere == SLIME_PIT_LEFT_TOP ||
-		   tileKindHere == SLIME_PIT_RIGHT_BOTTOM){
-		   return "Slime";
-		}
-		//use as lava
-		if(tileKindHere == RED_TILE ){
-			return "Lava";
-		}
-
-		if(tileKindHere == GREEN_VINE_WEBS){
-			return "Webs";
-		}
-
-		if(tileKindHere == THORNS){
-			return "Thorns";
-		}
-
-		if(tileKindHere == VINES_POISONOUS){
-			return "Thorns";
-		}
-
-		if(tileKindHere == PICKUP){
-			return "Diamond";
-		}
-
-		if(tileKindHere == KEY_RED){
-			return "Red Kye";
-
-		}
-
-		if(tileKindHere == KEY_BLUE){
-			return "Blue key";
-		}
-
-		if(tileKindHere == KEY_GREEN){
-			return "Green key";
-		}
+ItemClass.prototype.setName = function(){
+	if(this.tileKindHere == SLIME_PIT_LEFT_TOP ||
+	   this.tileKindHere == SLIME_PIT_MIDDLE_TOP ||
+	   this.tileKindHere == SLIME_PIT_RIGHT_TOP ||
+	   this.tileKindHere == SLIME_PIT_LEFT_TOP_ANIM ||
+	   this.tileKindHere == SLIME_PIT_MIDDLE_TOP_ANIM ||
+	   this.tileKindHere == SLIME_PIT_RIGHT_TOP_ANIM ||
+	   this.tileKindHere == SLIME_PIT_LEFT_CENTER ||
+	   this.tileKindHere == SLIME_PIT_MIDDLE_CENTER ||
+	   this.tileKindHere == SLIME_PIT_RIGHT_CENTER ||
+	   this.tileKindHere == SLIME_PIT_LEFT_BOTTOM ||
+	   this.tileKindHere == SLIME_PIT_MIDDLE_BOTTOM ||
+	   this.tileKindHere == SLIME_PIT_LEFT_TOP ||
+	   this.tileKindHere == SLIME_PIT_RIGHT_BOTTOM){
+	   return "Slime";
 	}
 
- 	this.name = this.setName();
+	//use as lava
+	if(this.tileKindHere == RED_TILE ){
+		return "Lava";
+	}
 
-	this.returnEffect = function(){
-		if(tileKindHere == SLIME_PIT_LEFT_TOP ||
-		   tileKindHere == SLIME_PIT_MIDDLE_TOP ||
-		   tileKindHere == SLIME_PIT_RIGHT_TOP ||
-		   tileKindHere == SLIME_PIT_LEFT_TOP_ANIM ||
-		   tileKindHere == SLIME_PIT_MIDDLE_TOP_ANIM ||
-		   tileKindHere == SLIME_PIT_RIGHT_TOP_ANIM ||
-		   tileKindHere == SLIME_PIT_LEFT_CENTER ||
-		   tileKindHere == SLIME_PIT_MIDDLE_CENTER ||
-		   tileKindHere == SLIME_PIT_RIGHT_CENTER ||
-		   tileKindHere == SLIME_PIT_LEFT_BOTTOM ||
-		   tileKindHere == SLIME_PIT_MIDDLE_BOTTOM ||
-		   tileKindHere == SLIME_PIT_LEFT_TOP ||
-		   tileKindHere == SLIME_PIT_RIGHT_BOTTOM){
-			console.log("You fell into slime");
-		}
-		//use as lava
-		if(tileKindHere == RED_TILE ){
-			console.log("You fell into lava");
-		}
+	if(this.tileKindHere == GREEN_VINE_WEBS){
+		return "Webs";
+	}
 
-		if(tileKindHere == GREEN_VINE_WEBS){
-		 	console.log("You fell into webs");
-		}
+	if(this.tileKindHere == THORNS){
+		return "Thorns";
+	}
 
-		if(tileKindHere == THORNS){
-		 	console.log("You got attacked by thorns");
-		}
+	if(this.tileKindHere == VINES_POISONOUS){
+		return "Vines";
+	}
 
-		if(tileKindHere == VINES_POISONOUS){
-		 	console.log("You got attacked by vines ");
-		}
+	if(this.tileKindHere == PICKUP){
+		return "Diamond";
+	}
 
-		if(tileKindHere == PICKUP){
-		 	console.log("You got picked up health");
-		}
+	if(this.tileKindHere == KEY_RED){
+		return "Red Key";
 
-		if(tileKindHere == KEY_RED){
-		 	console.log("You picked up a red key");
-		}
+	}
 
-		if(tileKindHere == KEY_BLUE){
-		 	console.log("You picked up a blue key");
-		}
+	if(this.tileKindHere == KEY_BLUE){
+		return "Blue Key";
+	}
 
-		if(tileKindHere == KEY_GREEN){
-		 	console.log("You picked up green key");
-		}		
+	if(this.tileKindHere == KEY_GREEN){
+		return "Green Key";
 	}
 }
+
+ItemClass.prototype.returnEffect = function(){
+		if(this.name = "Slime"){
+			console.log("You touched" + this.name);
+		}
+		//use as lava
+		if(this.name = "Lava"){
+			console.log("You touched" + this.name);
+		}
+
+		if(this.name = "Webs"){
+			console.log("You touched" + this.name);
+		}
+
+		if(this.name = "Thorns"){
+			console.log("You touched" + this.name);
+		}
+
+		if(this.name = "Vines"){
+			console.log("You touched" + this.name);		 	
+		}
+
+		if(this.name = "Diamond"){
+			console.log("You touched" + this.name);
+		}
+
+		if(this.name = "Red Key"){
+			console.log("You touched" + this.name);
+		}
+
+		if(this.name = "Blue Key"){
+			console.log("You touched" + this.name);
+		}
+
+		if(this.name = "Green Key"){
+			console.log("You touched" + this.name);
+		}		
+	}
 
 window.obArr = ItemArr;
