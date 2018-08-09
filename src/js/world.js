@@ -6,26 +6,21 @@ const WORLD_GAP = 2;
 const WORLD_COLS = 23;
 const WORLD_ROWS = 15;
 var tileCollisionRect; // Used for displaying currently colliding rect
-
 // Used for frame animation. Update to more optimized format
 var frameRow = 0;
 var worldGrid = [];
 var currentLevel = 1; // This needs to get incremented every time a level is completed
 const WORLD_BACKGROUND = -1;
-
 const DOUBLE_PLATFORM_LEFT_TOP = 0;
 const DOUBLE_PLATFORM_MIDDLE_TOP = 1;
 const DOUBLE_PLATFORM_RIGHT_TOP = 2;
 const DOUBLE_PLATFORM_LEFT_BOTTOM = 3;
 const DOUBLE_PLATFORM_MIDDLE_BOTTOM = 7;
 const DOUBLE_PLATFORM_RIGHT_BOTTOM = 5;
-
 const SINGLE_CENTER = 4;
-
 const SINGLE_PLATFORM_LEFT = 6;
 const SINGLE_PLATFORM_MIDDLE = 7;
 const SINGLE_PLATFORM_RIGHT = 8;
-
 // TILE_BOUNDARY_1 does not support collision check
 const TILE_BOUNDARY_1 = 9;
 const TILE_BOUNDARY_2 = 10;
@@ -33,23 +28,18 @@ const TILE_BOUNDARY_3 = 11;
 const TILE_BOUNDARY_4 = 12;
 const TILE_BOUNDARY_5 = 13;
 const TILE_BOUNDARY_6 = 14;
-
 const SLIME_PIT_LEFT_TOP = 15;
 const SLIME_PIT_MIDDLE_TOP = 16;
 const SLIME_PIT_RIGHT_TOP = 17;
-
 const SLIME_PIT_LEFT_TOP_ANIM = -15;
 const SLIME_PIT_MIDDLE_TOP_ANIM = -16;
 const SLIME_PIT_RIGHT_TOP_ANIM = -17;
-
 const SLIME_PIT_LEFT_CENTER = 18;
 const SLIME_PIT_MIDDLE_CENTER = 19;
 const SLIME_PIT_RIGHT_CENTER = 20;
-
 const SLIME_PIT_LEFT_BOTTOM = 21;
 const SLIME_PIT_MIDDLE_BOTTOM = 22;
 const SLIME_PIT_RIGHT_BOTTOM = 23;
-
 const RED_TILE = 24;
 const GREEN_VINE_WEBS = 25;
 const WORLD_BACKGROUND_BROWN = 26;
@@ -57,7 +47,6 @@ const THORNS = 27;
 const VINES_POISONOUS = 28;
 const CRATE = 29;
 const PICKUP = 30;
-
 const DOOR_RED = 31;
 const DOOR_GREEN = 32;
 const DOOR_BLUE = 33;
@@ -69,13 +58,11 @@ const PLATFORM_LEFT = 41;
 const PLATFORM_UP = 42;
 const PLATFORM_DOWN = 43;
 const PLATFORM_DESTINATION = 49;
-
 var PLATFORM_SPEEDS = [];
 PLATFORM_SPEEDS[PLATFORM_RIGHT] = vector.create(1, 0);
 PLATFORM_SPEEDS[PLATFORM_LEFT] = vector.create(-1, 0);
 PLATFORM_SPEEDS[PLATFORM_UP] = vector.create(0, -1);
 PLATFORM_SPEEDS[PLATFORM_DOWN] = vector.create(0, 1);
-
 // const WORLD_PLATFORM = 1;
 const WORLD_PLAYERSTART = -2;
 const WORLD_ENEMY_DUMB_START = -3;

@@ -22,14 +22,12 @@ const gameOverMusic = new backgroundMusicClass("game_over");
 const overDueGameMusic = new backgroundMusicClass("overdue_gameover");
 const slickPunchJamMusic = new backgroundMusicClass("slickpunch_jam");
 const slickPunchJam2Music = new backgroundMusicClass("slickpunch_jam2");
-
 let currentBackgroundMusic;
 // let soundVolume = document.getElementById('soundVolume').defaultValue;
 // let musicVolume = document.getElementById('musicVolume').defaultValue;
 
 let musicVolume = 1;
 let soundVolume = 0.5;
-
 
 function setFormat() {
     var audio = new Audio();
@@ -41,9 +39,7 @@ function setFormat() {
 }
 
 function backgroundMusicClass(filename) {
-
     let musicSound = null;
-
     this.loopSong = function() {
         setFormat(); // calling this to ensure that audioFormat is set before needed
 
@@ -56,17 +52,14 @@ function backgroundMusicClass(filename) {
         musicSound.loop = true;
         musicSound.play();
     }
-
     this.pauseSound = function() {
         if (musicSound != null) {
           musicSound.pause();
         }
     }
-
     this.isPlaying = function(){
         return !musicSound.paused;
     }
-
     this.startOrStopMusic = function() {
         if (musicSound.paused) {
             musicSound.play();
@@ -78,11 +71,9 @@ function backgroundMusicClass(filename) {
 
 function SoundOverlapsClass(filename) {
     setFormat();
-
     var altSoundTurn = false;
     var mainSound = new Audio("./src/audio/sounds/" + audioFormat.slice(1, audioFormat.length) + "/"  + filename + audioFormat);
     var altSound = new Audio("./src/audio/sounds/" + audioFormat.slice(1, audioFormat.length) + "/"  + filename + audioFormat);
-
     this.play = function() {
         if (altSoundTurn) {
             altSound.currentTime = 0;
@@ -93,7 +84,6 @@ function SoundOverlapsClass(filename) {
             mainSound.volume = soundVolume;
             mainSound.play();
         }
-
         this.altSoundTurn = !this.altSoundTurn; //toggling between true and false
     }
 }

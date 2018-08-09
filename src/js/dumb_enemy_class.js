@@ -8,7 +8,6 @@ function dumbEnemyClass() {
     this.keyHeld_Right = false;
     this.keyHeld_Left = false;
     this.keyHeld_Attack = false;
-
     // Animation generation. 
     this.walkAnim = new SpriteSheetClass(dumbEnemyWalkAnim, this.width, this.height, true, 4, 20); // 10 frames
     this.punchAnim = new SpriteSheetClass(dumbEnemyAttackAnim, this.width, this.height, true, 3, 10); //4frames
@@ -17,10 +16,8 @@ function dumbEnemyClass() {
 dumbEnemyClass.prototype = Object.create(entityClass.prototype);
 
 dumbEnemyClass.prototype.move = function () {
-    this.boundingBox.width = this.width / 3;
-    this.boundingBox.height = this.height;
-    this.boundingBox.x = this.pos.x - this.boundingBox.width / 2;
-    this.boundingBox.y = this.pos.y - this.boundingBox.height / 2;
+    this.setInitialBoundingBox(this.width / 3, this.height);
+    this.setWorldPhysics();
 
     var current_direction;
     if (this.toggleDirection) {
@@ -43,21 +40,6 @@ dumbEnemyClass.prototype.move = function () {
     }
     else {
         this.keyHeld_Attack = false;
-    }
-
-   if (this.state[ON_GROUND]) {
-      // this.speed.x *= GROUND_FRICTION;
-      this.speed.setX(this.speed.x * GROUND_FRICTION);
-      this.doubleJumpCount = 0;
-    }
-    else { 
-      // in the air
-      this.speed.setX(this.speed.x * AIR_RESISTANCE);
-      this.speed.setY(this.speed.y + GRAVITY);
-      // improve this
-      if (this.speed.y > this.boundingBox.height / 2 + PLAYER_COLLISION_PADDING) {
-        this.speed.y = this.boundingBox.height / 2 + PLAYER_COLLISION_PADDING;
-      }
     }
 
     //Left movement
@@ -85,7 +67,6 @@ dumbEnemyClass.prototype.move = function () {
         this.setStateValueTo(IN_MOTION, false);
         this.setStateValueTo(ATTACKING, true);
         kickSound.play();
-
         this.boundingBox.width = this.width / 1.5;
         this.boundingBox.x = this.pos.x - this.boundingBox.width / 2;
       }
@@ -96,11 +77,9 @@ dumbEnemyClass.prototype.move = function () {
     if (this.state.isOnGround && this.state.isAttacking) {
         this.speed.x = 0;
     }
-
     this.entityCollisionHandling();
     this.pos.addTo(this.speed) // same as above, but for vertical
     this.enemyWorldHandling();
-    
     if (this.spriteAnim != null) {
       this.spriteAnim.update();
     }

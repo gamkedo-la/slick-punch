@@ -1,4 +1,3 @@
-
 const TEXT_COLOR = "black";
 var firstLoad = true;
 var isPaused = false; 

@@ -139,6 +139,7 @@ playerClass.prototype.move = function () {
   }
   // avoid multiple jumps from the same keypress
   this.keyHeld_Up_lastframe = this.keyHeld_Jump;
+  
   this.entityCollisionHandling();
   this.pos.addTo(this.speed);
   this.playerWorldHandling();

@@ -192,12 +192,10 @@ entityClass.prototype.setWorldPhysics = function(){
   else { 
     // in the air
     this.speed.setX(this.speed.getX() * AIR_RESISTANCE);
-    //Add gravity every second instead of every frame
     this.speed.setY(this.speed.getY() + GRAVITY);
-    // improve this
-    if (this.speed.getX() > this.pos.getX() +  this.boundingBox.height / 2 + PLAYER_COLLISION_PADDING) {
-      this.speed.getY() = this.pos.getY() + this.boundingBox.height / 2 + PLAYER_COLLISION_PADDING;
-    }
+    // if (this.speed.getX() > this.pos.getX() +  this.boundingBox.height / 2 ) {
+    //   this.speed.getY() = this.pos.getY() + this.boundingBox.height / 2 ;
+    // }
   }
 }
 
