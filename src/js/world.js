@@ -4,7 +4,6 @@ const WORLD_W = 35;
 const WORLD_H = 35;
 // const WORLD_W = 50;
 // const WORLD_H = 50;
-const WORLD_GAP = 2;
 const WORLD_COLS = 23;
 const WORLD_ROWS = 15;
 var tileCollisionRect; // Used for displaying currently colliding rect
@@ -74,10 +73,8 @@ const WORLD_FLYING_ENEMY = -5; // spawns a flyingEnemy.js
 const WORLD_VENOM_DOG = -8;
 var ItemArr = [];
 
-
 // { varName: venomDog, theFile: "venomDog2.png" },		
 // { varName: venomDogIdle, theFile: "venomDog2Idle.png" },	
-
 const slimeLeftBlobSprite = new SpriteSheetClass(slimeLeftBlobAnim, WORLD_W, WORLD_H, true, 8, 5); // 8 frames, 5 ticks 
 const slimeMiddleBlobSprite = new SpriteSheetClass(slimeMiddleBlobAnim, WORLD_W, WORLD_H, true, 8, 20); // 8 frames
 const slimeRightBlobSprite = new SpriteSheetClass(slimeRightBlobAnim, WORLD_W, WORLD_H, true, 8, 5); // 8 frames, 5 ticks 
@@ -104,7 +101,6 @@ function intializeCollidableObjects(){
                                        tileKindHere
                                       ));
       }
-
       drawTileX += WORLD_W;
       arrayIndex++;
     } // end of for each col
@@ -117,25 +113,18 @@ function returnAnimatedTileSprites(tileKindHere) {
 	switch (tileKindHere) {
 		case SLIME_PIT_LEFT_TOP_ANIM:
 			return slimeLeftBlobSprite;
-			break;
 		case SLIME_PIT_MIDDLE_TOP_ANIM:
 			return slimeMiddleBlobSprite;
-			break;
 		case SLIME_PIT_RIGHT_TOP_ANIM:
 			return slimeRightBlobSprite;
-			break;
 		case KEY_RED:
 			return redKeySprite;
-			break;
 		case KEY_GREEN:
 			return greenKeySprite;
-			break;
 		case KEY_BLUE:
 			return blueKeySprite;
-			break;
 		case PICKUP:
 			return diamondSprite;
-			break;
 	}
 }
 
@@ -331,9 +320,9 @@ function istileCollidable(tile) {
 
 function isPickable(tile){
   return (
-    tile == PICKUP &&
-    tile == KEY_RED &&
-    tile == KEY_BLUE &&
+    tile == PICKUP ||
+    tile == KEY_RED ||
+    tile == KEY_BLUE ||   
     tile == KEY_GREEN 
   );
 }
