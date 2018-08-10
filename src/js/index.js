@@ -3,6 +3,7 @@ var player = new playerClass();
 var enemy = new dumbEnemyClass();
 var venomDog = new venomDogClass();
 var box = new boxClass();
+var slimeDrip = new slimeDripClass();
 
 var flyingEnemies = []; // an array of flyingEnemy
 var score;
@@ -64,6 +65,8 @@ function loadLevel(whichLevel) {
 	enemy.init(enemyPic, "Dumb Enemy");
   	venomDog.init(venomDogPic, "Venom Dog");
   	box.init(crateBoxPic, "Box");
+  	slimeDrip.init(slimeBallDripAnim, "Slime Drip");
+  	//slimeBall.init(crateBoxPic, "Box");
   	intializeCollidableObjects();
 	score = 0;
 	spawnFlyingEnemies();
@@ -88,6 +91,9 @@ function moveAll() {
 			enemy.move();
 		}
 		for (var i = 0; i < entityList.length; i++) {
+			if (entityList[i].removeMe) {
+				entityList.pop(i,1);
+			}
 			entityList[i].move();
 		}
 		for (var num = 0; num < flyingEnemies.length; num++) {

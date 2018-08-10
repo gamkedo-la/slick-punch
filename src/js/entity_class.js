@@ -159,17 +159,26 @@ entityClass.prototype.init = function (whichImage, playerName) {
       this.valueInWorldIndex = CRATE;
       this.health = BOX_HEALTH;
       break;
+    case "Slime Drip":
+      this.valueInWorldIndex = SLIME_DRIP;
+      this.health = BOX_HEALTH;
+      break;
+    case "Slime Ball":
+      this.valueInWorldIndex = null;
+      this.health = BOX_HEALTH;
+      break;
   }
-  this.addEntityToWorld();
+  this.addEntityToWorldTile();
   entityList.push(this);
   console.log(this);
 } // end of playerReset func
 
-entityClass.prototype.addEntityToWorld = function(){
+entityClass.prototype.addEntityToWorldTile = function() {
 	for (var eachRow = 0; eachRow < WORLD_ROWS; eachRow++) {
 		for (var eachCol = 0; eachCol < WORLD_COLS; eachCol++) {
 			var arrayIndex = rowColToArrayIndex(eachCol, eachRow);
-			if (worldGrid[arrayIndex] == this.valueInWorldIndex) {
+			if (worldGrid[arrayIndex] == this.valueInWorldIndex &&
+          worldGrid[arrayIndex] != null) {
 				worldGrid[arrayIndex] = WORLD_BACKGROUND;
 				// this.ang = -Math.PI/2;
 				this.pos.x = eachCol * WORLD_W + WORLD_W / 2;

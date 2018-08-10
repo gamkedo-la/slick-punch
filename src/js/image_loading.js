@@ -18,6 +18,8 @@ const playerRollAnim = document.createElement("img");
 const playerCrouchedKickAnim = document.createElement("img");
 const playerNormalKickAnim = document.createElement("img");
 const playerUppercutAnim = document.createElement("img");
+const slimeBallPic = document.createElement("img");
+const slimeBallDripAnim = document.createElement("img");
 const slimeLeftBlobAnim = document.createElement("img");
 const slimeMiddleBlobAnim = document.createElement("img");
 const slimeRightBlobAnim = document.createElement("img");
@@ -104,6 +106,8 @@ function loadImages() {
 		{ varName: slimeLeftBlobAnim, theFile: "slimeLeftBloop.png", width: 35, height: 35},
 		{ varName: slimeMiddleBlobAnim, theFile: "slimeMiddleBloop.png", width: 35, height: 35 },
 		{ varName: slimeRightBlobAnim, theFile: "slimeRightBloop.png", width: 35, height: 35},
+		{ varName: slimeBallPic, theFile: "slimeball.png", width: 35, height: 35 },
+		{ varName: slimeBallDripAnim, theFile: "slimedrip.png", width: 35, height: 35},
 		//Doors
 		{ varName: doorRed, theFile: "doorYellow.png", width: 35, height: 35},
 		{ varName: doorBlue, theFile: "doorBlue.png", width: 35, height: 35},
