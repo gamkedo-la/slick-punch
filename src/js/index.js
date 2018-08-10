@@ -18,6 +18,8 @@ var timeElapsedInSeconds = 0;
 var frameCount = 0;
 const FRAMES_PER_SECOND = 60;
 
+var pause = false;
+
 window.onload = function () {
 	canvas = document.getElementById('gameCanvas');
 	canvasContext = canvas.getContext('2d');
@@ -69,9 +71,12 @@ function loadLevel(whichLevel) {
 }
 
 function updateAll() {
-	moveAll();
-	drawAll();
-	particles.update();
+  if(!pause)
+    {  
+     moveAll();
+	 drawAll();
+	 particles.update();
+    }
 }
 
 function moveAll() {
