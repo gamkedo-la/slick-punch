@@ -91,10 +91,10 @@ function moveAll() {
 			enemy.move();
 		}
 		for (var i = 0; i < entityList.length; i++) {
-			if (entityList[i].removeMe) {
-				entityList.pop(i,1);
-			}
 			entityList[i].move();
+			if (entityList[i].removeMe) {
+				entityList.splice(i,1);
+			}
 		}
 		for (var num = 0; num < flyingEnemies.length; num++) {
 			flyingEnemies[num].move();
