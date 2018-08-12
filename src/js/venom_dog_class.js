@@ -7,10 +7,10 @@ function venomDogClass() {
     this.keyHeld_Left = false;
     this.keyHeld_Attack = false;
 
-    this.width = 150;
-    this.height = 150;
+    this.width = 240;
+    this.height = 120;
     // Animation generation. 
-    this.idleAnim = new SpriteSheetClass(venomDogIdle, this.width, this.height, true, 2, 10); // 10 frames
+    this.idleAnim = new SpriteSheetClass(venomDogIdle, this.width, this.height, true, 2, 13); // 10 frames
     // this.walkAnim = new SpriteSheetClass(dumbEnemyWalkAnim, this.width, this.height, true, 2, 6); // 10 frames
 
 }
@@ -18,7 +18,7 @@ function venomDogClass() {
 venomDogClass.prototype = Object.create(entityClass.prototype);
 
 venomDogClass.prototype.move = function () {
-      this.boundingBox.width = this.width / 3;
+    /*this.boundingBox.width = this.width / 3;
     this.boundingBox.height = this.height;
     this.boundingBox.x = this.pos.x - this.boundingBox.width / 2;
     this.boundingBox.y = this.pos.y - this.boundingBox.height / 2;
@@ -131,7 +131,7 @@ venomDogClass.prototype.move = function () {
     }
 
     this.pos.addTo(this.speed) // same as above, but for vertical
-    entityWorldHandling(this);
+    entityWorldHandling(this);*/
 
     if (this.spriteAnim != null) {
       this.spriteAnim.update();

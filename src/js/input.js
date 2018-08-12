@@ -16,6 +16,7 @@ const KEY_O = 79;
 const KEY_P = 80;
 const KEY_S = 83;
 const KEY_ENTER = 13;
+const KEY_ESC = 27;
 
 //TODO : Make attacks more smooth
 //TODO : COmbo moves
@@ -117,6 +118,13 @@ function keyReleased(evt) {
 		  		windowState.mainMenu = true;
 		  		windowState.sound = false;
 		  	}	
-		  	break;	
+		  	break;
+        case KEY_ESC:
+            pause=!pause;
+            if(pause)
+            slickPunchJamMusic.pauseSound();
+            else
+            slickPunchJamMusic.startOrStopMusic();  
+            break;
 	}
 }

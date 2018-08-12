@@ -8,7 +8,9 @@ function dumbEnemyClass() {
     this.keyHeld_Right = false;
     this.keyHeld_Left = false;
     this.keyHeld_Attack = false;
-    // Animation generation. 
+    // Animation generation.
+    this.width = 80;
+    this.height = 80; 
     this.walkAnim = new SpriteSheetClass(dumbEnemyWalkAnim, this.width, this.height, true, 4, 20); // 10 frames
     this.punchAnim = new SpriteSheetClass(dumbEnemyAttackAnim, this.width, this.height, true, 3, 10); //4frames
 }
@@ -16,7 +18,7 @@ function dumbEnemyClass() {
 dumbEnemyClass.prototype = Object.create(entityClass.prototype);
 
 dumbEnemyClass.prototype.move = function () {
-    this.setInitialBoundingBox(this.width / 3, this.height);
+    this.setInitialBoundingBox(this.width , this.height);
     this.setWorldPhysics();
 
     var current_direction;
@@ -46,6 +48,7 @@ dumbEnemyClass.prototype.move = function () {
     if (this.keyHeld_Left) {
       //this.setStateToFalse(); //setting every value of object to false; // might be buggy
       this.setStateValueTo(IN_MOTION, true);
+      this.setStateValueTo(IDLE, false);
       this.setStateValueTo(MOVING_LEFT, true);
       this.speed.setX(-DUMB_RUN_SPEED);
     }
@@ -53,6 +56,7 @@ dumbEnemyClass.prototype.move = function () {
     else if (this.keyHeld_Right) {
       //this.setStateToFalse();
       this.setStateValueTo(IN_MOTION, true);
+      this.setStateValueTo(IDLE, false);
       this.setStateValueTo(MOVING_LEFT, false);
       this.speed.setX(DUMB_RUN_SPEED);
       // this.speed.x = PLAYER_RUN_SPEED;
@@ -77,9 +81,11 @@ dumbEnemyClass.prototype.move = function () {
     if (this.state.isOnGround && this.state.isAttacking) {
         this.speed.x = 0;
     }
+
     this.entityCollisionHandling();
     this.pos.addTo(this.speed) // same as above, but for vertical
     this.enemyWorldHandling();
+
     if (this.spriteAnim != null) {
       this.spriteAnim.update();
     }
@@ -108,6 +114,6 @@ dumbEnemyClass.prototype.draw = function () {
     if (this.spriteAnim != null) {
         //TODO :Change this.frameRow and used it for animating consilated spritesheet of player character
         this.spriteAnim.draw(this.spriteAnim.frameIndex, this.frameRow, this.pos.x, this.pos.y, this.ang, this.state.isMovingLeft);
-        // console.log(this.spriteAnim.frameIndex);
+        //console.log(this.spriteAnim.frameIndex);
     }
 }

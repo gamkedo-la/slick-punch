@@ -2,8 +2,9 @@ var canvas, canvasContext;
 var player = new playerClass();
 var enemy = new dumbEnemyClass();
 var venomDog = new venomDogClass();
+var box = new boxClass();
+var slimeDrip = new slimeDripClass();
 
-var flyingEnemies = []; // an array of flyingEnemy
 var score;
 var debug = false;
 var enemyObjArr = [];
@@ -15,7 +16,9 @@ var timeStarted;
 var timeStartedActive;
 var timeElapsedInSeconds = 0;
 var frameCount = 0;
-const FRAMES_PER_SECOND = 60
+const FRAMES_PER_SECOND = 60;
+
+var pause = false;
 
 window.onload = function () {
 	canvas = document.getElementById('gameCanvas');
@@ -46,7 +49,7 @@ function spawnFlyingEnemies() {
 				spawnCounter++;
 				px = eachCol * WORLD_W + WORLD_W / 2;
 				py = eachRow * WORLD_H + WORLD_H / 2;
-				flyingEnemies.push(new flyingEnemyClass(px, py));
+				entityList.push(new flyingEnemyClass(px, py));
 			}
 		}
 	}
@@ -56,31 +59,41 @@ function spawnFlyingEnemies() {
 function loadLevel(whichLevel) {
 	worldGrid = whichLevel.slice();
 	platformList.parseWorld();
+	entityList = [];
 	player.init(playerPic, "Player");
-	enemy.init(enemyPic, "Dumb Enemy");
-  venomDog.init(venomDogPic, "Venom Dog");
-  intializeCollidableObjects();
+	enemy.init(dumbEnemyWalkAnim, "Dumb Enemy");
+  	venomDog.init(venomDogIdle, "Venom Dog");
+  	box.init(crateBoxPic, "Box");
+  	slimeDrip.init(slimeBallDripAnim, "Slime Drip");
+  	//slimeBall.init(crateBoxPic, "Box");
+  	intializeCollidableObjects();
 	score = 0;
 	spawnFlyingEnemies();
 	timeRemaining = timeLimit;
 }
 
 function updateAll() {
-	moveAll();
-	drawAll();
-	particles.update();
+  if(!pause)
+    {  
+     moveAll();
+	 drawAll();
+	 particles.update();
+    }
 }
 
 function moveAll() {
 	if (gameRunning) {
 		cameraFollow();
-		player.move();
+		//player.move();
 		enemy.move();
 		if (!enemy.remove) {
 			enemy.move();
 		}
-		for (var num = 0; num < flyingEnemies.length; num++) {
-			flyingEnemies[num].move();
+		for (var i = 0; i < entityList.length; i++) {
+			entityList[i].move();
+			if (entityList[i].removeMe) {
+				entityList.splice(i,1);
+			}
 		}
 		platformList.update();
 	}
@@ -99,13 +112,13 @@ function drawAll() {
 		canvasContext.translate(-camPanX, -camPanY);
 		drawWorld();
 		platformList.draw();
-		player.draw();
-		enemy.draw();
+		//player.draw();
+		//enemy.draw();
 		// if (!enemy.remove) {
 		// 	enemy.draw();
 		// }
-		for (var num = 0; num < flyingEnemies.length; num++) {
-			flyingEnemies[num].draw();
+		for (var i = 0; i < entityList.length; i++) {
+			entityList[i].draw();
 		}
 		if (debug) {
 			strokedRect(player.boundingBox.x, player.boundingBox.y, player.boundingBox.width, player.boundingBox.height, "2", "yellow");

@@ -88,7 +88,7 @@ playerClass.prototype.move = function () {
     this.setStateValueTo(IDLE, false);
     this.setStateValueTo(CROUCHING, true);
     this.boundingBox.height = this.height / 1.5;
-    this.boundingBox.y = this.pos.y - this.boundingBox.height/1.5;
+    this.boundingBox.y = this.pos.y - this.boundingBox.height/3;
   }
   else {
     //Down for spin kick

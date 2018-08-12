@@ -46,19 +46,24 @@ const GREEN_VINE_WEBS = 25;
 const WORLD_BACKGROUND_BROWN = 26;
 const THORNS = 27;
 const VINES_POISONOUS = 28;
-const CRATE = 29;
-const PICKUP = 30;
-const DOOR_RED = 31;
-const DOOR_GREEN = 32;
-const DOOR_BLUE = 33;
-const KEY_RED = 34;
-const KEY_GREEN = 35;
-const KEY_BLUE = 36;
+// const EMPTY_SPACE = 29 //empty spot in the tile set, add yours here and to slickTileset2!
+const SLIME_CEILING_LEFT = 30;
+const SLIME_CEILING_MIDDLE = 31;
+const SLIME_CEILING_RIGHT = 32;
+const PICKUP = 33;
+const DOOR_RED = 34;
+const DOOR_GREEN = 35;
+const DOOR_BLUE = 36;
+const KEY_RED = 37;
+const KEY_GREEN = 38;
+const KEY_BLUE = 39;
 const PLATFORM_RIGHT = 40;
 const PLATFORM_LEFT = 41;
 const PLATFORM_UP = 42;
 const PLATFORM_DOWN = 43;
 const PLATFORM_DESTINATION = 49;
+
+
 var PLATFORM_SPEEDS = [];
 PLATFORM_SPEEDS[PLATFORM_RIGHT] = vector.create(1, 0);
 PLATFORM_SPEEDS[PLATFORM_LEFT] = vector.create(-1, 0);
@@ -71,6 +76,8 @@ const WORLD_ENEMY_DUMB_DEST = -6;
 const WORLD_GOAL = -7;
 const WORLD_FLYING_ENEMY = -5; // spawns a flyingEnemy.js
 const WORLD_VENOM_DOG = -8;
+const CRATE = -9;
+const SLIME_DRIP = -10;
 var itemArr = [];
 
 // { varName: venomDog, theFile: "venomDog2.png" },		
@@ -78,13 +85,11 @@ var itemArr = [];
 const slimeLeftBlobSprite = new SpriteSheetClass(slimeLeftBlobAnim, WORLD_W, WORLD_H, true, 8, 5); // 8 frames, 5 ticks 
 const slimeMiddleBlobSprite = new SpriteSheetClass(slimeMiddleBlobAnim, WORLD_W, WORLD_H, true, 8, 20); // 8 frames
 const slimeRightBlobSprite = new SpriteSheetClass(slimeRightBlobAnim, WORLD_W, WORLD_H, true, 8, 5); // 8 frames, 5 ticks 
-const diamondSprite = new SpriteSheetClass(diamondPickupAnim, WORLD_W / 2, WORLD_H / 2, true, 2, 60); // 2 frames, 60 ticks 
-const redKeySprite = new SpriteSheetClass(redKeyAnimation, 32, 32, true, 2, 60); // 2 frames, 60 ticks 
-const greenKeySprite = new SpriteSheetClass(greenKeyAnimation, 32, 32, true, 2, 60); // 2 frames, 60 ticks 
-const blueKeySprite = new SpriteSheetClass(blueKeyAnimation, 32, 32, true, 2, 60); // 2 frames, 60 ticks
+const diamondSprite = new SpriteSheetClass(diamondPickupAnim, WORLD_W / 2, WORLD_H / 2, true, 2, 18); // 2 frames, 18 ticks 
+const redKeySprite = new SpriteSheetClass(redKeyAnimation, 32, 32, true, 2, 18); // 2 frames, 18 ticks 
+const greenKeySprite = new SpriteSheetClass(greenKeyAnimation, 32, 32, true, 2, 18); // 2 frames, 18 ticks 
+const blueKeySprite = new SpriteSheetClass(blueKeyAnimation, 32, 32, true, 2, 18); // 2 frames, 18 ticks
 /*const blueKeySprite = new SpriteSheetClass(blueKeyAnimation, 32, 32, true, 2, 60); // 2 frames, 60 ticks*/ // same as above?
-//const crateBoxSprite = new  SpriteSheetClass(crateBoxAnim, 35, 35, true, 5, 60); // 2 frames, 60 ticks
-
 function intializeCollidableObjects(){
   var arrayIndex = 0;
   var drawTileX = 0;
@@ -194,10 +199,6 @@ function drawWorld() {
 					animatedTile.draw(animatedTile.frameIndex, frameRow, drawTileX + WORLD_W / 2, drawTileY + WORLD_H / 2, false, false);
 				}
 				else {
-					//TODO Need to update this to proper tileset
-					if (tileKindHere == CRATE) {
-						canvasContext.drawImage(crateBox, drawTileX, drawTileY);
-					}
 					if (tileKindHere == WORLD_GOAL) {
 						canvasContext.drawImage(goal, drawTileX, drawTileY);
 					}
@@ -217,7 +218,6 @@ function drawWorld() {
 						WORLD_W, WORLD_H); // stretch or shrink coordinates
 				}
 			}
-
    
 			drawTileX += WORLD_W;
 			arrayIndex++;
@@ -231,7 +231,6 @@ function placeEntityOnWorldTileType(whichEntity, tileTypeToCheck) {
 	whichEntity.pos = findCenterPositionOfTileType(tileTypeToCheck);
 	setTileAtPositionToType(whichEntity.pos, WORLD_BACKGROUND);
 }
-
 
 function findCenterPositionOfTileType(tileTypeToCheck) {
 	var tileCenterPosition = vector.create(0, 0);
@@ -267,10 +266,12 @@ function isTransparentInBackground(tile) {
 		tile == SLIME_PIT_LEFT_TOP ||
 		tile == SLIME_PIT_MIDDLE_TOP ||
 		tile == SLIME_PIT_RIGHT_TOP ||
+		tile == SLIME_CEILING_LEFT ||
+		tile == SLIME_CEILING_MIDDLE ||
+		tile == SLIME_CEILING_RIGHT ||
 		tile == GREEN_VINE_WEBS ||
 		tile == THORNS ||
 		tile == VINES_POISONOUS ||
-		tile == CRATE ||
 		tile == DOOR_RED ||
 		tile == DOOR_GREEN ||
 		tile == DOOR_BLUE
@@ -311,7 +312,6 @@ function istileCollidable(tile) {
 	return (
 		tile != WORLD_BACKGROUND &&
 		tile != PICKUP &&
-		tile != CRATE &&
 		tile != WORLD_ENEMY_DUMB_DEST &&
 		tile != KEY_RED &&
 		tile != KEY_BLUE &&

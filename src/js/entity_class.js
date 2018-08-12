@@ -16,9 +16,9 @@ const FACING_UP = 'isFacingUp';
 const ATTACKING = 'isAttacking';
 const DEFENDING = 'isDefending';
 const ANIMATING = 'isAnimating';
-const HURT = 'isHurt'
-const DEAD = 'isDead'
-const FLYING = 'isFlying'
+const HURT = 'isHurt';
+const DEAD = 'isDead';
+const FLYING = 'isFlying';
 
 const FLYING_ENEMY_HEALTH = 1;
 const FLYING_ENEMY_ATTACK_POWER = 2;
@@ -31,6 +31,7 @@ const PLAYER_HEALTH = 3;
 const PLAYER_RUN_SPEED = 3.0;
 const ENEMY_VENOM_DOG_HEALTH = 10;
 const ENEMY_VENOM_DOG_ATTACK_POWER = 1;
+const BOX_HEALTH = 0.5;
 
 //Manages the list of entity
 let entityList = []; 
@@ -154,17 +155,30 @@ entityClass.prototype.init = function (whichImage, playerName) {
       this.valueInWorldIndex = WORLD_VENOM_DOG;
       this.health = ENEMY_VENOM_DOG_HEALTH;
       break;
+    case "Box":
+      this.valueInWorldIndex = CRATE;
+      this.health = BOX_HEALTH;
+      break;
+    case "Slime Drip":
+      this.valueInWorldIndex = SLIME_DRIP;
+      this.health = BOX_HEALTH;
+      break;
+    case "Slime Ball":
+      this.valueInWorldIndex = null;
+      this.health = BOX_HEALTH;
+      break;
   }
-  this.addEntityToWorld();
+  this.addEntityToWorldTile();
   entityList.push(this);
   console.log(playerName + " spawned");
 } // end of playerReset func
 
-entityClass.prototype.addEntityToWorld = function(){
+entityClass.prototype.addEntityToWorldTile = function() {
 	for (var eachRow = 0; eachRow < WORLD_ROWS; eachRow++) {
 		for (var eachCol = 0; eachCol < WORLD_COLS; eachCol++) {
 			var arrayIndex = rowColToArrayIndex(eachCol, eachRow);
-			if (worldGrid[arrayIndex] == this.valueInWorldIndex) {
+			if (worldGrid[arrayIndex] == this.valueInWorldIndex &&
+          worldGrid[arrayIndex] != null) {
 				worldGrid[arrayIndex] = WORLD_BACKGROUND;
 				// this.ang = -Math.PI/2;
 				this.pos.x = eachCol * WORLD_W + WORLD_W / 2;
