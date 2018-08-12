@@ -1,7 +1,9 @@
 //TODO: change name to itemClass and change all reference
-function ItemClass(posX, posY, width, height, tileKindHere){
+function ItemClass(posX, posY, width, height, tileKindHere, worldIndex){
 	
 	this.tileKindHere = tileKindHere;
+	this.worldIndex = worldIndex;
+
 	this.boundingBox = {
 		width : width,
 		height: height,
@@ -63,42 +65,54 @@ ItemClass.prototype.setName = function(){
 	}
 }
 
-ItemClass.prototype.returnEffect = function(){
-		if(this.name == "Slime"){
-			console.log("You touched" + this.name);
-		}
-		//use as lava
-		if(this.name == "Lava"){
-			console.log("You touched" + this.name);
-		}
-
-		if(this.name == "Webs"){
-			console.log("You touched" + this.name);
-		}
-
-		if(this.name == "Thorns"){
-			console.log("You touched" + this.name);
-		}
-
-		if(this.name == "Vines"){
-			console.log("You touched" + this.name);		 	
-		}
-
-		if(this.name == "Diamond"){
-			console.log("You touched" + this.name);
-		}
-
-		if(this.name == "Red Key"){
-			console.log("You touched" + this.name);
-		}
-
-		if(this.name == "Blue Key"){
-			console.log("You touched" + this.name);
-		}
-
-		if(this.name == "Green Key"){
-			console.log("You touched" + this.name);
-		}		
+ItemClass.prototype.remove = function(){
+	for(var i = length; i>=0; i--){
+			// if(){
+        
+   //    }
 	}
+}
+
+ItemClass.prototype.returnEffect = function(){
+	if(this.name == "Slime"){
+		console.log("You touched" + this.name);
+	}
+	//use as lava
+	if(this.name == "Lava"){
+		console.log("You touched" + this.name);
+	}
+
+	if(this.name == "Webs"){
+		console.log("You touched" + this.name);
+	}
+
+	if(this.name == "Thorns"){
+		console.log("You touched" + this.name);
+	}
+
+	if(this.name == "Vines"){
+		console.log("You touched" + this.name);		 	
+	}
+
+	if(this.name == "Diamond"){
+		console.log("You touched" + this.name);
+		this.health++;
+    worldGrid[this.worldIndex] = -1;
+    scorePickupSound.play();
+    this.remove();
+	}
+
+	if(this.name == "Red Key"){
+		console.log("You touched" + this.name);
+	}
+
+	if(this.name == "Blue Key"){
+		console.log("You touched" + this.name);
+	}
+
+	if(this.name == "Green Key"){
+		console.log("You touched" + this.name);
+	}		
+}
 
 window.obArr = itemArr;

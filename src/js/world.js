@@ -98,7 +98,8 @@ function intializeCollidableObjects(){
                                        drawTileY,
                                        WORLD_W,
                                        WORLD_H,
-                                       tileKindHere
+                                       tileKindHere,
+                                       arrayIndex
                                       ));
       }
       drawTileX += WORLD_W;

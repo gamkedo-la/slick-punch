@@ -178,10 +178,7 @@ playerClass.prototype.playerWorldHandling = function () {
 
    
   //     if (tileHere == PICKUP) {
-  //       this.health++;
-  //       worldGrid[tileindex] = -1;
-  //       console.log("Picked up something");
-  //       scorePickupSound.play();
+  //      
 
   //     }
   //     if (tileHere == KEY_RED ) {

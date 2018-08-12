@@ -157,7 +157,7 @@ entityClass.prototype.init = function (whichImage, playerName) {
   }
   this.addEntityToWorld();
   entityList.push(this);
-  console.log(this);
+  console.log(playerName + " spawned");
 } // end of playerReset func
 
 entityClass.prototype.addEntityToWorld = function(){
