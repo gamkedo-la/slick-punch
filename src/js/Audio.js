@@ -1,7 +1,7 @@
 let audioFormat;
 //Sounds
 const punchSound = new SoundOverlapsClass("punch");
-const kickSound = new SoundOverlapsClass("kick");
+const kickSound = new SoundOverlapsClass("Kick");
 const jumpSound = new SoundOverlapsClass("jump");
 const enemyDieSound = new SoundOverlapsClass("enemy_die");
 const enemyAttackSound = new SoundOverlapsClass("enemy_attack");

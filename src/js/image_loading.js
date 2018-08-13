@@ -60,7 +60,9 @@ function countLoadedImagesAndLaunchIfReady(f) {
 	}
 }
 
+var iii = 46;
 function beginLoadingImage(imgObj) {
+	console.log('start', iii--, imgObj.theFile);
 	imgObj.varName.onload = countLoadedImagesAndLaunchIfReady.bind(this, imgObj.theFile);
 	imgObj.varName.src = "src/images/" + imgObj.theFile;
   
@@ -114,12 +116,12 @@ function loadImages() {
 		{ varName: doorGreen, theFile: "doorGreen.png", width: 35, height: 35},
     { varName: doorLower, theFile: "doorLower.png", width: 35, height: 35},
     //Keys Animtaion
-		{ varName: redKeyAnimation, theFile: "keyRed.png", width: 35, height: 35},
-		{ varName: greenKeyAnimation, theFile: "keyGreen.png", width: 35, height: 35},
-		{ varName: blueKeyAnimation, theFile: "keyBlue.png", width: 35, height: 35},
+		{ varName: redKeyAnimation, theFile: "KeyRed.png", width: 35, height: 35},
+		{ varName: greenKeyAnimation, theFile: "KeyGreen.png", width: 35, height: 35},
+		{ varName: blueKeyAnimation, theFile: "KeyBlue.png", width: 35, height: 35},
     //Venom Dog animation
-		{ varName: venomDogPic, theFile: "venomDog2.png", width: 35, height: 35},		
-		{ varName: venomDogIdle, theFile: "venomDog2Idle.png", width: 35, height: 35},	
+		{ varName: venomDogPic, theFile: "venomdog2.png", width: 35, height: 35},
+		{ varName: venomDogIdle, theFile: "venomdog2Idle.png", width: 35, height: 35},
     //goal
 		{ varName: goal, theFile: "goal.png", width: 35, height: 35},
     //MenuBackground
@@ -139,6 +141,7 @@ function loadImages() {
 
 ];
 	picsToLoad = imageList.length;
+	console.log('to load:', picsToLoad);
 
 	for (var i = 0; i < imageList.length; i++) {
 		if (imageList[i].varName != undefined) {
