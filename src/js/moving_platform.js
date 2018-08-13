@@ -73,6 +73,18 @@ var platformList = new (function() {
 			platforms[p].draw();
 		}
 	};
+
+	this.checkCollisions = function(entity) {
+		for (var p = platforms.length - 1; 0 <= p; p--) {
+			if (platforms[p].checkCollision(entity)) {
+				entity.setStateValueTo(ON_PLATFORM, true);
+				entity.setStateValueTo(ON_GROUND, true);
+				return true;
+			}
+		}
+
+		entity.setStateValueTo(ON_PLATFORM, false);
+	};
 });
 
 function Platform(type, platformWidth, startCol, startRow, endCol, endRow) {
@@ -119,8 +131,8 @@ function Platform(type, platformWidth, startCol, startRow, endCol, endRow) {
 		return {
 			x: x,
 			y: y,
-			w: image.width,
-			h: image.height
+			width: image.width,
+			height: image.height
 		};
 	};
 
@@ -141,5 +153,28 @@ function Platform(type, platformWidth, startCol, startRow, endCol, endRow) {
 			strokedRect(0, 0, image.width, image.height, "2", "yellow");
 		}
 		canvasContext.restore();
+	};
+
+	this.checkCollision = function(entity) {
+		var platformBBox = this.getBounds();
+
+		// check if the entity is to the right or left of the platform
+		if (entity.boundingBox.x < platformBBox.x || platformBBox.x + platformBBox.width < entity.boundingBox.x + entity.boundingBox.width) {
+			return;
+		}
+
+		// check if the entity is (too far) above or below the platform
+		if (entity.boundingBox.y + entity.boundingBox.height < platformBBox.y - 2 || platformBBox.y + 2 < entity.boundingBox.y + entity.boundingBox.height) {
+			return;
+		}
+
+		var movingSpeedX = 0;
+		if (entity.state[IN_MOTION]) {
+			movingSpeedX = entity.speed.getX();
+		}
+		entity.speed.setX(movingSpeedX + direction.getX());
+		entity.speed.setY(direction.getY());
+
+		return true;
 	};
 }

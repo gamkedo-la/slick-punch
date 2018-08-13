@@ -140,6 +140,7 @@ playerClass.prototype.move = function () {
   this.keyHeld_Up_lastframe = this.keyHeld_Jump;
   
   this.entityCollisionHandling();
+  platformList.checkCollisions(this);
   this.pos.addTo(this.speed);
   this.playerWorldHandling();
 

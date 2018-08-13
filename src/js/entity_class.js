@@ -8,6 +8,7 @@ const PLAYER_COLLISION_PADDING = 5;
 //constants created instead of just texts to make sure no one 
 //mispells and assigns different state
 const ON_GROUND = 'isOnGround';
+const ON_PLATFORM = 'isOnPlatform';
 const IDLE = 'isIdle';
 const IN_MOTION = 'isInMotion';
 const MOVING_LEFT = 'isMovingLeft';
@@ -140,7 +141,8 @@ entityClass.prototype.init = function (whichImage, playerName) {
     'isAnimating': false, // Used to set state between animation and final.
     'isHurt': false,
     'isDead': false,
-    'isFlying': false
+    'isFlying': false,
+    'isOnPlatform': false
   };
   switch(playerName){
     case "Player":
@@ -201,9 +203,8 @@ entityClass.prototype.setWorldPhysics = function(){
   if (this.state[ON_GROUND]) {
     // this.speed.x *= GROUND_FRICTION;
     this.speed.setX(this.speed.x * GROUND_FRICTION);
-    this.doubleJumpCount = 0;
   }
-  else { 
+  else if (!this.state[ON_PLATFORM]) {
     // in the air
     this.speed.setX(this.speed.getX() * AIR_RESISTANCE);
     this.speed.setY(this.speed.getY() + GRAVITY);
@@ -211,17 +212,21 @@ entityClass.prototype.setWorldPhysics = function(){
     //   this.speed.getY() = this.pos.getY() + this.boundingBox.height / 2 ;
     // }
   }
+
+  if (this.state[ON_GROUND] || this.state[ON_PLATFORM]) {
+	  this.doubleJumpCount = 0;
+  }
 }
 
 entityClass.prototype.entityCollisionHandling = function(){
    //Checking if player is falling or jumping.
    //Get bounding box border coordinates and perform the same functionality for each point
    const jumping = this.speed.getY() < 0;
-   const moving_left = this.speed.getX() < 0
-   const moving_right = this.speed.getX() > 0
-   const falling_down = this.speed.getY() > 0;
+   const moving_left = this.speed.getX() < 0;
+   const moving_right = this.speed.getX() > 0;
+   const falling_down = this.speed.getY() > 0 && !this.state[ON_PLATFORM];
 
-   if (jumping && 
+   if (jumping &&
     (isPlatformAtPixelCoord(this.pos.getX() + this.boundingBox.width/2, this.pos.getY() - this.boundingBox.height / 2) ||
      isPlatformAtPixelCoord(this.pos.getX() - this.boundingBox.width/2, this.pos.getY() - this.boundingBox.height / 2))) {
      // this.pos.setY((Math.floor(this.pos.getY() / WORLD_H)) * WORLD_H + this.boundingBox.height / 2);
