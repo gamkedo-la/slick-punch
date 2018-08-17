@@ -22,6 +22,9 @@ function particleSystem() {
         if (velX == undefined) velX = 0;
         if (velY == undefined) velY = 0;
 
+        var myAlpha = 1;
+        if (color != undefined) myAlpha = extractAlphaFromCSSColour(color);
+
         if (rotationSpeed == undefined) rotationSpeed = Math.random() * 3 - 2;
         if (forcedAngle == undefined) forcedAngle = 0;
 
@@ -50,7 +53,8 @@ function particleSystem() {
             p.death = p.birth + life;
             p.color = color;
             p.angle = forcedAngle;
-            p.alpha = 1;
+            p.alpha = myAlpha;
+            p.maxalpha = myAlpha;
             p.rotSpd = rotationSpeed;
             p.velX = velX;
             p.velY = velY;
@@ -85,7 +89,7 @@ function particleSystem() {
                     //console.log('timestamp: ' + timestamp);
 
                     p.scale = p.size * lifePercent; // grow
-                    p.alpha = (1 - lifePercent); // fade
+                    p.alpha = (1 - lifePercent) * p.maxalpha; // fade
                     p.angle = Math.PI * 2 * lifePercent * p.rotSpd;
 
                     if (timestamp >= p.death) // die
@@ -239,7 +243,6 @@ function smokeScreenEffect(x, y) {
         null,
         Math.random() * SMOKE_VEL_RANGE * 2 - SMOKE_VEL_RANGE,
         Math.random() * SMOKE_VEL_RANGE * 2 - SMOKE_VEL_RANGE);
-
 }
 
 function collectibleEffect(x, y) {
@@ -261,3 +264,33 @@ function collectibleEffect(x, y) {
 }
 
 
+// Slick Punch FX
+
+function extractAlphaFromCSSColour(str) { // eg rgba(255,255,255,0.5); // returns 0.5
+    if (!str) return 1;
+    var rgb = str.match(/[.?\d]+/g);
+    if (rgb[3] == undefined) rgb[3] = 1;
+    return rgb[3];
+}
+
+function walkFX(x, y) {
+    particles.add(x, y, particlePic,
+        1000, // ms lifespan
+        100, // size
+        'rgba(60,60,60,0.25)', // colour
+        Math.random() * 2 - 1, // rotation speed
+        null, // forced angle
+        Math.random() * 1 - 0.5, // x speed
+        Math.random() * 1 - 0.5); // y speed
+}
+
+function fallFX(x, y) {
+    particles.add(x, y, particlePic,
+        1000, // ms lifespan
+        100, // size
+        'rgba(255,255,255,0.1)', // colour
+        Math.random() * 2 - 1, // rotation speed
+        null, // forced angle
+        0, // x speed
+        0); // y speed
+}

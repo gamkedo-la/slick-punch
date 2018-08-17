@@ -2,49 +2,49 @@ function playerClass() {
 
   Object.getPrototypeOf(playerClass.prototype).constructor.call(this);
 
-	//Tracking input keys to player movement
-	this.keyHeld_Right = false;
-	this.keyHeld_Left = false;
-	this.keyHeld_Down = false;
-	this.keyHeld_Up = false;
-	this.keyHeld_Attack = false;
-	this.keyHeld_Jump = false;
-	this.keyHeld_Defend = false;
+  //Tracking input keys to player movement
+  this.keyHeld_Right = false;
+  this.keyHeld_Left = false;
+  this.keyHeld_Down = false;
+  this.keyHeld_Up = false;
+  this.keyHeld_Attack = false;
+  this.keyHeld_Jump = false;
+  this.keyHeld_Defend = false;
   this.attackPower = PLAYER_ATTACK_POWER;
 
-	// don't jump >1x per keypress
-	this.keyHeld_Up_lastframe = false;
-	//Control keys for player
-	this.controlKeyRight = null;
-	this.controlKeyLeft = null;
-	this.controlKeyUp = null;
-	this.controlKeyDown = null;
-	this.controlKeyAttack = null;
-	this.controlKeyJump = null;
-	this.controlKeyDefend = null;
+  // don't jump >1x per keypress
+  this.keyHeld_Up_lastframe = false;
+  //Control keys for player
+  this.controlKeyRight = null;
+  this.controlKeyLeft = null;
+  this.controlKeyUp = null;
+  this.controlKeyDown = null;
+  this.controlKeyAttack = null;
+  this.controlKeyJump = null;
+  this.controlKeyDefend = null;
 
-	// Animation generation. 
-	this.walkAnim = new SpriteSheetClass(playerWalkAnim, this.width, this.height, true, 10); // 10 frames
-	this.punchAnim = new SpriteSheetClass(playerPunchAnim, this.width, this.height, false, 4); //4frames
-	this.idleAnim = new SpriteSheetClass(playerIdleAnim, this.width, this.height, true, 7); //7 frames
-	this.idleJumpAnim = new SpriteSheetClass(playerIdleJumpAnim, this.width, this.height, true, 5); //6 frames
-	this.leftJabAnim = new SpriteSheetClass(playerLeftJabAnim, this.width, this.height, true, 7); //7 frames
-	this.walkJumpAnim = new SpriteSheetClass(playerWalkJumpAnim, this.width, this.height, true, 5); //5 frames
-	this.highKickAnim = new SpriteSheetClass(playerHighKickAnim, this.width, this.height, true, 6); //6 frames
-	this.crouchAnim = new SpriteSheetClass(playerCrouchAnim, this.width, this.height, false, 4, 4); //4 frames
-	this.explosiveFallAnim = new SpriteSheetClass(playerIdleJumpAnim, this.width, this.height, true, 8); //8 frames
-	this.hurtAnim = new SpriteSheetClass(playerHurtAnim, this.width, this.height, true, 3, 8); //3 frames
-	this.FlipAnim = new SpriteSheetClass(playerFlipAnim, this.width, this.height, true, 5); //5 frames
-	this.rollAnim = new SpriteSheetClass(playerRollAnim, this.width, this.height, true, 7); //7 frames
-	this.crouchedKickAnim = new SpriteSheetClass(playerCrouchedKickAnim, this.width, this.height, true, 4); //4 frames
-	this.uppercutAnim = new SpriteSheetClass(playerUppercutAnim, this.width, this.height, true, 6); //4 frames
-	this.deadAnim = new SpriteSheetClass(playerDeadAnim, this.width, this.height, true, 8); //8 frames
-	// Need  a key for punches, Other for kick 
-	// Combo moves on multiple sucessful hits. 
+  // Animation generation. 
+  this.walkAnim = new SpriteSheetClass(playerWalkAnim, this.width, this.height, true, 10); // 10 frames
+  this.punchAnim = new SpriteSheetClass(playerPunchAnim, this.width, this.height, false, 4); //4frames
+  this.idleAnim = new SpriteSheetClass(playerIdleAnim, this.width, this.height, true, 7); //7 frames
+  this.idleJumpAnim = new SpriteSheetClass(playerIdleJumpAnim, this.width, this.height, true, 5); //6 frames
+  this.leftJabAnim = new SpriteSheetClass(playerLeftJabAnim, this.width, this.height, true, 7); //7 frames
+  this.walkJumpAnim = new SpriteSheetClass(playerWalkJumpAnim, this.width, this.height, true, 5); //5 frames
+  this.highKickAnim = new SpriteSheetClass(playerHighKickAnim, this.width, this.height, true, 6); //6 frames
+  this.crouchAnim = new SpriteSheetClass(playerCrouchAnim, this.width, this.height, false, 4, 4); //4 frames
+  this.explosiveFallAnim = new SpriteSheetClass(playerIdleJumpAnim, this.width, this.height, true, 8); //8 frames
+  this.hurtAnim = new SpriteSheetClass(playerHurtAnim, this.width, this.height, true, 3, 8); //3 frames
+  this.FlipAnim = new SpriteSheetClass(playerFlipAnim, this.width, this.height, true, 5); //5 frames
+  this.rollAnim = new SpriteSheetClass(playerRollAnim, this.width, this.height, true, 7); //7 frames
+  this.crouchedKickAnim = new SpriteSheetClass(playerCrouchedKickAnim, this.width, this.height, true, 4); //4 frames
+  this.uppercutAnim = new SpriteSheetClass(playerUppercutAnim, this.width, this.height, true, 6); //4 frames
+  this.deadAnim = new SpriteSheetClass(playerDeadAnim, this.width, this.height, true, 8); //8 frames
+  // Need  a key for punches, Other for kick 
+  // Combo moves on multiple sucessful hits. 
 
-	//TODO : Used for combo moves
-	// this.attackAnimArr = [this.highKickAnim, this.leftJabAnim, this.punchAnim];
-	this.doubleJumpCount = 0;
+  //TODO : Used for combo moves
+  // this.attackAnimArr = [this.highKickAnim, this.leftJabAnim, this.punchAnim];
+  this.doubleJumpCount = 0;
 }
 
 playerClass.prototype = Object.create(entityClass.prototype);
@@ -88,7 +88,7 @@ playerClass.prototype.move = function () {
     this.setStateValueTo(IDLE, false);
     this.setStateValueTo(CROUCHING, true);
     this.boundingBox.height = this.height / 1.5;
-    this.boundingBox.y = this.pos.y - this.boundingBox.height/3;
+    this.boundingBox.y = this.pos.y - this.boundingBox.height / 3;
   }
   else {
     //Down for spin kick
@@ -115,30 +115,30 @@ playerClass.prototype.move = function () {
   //TODO: convert this.speed.x -> this.speed.getX
   //Remove this code if you want to reverse kick with movement. 
   if (this.state[ON_GROUND] && this.state[ATTACKING]) {
-        this.speed.x = 0;
+    this.speed.x = 0;
   }
   if (this.keyHeld_Jump && !this.keyHeld_Up_lastframe) {
     // this.setStateToFalse();
     this.keyHeld_Up_lastframe = true;
     if (this.state['isOnGround']) { // regular jump
       jumpSound.play();
-      this.speed.setY( this.speed.getY() - JUMP_POWER);
+      this.speed.setY(this.speed.getY() - JUMP_POWER);
       this.setStateValueTo(ON_GROUND, false);
     }
     else if (this.doubleJumpCount < MAX_AIR_JUMPS) { // in the air?
       jumpSound.play();
       this.speed.setY(0);
-      this.speed.setY( this.speed.getY() - JUMP_POWER);
+      this.speed.setY(this.speed.getY() - JUMP_POWER);
       this.doubleJumpCount++;
       this.setStateValueTo(ON_GROUND, false);
-    } 
+    }
     else {
       console.log("Ignoring triple jump...");
     }
   }
   // avoid multiple jumps from the same keypress
   this.keyHeld_Up_lastframe = this.keyHeld_Jump;
-  
+
   this.entityCollisionHandling();
   platformList.checkCollisions(this);
   this.pos.addTo(this.speed);
@@ -147,25 +147,33 @@ playerClass.prototype.move = function () {
   if (this.spriteAnim != null) {
     this.spriteAnim.update();
   }
+
+  if (this.state[ON_GROUND] && this.state[IN_MOTION]) {
+    walkFX(this.pos.x, this.pos.y + 110); // dust as we walk
+  }
+
+  if (!this.state[ON_GROUND]) {
+    fallFX(this.pos.x, this.pos.y + 110); // trail when we are jumping/falling
+  }
 }
 
-playerClass.prototype.playerCollides = function(obj){
+playerClass.prototype.playerCollides = function (obj) {
   return utils.rectIntersect(obj.boundingBox, this.boundingBox);
 }
 
 playerClass.prototype.playerWorldHandling = function () {
-      for(var i = 0; i < itemArr.length; i++ ){
-        boundingBox = itemArr[i].boundingBox;
-        if(utils.rectIntersect(boundingBox, this.boundingBox)){
-          itemArr[i].returnEffect();
-        }
-      }
+  for (var i = 0; i < itemArr.length; i++) {
+    boundingBox = itemArr[i].boundingBox;
+    if (utils.rectIntersect(boundingBox, this.boundingBox)) {
+      itemArr[i].returnEffect();
+    }
+  }
 
-    // var playerTrackCol = Math.floor(this.pos.x / WORLD_W);
-    // var playerTrackRow = Math.floor(this.pos.y / WORLD_H);
+  // var playerTrackCol = Math.floor(this.pos.x / WORLD_W);
+  // var playerTrackRow = Math.floor(this.pos.y / WORLD_H);
 
-    //Tile center position = 0,0 draw position + worldW/2 - width/2 - simillarly for height.. 
-    //Once we have tile position we can create a bounding box for it which can be used in collision detection.
+  //Tile center position = 0,0 draw position + worldW/2 - width/2 - simillarly for height.. 
+  //Once we have tile position we can create a bounding box for it which can be used in collision detection.
 
   // var healthInterval;
   // var tileindex = rowColToArrayIndex(playerTrackCol, playerTrackRow);
@@ -177,7 +185,7 @@ playerClass.prototype.playerWorldHandling = function () {
   //   var tileHere = returnTileTypeAtColRow(playerTrackCol, playerTrackRow);
 
 
-   
+
   //     if (tileHere == PICKUP) {
   //      
 
@@ -200,11 +208,11 @@ playerClass.prototype.playerWorldHandling = function () {
   //       worldGrid[tileindex] = -1;
   //       playerKeySound.play();
   //     }
-  
+
   // }
 }
 
- playerClass.prototype.draw = function () { 
+playerClass.prototype.draw = function () {
   //TODO : Jump, Attack animation should work Only once
   //TODO : Reset punch animation loop 
   if (this.state[IDLE]) {
@@ -229,7 +237,7 @@ playerClass.prototype.playerWorldHandling = function () {
       this.spriteAnim = this.rollAnim;
     }
   }
-  
+
   if (this.state[ATTACKING]) {
     this.spriteAnim = this.punchAnim;
     if (this.state.isCrouching) {
