@@ -7,6 +7,7 @@ function SpriteSheetClass(sheetIn, widthPerFrame, heightPerFrame, loop, frameNum
     var tickCount = 0;
     var loop = loop;
     this.frameIndex = 0;
+    this.cycleComplete = false;;
   
     this.draw = function(col, row, atX, atY, withAngle, flippedX, flippedY) {
         canvasContext.save();
@@ -28,6 +29,7 @@ function SpriteSheetClass(sheetIn, widthPerFrame, heightPerFrame, loop, frameNum
         tickCount++;
         if (tickCount > ticksPerFrame) {
             tickCount = 0;
+            this.cycleComplete = false;
             // If the current frame index is in range 
             if (this.frameIndex <   this.frameNum - 1 ) {  
                 // Go to the next frame
@@ -35,6 +37,7 @@ function SpriteSheetClass(sheetIn, widthPerFrame, heightPerFrame, loop, frameNum
             }
             else{
                 this.frameIndex = this.frameNum - 1;
+                this.cycleComplete = true;
                 if(loop){
                   this.frameIndex = 0;
                 }

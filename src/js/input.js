@@ -25,7 +25,7 @@ function setupInput() {
 	document.addEventListener('keydown', keyPressed);
 	document.addEventListener('keyup', keyReleased);
 	// greenCar.setupInput(KEY_W, KEY_D, KEY_S, KEY_A);
-	player.setupInput(KEY_UP_ARROW, KEY_RIGHT_ARROW, KEY_DOWN_ARROW, KEY_LEFT_ARROW, KEY_Z, KEY_X, KEY_C );
+	player.setupInput(KEY_UP_ARROW, KEY_RIGHT_ARROW, KEY_DOWN_ARROW, KEY_LEFT_ARROW, KEY_Z, KEY_X);
 } 
 
 function keySet(keyEvent, whichPlayer, setTo) {
@@ -43,19 +43,11 @@ function keySet(keyEvent, whichPlayer, setTo) {
 		whichPlayer.keyHeld_Down = setTo;
 	}
 	if(keyEvent.keyCode == whichPlayer.controlKeyAttack) {
+    // if attack is being played. Wait for it to be completed.
 		whichPlayer.keyHeld_Attack = setTo;
-		// if(setTo == false){
-		// 	//Wait for attack to complete and then set attack state to false;
-		// 	setTimeout(function(){},1000);
-		// 	// This has a problem. I still need to take care of in the end frame test
-
-		// }
 	}
 	if(keyEvent.keyCode == whichPlayer.controlKeyJump) {
 		whichPlayer.keyHeld_Jump = setTo;
-	}
-	if(keyEvent.keyCode == whichPlayer.controlKeyDefend) {
-		whichPlayer.keyHeld_Defend = setTo;
 	}
 }
 

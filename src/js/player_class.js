@@ -9,7 +9,6 @@ function playerClass() {
   this.keyHeld_Up = false;
   this.keyHeld_Attack = false;
   this.keyHeld_Jump = false;
-  this.keyHeld_Defend = false;
   this.attackPower = PLAYER_ATTACK_POWER;
 
   // don't jump >1x per keypress
@@ -21,11 +20,10 @@ function playerClass() {
   this.controlKeyDown = null;
   this.controlKeyAttack = null;
   this.controlKeyJump = null;
-  this.controlKeyDefend = null;
 
   // Animation generation. 
   this.walkAnim = new SpriteSheetClass(playerWalkAnim, this.width, this.height, true, 10); // 10 frames
-  this.punchAnim = new SpriteSheetClass(playerPunchAnim, this.width, this.height, false, 4); //4frames
+  this.punchAnim = new SpriteSheetClass(playerPunchAnim, this.width, this.height, true, 4); //4frames
   this.idleAnim = new SpriteSheetClass(playerIdleAnim, this.width, this.height, true, 7); //7 frames
   this.idleJumpAnim = new SpriteSheetClass(playerIdleJumpAnim, this.width, this.height, true, 5); //6 frames
   this.leftJabAnim = new SpriteSheetClass(playerLeftJabAnim, this.width, this.height, true, 7); //7 frames
@@ -83,7 +81,7 @@ playerClass.prototype.move = function () {
     this.setStateValueTo(IDLE, true);
   }
   //For crouched movement 
-  if (this.keyHeld_Down && this.state[ON_GROUND]) {
+  if ((this.keyHeld_Down  || this.keyHeld_Up) && this.state[ON_GROUND]) {
     //Up for uppercut
     this.setStateValueTo(IDLE, false);
     this.setStateValueTo(CROUCHING, true);
@@ -103,20 +101,16 @@ playerClass.prototype.move = function () {
     punchSound.play();
     this.boundingBox.width = this.width / 1.5;
     this.boundingBox.x = this.pos.x - this.boundingBox.width / 2;
-
-    if (this.keyHeld_Up && this.state.isCrouching) {
-      this.speed.y -= 0.05;
-      this.state.isOnGround = false;
-    }
   }
-  else {
+  else if(this.spriteAnim!=null && this.spriteAnim.cycleComplete){
     this.setStateValueTo(ATTACKING, false);
   }
-  //TODO: convert this.speed.x -> this.speed.getX
+ 
   //Remove this code if you want to reverse kick with movement. 
   if (this.state[ON_GROUND] && this.state[ATTACKING]) {
     this.speed.x = 0;
   }
+
   if (this.keyHeld_Jump && !this.keyHeld_Up_lastframe) {
     // this.setStateToFalse();
     this.keyHeld_Up_lastframe = true;
@@ -136,6 +130,7 @@ playerClass.prototype.move = function () {
       console.log("Ignoring triple jump...");
     }
   }
+
   // avoid multiple jumps from the same keypress
   this.keyHeld_Up_lastframe = this.keyHeld_Jump;
 
@@ -240,13 +235,16 @@ playerClass.prototype.draw = function () {
 
   if (this.state[ATTACKING]) {
     this.spriteAnim = this.punchAnim;
-    if (this.state.isCrouching) {
+    if (this.state[CROUCHING]) {
       if (this.keyHeld_Up) {
         this.spriteAnim = this.uppercutAnim;
       }
-      else {
-        this.spriteAnim = this.crouchedKickAnim;
+      else{
+         this.spriteAnim = this.crouchedKickAnim;
       }
+    }
+    if(!this.state[ON_GROUND]){
+       this.spriteAnim = this.highKickAnim;
     }
   }
 
@@ -256,11 +254,6 @@ playerClass.prototype.draw = function () {
     if (this.keyHeld_Up) {
       this.spriteAnim = this.FlipAnim;
     }
-  }
-
-  if (this.state[ATTACKING] && !this.state[ON_GROUND]) {
-    this.spriteAnim = this.highKickAnim;
-    // this.attackAnimArr[Math.floor(Math.random()*this.attackAnimArr.length)];
   }
 
   //TODO: Once crouch animation complete. Call a function to draw in fixed state instead of animation. 

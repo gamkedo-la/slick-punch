@@ -212,7 +212,6 @@ entityClass.prototype.setWorldPhysics = function(){
     //   this.speed.getY() = this.pos.getY() + this.boundingBox.height / 2 ;
     // }
   }
-
   if (this.state[ON_GROUND] || this.state[ON_PLATFORM]) {
 	  this.doubleJumpCount = 0;
   }
@@ -289,7 +288,4 @@ entityClass.prototype.entityCollisionHandling = function(){
       this.pos.setX(this.pos.getX() + PLAYER_COLLISION_PADDING/2)
     }
   }
-  
-
-
 }
