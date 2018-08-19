@@ -1,4 +1,4 @@
-const DUMB_RUN_SPEED = 0.8;
+const DUMB_RUN_SPEED = 0.6;
 
 function dumbEnemyClass() {
     Object.getPrototypeOf(dumbEnemyClass.prototype).constructor.call(this);
@@ -11,8 +11,8 @@ function dumbEnemyClass() {
     // Animation generation.
     this.width = 80;
     this.height = 80; 
-    this.walkAnim = new SpriteSheetClass(dumbEnemyWalkAnim, this.width, this.height, true, 4, 20); // 10 frames
-    this.punchAnim = new SpriteSheetClass(dumbEnemyAttackAnim, this.width, this.height, true, 3, 10); //4frames
+    this.walkAnim = new SpriteSheetClass(dumbEnemyWalkAnim, this.width, this.height, true, 4, 30); // 3 frames
+    this.punchAnim = new SpriteSheetClass(dumbEnemyAttackAnim, this.width, this.height, true, 3, 10); //3frames
 }
 
 dumbEnemyClass.prototype = Object.create(entityClass.prototype);

@@ -119,6 +119,9 @@ function loadImages() {
 		{ varName: redKeyAnimation, theFile: "KeyRed.png", width: 35, height: 35},
 		{ varName: greenKeyAnimation, theFile: "KeyGreen.png", width: 35, height: 35},
 		{ varName: blueKeyAnimation, theFile: "KeyBlue.png", width: 35, height: 35},
+    //Dumb Enemy animation
+    { varName: dumbEnemyWalkAnim, theFile: "enemyWalkSprite.png" },
+    { varName: dumbEnemyAttackAnim, theFile: "enemyPunchSprite.png" },
     //Venom Dog animation
 		{ varName: venomDogPic, theFile: "venomdog2.png", width: 35, height: 35},
 		{ varName: venomDogIdle, theFile: "venomdog2Idle.png", width: 35, height: 35},
