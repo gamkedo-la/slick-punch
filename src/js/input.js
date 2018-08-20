@@ -115,12 +115,12 @@ function keyReleased(evt) {
 	  	case KEY_ENTER:
 		  	menuBack();	
 		  	break;
-        case KEY_ESC:
-            pause=!pause;
-            if(pause)
-            slickPunchJamMusic.pauseSound();
-            else
-            slickPunchJamMusic.startOrStopMusic();  
-            break;
+      case KEY_ESC:
+          pause=!pause;
+          if(pause)
+          slickPunchJamMusic.pauseSound();
+          else
+          slickPunchJamMusic.startOrStopMusic();  
+          break;
 	}
 }
