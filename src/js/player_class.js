@@ -40,9 +40,10 @@ function playerClass() {
     this.highKickAnim = new SpriteSheetClass(playerHighKickAnim, this.width, this.height, false, 6, 4); //6 frames
     this.crouchedKickAnim = new SpriteSheetClass(playerCrouchedKickAnim, this.width, this.height, false, 4, 6); //4 frames
     this.uppercutAnim = new SpriteSheetClass(playerUppercutAnim, this.width, this.height, false, 6, 4); //4 frames
-    this.FlipAnim = new SpriteSheetClass(playerFlipAnim, this.width, this.height, false, 5, 4); //5 frames
+    this.flipAnim = new SpriteSheetClass(playerFlipAnim, this.width, this.height, false, 5, 3); //5 frames
   }
-  this.resetOrSetNonLoopingAnim();
+  this.resetOrSetNonLoopingAnim()
+
   
   // Need  a key for punches, Other for kick 
   // Combo moves on multiple sucessful hits. 
@@ -67,6 +68,7 @@ playerClass.prototype.resetAttackFrameIndex = function(){
     this.highKickAnim.frameIndex = 0;
     this.crouchedKickAnim.frameIndex = 0;
     this.uppercutAnim.frameIndex = 0;
+    this.flipAnim.frameIndex = 0;
 }
 
 playerClass.prototype.move = function () {
@@ -250,11 +252,15 @@ playerClass.prototype.draw = function () {
       this.spriteAnim = this.rollAnim;
     }
   }
-
+  //is Jumping or falling
+  if (!this.state[ON_GROUND]) {
+    this.spriteAnim = this.idleJumpAnim;
+    
+  }
   if (this.state[ATTACKING]) {
     this.spriteAnim = this.punchAnim;
     // this.cycleComplete = false;
-    if (this.state[CROUCHING]) {
+    if (this.state[CROUCHING] && this.state[ON_GROUND]) {
       if (this.keyHeld_Up) {
         this.spriteAnim = this.uppercutAnim;
       }
@@ -264,16 +270,14 @@ playerClass.prototype.draw = function () {
     }
     if(!this.state[ON_GROUND]){
        console.log("Why does this not work");
-      this.spriteAnim = this.FlipAnim;
+      this.spriteAnim.frameIndex = 0;
+      this.spriteAnim = this.flipAnim;
+      console.log(this.spriteAnim);
    
     }
   }
 
-  //is Jumping or falling
-  if (!this.state[ON_GROUND]) {
-    this.spriteAnim = this.idleJumpAnim;
-    
-  }
+
 
   //TODO: Once crouch animation complete. Call a function to draw in fixed state instead of animation. 
   //final drawing of sprite.
