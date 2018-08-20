@@ -18,17 +18,36 @@ const KEY_S = 83;
 const KEY_ENTER = 13;
 const KEY_ESC = 27;
 
+var mouseX = 0, mouseY = 0;
+var clickWaiting = false;
 var musicEnabled = true;
 
 //TODO : Make attacks more smooth
 //TODO : COmbo moves
 function setupInput() {
-	// canvas.addEventListener('mousemove', updateMousePos);
+	canvas.addEventListener('mousemove', updateMousePos);
+	canvas.addEventListener('mousedown', catchMouseInput);
+	canvas.addEventListener('mouseup', releaseMouseInput);
 	document.addEventListener('keydown', keyPressed);
 	document.addEventListener('keyup', keyReleased);
 	// greenCar.setupInput(KEY_W, KEY_D, KEY_S, KEY_A);
 	player.setupInput(KEY_UP_ARROW, KEY_RIGHT_ARROW, KEY_DOWN_ARROW, KEY_LEFT_ARROW, KEY_Z, KEY_X, KEY_C );
 } 
+
+function catchMouseInput() {
+	clickWaiting = true;
+}
+function releaseMouseInput() {
+	clickWaiting = false;
+}
+
+function updateMousePos(evt) {
+	var rect = canvas.getBoundingClientRect();
+
+    // account for the margins, canvas position on page, scroll amount, etc.
+    mouseX = evt.clientX - rect.left;
+    mouseY = evt.clientY - rect.top;
+}
 
 function keySet(keyEvent, whichPlayer, setTo) {
 	if(keyEvent.keyCode == whichPlayer.controlKeyLeft) {
@@ -108,18 +127,7 @@ function keyReleased(evt) {
 		  	}
 	  		break;
 	  	case KEY_ENTER:
-		  	if(windowState.credits){
-		  		windowState.mainMenu = true;
-		  		windowState.credits = false;
-		  	}
-		  	if(windowState.help){
-		  		windowState.mainMenu = true;
-		  		windowState.help = false;
-		  	}
-		  	if(windowState.sound){
-		  		windowState.mainMenu = true;
-		  		windowState.sound = false;
-		  	}	
+		  	menuBack();	
 		  	break;
         case KEY_ESC:
             pause=!pause;

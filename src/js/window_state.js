@@ -25,8 +25,10 @@ function mainMenuStates() {
 		else if(!windowState.help && opacity < 1) {
 			opacity = opacity + 0.009;
 		}
+		mainMenu.checkButtons();
 	}
 	else if(windowState.credits){
+		menuBackIfClickWaiting();
 		opacity = 1;
 		canvasContext.drawImage(menuBackgroundEmpty,0,0);
 		colorText('CREDITS',canvas.width/2 , 80,TEXT_COLOR,"40px Tahoma","center",opacity);
@@ -67,25 +69,34 @@ function mainMenuStates() {
 				colorText(creditor[2],textX  + 15,textY ,TEXT_COLOR,creditsFont,"left",opacity); textY += textSkip;
 			}
 		}
-		colorText('Press [Enter] to go Back to Menu',canvas.width/2 , 550,TEXT_COLOR,"30px Tahoma","center",opacity);
+		colorText('[Enter] or click to go back to menu',canvas.width/2 , 550,TEXT_COLOR,"30px Tahoma","center",opacity);
 	}
 	else if(windowState.help){
+		menuBackIfClickWaiting();
 		opacity = 1;
 		canvasContext.drawImage(menuBackgroundEmpty,0,0);
 		colorText('How To Play',canvas.width/2 ,100,TEXT_COLOR,"30px Tahoma","center",opacity);
-		colorText('Press [Enter] to go Back to Menu',canvas.width/2 , 550,TEXT_COLOR,"30px Tahoma","center",opacity);
+
+		var helpList = ['Z: strike','X: jump or double jump','Arrow keys: walk'];
+		for(var i=0;i<helpList.length;i++) {
+			colorText(helpList[i],canvas.width/10 ,160+i*25,TEXT_COLOR,"25px Tahoma","left",opacity);
+		}
+		
+		colorText('[Enter] or click to go back to menu',canvas.width/2 , 550,TEXT_COLOR,"30px Tahoma","center",opacity);
 		
 	}
 	else if(windowState.sound){
 		canvasContext.drawImage(menuBackgroundEmpty,0,0);
 		colorText('Sound ',canvas.width/2 ,100,TEXT_COLOR,"30px Tahoma","center",opacity);
-		mainMenu.setupSliders();		
-		mainMenu.handleSliders();	
+		mainMenu.checkButtons();
+		mainMenu.handleSliders();
+		menuBackIfClickWaiting();
 		mainMenu.drawSliders(opacity);	
-		colorText('Press [Enter] to Start game',canvas.width/2 , 500,TEXT_COLOR,"30px Tahoma","center",opacity);
+		colorText('[Enter] or click to go back to menu',canvas.width/2 , 500,TEXT_COLOR,"30px Tahoma","center",opacity);
 
 	}
 	else if (windowState.endingScreen) {
+		menuBackIfClickWaiting();
 		colorRect(0,0, canvas.width, canvas.height, "black");
 		canvasContext.drawImage(excaliburEndScreenBillboard,0,endScreenY);
 		if (endScreenY > 10) {
@@ -114,6 +125,7 @@ function setSoundSystem(){
 	if(isPaused) {
 		return;
 	}
+	mainMenu.setupSliders();
 	windowState.mainMenu = false;
 	windowState.sound = true;
 }

@@ -98,6 +98,6 @@ function getRandomVolume(){
 function updateSoundMusicLevel(){
   soundVolume = document.getElementById('soundVolume').value;
   musicVolume = document.getElementById('musicVolume').value;
-  menuMusic.pauseSound();
-  menuMusic.loopSong();
+  deepdarkMusic.pauseSound();
+  deepdarkMusic.loopSong();
 }
