@@ -124,6 +124,7 @@ entityClass.prototype.takeDamage = function (howMuch) {
 }
 
 entityClass.prototype.resetGame = function () {
+  player.resetOrSetNonLoopingAnim(); // resets death or other non-looping anims
   loadLevel(levelOne)
 }
 
@@ -197,7 +198,7 @@ entityClass.prototype.addEntityToWorldTile = function() {
 			} // end of player start if
 		} // end of col for
 	} // end of row for
-  
+
 	console.log("NO" + this.name + "START FOUND!");
 }
 
