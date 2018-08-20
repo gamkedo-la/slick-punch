@@ -15,11 +15,11 @@ function placeTilesOnButtonPress() {
 
 
 	if (keyHeld_C) {
-		worldGrid[mouseIndex] = 999; // removes tile
+		worldGrid[mouseIndex] = WORLD_BACKGROUND; // removes tile
 	}
 
 	if (keyHeld_1) {
-		worldGrid[mouseIndex] = WORLD_BACKGROUND;
+		worldGrid[mouseIndex] = WORLD_BACKGROUND; // you can set this to any tile type located in the top of world.js
 	}
 
 	if (keyHeld_2) {
@@ -99,11 +99,11 @@ function placeTilesOnButtonPress() {
 	}
 
 	if (keyHeld_BracketLeft) {
-		levelGrid[mouseIndex] = SLIME_CEILING_LEFT;
+		worldGrid[mouseIndex] = SLIME_CEILING_LEFT;
 	}
 
 	if (keyHeld_BracketRight) {
-		levelGrid[mouseIndex] = SLIME_CEILING_MIDDLE;
+		worldGrid[mouseIndex] = SLIME_CEILING_MIDDLE;
 	}
 
 	if (keyHeld_A) {
@@ -139,11 +139,11 @@ function placeTilesOnButtonPress() {
 	}
 
 	if (keyHeld_Semicolon) {
-		levelGrid[mouseIndex] = VINES_POISONOUS;
+		worldGrid[mouseIndex] = VINES_POISONOUS;
 	}
 
 	if (keyHeld_Quote) {
-		levelGrid[mouseIndex] = PICKUP;
+		worldGrid[mouseIndex] = PICKUP;
 	}
 
 }
