@@ -41,8 +41,12 @@ function playerClass() {
     this.crouchedKickAnim = new SpriteSheetClass(playerCrouchedKickAnim, this.width, this.height, false, 4, 6); //4 frames
     this.uppercutAnim = new SpriteSheetClass(playerUppercutAnim, this.width, this.height, false, 6, 4); //4 frames
     this.flipAnim = new SpriteSheetClass(playerFlipAnim, this.width, this.height, false, 5, 3); //5 frames
+    this.attackAnim = this.punchAnim;
   }
-  this.resetOrSetNonLoopingAnim()
+
+
+  this.resetOrSetNonLoopingAnim();
+  this.attackArr = [this.punchAnim,this.punchAnim, this.leftJabAnim, this.highKickAnim];
 
   
   // Need  a key for punches, Other for kick 
@@ -69,6 +73,7 @@ playerClass.prototype.resetAttackFrameIndex = function(){
     this.crouchedKickAnim.frameIndex = 0;
     this.uppercutAnim.frameIndex = 0;
     this.flipAnim.frameIndex = 0;
+    this.attackAnim = this.attackArr[Math.floor(Math.random()*this.attackArr.length)];
 }
 
 playerClass.prototype.move = function () {
@@ -258,7 +263,8 @@ playerClass.prototype.draw = function () {
     
   }
   if (this.state[ATTACKING]) {
-    this.spriteAnim = this.punchAnim;
+    this.spriteAnim = this.attackAnim;
+    // this.spriteAnim = this.attackArr[Math.floor(Math.random()*this.attackArr.length)];
     // this.cycleComplete = false;
     if (this.state[CROUCHING] && this.state[ON_GROUND]) {
       if (this.keyHeld_Up) {
@@ -269,11 +275,7 @@ playerClass.prototype.draw = function () {
       }
     }
     if(!this.state[ON_GROUND]){
-       console.log("Why does this not work");
-      this.spriteAnim.frameIndex = 0;
       this.spriteAnim = this.flipAnim;
-      console.log(this.spriteAnim);
-   
     }
   }
 

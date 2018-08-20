@@ -76,12 +76,6 @@ function keySet(keyEvent, whichPlayer, setTo) {
 function keyPressed(evt) {
 	// console.log("Key pressed: "+evt.keyCode);
 	keySet(evt, player, true);
-	//Attack mode as soon as you press key 
-	//Shouldn't work if kept pressed. 
-
-	// if(evt.keyCode == KEY_Z && player.state.isAttacking == false){		
-		
-	// }
 	evt.preventDefault();
 }
 
