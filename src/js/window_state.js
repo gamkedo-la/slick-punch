@@ -194,7 +194,9 @@ function showPausedScreen() {
 }
 
 function windowOnFocus() {
-	currentBackgroundMusic.resumeSound();
+	if (musicEnabled) {
+		currentBackgroundMusic.resumeSound();
+	}
 	if(!windowState.inFocus) {
 		windowState.inFocus = true;
 		gameUpdate = setInterval(update, 1000/30);

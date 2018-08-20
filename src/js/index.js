@@ -87,6 +87,9 @@ function updateAll() {
 
 function moveAll() {
 	if (gameRunning) {
+		if (mapEditorEnabled) {
+			placeTilesOnButtonPress();
+		}
 		cameraFollow();
 		//player.move();
 		enemy.move();
