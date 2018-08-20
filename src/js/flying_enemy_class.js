@@ -1,8 +1,11 @@
 // Flying enemy class
+const ENEMY_FLYING_RELOAD_FRAMES = 90;
 
 function flyingEnemyClass(x, y) {
 
-    console.log("Spawning a flyingEnemy at " + x + "," + y);
+    if(SHOW_ENTITY_DEBUG) {
+        console.log("Spawning a flyingEnemy at " + x + "," + y);
+    }
 
     this.pos = vector.create(x, y);
     this.speed = vector.create(0, 0);
@@ -10,6 +13,8 @@ function flyingEnemyClass(x, y) {
     this.playerPic; // which picture to use
     this.name = "Flying Enemy";
     this.health = 3;
+
+    this.reloadFrames = 0;
 
     this.spawnPoint = vector.create(x, y);
     const FLYING_HORIZ_RANGE = 100; // px from spawnPoint
@@ -100,12 +105,18 @@ function flyingEnemyClass(x, y) {
         if (this.state.isDead) return;
 
         // close enough to hit?
-        if (player.state.isAttacking && (utils.distance(player.pos, this.pos) < 80)) {
-            this.takeDamage(1);
-        }
-        // close enough to get hit?
-        else if (!player.state.isAttacking && utils.distance(player.pos, this.pos) < 40) {
-            player.takeDamage(1);
+        if(this.reloadFrames > 0) {
+            this.reloadFrames--;
+        } else {
+            if (player.state.isAttacking && (utils.distance(player.pos, this.pos) < 80)) {
+                this.takeDamage(1);
+                this.reloadFrames = ENEMY_FLYING_RELOAD_FRAMES;
+            }
+            // close enough to get hit?
+            else if (!player.state.isAttacking && utils.distance(player.pos, this.pos) < 40) {
+                player.takeDamage(1);
+                this.reloadFrames = ENEMY_FLYING_RELOAD_FRAMES;
+            }
         }
 
         if (this.state.isFlying) {

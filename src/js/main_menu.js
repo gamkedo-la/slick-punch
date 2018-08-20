@@ -1,3 +1,35 @@
+function menuBackIfClickWaiting() {
+	if(clickWaiting) {
+		clickWaiting = false;
+		menuBack();
+	}
+}
+
+function menuBack() { // used by both Enter key or mouse clicking
+	if(windowState.credits){
+  		windowState.mainMenu = true;
+  		windowState.credits = false;
+  	}
+  	if(windowState.help){
+  		windowState.mainMenu = true;
+  		windowState.help = false;
+  	}
+  	if(windowState.sound){
+  		windowState.mainMenu = true;
+  		windowState.sound = false;
+  	}
+}
+
+function mouseClickedInside(leftX, topY, wid, hei) {
+	if(mouseY > topY && mouseY < topY + hei && mouseX > leftX && mouseX < leftX + wid) {
+		if(clickWaiting) {
+			clickWaiting = false;
+			return true;
+		}
+	}
+	return false;
+}
+
 // Anchor positions are from center of top button
 mainMenu = {
 	titleFont: "40px Tahoma",
@@ -42,16 +74,18 @@ mainMenu = {
 				txt : "Music Volume",
 				// handlePosition : musicVolume,
 				onSlide : function(volume){
-					setMusicVolume(volume);
+					musicVolume = volume;
 					localStorage.setItem("musicVolume", musicVolume);
+					deepdarkMusic.pauseSound();
+  					deepdarkMusic.loopSong();
 				},
 			},
 			{
 				txt : "Effects Volume",
 				// handlePosition : effectsVolume,
 				onSlide : function(volume){
-					setEffectsVolume(volume);
-					localStorage.setItem("effectsVolume", effectsVolume);
+					soundVolume = volume;
+					localStorage.setItem("effectsVolume", soundVolume);
 				},
 			},
 		]
@@ -72,7 +106,7 @@ mainMenu = {
 			
 			bounds.x = prop.anchorX - (bounds.width/2);
 			bounds.y = prop.anchorY - (height * this.fontOverhangRatio) + ((height + prop.verticalSpacing) * i);
-			
+
 			this.buttons[i].bounds = bounds;
 		}
 	},
@@ -90,33 +124,35 @@ mainMenu = {
 			this.sliders[i].handleWidth = 30;
 			this.sliders[i].handleHeight = 30;
 			this.sliders[i].handleY = this.sliders[i].y - this.sliders[i].handleHeight/2 + this.sliders[i].height/2;
+			this.sliders[i].handlePosition = 1.0;
 			this.sliders[i].getHandleX = function() {
 				return this.x + this.handlePosition * (this.width - this.handleWidth);
-			};			
-			this.sliders[i].active = false;
+			};
+			// this.sliders[i].onSlide(this.sliders[i].handlePosition);
+			//this.sliders[i].active = false;
 		}
 	},
 	
 	checkButtons: function() {
 		for(var i = 0; i < this.buttons.length; i++){
 			var bounds = this.buttons[i].bounds;
-			if(mouseInside(bounds.x, bounds.y, bounds.width, bounds.height)) {
+			if(mouseClickedInside(bounds.x, bounds.y, bounds.width, bounds.height)) {
 				this.buttons[i].onClick();
 			}
 		}
 		
 		var sliders = this.sliders;
 		for(var i = 0; i < sliders.length; i++){
-			if(mouseInside(sliders[i].getHandleX(), sliders[i].handleY, sliders[i].handleWidth, sliders[i].handleHeight)) {
-				sliders[i].active = true;
-			}
+			sliders[i].active = (mouseClickedInside(sliders[i].x, sliders[i].y, sliders[i].width, sliders[i].height));
 		}
 	},
 	
 	handleSliders: function() {
 		sliders = this.sliders;
 		for(i = 0; i < sliders.length; i++) {
-			if(sliders[i].active) {
+			if( sliders[i].active && mouseX > sliders[i].x && mouseX < sliders[i].x + sliders[i].width &&
+				mouseY > sliders[i].y && mouseY < sliders[i].y + sliders[i].height) {
+				clickWaiting = false; // blocks clicking on slider going back
 				var handleX = mouseX - sliders[i].handleWidth/2;
 				
 				handleX = clamp(handleX, sliders[i].x, sliders[i].x + sliders[i].width - sliders[i].handleWidth);

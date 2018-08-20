@@ -32,12 +32,17 @@ function playerClass() {
   this.hurtAnim = new SpriteSheetClass(playerHurtAnim, this.width, this.height, true, 3, 8, 4); //3 frames
   this.deadAnim = new SpriteSheetClass(playerDeadAnim, this.width, this.height, true, 8, 4); //8 frames
 
-  this.punchAnim = new SpriteSheetClass(playerPunchAnim, this.width, this.height, false, 4, 4,); //4frames
-  this.leftJabAnim = new SpriteSheetClass(playerLeftJabAnim, this.width, this.height, false, 7, 4); //7 frames
-  this.highKickAnim = new SpriteSheetClass(playerHighKickAnim, this.width, this.height, true, 6, 4); //6 frames
-  this.crouchedKickAnim = new SpriteSheetClass(playerCrouchedKickAnim, this.width, this.height, false, 4, 6); //4 frames
-  this.uppercutAnim = new SpriteSheetClass(playerUppercutAnim, this.width, this.height, false, 6, 4); //4 frames
-  this.FlipAnim = new SpriteSheetClass(playerFlipAnim, this.width, this.height, true, 5, 4); //5 frames
+  this.resetOrSetNonLoopingAnim = function() {
+    this.punchAnim = new SpriteSheetClass(playerPunchAnim, this.width, this.height, false, 4); //4frames
+    this.crouchAnim = new SpriteSheetClass(playerCrouchAnim, this.width, this.height, false, 4, 4); //4 frames
+    this.deadAnim = new SpriteSheetClass(playerDeadAnim, this.width, this.height, false, 8); //8 frames
+    this.leftJabAnim = new SpriteSheetClass(playerLeftJabAnim, this.width, this.height, false, 7, 4); //7 frames
+    this.highKickAnim = new SpriteSheetClass(playerHighKickAnim, this.width, this.height, false, 6, 4); //6 frames
+    this.crouchedKickAnim = new SpriteSheetClass(playerCrouchedKickAnim, this.width, this.height, false, 4, 6); //4 frames
+    this.uppercutAnim = new SpriteSheetClass(playerUppercutAnim, this.width, this.height, false, 6, 4); //4 frames
+    this.FlipAnim = new SpriteSheetClass(playerFlipAnim, this.width, this.height, false, 5, 4); //5 frames
+  }
+  this.resetOrSetNonLoopingAnim();
   
   // Need  a key for punches, Other for kick 
   // Combo moves on multiple sucessful hits. 

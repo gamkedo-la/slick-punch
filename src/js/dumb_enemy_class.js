@@ -1,4 +1,5 @@
 const DUMB_RUN_SPEED = 0.6;
+const ENEMY_DUMB_RELOAD_FRAMES = 90;
 
 function dumbEnemyClass() {
     Object.getPrototypeOf(dumbEnemyClass.prototype).constructor.call(this);
@@ -8,6 +9,7 @@ function dumbEnemyClass() {
     this.keyHeld_Right = false;
     this.keyHeld_Left = false;
     this.keyHeld_Attack = false;
+    this.reloadFrames = 0;
     // Animation generation.
     this.width = 80;
     this.height = 80; 
@@ -36,9 +38,8 @@ dumbEnemyClass.prototype.move = function () {
     if (utils.distance(player.pos, this.pos) < 60 ){
         this.keyHeld_Left = false;
         this.keyHeld_Right = false;
-        this.keyHeld_Attack = Math.random() < 0.2;
+        this.keyHeld_Attack = (this.reloadFrames <= 0);
         this.state.isMovingLeft = (player.pos.x - this.pos.x) > 0 ? false : true;
-        player.takeDamage(this.attackPower);
     }
     else {
         this.keyHeld_Attack = false;
@@ -66,7 +67,14 @@ dumbEnemyClass.prototype.move = function () {
       this.setStateValueTo(IDLE, true);
     }
 
-     if (this.keyHeld_Attack) {
+     if(this.reloadFrames > 0) {
+        this.reloadFrames--;
+        // console.log("countdown");
+        this.setStateValueTo(IDLE, true);
+        this.setStateValueTo(ATTACKING, false);
+     } else if (this.keyHeld_Attack) {
+        player.takeDamage(this.attackPower);
+        this.reloadFrames = ENEMY_DUMB_RELOAD_FRAMES;
         this.setStateValueTo(IDLE, false);
         this.setStateValueTo(IN_MOTION, false);
         this.setStateValueTo(ATTACKING, true);

@@ -25,19 +25,35 @@ function mainMenuStates() {
 		else if(!windowState.help && opacity < 1) {
 			opacity = opacity + 0.009;
 		}
+		mainMenu.checkButtons();
 	}
 	else if(windowState.credits){
+		menuBackIfClickWaiting();
 		opacity = 1;
 		canvasContext.drawImage(menuBackgroundEmpty,0,0);
 		colorText('CREDITS',canvas.width/2 , 80,TEXT_COLOR,"40px Tahoma","center",opacity);
 		var textX = 15;
-		var textY = 200;
-		var textSkip = 20;
-		var creditsFont = "16px Tahoma";
-		var creditsNameFont = "bold 16px Tahoma";
+		var textY = 110;
+		var textSkip = 13;
+		var creditsFont = "12px Tahoma";
+		var creditsNameFont = "bold 12px Tahoma";
 		var creditsLines = [
-			"Vignesh Ramesh: Something",
-			"Christer McFunkyPants: Something more"
+"Vignesh Ramesh: Lead, concept, main gameplay code, most animations, environment, score, pickups, scrolling, boss song and menu music, menu code, AI",
+"Christer \"McFunkypants\" Kaitila: Tuning adjustments, flying enemy, particles",
+"Brian Boucher: Hearts health meter, countdown timer, crouch fix, limited double jump",
+"Zak Ali: Alien vine, spike tile, punch sound, initial sound integration",
+"Kise: Venom dog, kick animation, landing sound",
+"Brandon Trumpold: Eerie song, jump sound, bug fixing for audio and animation",
+"Caspar \"SpadXIII\" Dunant: Collision improvements, moving platforms",
+"Terrence McDonnell: Slime drip, additional sprite sheet code",
+"Stebs: Fight song and miniboss song, music randomizer",
+"Asix Jin: Game over music",
+"Oasis Rim: Ogre attack animation",
+"Jaime Rivas: Jump and kick sounds",
+"Chris Markle: Game Over sound",
+"pseudoLudo: Pause functionality",
+"Eugene Meidinger: Damage from slime",
+"Chris DeLeon: Credits entry, mouse menu code, minor bug fixing"
 		];
 		for(var i=0;i<creditsLines.length;i++) {
 			var creditor = creditsLines[i].split(":");
@@ -53,25 +69,34 @@ function mainMenuStates() {
 				colorText(creditor[2],textX  + 15,textY ,TEXT_COLOR,creditsFont,"left",opacity); textY += textSkip;
 			}
 		}
-		colorText('Press [Enter] to go Back to Menu',canvas.width/2 , 550,TEXT_COLOR,"30px Tahoma","center",opacity);
+		colorText('[Enter] or click to go back to menu',canvas.width/2 , 550,TEXT_COLOR,"30px Tahoma","center",opacity);
 	}
 	else if(windowState.help){
+		menuBackIfClickWaiting();
 		opacity = 1;
 		canvasContext.drawImage(menuBackgroundEmpty,0,0);
 		colorText('How To Play',canvas.width/2 ,100,TEXT_COLOR,"30px Tahoma","center",opacity);
-		colorText('Press [Enter] to go Back to Menu',canvas.width/2 , 550,TEXT_COLOR,"30px Tahoma","center",opacity);
+
+		var helpList = ['Z: strike','X: jump or double jump','Arrow keys: walk'];
+		for(var i=0;i<helpList.length;i++) {
+			colorText(helpList[i],canvas.width/10 ,160+i*25,TEXT_COLOR,"25px Tahoma","left",opacity);
+		}
+		
+		colorText('[Enter] or click to go back to menu',canvas.width/2 , 550,TEXT_COLOR,"30px Tahoma","center",opacity);
 		
 	}
 	else if(windowState.sound){
 		canvasContext.drawImage(menuBackgroundEmpty,0,0);
 		colorText('Sound ',canvas.width/2 ,100,TEXT_COLOR,"30px Tahoma","center",opacity);
-		mainMenu.setupSliders();		
-		mainMenu.handleSliders();	
+		mainMenu.checkButtons();
+		mainMenu.handleSliders();
+		menuBackIfClickWaiting();
 		mainMenu.drawSliders(opacity);	
-		colorText('Press [Enter] to Start game',canvas.width/2 , 500,TEXT_COLOR,"30px Tahoma","center",opacity);
+		colorText('[Enter] or click to go back to menu',canvas.width/2 , 500,TEXT_COLOR,"30px Tahoma","center",opacity);
 
 	}
 	else if (windowState.endingScreen) {
+		menuBackIfClickWaiting();
 		colorRect(0,0, canvas.width, canvas.height, "black");
 		canvasContext.drawImage(excaliburEndScreenBillboard,0,endScreenY);
 		if (endScreenY > 10) {
@@ -100,6 +125,7 @@ function setSoundSystem(){
 	if(isPaused) {
 		return;
 	}
+	mainMenu.setupSliders();
 	windowState.mainMenu = false;
 	windowState.sound = true;
 }

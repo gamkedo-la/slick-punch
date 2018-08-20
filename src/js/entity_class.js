@@ -1,3 +1,5 @@
+const SHOW_ENTITY_DEBUG = false;
+
 const GROUND_FRICTION = 0.7;
 const AIR_RESISTANCE = 0.975;
 const JUMP_POWER = 8;
@@ -98,7 +100,9 @@ entityClass.prototype.setStateValueTo = function (key, val){
 
 //how much would be attack power for each entity
 entityClass.prototype.takeDamage = function (howMuch) {
-	console.log("Damage received:  " + howMuch + " by " + this.name);
+  if(SHOW_ENTITY_DEBUG) {
+	 console.log("Damage received:  " + howMuch + " by " + this.name);
+  }
 	//TODO: Improve this. Currently only effects health till isHurt is active. 
 	if (this.health > 0 && !this.state[HURT]) {
     this.health -= howMuch;
@@ -108,7 +112,9 @@ entityClass.prototype.takeDamage = function (howMuch) {
   if( this.name == "Player"){
     playerHitSound.play();
 	  if (this.health <= 0) {
-		  console.log("PLAYER HAS 0 HP - todo: gameover/respawn");
+      if(SHOW_ENTITY_DEBUG) {
+        console.log("PLAYER HAS 0 HP - todo: gameover/respawn");
+      }
       this.state[DEAD] = true;
       playerDieSound.play();
 			setTimeout(this.resetGame.bind(this), 500);
@@ -118,6 +124,7 @@ entityClass.prototype.takeDamage = function (howMuch) {
 }
 
 entityClass.prototype.resetGame = function () {
+  player.resetOrSetNonLoopingAnim(); // resets death or other non-looping anims
   loadLevel(levelOne)
 }
 
@@ -172,7 +179,9 @@ entityClass.prototype.init = function (whichImage, playerName) {
   }
   this.addEntityToWorldTile();
   entityList.push(this);
-  console.log(playerName + " spawned");
+  if(SHOW_ENTITY_DEBUG) {
+    console.log(playerName + " spawned");
+  }
 } // end of playerReset func
 
 entityClass.prototype.addEntityToWorldTile = function() {
@@ -189,6 +198,7 @@ entityClass.prototype.addEntityToWorldTile = function() {
 			} // end of player start if
 		} // end of col for
 	} // end of row for
+
 	console.log("NO" + this.name + "START FOUND!");
 }
 

@@ -38,7 +38,9 @@ function imageLoadingDoneSoStartGame() {
 
 function spawnFlyingEnemies() {
 	flyingEnemies = [];
-	console.log("Spawning flying enemies...");
+	if(SHOW_ENTITY_DEBUG) {
+		console.log("Spawning flying enemies...");
+	}
 	// spawn flying enemies by scanning the level data
 	var spawnCounter = 0;
 	for (var px, py, eachRow = 0; eachRow < WORLD_ROWS; eachRow++) {
@@ -53,7 +55,9 @@ function spawnFlyingEnemies() {
 			}
 		}
 	}
-	console.log("Flying enemies spawned: " + spawnCounter);
+	if(SHOW_ENTITY_DEBUG) {
+		console.log("Flying enemies spawned: " + spawnCounter);
+	}
 }
 
 function loadLevel(whichLevel) {
