@@ -79,7 +79,7 @@ function loadImages() {
 		{ varName: playerPic, theFile: "player.png" },
 		{ varName: enemyPic, theFile: "enemy.png" },
     //player SpriteSheet
-		{ varName: playerPunchAnim, theFile: "playerPunchsheet.png" },
+		{ varName: playerPunchAnim, theFile: "playerPunchsheet2.png" },
 		{ varName: playerWalkAnim, theFile: "playerWalksheet.png" },
 		{ varName: playerLeftJabAnim, theFile: "playerLeftJabsheet.png" },
 		{ varName: playerWalkJumpAnim, theFile: "playerWalkJumpsheet.png" },

@@ -33,7 +33,7 @@ function playerClass() {
   this.deadAnim = new SpriteSheetClass(playerDeadAnim, this.width, this.height, true, 8, 4); //8 frames
 
   this.resetOrSetNonLoopingAnim = function() {
-    this.punchAnim = new SpriteSheetClass(playerPunchAnim, this.width, this.height, false, 4); //4frames
+    this.punchAnim = new SpriteSheetClass(playerPunchAnim, this.width, this.height, false, 7, 4); //4frames
     this.crouchAnim = new SpriteSheetClass(playerCrouchAnim, this.width, this.height, false, 4, 4); //4 frames
     this.deadAnim = new SpriteSheetClass(playerDeadAnim, this.width, this.height, false, 8); //8 frames
     this.leftJabAnim = new SpriteSheetClass(playerLeftJabAnim, this.width, this.height, false, 7, 4); //7 frames
@@ -46,7 +46,7 @@ function playerClass() {
 
 
   this.resetOrSetNonLoopingAnim();
-  this.attackArr = [this.punchAnim,this.punchAnim, this.leftJabAnim, this.highKickAnim];
+  this.attackArr = [this.punchAnim, this.leftJabAnim, this.highKickAnim];
 
   
   // Need  a key for punches, Other for kick 
