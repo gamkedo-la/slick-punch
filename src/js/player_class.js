@@ -1,7 +1,6 @@
 function playerClass() {
 
   Object.getPrototypeOf(playerClass.prototype).constructor.call(this);
-
   //Tracking input keys to player movement
   this.keyHeld_Right = false;
   this.keyHeld_Left = false;
@@ -31,30 +30,24 @@ function playerClass() {
   this.explosiveFallAnim = new SpriteSheetClass(playerIdleJumpAnim, this.width, this.height, true, 8, 4); //8 frames
   this.hurtAnim = new SpriteSheetClass(playerHurtAnim, this.width, this.height, true, 3, 8, 4); //3 frames
   this.deadAnim = new SpriteSheetClass(playerDeadAnim, this.width, this.height, true, 8, 4); //8 frames
-
-  this.resetOrSetNonLoopingAnim = function() {
-    this.punchAnim = new SpriteSheetClass(playerPunchAnim, this.width, this.height, false, 7, 4); //4frames
-    this.crouchAnim = new SpriteSheetClass(playerCrouchAnim, this.width, this.height, false, 4, 4); //4 frames
-    this.deadAnim = new SpriteSheetClass(playerDeadAnim, this.width, this.height, false, 8); //8 frames
-    this.leftJabAnim = new SpriteSheetClass(playerLeftJabAnim, this.width, this.height, false, 7, 4); //7 frames
-    this.highKickAnim = new SpriteSheetClass(playerHighKickAnim, this.width, this.height, false, 6, 4); //6 frames
-    this.crouchedKickAnim = new SpriteSheetClass(playerCrouchedKickAnim, this.width, this.height, false, 4, 6); //4 frames
-    this.uppercutAnim = new SpriteSheetClass(playerUppercutAnim, this.width, this.height, false, 6, 4); //4 frames
-    this.flipAnim = new SpriteSheetClass(playerFlipAnim, this.width, this.height, false, 5, 3); //5 frames
-    this.attackAnim = this.punchAnim;
-  }
-
-
   this.resetOrSetNonLoopingAnim();
   this.attackArr = [this.punchAnim, this.leftJabAnim, this.highKickAnim];
-
-  
-  // Need  a key for punches, Other for kick 
-  // Combo moves on multiple sucessful hits. 
   this.doubleJumpCount = 0;
 }
 
 playerClass.prototype = Object.create(entityClass.prototype);
+
+playerClass.prototype.resetOrSetNonLoopingAnim = function() {
+  this.punchAnim = new SpriteSheetClass(playerPunchAnim, this.width, this.height, false, 7, 4); //4frames
+  this.crouchAnim = new SpriteSheetClass(playerCrouchAnim, this.width, this.height, false, 4, 4); //4 frames
+  this.deadAnim = new SpriteSheetClass(playerDeadAnim, this.width, this.height, false, 8); //8 frames
+  this.leftJabAnim = new SpriteSheetClass(playerLeftJabAnim, this.width, this.height, false, 7, 4); //7 frames
+  this.highKickAnim = new SpriteSheetClass(playerHighKickAnim, this.width, this.height, false, 6, 4); //6 frames
+  this.crouchedKickAnim = new SpriteSheetClass(playerCrouchedKickAnim, this.width, this.height, false, 4, 6); //4 frames
+  this.uppercutAnim = new SpriteSheetClass(playerUppercutAnim, this.width, this.height, false, 6, 4); //4 frames
+  this.flipAnim = new SpriteSheetClass(playerFlipAnim, this.width, this.height, false, 5, 3); //5 frames
+  this.attackAnim = this.punchAnim;
+}
 
 playerClass.prototype.setupInput = function (upKey, rightKey, downKey, leftKey, attackKey, jumpKey, defendKey) {
   this.controlKeyUp = upKey;
@@ -278,8 +271,6 @@ playerClass.prototype.draw = function () {
       this.spriteAnim = this.flipAnim;
     }
   }
-
-
 
   //TODO: Once crouch animation complete. Call a function to draw in fixed state instead of animation. 
   //final drawing of sprite.
