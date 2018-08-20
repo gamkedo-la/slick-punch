@@ -53,7 +53,7 @@ function mainMenuStates() {
 "Chris Markle: Game Over sound",
 "pseudoLudo: Pause functionality",
 "Eugene Meidinger: Damage from slime",
-"Chris DeLeon: Credits entry"
+"Chris DeLeon: Credits entry, mouse menu code, minor bug fixing"
 		];
 		for(var i=0;i<creditsLines.length;i++) {
 			var creditor = creditsLines[i].split(":");
