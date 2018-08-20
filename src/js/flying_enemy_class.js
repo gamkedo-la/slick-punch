@@ -2,7 +2,9 @@
 
 function flyingEnemyClass(x, y) {
 
-    console.log("Spawning a flyingEnemy at " + x + "," + y);
+    if(SHOW_ENTITY_DEBUG) {
+        console.log("Spawning a flyingEnemy at " + x + "," + y);
+    }
 
     this.pos = vector.create(x, y);
     this.speed = vector.create(0, 0);

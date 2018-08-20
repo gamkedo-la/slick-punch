@@ -18,6 +18,8 @@ const KEY_S = 83;
 const KEY_ENTER = 13;
 const KEY_ESC = 27;
 
+var musicEnabled = true;
+
 //TODO : Make attacks more smooth
 //TODO : COmbo moves
 function setupInput() {

@@ -269,6 +269,7 @@ function collectibleEffect(x, y) {
 function extractAlphaFromCSSColour(str) { // eg rgba(255,255,255,0.5); // returns 0.5
     if (!str) return 1;
     var rgb = str.match(/[.?\d]+/g);
+    if(rgb == null) return 1;
     if (rgb[3] == undefined) rgb[3] = 1;
     return rgb[3];
 }
