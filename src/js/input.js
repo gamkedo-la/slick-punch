@@ -316,7 +316,11 @@ function setValuesForKey(evt, value) {
 			keyHeld_C = value;
 			break;
 		case "KeyV":
-			outputLevelToConsole();
+			if (keyHeld_Timer >= KEY_HELD_TIME_MAX) {
+				keyHeld_Timer = 0;
+				outputLevelToConsole();
+				console.log("Level saved to clipboard, go add to level.js!");
+			}
 			keyHeld_V = value;
 			break;
 		case "KeyB":

@@ -1,6 +1,7 @@
 // Map Editor by Brandon Trumpold
 // Press B to toggle map editor on, you'll see a confirmation in the console once it's on
 // To change tiles in and out, simply change out the right side of the equation worldGrid[mouseIndex] = whateverYouWantToChangeTileTo;
+// After setting up the level to your liking, press V on your keyboard to save the world to your clipboard, then go to level.js and paste to update/add
 
 function colRowToArrayIndex(col, row) {
 	return col + (row * WORLD_COLS);
