@@ -298,8 +298,8 @@ function isPlatformAtPixelCoord(hitPixelX, hitPixelY) {
 	tileCol = Math.floor(tileCol);
 	tileRow = Math.floor(tileRow);
 
-	if (tileCol > 0 && tileCol <= WORLD_COLS &&
-		tileRow > 0 && tileRow <= WORLD_ROWS) {
+	if (tileCol >= 0 && tileCol <= WORLD_COLS &&
+		tileRow >= 0 && tileRow <= WORLD_ROWS) {
 
 		var tileIndex = rowColToArrayIndex(tileCol, tileRow);
 		var tileHere = worldGrid[tileIndex];
