@@ -31,13 +31,27 @@ function mainMenuStates() {
 		canvasContext.drawImage(menuBackgroundEmpty,0,0);
 		colorText('CREDITS',canvas.width/2 , 80,TEXT_COLOR,"40px Tahoma","center",opacity);
 		var textX = 15;
-		var textY = 200;
-		var textSkip = 20;
-		var creditsFont = "16px Tahoma";
-		var creditsNameFont = "bold 16px Tahoma";
+		var textY = 110;
+		var textSkip = 13;
+		var creditsFont = "12px Tahoma";
+		var creditsNameFont = "bold 12px Tahoma";
 		var creditsLines = [
-			"Vignesh Ramesh: Something",
-			"Christer McFunkyPants: Something more"
+"Vignesh Ramesh: stuff",
+"Christer \"McFunkypants\" Kaitila: stuff",
+"Caspar \"SpadXIII\" Dunant: stuff",
+"Zak Ali: stuff",
+"Kise: stuff",
+"Stebs: stuff",
+"Terrence McDonnell: stuff",
+"Brian Boucher: stuff",
+"Brandon Trumpold: stuff",
+"pseudoLudo: stuff",
+"Jaime Rivas: stuff",
+"Asix Jin: stuff",
+"Chris DeLeon: stuff",
+"Eugene Meidinger: stuff",
+"Chris Markle: stuff",
+"Oasis Rim: stuff"
 		];
 		for(var i=0;i<creditsLines.length;i++) {
 			var creditor = creditsLines[i].split(":");
