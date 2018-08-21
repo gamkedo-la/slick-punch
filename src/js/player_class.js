@@ -199,7 +199,7 @@ playerClass.prototype.playerWorldHandling = function () {
       console.log("DeathZone entered");
       // scorePickupSound.play();
     }
-    if (tileHere == PLAYER_CHECKPOINT) {
+    if (tileHere == PLAYER_CHECKPOINT || tileHere == INDICATOR_CHECKPOINT) {
       player_checkpoint_index = tileindex;
       console.log("Checkpoint reached");
       // scorePickupSound.play();

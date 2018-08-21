@@ -48,7 +48,7 @@ const particlePic = document.createElement("img");
 const dumbEnemyWalkAnim = document.createElement("img");
 const dumbEnemyAttackAnim = document.createElement("img");
 const deathZone = document.createElement("img");
-
+const checkpointIndicPic = document.createElement("img");
 
 var imageList = [];
 
@@ -145,7 +145,7 @@ function loadImages() {
 		// { trackType: WORLD_HAZARD, theFile: "hazard.png" },
 		// {trackType: WORLD_GOAL, theFile: "track_goal.png"}
 		{ varName: particlePic, theFile: "particle.png" },
-
+    { varName: checkpointIndicPic, theFile: "boneSprite.png" },
 ];
 	picsToLoad = imageList.length;
 	console.log('to load:', picsToLoad);

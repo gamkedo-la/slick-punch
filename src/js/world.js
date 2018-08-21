@@ -226,11 +226,17 @@ function drawWorld() {
           if (tileKindHere == DEATH_ZONE) {
             canvasContext.drawImage(deathZone, drawTileX, drawTileY);
           }
-					canvasContext.drawImage(slickTileSet,
-						tilesetCol * WORLD_W, tilesetRow * WORLD_H, // top-left corner of tile art, multiple of tile width for clipped image
-						WORLD_W, WORLD_H, // get full tile size from source
-						drawTileX, drawTileY, // x,y top-left corner for image destination
-						WORLD_W, WORLD_H); // stretch or shrink coordinates
+          if (tileKindHere == INDICATOR_CHECKPOINT) {
+            canvasContext.drawImage(checkpointIndicPic, drawTileX, drawTileY);
+          }
+          else{
+            canvasContext.drawImage(slickTileSet,
+            tilesetCol * WORLD_W, tilesetRow * WORLD_H, // top-left corner of tile art, multiple of tile width for clipped image
+            WORLD_W, WORLD_H, // get full tile size from source
+            drawTileX, drawTileY, // x,y top-left corner for image destination
+            WORLD_W, WORLD_H); // stretch or shrink coordinates
+          }
+					
 				}
 			}
    
