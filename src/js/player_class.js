@@ -1,4 +1,5 @@
 const HURT_JUMP_POWER = 6; 
+var player_checkpoint_index = -1;
 
 function playerClass() {
 
@@ -35,6 +36,7 @@ function playerClass() {
   this.resetOrSetNonLoopingAnim();
   this.attackArr = [this.punchAnim, this.leftJabAnim, this.highKickAnim];
   this.doubleJumpCount = 0;
+
 }
 
 playerClass.prototype = Object.create(entityClass.prototype);
@@ -195,6 +197,11 @@ playerClass.prototype.playerWorldHandling = function () {
     if (tileHere == DEATH_ZONE) {
       this.takeDamage(this.health);
       console.log("DeathZone entered");
+      // scorePickupSound.play();
+    }
+    if (tileHere == PLAYER_CHECKPOINT) {
+      player_checkpoint_index = tileindex;
+      console.log("Checkpoint reached");
       // scorePickupSound.play();
     }
   }

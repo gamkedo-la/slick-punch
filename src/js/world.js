@@ -201,7 +201,7 @@ function drawWorld() {
 			var tilesetRow = tileKindHere > 0 ? Math.floor(tileKindHere / 3) : 0;
 			var tilesetCol = tileKindHere > 0 ? Math.floor(tileKindHere % 3) : 0; //Here 3 is columns in tileset
 
-			if (tileKindHere != WORLD_BACKGROUND && tileKindHere != WORLD_ENEMY_DUMB_DEST) {
+			if (tileKindHere != WORLD_BACKGROUND && tileKindHere != WORLD_ENEMY_DUMB_DEST && tileKindHere != PLAYER_CHECKPOINT) {
 				if (isTileAnimated(tileKindHere)) {
 					var animatedTile = returnAnimatedTileSprites(tileKindHere);
 					animatedTile.update();
@@ -331,7 +331,9 @@ function istileCollidable(tile) {
 		tile != KEY_RED &&
 		tile != KEY_BLUE &&
 		tile != KEY_GREEN &&
-    tile != DEATH_ZONE
+    tile != DEATH_ZONE &&
+    tile != INDICATOR_CHECKPOINT &&
+    tile != PLAYER_CHECKPOINT
 	);
 }
 

@@ -4,6 +4,7 @@ var player = new playerClass();
 // var venomDog = new venomDogClass();
 // var box = new boxClass();
 // var slimeDrip = new slimeDripClass();
+window.player = player;
 
 var score;
 var debug = false;
@@ -62,6 +63,10 @@ function spawnFlyingEnemies() {
 
 function loadLevel(whichLevel) {
 	worldGrid = whichLevel.slice();
+  if(player_checkpoint_index != -1){
+    worldGrid[worldGrid.indexOf(WORLD_PLAYERSTART)] = -1;
+    worldGrid[player_checkpoint_index] = WORLD_PLAYERSTART;
+  }
 	platformList.parseWorld();
 	entityList = [];
 	player.init(playerPic, "Player");
@@ -91,7 +96,6 @@ function moveAll() {
 			placeTilesOnButtonPress();
 		}
 		cameraFollow();
-		//player.move();
 		// enemy.move();
 		// if (!enemy.remove) {
 			// enemy.move();
@@ -103,7 +107,7 @@ function moveAll() {
 			}
 		}
 		platformList.update();
-        updateItemList();
+    updateItemList();
 	}
 }
 
