@@ -64,6 +64,22 @@ ItemClass.prototype.setName = function () {
 	if (this.tileKindHere == KEY_GREEN) {
 		return "Green Key";
 	}
+
+  if (this.tileKindHere == DOOR_GREEN) {
+    return "Green Door";
+  }
+
+  if (this.tileKindHere == DOOR_RED) {
+    return "Red Door";
+  }
+
+  if (this.tileKindHere == KEY_BLUE) {
+    return "Blue Door";
+  }
+
+  if (this.tileKindHere == KEY_BLUE) {
+    return "Lower Door";
+  }
 }
 
 ItemClass.prototype.returnEffect = function () {
@@ -130,6 +146,42 @@ ItemClass.prototype.returnEffect = function () {
     playerKeySound.play();
     this.remove = true;
 	}
+
+  if(this.name == "Red Door"){
+    if(player.key_red){
+      console.log(this.name + "unlocked");
+      worldGrid[this.worldIndex] = -1;
+      //play some sound
+      this.remove = true;
+    }
+  }
+
+  if(this.name == "Green Door"){
+    if(player.key_green){
+      console.log(this.name + "unlocked");
+      worldGrid[this.worldIndex] = -1;
+      //play some sound
+      this.remove = true;
+    }
+  }
+
+  if(this.name == "Blue Door"){
+    if(player.key_blue){
+      console.log(this.name + "unlocked");
+      worldGrid[this.worldIndex] = -1;
+      //play some sound
+      this.remove = true;
+    }
+  }
+
+  if(this.name == "Lower Door"){
+    if(player.key_blue ||  player.key_red || player.key_green){
+      console.log(this.name + "unlocked");
+      worldGrid[this.worldIndex] = -1;
+      //play some sound
+      this.remove = true;
+    }
+  }
 }
 
 function updateItemList(){

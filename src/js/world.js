@@ -96,7 +96,7 @@ function intializeCollidableObjects(){
     for (var eachCol = 0; eachCol < WORLD_COLS; eachCol++) {
       var arrayIndex = rowColToArrayIndex(eachCol, eachRow);
       var tileKindHere = worldGrid[arrayIndex];
-      if(tileHarms(tileKindHere) || isPickable(tileKindHere)){
+      if(tileHarms(tileKindHere) || isPickable(tileKindHere) || tileIsDoor(tileKindHere)){
         itemArr.push(new ItemClass(drawTileX, 
                                        drawTileY,
                                        WORLD_W,
@@ -160,6 +160,13 @@ function tileHarms(tile) {
 		tile == GREEN_VINE_WEBS ||
 		tile == THORNS ||
 		tile == VINES_POISONOUS)
+}
+
+function tileIsDoor(tile){
+  return (tile == DOOR_BLUE ||
+          tile == DOOR_GREEN ||
+          tile == DOOR_RED ||
+          tile == DOOR_LOWER);
 }
 
 function rowColToArrayIndex(col, row) {
