@@ -151,9 +151,9 @@ ItemClass.prototype.returnEffect = function () {
 	}
 
   if(this.name == RED_DOOR_TEXT){
-      console.log(this.name + "unlocked");
-
     if(player.key_red){
+      player.lowerDoorRemove = true;
+      player.key_red = false
       console.log(this.name + "unlocked");
       worldGrid[this.worldIndex] = -1;
       //play some sound
@@ -163,6 +163,8 @@ ItemClass.prototype.returnEffect = function () {
 
   if(this.name == "Green Door"){
     if(player.key_green){
+      player.lowerDoorRemove = true;
+      player.key_green = false
       console.log(this.name + "unlocked");
       worldGrid[this.worldIndex] = -1;
       //play some sound
@@ -172,6 +174,8 @@ ItemClass.prototype.returnEffect = function () {
 
   if(this.name == BLUE_DOOR_TEXT){
     if(player.key_blue){
+      player.lowerDoorRemove = true;
+      player.key_blue = false
       console.log(this.name + "unlocked");
       worldGrid[this.worldIndex] = -1;
       //play some sound
@@ -180,8 +184,9 @@ ItemClass.prototype.returnEffect = function () {
   }
 
   if(this.name == LOWER_DOOR_TEXT){
-    if(player.key_blue ||  player.key_red || player.key_green){
-      console.log(this.name + "unlocked");
+    if(player.lowerDoorRemove){
+      player.lowerDoorRemove = false;
+      console.log(this.name + "removed");
       worldGrid[this.worldIndex] = -1;
       //play some sound
       this.remove = true;

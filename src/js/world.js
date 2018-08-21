@@ -97,7 +97,7 @@ function intializeCollidableObjects(){
       var arrayIndex = rowColToArrayIndex(eachCol, eachRow);
       var tileKindHere = worldGrid[arrayIndex];
       if(tileHarms(tileKindHere) || isPickable(tileKindHere) || tileIsDoor(tileKindHere)){
-        
+
         itemArr.push(new ItemClass(drawTileX, 
                                        drawTileY,
                                        WORLD_W,
@@ -217,7 +217,7 @@ function drawWorld() {
 						canvasContext.drawImage(doorRed, drawTileX, drawTileY);
 					}
 					if (tileKindHere == DOOR_LOWER) {
-						canvasContext.drawImage(doorRed, drawTileX, drawTileY);
+						canvasContext.drawImage(doorLower, drawTileX, drawTileY);
 					}
           if (tileKindHere == DEATH_ZONE) {
             canvasContext.drawImage(deathZone, drawTileX, drawTileY);
