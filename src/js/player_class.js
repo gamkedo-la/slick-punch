@@ -109,10 +109,12 @@ playerClass.prototype.move = function () {
   }
 
   if (this.keyHeld_Attack) {
+    if(!this.state[ATTACKING]){
+      punchSound.play();
+    }
     this.setStateValueTo(IDLE, false);
     this.setStateValueTo(IN_MOTION, false);
     this.setStateValueTo(ATTACKING, true);
-    punchSound.play();
     this.boundingBox.width = this.width / 1.5;
     this.boundingBox.x = this.pos.x - this.boundingBox.width / 2;
   }
