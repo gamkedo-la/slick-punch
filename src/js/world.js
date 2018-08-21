@@ -47,13 +47,14 @@ const WORLD_BACKGROUND_BROWN = 26;
 const THORNS = 27;
 const VINES_POISONOUS = 28;
 // const EMPTY_SPACE = 29 //empty spot in the tile set, add yours here and to slickTileset2!
-const SLIME_CEILING_LEFT = 30;
-const SLIME_CEILING_MIDDLE = 31;
-const SLIME_CEILING_RIGHT = 32;
-const PICKUP = 33;
-const DOOR_RED = 34;
-const DOOR_GREEN = 35;
-const DOOR_BLUE = 36;
+const SLIME_CEILING_LEFT = 29;
+const SLIME_CEILING_MIDDLE = 30;
+const SLIME_CEILING_RIGHT = 31;
+const PICKUP = 32;
+const DOOR_RED = 33;
+const DOOR_GREEN = 34;
+const DOOR_BLUE = 35;
+const DOOR_LOWER = 36;
 const KEY_RED = 37;
 const KEY_GREEN = 38;
 const KEY_BLUE = 39;
@@ -63,8 +64,6 @@ const PLATFORM_UP = 42;
 const PLATFORM_DOWN = 43;
 const PLATFORM_DESTINATION = 49;
 const DEATH_ZONE = 50;
-
-
 var PLATFORM_SPEEDS = [];
 PLATFORM_SPEEDS[PLATFORM_RIGHT] = vector.create(1, 0);
 PLATFORM_SPEEDS[PLATFORM_LEFT] = vector.create(-1, 0);
@@ -201,18 +200,20 @@ function drawWorld() {
 						canvasContext.drawImage(goal, drawTileX, drawTileY);
 					}
 					if (tileKindHere == DOOR_BLUE) {
-						canvasContext.drawImage(doorAnimationBlue, drawTileX, drawTileY);
+						canvasContext.drawImage(doorBlue, drawTileX, drawTileY);
 					}
 					if (tileKindHere == DOOR_GREEN) {
-						canvasContext.drawImage(doorAnimationGreen, drawTileX, drawTileY);
+						canvasContext.drawImage(doorGreen, drawTileX, drawTileY);
 					}
 					if (tileKindHere == DOOR_RED) {
-						canvasContext.drawImage(doorAnimationRed, drawTileX, drawTileY);
+						canvasContext.drawImage(doorRed, drawTileX, drawTileY);
+					}
+					if (tileKindHere == DOOR_LOWER) {
+						canvasContext.drawImage(doorRed, drawTileX, drawTileY);
 					}
           if (tileKindHere == DEATH_ZONE) {
             canvasContext.drawImage(deathZone, drawTileX, drawTileY);
           }
-
 					canvasContext.drawImage(slickTileSet,
 						tilesetCol * WORLD_W, tilesetRow * WORLD_H, // top-left corner of tile art, multiple of tile width for clipped image
 						WORLD_W, WORLD_H, // get full tile size from source
