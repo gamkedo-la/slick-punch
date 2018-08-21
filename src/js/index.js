@@ -128,6 +128,7 @@ function drawAll() {
 		for (var i = 0; i < entityList.length; i++) {
 			entityList[i].draw();
 		}
+    
 		if (debug) {
 			strokedRect(player.boundingBox.x, player.boundingBox.y, player.boundingBox.width, player.boundingBox.height, "2", "yellow");
 			colorCircle(player.pos.x, player.pos.y, 2, "green");

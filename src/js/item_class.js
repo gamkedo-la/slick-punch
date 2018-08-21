@@ -15,6 +15,7 @@ function ItemClass(posX, posY, width, height, tileKindHere, worldIndex) {
 }
 
 ItemClass.prototype.setName = function () {
+  console.log(this.tileKindHere);
 	if (this.tileKindHere == SLIME_PIT_LEFT_TOP ||
 		this.tileKindHere == SLIME_PIT_MIDDLE_TOP ||
 		this.tileKindHere == SLIME_PIT_RIGHT_TOP ||
@@ -70,14 +71,17 @@ ItemClass.prototype.setName = function () {
   }
 
   if (this.tileKindHere == DOOR_RED) {
+    console.log("Name set");
     return "Red Door";
   }
 
-  if (this.tileKindHere == KEY_BLUE) {
+  if (this.tileKindHere == DOOR_BLUE) {
+    console.log("Name set");
     return "Blue Door";
   }
 
-  if (this.tileKindHere == KEY_BLUE) {
+  if (this.tileKindHere == DOOR_LOWER) {
+    console.log("Name set");
     return "Lower Door";
   }
 }
@@ -148,6 +152,8 @@ ItemClass.prototype.returnEffect = function () {
 	}
 
   if(this.name == "Red Door"){
+      console.log(this.name + "unlocked");
+
     if(player.key_red){
       console.log(this.name + "unlocked");
       worldGrid[this.worldIndex] = -1;
