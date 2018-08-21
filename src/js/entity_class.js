@@ -218,16 +218,13 @@ entityClass.prototype.setWorldPhysics = function(){
     // in the air
     this.speed.setX(this.speed.getX() * AIR_RESISTANCE);
     this.speed.setY(this.speed.getY() + GRAVITY);
-    // if (this.speed.getX() > this.pos.getX() +  this.boundingBox.height / 2 ) {
-    //   this.speed.getY() = this.pos.getY() + this.boundingBox.height / 2 ;
-    // }
   }
   if (this.state[ON_GROUND] || this.state[ON_PLATFORM]) {
 	  this.doubleJumpCount = 0;
   }
 }
 
-entityClass.prototype.entityCollisionHandling = function(){
+entityClass.prototype.entityPlatformHandling = function(){
    //Checking if player is falling or jumping.
    //Get bounding box border coordinates and perform the same functionality for each point
    const jumping = this.speed.getY() < 0;

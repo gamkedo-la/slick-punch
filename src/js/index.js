@@ -66,9 +66,9 @@ function loadLevel(whichLevel) {
 	entityList = [];
 	player.init(playerPic, "Player");
 	enemy.init(dumbEnemyWalkAnim, "Dumb Enemy");
-  	venomDog.init(venomDogIdle, "Venom Dog");
-  	box.init(crateBoxPic, "Box");
-  	slimeDrip.init(slimeBallDripAnim, "Slime Drip");
+	venomDog.init(venomDogIdle, "Venom Dog");
+	box.init(crateBoxPic, "Box");
+	slimeDrip.init(slimeBallDripAnim, "Slime Drip");
   	//slimeBall.init(crateBoxPic, "Box");
   	intializeCollidableObjects();
 	score = 0;

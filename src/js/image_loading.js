@@ -47,6 +47,8 @@ const particlePic = document.createElement("img");
 const dumbEnemyWalkAnim = document.createElement("img");
 const dumbEnemyAttackAnim = document.createElement("img");
 const doorLower = document.createElement("img");
+const deathZone = document.createElement("img");
+
 
 var imageList = [];
 
@@ -100,6 +102,8 @@ function loadImages() {
     //Tilesheet
     { varName: platformTileSet, theFile: "platformTileSet.png" },
     { varName: slickTileSet, theFile: "slickTileset2.png" },
+    { varName: deathZone, theFile: "deathZone.png" },
+
     //Destroyable Objects
     { varName: diamondPickupAnim, theFile: "pickup.png", width: 35, height: 35},
     { varName: crateBoxPic, theFile: "crate.png", width: 35, height: 35},

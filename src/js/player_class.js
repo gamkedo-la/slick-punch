@@ -98,11 +98,7 @@ playerClass.prototype.move = function () {
     this.setStateValueTo(IDLE, false);
     this.setStateValueTo(CROUCHING, true);
     this.boundingBox.height = this.height / 1.5;
-    this.boundingBox.y = this.pos.y - this.boundingBox.height / 3;
-    // if(this.spriteAnim.cycleComplete){
-    //   this.setStateValueTo(CROUCHING, false);
-    //   this.crouchAnim.frameIndex = 0;
-    // }    
+    this.boundingBox.y = this.pos.y - this.boundingBox.height / 3;  
   }
   else {
     //Down for spin kick
@@ -159,7 +155,7 @@ playerClass.prototype.move = function () {
   // avoid multiple jumps from the same keypress
   this.keyHeld_Up_lastframe = this.keyHeld_Jump;
 
-  this.entityCollisionHandling();
+  this.entityPlatformHandling();
   platformList.checkCollisions(this);
   this.pos.addTo(this.speed);
   this.playerWorldHandling();
@@ -182,47 +178,45 @@ playerClass.prototype.playerWorldHandling = function () {
     }
   }
 
-  // var playerTrackCol = Math.floor(this.pos.x / WORLD_W);
-  // var playerTrackRow = Math.floor(this.pos.y / WORLD_H);
+  var playerTrackCol = Math.floor(this.pos.x / WORLD_W);
+  var playerTrackRow = Math.floor(this.pos.y / WORLD_H);
 
-  //Tile center position = 0,0 draw position + worldW/2 - width/2 - simillarly for height.. 
-  //Once we have tile position we can create a bounding box for it which can be used in collision detection.
+  // Tile center position = 0,0 draw position + worldW/2 - width/2 - simillarly for height.. 
+  // Once we have tile position we can create a bounding box for it which can be used in collision detection.
 
-  // var healthInterval;
-  // var tileindex = rowColToArrayIndex(playerTrackCol, playerTrackRow);
-  // //I have player bounding box. 
-  // // All I have to do 
-  // if (playerTrackCol >= 0 && playerTrackCol < WORLD_COLS &&
-  //   playerTrackRow >= 0 && playerTrackRow < WORLD_ROWS) {
+  var healthInterval;
+  var tileindex = rowColToArrayIndex(playerTrackCol, playerTrackRow);
+  //I have player bounding box. 
+  // All I have to do 
+  if (playerTrackCol >= 0 && playerTrackCol < WORLD_COLS &&
+    playerTrackRow >= 0 && playerTrackRow < WORLD_ROWS) {
 
-  //   var tileHere = returnTileTypeAtColRow(playerTrackCol, playerTrackRow);
+    var tileHere = returnTileTypeAtColRow(playerTrackCol, playerTrackRow);
 
+      if (tileHere == DEATH_ZONE) {
+        this.takeDamage(this.health);
 
+      }
+      if (tileHere == KEY_RED ) {
+        this.key_red = true;
+        console.log("Got a Red key");
+        worldGrid[tileindex] = -1;
+        playerKeySound.play();
+      }
+      if (tileHere == KEY_BLUE) {
+        this.key_blue = true;
+        console.log("Got a Blue key");
+        worldGrid[tileindex] = -1;
+        playerKeySound.play();
+      }
+      if (tileHere == KEY_GREEN) {
+        this.key_green = true;
+        console.log("Got a green key");
+        worldGrid[tileindex] = -1;
+        playerKeySound.play();
+      }
 
-  //     if (tileHere == PICKUP) {
-  //      
-
-  //     }
-  //     if (tileHere == KEY_RED ) {
-  //       this.key_red = true;
-  //       console.log("Got a Red key");
-  //       worldGrid[tileindex] = -1;
-  //       playerKeySound.play();
-  //     }
-  //     if (tileHere == KEY_BLUE) {
-  //       this.key_blue = true;
-  //       console.log("Got a Blue key");
-  //       worldGrid[tileindex] = -1;
-  //       playerKeySound.play();
-  //     }
-  //     if (tileHere == KEY_GREEN) {
-  //       this.key_green = true;
-  //       console.log("Got a green key");
-  //       worldGrid[tileindex] = -1;
-  //       playerKeySound.play();
-  //     }
-
-  // }
+  }
 }
 
 playerClass.prototype.draw = function () {

@@ -21,7 +21,7 @@ slimeBallClass.prototype.move = function () {
   }
 
   this.pos.addTo(this.speed);
-  this.entityCollisionHandling();
+  this.entityPlatformHandling();
   if (this.state[ON_GROUND]) {
     this.removeMe = true;
     // play effect
@@ -29,13 +29,12 @@ slimeBallClass.prototype.move = function () {
 }
 
 slimeBallClass.prototype.draw = function () {
-    if (this.state[IDLE]) {
-        this.spriteAnim = this.idleAnim;
-    }
-
-    //final drawing of sprite.
-    if (this.spriteAnim != null) {
-        this.spriteAnim.draw(this.spriteAnim.frameIndex, this.frameRow, this.pos.x, this.pos.y, this.ang);
-        // console.log(this.spriteAnim.frameIndex);
-    }
+  if (this.state[IDLE]) {
+      this.spriteAnim = this.idleAnim;
+  }
+  //final drawing of sprite.
+  if (this.spriteAnim != null) {
+      this.spriteAnim.draw(this.spriteAnim.frameIndex, this.frameRow, this.pos.x, this.pos.y, this.ang);
+      // console.log(this.spriteAnim.frameIndex);
+  }
 }

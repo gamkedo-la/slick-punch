@@ -62,6 +62,7 @@ const PLATFORM_LEFT = 41;
 const PLATFORM_UP = 42;
 const PLATFORM_DOWN = 43;
 const PLATFORM_DESTINATION = 49;
+const DEATH_ZONE = 50;
 
 
 var PLATFORM_SPEEDS = [];
@@ -186,13 +187,12 @@ function drawWorld() {
 		for (var eachCol = 0; eachCol < WORLD_COLS; eachCol++) {
 			var arrayIndex = rowColToArrayIndex(eachCol, eachRow);
 			var tileKindHere = worldGrid[arrayIndex];
-
 			//converting to see what this tile kind here index means 
 			//Used for TIleset
 			var tilesetRow = tileKindHere > 0 ? Math.floor(tileKindHere / 3) : 0;
 			var tilesetCol = tileKindHere > 0 ? Math.floor(tileKindHere % 3) : 0; //Here 3 is columns in tileset
 
-			if (tileKindHere != WORLD_BACKGROUND && tileKindHere != WORLD_ENEMY_DUMB_DEST) {
+			if (tileKindHere != WORLD_BACKGROUND && tileKindHere != WORLD_ENEMY_DUMB_DEST && tileKindHere != DEATH_ZONE) {
 				if (isTileAnimated(tileKindHere)) {
 					var animatedTile = returnAnimatedTileSprites(tileKindHere);
 					animatedTile.update();
@@ -254,29 +254,29 @@ function setTileAtPositionToType(position, newType) {
 	worldGrid[arrayIndex] = newType;
 }
 
-function isTransparentInBackground(tile) {
-	return (
-		tile == DOUBLE_PLATFORM_LEFT_BOTTOM ||
-		tile == DOUBLE_PLATFORM_MIDDLE_BOTTOM ||
-		tile == DOUBLE_PLATFORM_RIGHT_BOTTOM ||
-		tile == SINGLE_CENTER ||
-		tile == SINGLE_PLATFORM_LEFT ||
-		tile == SINGLE_PLATFORM_MIDDLE ||
-		tile == SINGLE_PLATFORM_RIGHT ||
-		tile == SLIME_PIT_LEFT_TOP ||
-		tile == SLIME_PIT_MIDDLE_TOP ||
-		tile == SLIME_PIT_RIGHT_TOP ||
-		tile == SLIME_CEILING_LEFT ||
-		tile == SLIME_CEILING_MIDDLE ||
-		tile == SLIME_CEILING_RIGHT ||
-		tile == GREEN_VINE_WEBS ||
-		tile == THORNS ||
-		tile == VINES_POISONOUS ||
-		tile == DOOR_RED ||
-		tile == DOOR_GREEN ||
-		tile == DOOR_BLUE
-	);
-}
+// function isTransparentInBackground(tile) {
+// 	return (
+// 		tile == DOUBLE_PLATFORM_LEFT_BOTTOM ||
+// 		tile == DOUBLE_PLATFORM_MIDDLE_BOTTOM ||
+// 		tile == DOUBLE_PLATFORM_RIGHT_BOTTOM ||
+// 		tile == SINGLE_CENTER ||
+// 		tile == SINGLE_PLATFORM_LEFT ||
+// 		tile == SINGLE_PLATFORM_MIDDLE ||
+// 		tile == SINGLE_PLATFORM_RIGHT ||
+// 		tile == SLIME_PIT_LEFT_TOP ||
+// 		tile == SLIME_PIT_MIDDLE_TOP ||
+// 		tile == SLIME_PIT_RIGHT_TOP ||
+// 		tile == SLIME_CEILING_LEFT ||
+// 		tile == SLIME_CEILING_MIDDLE ||
+// 		tile == SLIME_CEILING_RIGHT ||
+// 		tile == GREEN_VINE_WEBS ||
+// 		tile == THORNS ||
+// 		tile == VINES_POISONOUS ||
+// 		tile == DOOR_RED ||
+// 		tile == DOOR_GREEN ||
+// 		tile == DOOR_BLUE
+// 	);
+// }
 
 function isTileAnimated(tile) {
 	return (
@@ -315,7 +315,8 @@ function istileCollidable(tile) {
 		tile != WORLD_ENEMY_DUMB_DEST &&
 		tile != KEY_RED &&
 		tile != KEY_BLUE &&
-		tile != KEY_GREEN 
+		tile != KEY_GREEN &&
+    tile != DEATH_ZONE
 	);
 }
 

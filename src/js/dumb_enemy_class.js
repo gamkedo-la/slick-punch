@@ -90,7 +90,7 @@ dumbEnemyClass.prototype.move = function () {
         this.speed.x = 0;
     }
 
-    this.entityCollisionHandling();
+    this.entityPlatformHandling();
     this.pos.addTo(this.speed) // same as above, but for vertical
     this.enemyWorldHandling();
 
