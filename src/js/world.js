@@ -79,6 +79,10 @@ const WORLD_VENOM_DOG = -8;
 const CRATE = -9;
 const SLIME_DRIP = -10;
 
+const PLAYER_CHECKPOINT = -11;
+const INDICATOR_CHECKPOINT = -12;
+
+
 const slimeLeftBlobSprite = new SpriteSheetClass(slimeLeftBlobAnim, WORLD_W, WORLD_H, true, 8, 5); // 8 frames, 5 ticks 
 const slimeMiddleBlobSprite = new SpriteSheetClass(slimeMiddleBlobAnim, WORLD_W, WORLD_H, true, 8, 20); // 8 frames
 const slimeRightBlobSprite = new SpriteSheetClass(slimeRightBlobAnim, WORLD_W, WORLD_H, true, 8, 5); // 8 frames, 5 ticks 
