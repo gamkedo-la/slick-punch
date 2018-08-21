@@ -78,11 +78,6 @@ ItemClass.prototype.returnEffect = function () {
     setTimeout(function(){player.keyHeld_Jump = true;}, 500);
 	}
 
-	if (this.name == "Lava") {
-    console.log("Death Zone. You dead bro")
-    player.takeDamage(player.health);
-	}
-
 	if (this.name == "Webs") {
      console.log("Player hurt by a webs");
     player.takeDamage(1);
@@ -115,7 +110,7 @@ ItemClass.prototype.returnEffect = function () {
 	if (this.name == "Red Key") {
     player.key_red = true;
     console.log("Got a Red key");
-    worldGrid[tileindex] = -1;
+    worldGrid[this.worldIndex] = -1;
     playerKeySound.play();
     this.remove = true;
 	}
@@ -123,7 +118,7 @@ ItemClass.prototype.returnEffect = function () {
 	if (this.name == "Blue Key") {
     player.key_blue = true;
     console.log("Got a Blue key");
-    worldGrid[tileindex] = -1;
+    worldGrid[this.worldIndex] = -1;
     playerKeySound.play();
     this.remove = true;
 	}
@@ -131,12 +126,11 @@ ItemClass.prototype.returnEffect = function () {
 	if (this.name == "Green Key") {
     player.key_green = true;
     console.log("Got a green key");
-    worldGrid[tileindex] = -1;
+    worldGrid[this.worldIndex] = -1;
     playerKeySound.play();
     this.remove = true;
 	}
 }
-
 
 function updateItemList(){
   for (var i = itemArr.length - 1; i >= 0; i--) {
@@ -145,4 +139,5 @@ function updateItemList(){
     }
   }
 }
+
 window.obArr = itemArr;

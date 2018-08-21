@@ -183,6 +183,19 @@ playerClass.prototype.playerWorldHandling = function () {
       itemArr[i].returnEffect();
     }
   }
+  //Only for collision in which you want to interact with player center.
+  var playerTrackCol = Math.floor(this.pos.x / WORLD_W);
+  var playerTrackRow = Math.floor(this.pos.y / WORLD_H);
+  var tileindex = rowColToArrayIndex(playerTrackCol, playerTrackRow);
+  if (playerTrackCol >= 0 && playerTrackCol < WORLD_COLS &&
+    playerTrackRow >= 0 && playerTrackRow < WORLD_ROWS) {
+    var tileHere = returnTileTypeAtColRow(playerTrackCol, playerTrackRow);
+    if (tileHere == DEATH_ZONE) {
+      this.takeDamage(this.health);
+      console.log("DeathZone entered");
+      // scorePickupSound.play();
+    }
+  }
 }
 
 playerClass.prototype.draw = function () {

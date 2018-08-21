@@ -102,7 +102,7 @@ function loadImages() {
     //Tilesheet
     { varName: platformTileSet, theFile: "platformTileSet.png" },
     { varName: slickTileSet, theFile: "slickTileset2.png" },
-    // { varName: deathZone, theFile: "deathZone.png" },
+    { varName: deathZone, theFile: "deathZone.png" },
 
     //Destroyable Objects
     { varName: diamondPickupAnim, theFile: "pickup.png", width: 35, height: 35},

@@ -190,7 +190,7 @@ function drawWorld() {
 			var tilesetRow = tileKindHere > 0 ? Math.floor(tileKindHere / 3) : 0;
 			var tilesetCol = tileKindHere > 0 ? Math.floor(tileKindHere % 3) : 0; //Here 3 is columns in tileset
 
-			if (tileKindHere != WORLD_BACKGROUND && tileKindHere != WORLD_ENEMY_DUMB_DEST && tileKindHere != DEATH_ZONE) {
+			if (tileKindHere != WORLD_BACKGROUND && tileKindHere != WORLD_ENEMY_DUMB_DEST) {
 				if (isTileAnimated(tileKindHere)) {
 					var animatedTile = returnAnimatedTileSprites(tileKindHere);
 					animatedTile.update();
@@ -209,6 +209,10 @@ function drawWorld() {
 					if (tileKindHere == DOOR_RED) {
 						canvasContext.drawImage(doorAnimationRed, drawTileX, drawTileY);
 					}
+          if (tileKindHere == DEATH_ZONE) {
+            canvasContext.drawImage(deathZone, drawTileX, drawTileY);
+          }
+
 					canvasContext.drawImage(slickTileSet,
 						tilesetCol * WORLD_W, tilesetRow * WORLD_H, // top-left corner of tile art, multiple of tile width for clipped image
 						WORLD_W, WORLD_H, // get full tile size from source
