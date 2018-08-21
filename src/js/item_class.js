@@ -72,35 +72,68 @@ ItemClass.prototype.returnEffect = function () {
 	//console.log("You touched" + this.name); 
 
 	if (this.name == "Slime") {
+    console.log("Player hurt by a Slime");
+    player.takeDamage(2);
+    player.keyHeld_Jump = true;
+    setTimeout(function(){player.keyHeld_Jump = true;}, 500);
 	}
 
 	if (this.name == "Lava") {
+    console.log("Death Zone. You dead bro")
+    player.takeDamage(player.health);
 	}
 
 	if (this.name == "Webs") {
+     console.log("Player hurt by a webs");
+    player.takeDamage(1);
+    player.keyHeld_Jump = true;
+    setTimeout(function(){player.keyHeld_Jump = true;}, 500);
 	}
 
 	if (this.name == "Thorns") {
+    console.log("Player hurt by a thorns");
+    player.takeDamage(2);
+    player.keyHeld_Jump = true;
+    setTimeout(function(){player.keyHeld_Jump = true;}, 500);
 	}
 
 	if (this.name == "Vines") {
+    console.log("Player hurt by a vines");
+    player.takeDamage(2);
+    player.keyHeld_Jump = true;
+    setTimeout(function(){player.keyHeld_Jump = true;}, 500);
 	}
 
 	if (this.name == "Diamond") {
 		console.log("Diamond touched! Gaining health.");
-		this.health++;
+		player.health++;
 		worldGrid[this.worldIndex] = -1;
 		scorePickupSound.play();
 		this.remove = true;
 	}
 
 	if (this.name == "Red Key") {
+    player.key_red = true;
+    console.log("Got a Red key");
+    worldGrid[tileindex] = -1;
+    playerKeySound.play();
+    this.remove = true;
 	}
 
 	if (this.name == "Blue Key") {
+    player.key_blue = true;
+    console.log("Got a Blue key");
+    worldGrid[tileindex] = -1;
+    playerKeySound.play();
+    this.remove = true;
 	}
 
 	if (this.name == "Green Key") {
+    player.key_green = true;
+    console.log("Got a green key");
+    worldGrid[tileindex] = -1;
+    playerKeySound.play();
+    this.remove = true;
 	}
 }
 
