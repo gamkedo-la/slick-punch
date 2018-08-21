@@ -115,7 +115,7 @@ function loadImages() {
 		{ varName: slimeBallPic, theFile: "slimeball.png", width: 35, height: 35 },
 		{ varName: slimeBallDripAnim, theFile: "slimedrip.png", width: 35, height: 35},
 		//Doors
-		{ varName: doorRed, theFile: "doorYellow.png", width: 35, height: 35},
+		{ varName: doorRed, theFile: "doorRed.png", width: 35, height: 35},
 		{ varName: doorBlue, theFile: "doorBlue.png", width: 35, height: 35},
 		{ varName: doorGreen, theFile: "doorGreen.png", width: 35, height: 35},
     { varName: doorLower, theFile: "doorLower.png", width: 35, height: 35},
