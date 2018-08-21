@@ -39,6 +39,7 @@ const venomDogIdle = document.createElement("img");
 const doorRed = document.createElement("img");
 const doorBlue = document.createElement("img");
 const doorGreen = document.createElement("img");
+const doorLower = document.createElement("img");
 const goal = document.createElement("img");
 const heartEmpty = document.createElement("img");
 const heartHalf = document.createElement("img");
@@ -46,7 +47,6 @@ const heartFull = document.createElement("img");
 const particlePic = document.createElement("img");
 const dumbEnemyWalkAnim = document.createElement("img");
 const dumbEnemyAttackAnim = document.createElement("img");
-const doorLower = document.createElement("img");
 const deathZone = document.createElement("img");
 
 
