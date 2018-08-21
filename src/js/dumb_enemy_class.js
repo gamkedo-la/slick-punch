@@ -1,4 +1,4 @@
-const DUMB_RUN_SPEED = 0.6;
+const DUMB_RUN_SPEED = 0.2;
 const ENEMY_DUMB_RELOAD_FRAMES = 90;
 
 function dumbEnemyClass() {
