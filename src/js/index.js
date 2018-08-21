@@ -69,8 +69,8 @@ function loadLevel(whichLevel) {
 	venomDog.init(venomDogIdle, "Venom Dog");
 	box.init(crateBoxPic, "Box");
 	slimeDrip.init(slimeBallDripAnim, "Slime Drip");
-  	//slimeBall.init(crateBoxPic, "Box");
-  	intializeCollidableObjects();
+  //slimeBall.init(crateBoxPic, "Box");
+  intializeCollidableObjects();
 	score = 0;
 	spawnFlyingEnemies();
 	timeRemaining = timeLimit;
@@ -100,6 +100,7 @@ function moveAll() {
 			}
 		}
 		platformList.update();
+    updateItemList();
 	}
 }
 

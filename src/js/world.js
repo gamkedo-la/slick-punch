@@ -79,10 +79,7 @@ const WORLD_FLYING_ENEMY = -5; // spawns a flyingEnemy.js
 const WORLD_VENOM_DOG = -8;
 const CRATE = -9;
 const SLIME_DRIP = -10;
-var itemArr = [];
 
-// { varName: venomDog, theFile: "venomDog2.png" },		
-// { varName: venomDogIdle, theFile: "venomDog2Idle.png" },	
 const slimeLeftBlobSprite = new SpriteSheetClass(slimeLeftBlobAnim, WORLD_W, WORLD_H, true, 8, 5); // 8 frames, 5 ticks 
 const slimeMiddleBlobSprite = new SpriteSheetClass(slimeMiddleBlobAnim, WORLD_W, WORLD_H, true, 8, 20); // 8 frames
 const slimeRightBlobSprite = new SpriteSheetClass(slimeRightBlobAnim, WORLD_W, WORLD_H, true, 8, 5); // 8 frames, 5 ticks 
@@ -91,6 +88,7 @@ const redKeySprite = new SpriteSheetClass(redKeyAnimation, 32, 32, true, 2, 18);
 const greenKeySprite = new SpriteSheetClass(greenKeyAnimation, 32, 32, true, 2, 18); // 2 frames, 18 ticks 
 const blueKeySprite = new SpriteSheetClass(blueKeyAnimation, 32, 32, true, 2, 18); // 2 frames, 18 ticks
 /*const blueKeySprite = new SpriteSheetClass(blueKeyAnimation, 32, 32, true, 2, 60); // 2 frames, 60 ticks*/ // same as above?
+
 function intializeCollidableObjects(){
   var arrayIndex = 0;
   var drawTileX = 0;

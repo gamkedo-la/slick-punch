@@ -163,7 +163,6 @@ playerClass.prototype.move = function () {
   if (this.spriteAnim != null) {
     this.spriteAnim.update();
   }
-  
 }
 
 playerClass.prototype.playerCollides = function (obj) {
@@ -195,7 +194,6 @@ playerClass.prototype.playerWorldHandling = function () {
 
       if (tileHere == DEATH_ZONE) {
         this.takeDamage(this.health);
-
       }
       if (tileHere == KEY_RED ) {
         this.key_red = true;

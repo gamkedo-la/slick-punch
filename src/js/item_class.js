@@ -1,4 +1,4 @@
-//TODO: change name to itemClass and change all reference
+var itemArr = [];
 function ItemClass(posX, posY, width, height, tileKindHere, worldIndex) {
 
 	this.tileKindHere = tileKindHere;
@@ -11,6 +11,7 @@ function ItemClass(posX, posY, width, height, tileKindHere, worldIndex) {
 		y: posY
 	};
 	this.name = this.setName();
+  this.remove = false;
 }
 
 ItemClass.prototype.setName = function () {
@@ -65,14 +66,6 @@ ItemClass.prototype.setName = function () {
 	}
 }
 
-ItemClass.prototype.remove = function () {
-	for (var i = length; i >= 0; i--) {
-		// if(){
-
-		//    }
-	}
-}
-
 ItemClass.prototype.returnEffect = function () {
 
 	// debug info works great but spams the log every frame and kills my vidual studio
@@ -98,7 +91,7 @@ ItemClass.prototype.returnEffect = function () {
 		this.health++;
 		worldGrid[this.worldIndex] = -1;
 		scorePickupSound.play();
-		this.remove();
+		this.remove = true;
 	}
 
 	if (this.name == "Red Key") {
@@ -111,4 +104,12 @@ ItemClass.prototype.returnEffect = function () {
 	}
 }
 
+
+function updateItemList(){
+  for (var i = itemArr.length - 1; i >= 0; i--) {
+    if(itemArr[i].remove){
+      itemArr.splice(i,1);
+    }
+  }
+}
 window.obArr = itemArr;
