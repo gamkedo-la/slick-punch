@@ -1,5 +1,5 @@
 const SHOW_ENTITY_DEBUG = false;
-
+//For player;
 const GROUND_FRICTION = 0.7;
 const AIR_RESISTANCE = 0.975;
 const JUMP_POWER = 8;

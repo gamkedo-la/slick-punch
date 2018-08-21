@@ -1,3 +1,5 @@
+const HURT_JUMP_POWER = 6; 
+
 function playerClass() {
 
   Object.getPrototypeOf(playerClass.prototype).constructor.call(this);
@@ -127,15 +129,20 @@ playerClass.prototype.move = function () {
   if (this.keyHeld_Jump && !this.keyHeld_Up_lastframe) {
     // this.setStateToFalse();
     this.keyHeld_Up_lastframe = true;
-    if (this.state['isOnGround']) { // regular jump
+    if (this.state[ON_GROUND]) { // regular jump
       jumpSound.play();
       this.speed.setY(this.speed.getY() - JUMP_POWER);
       this.setStateValueTo(ON_GROUND, false);
     }
     else if (this.doubleJumpCount < MAX_AIR_JUMPS) { // in the air?
-      jumpSound.play();
       this.speed.setY(0);
-      this.speed.setY(this.speed.getY() - JUMP_POWER);
+      if(this.state[HURT]){
+        this.speed.setY(this.speed.getY() - HURT_JUMP_POWER);
+      }else{
+        jumpSound.play();
+       
+        this.speed.setY(this.speed.getY() - JUMP_POWER);
+      }      
       this.doubleJumpCount++;
       this.setStateValueTo(ON_GROUND, false);
     }
