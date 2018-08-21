@@ -199,11 +199,19 @@ playerClass.prototype.playerWorldHandling = function () {
       console.log("DeathZone entered");
       // scorePickupSound.play();
     }
-    if (tileHere == PLAYER_CHECKPOINT || tileHere == INDICATOR_CHECKPOINT) {
+    if (tileHere == PLAYER_CHECKPOINT ) {
       player_checkpoint_index = tileindex;
       console.log("Checkpoint reached");
       // scorePickupSound.play();
     }
+      if (tileHere == INDICATOR_CHECKPOINT ) {
+        var newPlayerTrackRow = playerTrackRow - 1;
+        var newIndex = rowColToArrayIndex(playerTrackCol, newPlayerTrackRow);
+        player_checkpoint_index = newIndex;
+        console.log("Checkpoint reached");
+        // scorePickupSound.play();
+    }
+    tileHere == INDICATOR_CHECKPOINT
   }
 }
 
