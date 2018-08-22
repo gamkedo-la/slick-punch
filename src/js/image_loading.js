@@ -134,7 +134,7 @@ function loadImages() {
 		//Venom Dog animation
 		{ varName: venomDogPic, theFile: "venomdog2.png", width: 35, height: 35 },
 		{ varName: venomDogIdle, theFile: "venomdog2Idle.png", width: 35, height: 35 },
-		{ varName: venomDogWalk, theFile: "venomdog2Idle.png", width: 35, height: 35 }, // FIXME - missing art
+		{ varName: venomDogWalk, theFile: "venomdog2Walk.png", width: 35, height: 35 },
 		{ varName: venomDogBite, theFile: "venomdogBite.png", width: 35, height: 35 },
 		//goal
 		{ varName: goal, theFile: "goal.png", width: 35, height: 35 },
