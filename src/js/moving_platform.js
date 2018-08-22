@@ -176,7 +176,7 @@ function Platform(type, platformWidth, startCol, startRow, endCol, endRow) {
       console.log("Colliding with the top");
    }
 
-   if (jumping) {
+   else if (jumping) {
       // entity.pos.setY((Math.floor(entity.pos.getY() / WORLD_H)) * WORLD_H + entity.boundingBox.height / 2);
       if(entity.boundingBox.y > platformBBox.y){
         entity.speed.setY(0);
@@ -184,6 +184,29 @@ function Platform(type, platformWidth, startCol, startRow, endCol, endRow) {
         console.log("Collidiing with the bottom");
       }
    }
+
+   //Sideways collision
+  if (moving_left){
+    if(entity.boundingBox.x < platformBBox.x + platformBBox.width &&
+      entity.boundingBox.y +  entity.boundingBox.height  > platformBBox.y + platformBBox.height &&
+      entity.boundingBox.y  < platformBBox.y
+       ){
+        entity.speed.setX(0);
+        entity.pos.setX(platformBBox.x + platformBBox.width + 5);
+    }
+  }
+
+
+ else if (moving_right){
+    if(entity.boundingBox.x + entity.boundingBox.width > platformBBox.x  &&
+      entity.boundingBox.y +  entity.boundingBox.height  > platformBBox.y + platformBBox.height &&
+      entity.boundingBox.y  < platformBBox.y
+      ){
+        entity.speed.setX(0);
+        entity.pos.setX(platformBBox.x - 10);
+    }
+  }
+
 
 
     // check if the entity is to the right or left of the platform
