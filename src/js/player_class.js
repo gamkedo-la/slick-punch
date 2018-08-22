@@ -2,7 +2,6 @@ const HURT_JUMP_POWER = 6;
 var player_checkpoint_index = -1;
 
 function playerClass() {
-
   Object.getPrototypeOf(playerClass.prototype).constructor.call(this);
   //Tracking input keys to player movement
   this.keyHeld_Right = false;
@@ -167,10 +166,9 @@ playerClass.prototype.move = function () {
   this.keyHeld_Up_lastframe = this.keyHeld_Jump;
 
   this.entityPlatformHandling();
-  platformList.checkCollisions(this);
   this.pos.addTo(this.speed);
   this.playerWorldHandling();
-
+  platformList.checkCollisions(this);
   if (this.spriteAnim != null) {
     this.spriteAnim.update();
   }
@@ -270,25 +268,3 @@ playerClass.prototype.draw = function () {
     // console.log(this.spriteAnim.frameIndex);
   }
 }
-
-
-// function tileNearbyCollisionCheck(tileLeftHere, tileRightHere, tileUnderHere, tileOverHere, tileType, playerTrackCol, playerTrackRow) {
-//   tileCollisionRect = {
-//     x: (playerTrackCol) * WORLD_W,
-//     y: playerTrackRow * WORLD_H,
-//     width: WORLD_W,
-//     height: WORLD_H
-//   };
-//   if (tileLeftHere == tileType) {
-//     tileCollisionRect.x = (playerTrackCol - 1) * WORLD_W;
-//   }
-//   if (tileRightHere == tileType) {
-//     tileCollisionRect.x = (playerTrackCol + 1) * WORLD_W;
-//   }
-//   if (tileUnderHere == tileType) {
-//     tileCollisionRect.y = (playerTrackRow + 1) * WORLD_H;
-//   }
-//   if (tileOverHere == tileType) {
-//     tileCollisionRect.y = (playerTrackRow - 1) * WORLD_H;
-//   }
-// }

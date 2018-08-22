@@ -74,14 +74,12 @@ const WORLD_PLAYERSTART = -2;
 const WORLD_ENEMY_DUMB_START = -3;
 const WORLD_ENEMY_DUMB_DEST = -6;
 const WORLD_GOAL = -7;
-const WORLD_FLYING_ENEMY = -5; // spawns a flyingEnemy.js
+const WORLD_FLYING_ENEMY = -5; 
 const WORLD_VENOM_DOG = -8;
 const CRATE = -9;
 const SLIME_DRIP = -10;
-
 const PLAYER_CHECKPOINT = -11;
 const INDICATOR_CHECKPOINT = -12;
-
 
 const slimeLeftBlobSprite = new SpriteSheetClass(slimeLeftBlobAnim, WORLD_W, WORLD_H, true, 8, 5); // 8 frames, 5 ticks 
 const slimeMiddleBlobSprite = new SpriteSheetClass(slimeMiddleBlobAnim, WORLD_W, WORLD_H, true, 8, 20); // 8 frames
@@ -134,6 +132,8 @@ function returnAnimatedTileSprites(tileKindHere) {
 			return blueKeySprite;
 		case PICKUP:
 			return diamondSprite;
+    case PICKUP:
+      return diamondSprite;
 	}
 }
 
@@ -275,30 +275,6 @@ function setTileAtPositionToType(position, newType) {
 	worldGrid[arrayIndex] = newType;
 }
 
-// function isTransparentInBackground(tile) {
-// 	return (
-// 		tile == DOUBLE_PLATFORM_LEFT_BOTTOM ||
-// 		tile == DOUBLE_PLATFORM_MIDDLE_BOTTOM ||
-// 		tile == DOUBLE_PLATFORM_RIGHT_BOTTOM ||
-// 		tile == SINGLE_CENTER ||
-// 		tile == SINGLE_PLATFORM_LEFT ||
-// 		tile == SINGLE_PLATFORM_MIDDLE ||
-// 		tile == SINGLE_PLATFORM_RIGHT ||
-// 		tile == SLIME_PIT_LEFT_TOP ||
-// 		tile == SLIME_PIT_MIDDLE_TOP ||
-// 		tile == SLIME_PIT_RIGHT_TOP ||
-// 		tile == SLIME_CEILING_LEFT ||
-// 		tile == SLIME_CEILING_MIDDLE ||
-// 		tile == SLIME_CEILING_RIGHT ||
-// 		tile == GREEN_VINE_WEBS ||
-// 		tile == THORNS ||
-// 		tile == VINES_POISONOUS ||
-// 		tile == DOOR_RED ||
-// 		tile == DOOR_GREEN ||
-// 		tile == DOOR_BLUE
-// 	);
-// }
-
 function isTileAnimated(tile) {
 	return (
 		tile == SLIME_PIT_LEFT_TOP_ANIM ||
@@ -339,7 +315,8 @@ function istileCollidable(tile) {
 		tile != KEY_GREEN &&
     tile != DEATH_ZONE &&
     tile != INDICATOR_CHECKPOINT &&
-    tile != PLAYER_CHECKPOINT
+    tile != PLAYER_CHECKPOINT &&
+    tile != PLATFORM_DESTINATION 
 	);
 }
 
