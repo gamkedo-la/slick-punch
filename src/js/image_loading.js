@@ -5,6 +5,7 @@ const playerPunchAnim = document.createElement("img");
 const playerWalkAnim = document.createElement("img");
 const playerLeftJabAnim = document.createElement("img");
 const scrollBackground = document.createElement("img");
+const scrollBackground2 = document.createElement("img");
 const playerWalkJumpAnim = document.createElement("img");
 const playerIdleJumpAnim = document.createElement("img");
 const playerHighKickAnim = document.createElement("img");
@@ -29,6 +30,7 @@ const crateBoxAnim = document.createElement("img");
 const flyingEnemyAnim = document.createElement("img");
 const slickTileSet = document.createElement("img");
 const platformTileSet = document.createElement("img");
+const brickWithSlimeTileSet = document.createElement("img");
 const menuBackground = document.createElement("img");
 const menuBackgroundEmpty = document.createElement("img");
 const redKeyAnimation = document.createElement("img");
@@ -67,7 +69,7 @@ function beginLoadingImage(imgObj) {
 	console.log('start', iii--, imgObj.theFile);
 	imgObj.varName.onload = countLoadedImagesAndLaunchIfReady.bind(this, imgObj.theFile);
 	imgObj.varName.src = "src/images/" + imgObj.theFile;
-  
+
 }
 
 function loadImageForTrackCode(trackCode, fileName) {
@@ -102,6 +104,7 @@ function loadImages() {
     //Tilesheet
     { varName: platformTileSet, theFile: "platformTileSet.png" },
     { varName: slickTileSet, theFile: "slickTileset2.png" },
+		{ varName: brickWithSlimeTileSet, theFile: "brickWithSlimeTileSet.png"},
     { varName: deathZone, theFile: "deathZone.png" },
 
     //Destroyable Objects
@@ -133,6 +136,7 @@ function loadImages() {
 		{ varName: goal, theFile: "goal.png", width: 35, height: 35},
     //MenuBackground
     { varName: scrollBackground, theFile: "background.png", width: 35, height: 35},
+		{ varName: scrollBackground2, theFile: "arenal.png", width: 35, height: 35},
     { varName: menuBackground, theFile: "menuImage.png", width: 35, height: 35},
 		{ varName: menuBackgroundEmpty, theFile: "menuBackgroundEmpty.png", width: 35, height: 35},
 		//Heart images
@@ -153,6 +157,6 @@ function loadImages() {
 	for (var i = 0; i < imageList.length; i++) {
 		if (imageList[i].varName != undefined) {
 			beginLoadingImage(imageList[i]);
-		} 
+		}
 	}
 }
