@@ -1,7 +1,7 @@
 var canvas, canvasContext;
 var player = new playerClass();
 // var enemy = new dumbEnemyClass();
-// var venomDog = new venomDogClass();
+var venomDog; // FIXME: global for a single enemy just for testing
 // var box = new boxClass();
 // var slimeDrip = new slimeDripClass();
 window.player = player;

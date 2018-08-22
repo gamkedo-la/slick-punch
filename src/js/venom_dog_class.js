@@ -20,7 +20,7 @@ function venomDogClass(x, y) {
   const VENOMDOG_VERT_RANGE = 25;
   const VENOMDOG_HORIZ_MAX_SPEED = 2; // in px per frame
   const VENOMDOG_VERT_MAX_SPEED = 0; // no up/down movement
-  const VENOMDOG_SPEED_SCALE = 400; // how fast we change speed
+  const VENOMDOG_SPEED_SCALE = 1000; // how fast we change speed (bigger is slower, longer, wider motion)
 
   this.state = {
     'isFlying': false,
@@ -40,8 +40,8 @@ function venomDogClass(x, y) {
   this.boundingBox = {}
 
   this.radius = 35;
-  this.width = 80;
-  this.height = 80;
+  this.width = 240;
+  this.height = 120;
   this.ang = 0;
   this.removeMe = false;
 
@@ -117,11 +117,13 @@ function venomDogClass(x, y) {
       }
     }
 
-    if (this.state.isPatrolling) {
+    if (this.state.isIdle) { // FIXME TODO
 
       var phaseOffset = this.spawnPoint.x * 5555 + this.spawnPoint.x * 3213; // randomish
       this.speed.x = Math.cos((performance.now() + phaseOffset) / VENOMDOG_SPEED_SCALE) * VENOMDOG_HORIZ_MAX_SPEED;
       this.speed.y = Math.sin((performance.now() + phaseOffset) / VENOMDOG_SPEED_SCALE) * VENOMDOG_VERT_MAX_SPEED;
+      // complete stop in a range so it appears to move less similar to the flying enemy
+      if (Math.abs(this.speed.x) < 1) this.speed.x = 0;
 
     }
     else { // probably isDead
@@ -220,6 +222,7 @@ function venomDogClass(x, y) {
   }
 } // VENOMDOG Class
 
+venomDogClass.prototype = Object.create(entityClass.prototype); // inherit the ini() function etc
 
 
 /* old code for reference

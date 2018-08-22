@@ -74,7 +74,7 @@ const WORLD_PLAYERSTART = -2;
 const WORLD_ENEMY_DUMB_START = -3;
 const WORLD_ENEMY_DUMB_DEST = -6;
 const WORLD_GOAL = -7;
-const WORLD_FLYING_ENEMY = -5; 
+const WORLD_FLYING_ENEMY = -5;
 const WORLD_VENOM_DOG = -8;
 const CRATE = -9;
 const SLIME_DRIP = -10;
@@ -90,30 +90,41 @@ const greenKeySprite = new SpriteSheetClass(greenKeyAnimation, 32, 32, true, 2, 
 const blueKeySprite = new SpriteSheetClass(blueKeyAnimation, 32, 32, true, 2, 18); // 2 frames, 18 ticks
 /*const blueKeySprite = new SpriteSheetClass(blueKeyAnimation, 32, 32, true, 2, 60); // 2 frames, 60 ticks*/ // same as above?
 
-function intializeCollidableObjects(){
-  var arrayIndex = 0;
-  var drawTileX = 0;
-  var drawTileY = 0;
-  for (var eachRow = 0; eachRow < WORLD_ROWS; eachRow++) {
-    for (var eachCol = 0; eachCol < WORLD_COLS; eachCol++) {
-      var arrayIndex = rowColToArrayIndex(eachCol, eachRow);
-      var tileKindHere = worldGrid[arrayIndex];
-      if(tileHarms(tileKindHere) || isPickable(tileKindHere) || tileIsDoor(tileKindHere)){
+function intializeCollidableObjects() {
+	var arrayIndex = 0;
+	var drawTileX = 0;
+	var drawTileY = 0;
+	for (var eachRow = 0; eachRow < WORLD_ROWS; eachRow++) {
+		for (var eachCol = 0; eachCol < WORLD_COLS; eachCol++) {
+			var arrayIndex = rowColToArrayIndex(eachCol, eachRow);
+			var tileKindHere = worldGrid[arrayIndex];
 
-        itemArr.push(new ItemClass(drawTileX, 
-                                       drawTileY,
-                                       WORLD_W,
-                                       WORLD_H,
-                                       tileKindHere,
-                                       arrayIndex
-                                      ));
-      }
-      drawTileX += WORLD_W;
-      arrayIndex++;
-    } // end of for each col
-    drawTileY += WORLD_H;
-    drawTileX = 0;
-  }
+			// spawn dangerous tiles 
+			if (tileHarms(tileKindHere) || isPickable(tileKindHere) || tileIsDoor(tileKindHere)) {
+
+				itemArr.push(new ItemClass(drawTileX,
+					drawTileY,
+					WORLD_W,
+					WORLD_H,
+					tileKindHere,
+					arrayIndex
+				));
+			}
+
+			// spawn enemies
+			if (tileKindHere == WORLD_VENOM_DOG) {
+				console.log('spawning a venom dog!');
+				// FIXME: this global is used in index.js
+				venomDog = new venomDogClass(drawTileX, drawTileY - (Math.ceil(WORLD_H / 2))); // not centered inside tile, nudged to be on TOP of tile floor
+				venomDog.init(venomDogIdle, "Venom Dog"); // so it gets remembered in entityList[]
+			}
+
+			drawTileX += WORLD_W;
+			arrayIndex++;
+		} // end of for each col
+		drawTileY += WORLD_H;
+		drawTileX = 0;
+	}
 }
 
 function returnAnimatedTileSprites(tileKindHere) {
@@ -132,8 +143,8 @@ function returnAnimatedTileSprites(tileKindHere) {
 			return blueKeySprite;
 		case PICKUP:
 			return diamondSprite;
-    case PICKUP:
-      return diamondSprite;
+		case PICKUP:
+			return diamondSprite;
 	}
 }
 
@@ -167,11 +178,11 @@ function tileHarms(tile) {
 		tile == VINES_POISONOUS)
 }
 
-function tileIsDoor(tile){
-  return (tile == DOOR_BLUE ||
-          tile == DOOR_GREEN ||
-          tile == DOOR_RED ||
-          tile == DOOR_LOWER);
+function tileIsDoor(tile) {
+	return (tile == DOOR_BLUE ||
+		tile == DOOR_GREEN ||
+		tile == DOOR_RED ||
+		tile == DOOR_LOWER);
 }
 
 function rowColToArrayIndex(col, row) {
@@ -223,23 +234,23 @@ function drawWorld() {
 					if (tileKindHere == DOOR_LOWER) {
 						canvasContext.drawImage(doorLower, drawTileX, drawTileY);
 					}
-          if (tileKindHere == DEATH_ZONE) {
-            canvasContext.drawImage(deathZone, drawTileX, drawTileY);
-          }
-          if (tileKindHere == INDICATOR_CHECKPOINT) {
-            canvasContext.drawImage(checkpointIndicPic, drawTileX, drawTileY);
-          }
-          else{
-            canvasContext.drawImage(slickTileSet,
-            tilesetCol * WORLD_W, tilesetRow * WORLD_H, // top-left corner of tile art, multiple of tile width for clipped image
-            WORLD_W, WORLD_H, // get full tile size from source
-            drawTileX, drawTileY, // x,y top-left corner for image destination
-            WORLD_W, WORLD_H); // stretch or shrink coordinates
-          }
-					
+					if (tileKindHere == DEATH_ZONE) {
+						canvasContext.drawImage(deathZone, drawTileX, drawTileY);
+					}
+					if (tileKindHere == INDICATOR_CHECKPOINT) {
+						canvasContext.drawImage(checkpointIndicPic, drawTileX, drawTileY);
+					}
+					else {
+						canvasContext.drawImage(slickTileSet,
+							tilesetCol * WORLD_W, tilesetRow * WORLD_H, // top-left corner of tile art, multiple of tile width for clipped image
+							WORLD_W, WORLD_H, // get full tile size from source
+							drawTileX, drawTileY, // x,y top-left corner for image destination
+							WORLD_W, WORLD_H); // stretch or shrink coordinates
+					}
+
 				}
 			}
-   
+
 			drawTileX += WORLD_W;
 			arrayIndex++;
 		} // end of for each col
@@ -313,18 +324,18 @@ function istileCollidable(tile) {
 		tile != KEY_RED &&
 		tile != KEY_BLUE &&
 		tile != KEY_GREEN &&
-    tile != DEATH_ZONE &&
-    tile != INDICATOR_CHECKPOINT &&
-    tile != PLAYER_CHECKPOINT &&
-    tile != PLATFORM_DESTINATION 
+		tile != DEATH_ZONE &&
+		tile != INDICATOR_CHECKPOINT &&
+		tile != PLAYER_CHECKPOINT &&
+		tile != PLATFORM_DESTINATION
 	);
 }
 
-function isPickable(tile){
-  return (
-    tile == PICKUP ||
-    tile == KEY_RED ||
-    tile == KEY_BLUE ||   
-    tile == KEY_GREEN 
-  );
+function isPickable(tile) {
+	return (
+		tile == PICKUP ||
+		tile == KEY_RED ||
+		tile == KEY_BLUE ||
+		tile == KEY_GREEN
+	);
 }
