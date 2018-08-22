@@ -59,9 +59,9 @@ function venomDogClass(x, y) {
   this.framesAnim = null;
 
   // Animation generation. 
-  this.idleAnim = new SpriteSheetClass(venomDogIdle, this.width, this.height, true, 2, 13); // 10 frames
-  this.walkAnim = new SpriteSheetClass(venomDogIdle, this.width, this.height, true, 2, 13); // FIXME: add walk anim
-  this.biteAnim = new SpriteSheetClass(venomDogIdle, this.width, this.height, true, 2, 13); // FIXME: add bite anim
+  this.idleAnim = new SpriteSheetClass(venomDogIdle, this.width, this.height, true, 2, 13);
+  this.walkAnim = new SpriteSheetClass(venomDogWalk, this.width, this.height, true, 2, 13); // FIXME no art for this
+  this.biteAnim = new SpriteSheetClass(venomDogBite, this.width, this.height, true, 5, 13);
   this.frameRow = 0;
 
   //sets all values of state object to false

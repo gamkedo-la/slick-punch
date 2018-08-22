@@ -38,6 +38,8 @@ const greenKeyAnimation = document.createElement("img");
 const blueKeyAnimation = document.createElement("img");
 const venomDogPic = document.createElement("img");
 const venomDogIdle = document.createElement("img");
+const venomDogWalk = document.createElement("img");
+const venomDogBite = document.createElement("img");
 const doorRed = document.createElement("img");
 const doorBlue = document.createElement("img");
 const doorGreen = document.createElement("img");
@@ -79,10 +81,10 @@ function loadImageForTrackCode(trackCode, fileName) {
 
 function loadImages() {
 	imageList = [
-    //Still frames
+		//Still frames
 		{ varName: playerPic, theFile: "player.png" },
 		{ varName: enemyPic, theFile: "enemy.png" },
-    //player SpriteSheet
+		//player SpriteSheet
 		{ varName: playerPunchAnim, theFile: "playerPunchsheet2.png" },
 		{ varName: playerWalkAnim, theFile: "playerWalksheet.png" },
 		{ varName: playerLeftJabAnim, theFile: "playerLeftJabsheet.png" },
@@ -99,48 +101,50 @@ function loadImages() {
 		{ varName: playerCrouchedKickAnim, theFile: "playerCrouchedKicksheet.png" },
 		{ varName: playerNormalKickAnim, theFile: "playerNormalKick.png" },
 		{ varName: playerUppercutAnim, theFile: "playerUppercutsheet.png" },
-    //Flying enemy
-    { varName: flyingEnemyAnim, theFile: "flyingEnemy.png", width: 35, height: 35, tileKindHere: 1 },
-    //Tilesheet
-    { varName: platformTileSet, theFile: "platformTileSet.png" },
-    { varName: slickTileSet, theFile: "slickTileset2.png" },
-		{ varName: brickWithSlimeTileSet, theFile: "brickwithslime.png"},
-    { varName: deathZone, theFile: "deathZone.png" },
+		//Flying enemy
+		{ varName: flyingEnemyAnim, theFile: "flyingEnemy.png", width: 35, height: 35, tileKindHere: 1 },
+		//Tilesheet
+		{ varName: platformTileSet, theFile: "platformTileSet.png" },
+		{ varName: slickTileSet, theFile: "slickTileset2.png" },
+		{ varName: brickWithSlimeTileSet, theFile: "brickwithslime.png" },
+		{ varName: deathZone, theFile: "deathZone.png" },
 
-    //Destroyable Objects
-    { varName: diamondPickupAnim, theFile: "pickup.png", width: 35, height: 35},
-    { varName: crateBoxPic, theFile: "crate.png", width: 35, height: 35},
-    { varName: crateBoxAnim, theFile: "crateAnim.png", width: 35, height: 35},
-	   //Slime animation
-		{ varName: slimeLeftBlobAnim, theFile: "slimeLeftBloop.png", width: 35, height: 35},
+		//Destroyable Objects
+		{ varName: diamondPickupAnim, theFile: "pickup.png", width: 35, height: 35 },
+		{ varName: crateBoxPic, theFile: "crate.png", width: 35, height: 35 },
+		{ varName: crateBoxAnim, theFile: "crateAnim.png", width: 35, height: 35 },
+		//Slime animation
+		{ varName: slimeLeftBlobAnim, theFile: "slimeLeftBloop.png", width: 35, height: 35 },
 		{ varName: slimeMiddleBlobAnim, theFile: "slimeMiddleBloop.png", width: 35, height: 35 },
-		{ varName: slimeRightBlobAnim, theFile: "slimeRightBloop.png", width: 35, height: 35},
+		{ varName: slimeRightBlobAnim, theFile: "slimeRightBloop.png", width: 35, height: 35 },
 		{ varName: slimeBallPic, theFile: "slimeball.png", width: 35, height: 35 },
-		{ varName: slimeBallDripAnim, theFile: "slimedrip.png", width: 35, height: 35},
+		{ varName: slimeBallDripAnim, theFile: "slimedrip.png", width: 35, height: 35 },
 		//Doors
-		{ varName: doorRed, theFile: "doorRed.png", width: 35, height: 35},
-		{ varName: doorBlue, theFile: "doorBlue.png", width: 35, height: 35},
-		{ varName: doorGreen, theFile: "doorGreen.png", width: 35, height: 35},
-    { varName: doorLower, theFile: "doorLower.png", width: 35, height: 35},
-    //Keys Animtaion
-		{ varName: redKeyAnimation, theFile: "KeyRed.png", width: 35, height: 35},
-		{ varName: greenKeyAnimation, theFile: "KeyGreen.png", width: 35, height: 35},
-		{ varName: blueKeyAnimation, theFile: "KeyBlue.png", width: 35, height: 35},
-    //Dumb Enemy animation
-    { varName: dumbEnemyWalkAnim, theFile: "enemyWalkSprite.png" },
-    { varName: dumbEnemyAttackAnim, theFile: "enemyPunchSprite.png" },
-    //Venom Dog animation
-		{ varName: venomDogPic, theFile: "venomdog2.png", width: 35, height: 35},
-		{ varName: venomDogIdle, theFile: "venomdog2Idle.png", width: 35, height: 35},
-    //goal
-		{ varName: goal, theFile: "goal.png", width: 35, height: 35},
-    //MenuBackground
-    { varName: scrollBackground, theFile: "background.png", width: 35, height: 35},
-		{ varName: scrollBackground2, theFile: "arenal.png", width: 35, height: 35},
-    { varName: menuBackground, theFile: "menuImage.png", width: 35, height: 35},
-		{ varName: menuBackgroundEmpty, theFile: "menuBackgroundEmpty.png", width: 35, height: 35},
+		{ varName: doorRed, theFile: "doorRed.png", width: 35, height: 35 },
+		{ varName: doorBlue, theFile: "doorBlue.png", width: 35, height: 35 },
+		{ varName: doorGreen, theFile: "doorGreen.png", width: 35, height: 35 },
+		{ varName: doorLower, theFile: "doorLower.png", width: 35, height: 35 },
+		//Keys Animtaion
+		{ varName: redKeyAnimation, theFile: "KeyRed.png", width: 35, height: 35 },
+		{ varName: greenKeyAnimation, theFile: "KeyGreen.png", width: 35, height: 35 },
+		{ varName: blueKeyAnimation, theFile: "KeyBlue.png", width: 35, height: 35 },
+		//Dumb Enemy animation
+		{ varName: dumbEnemyWalkAnim, theFile: "enemyWalkSprite.png" },
+		{ varName: dumbEnemyAttackAnim, theFile: "enemyPunchSprite.png" },
+		//Venom Dog animation
+		{ varName: venomDogPic, theFile: "venomdog2.png", width: 35, height: 35 },
+		{ varName: venomDogIdle, theFile: "venomdog2Idle.png", width: 35, height: 35 },
+		{ varName: venomDogWalk, theFile: "venomdog2Idle.png", width: 35, height: 35 }, // FIXME - missing art
+		{ varName: venomDogBite, theFile: "venomdogBite.png", width: 35, height: 35 },
+		//goal
+		{ varName: goal, theFile: "goal.png", width: 35, height: 35 },
+		//MenuBackground
+		{ varName: scrollBackground, theFile: "background.png", width: 35, height: 35 },
+		{ varName: scrollBackground2, theFile: "arenal.png", width: 35, height: 35 },
+		{ varName: menuBackground, theFile: "menuImage.png", width: 35, height: 35 },
+		{ varName: menuBackgroundEmpty, theFile: "menuBackgroundEmpty.png", width: 35, height: 35 },
 		//Heart images
-    { varName: heartEmpty, theFile: "EmptyHeart.png", width: 35, height: 35},
+		{ varName: heartEmpty, theFile: "EmptyHeart.png", width: 35, height: 35 },
 		{ varName: heartHalf, theFile: "HalfHeart.png", width: 35, height: 35 },
 		{ varName: heartFull, theFile: "Heart.png", width: 35, height: 35 },
 		// { trackType: WORLD_GOAL, theFile: "goal.png" },
@@ -149,8 +153,8 @@ function loadImages() {
 		// { trackType: WORLD_HAZARD, theFile: "hazard.png" },
 		// {trackType: WORLD_GOAL, theFile: "track_goal.png"}
 		{ varName: particlePic, theFile: "particle.png" },
-    { varName: checkpointIndicPic, theFile: "boneSprite.png" },
-];
+		{ varName: checkpointIndicPic, theFile: "boneSprite.png" },
+	];
 	picsToLoad = imageList.length;
 	console.log('to load:', picsToLoad);
 
