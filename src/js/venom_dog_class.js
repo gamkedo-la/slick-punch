@@ -4,6 +4,9 @@
 const ENEMY_VENOMDOG_RELOAD_FRAMES = 90;
 const DOG_ATTACK_DISTANCE = 128; // maximum distance from the player to warrant an attack
 const DOG_ATTACK_FREQUENCY = 0.015; // chance per frame of attacking player if in range
+const VENOMDOG_ATTACK_SPEED = 4; // lunging speed while attacking player
+const VENOMDOG_CANHITPLAYER_DIST = 30; // close enough to bite the player?
+const VENOMDOG_MAX_ATTACK_TICKS = 60; // max time in an attack before going back to patrol
 
 function venomDogClass(x, y) {
 
@@ -18,8 +21,9 @@ function venomDogClass(x, y) {
   this.health = 3;
   this.reloadFrames = 0;
   this.spawnPoint = vector.create(x, y);
-  const VENOMDOG_HORIZ_RANGE = 100; // px from spawnPoint
-  const VENOMDOG_VERT_RANGE = 25;
+
+  const VENOMDOG_HORIZ_RANGE = 300; // px from spawnPoint
+  const VENOMDOG_VERT_RANGE = 0; // can it move up/down?
   const VENOMDOG_HORIZ_MAX_SPEED = 2; // in px per frame
   const VENOMDOG_VERT_MAX_SPEED = 0; // no up/down movement
   const VENOMDOG_SPEED_SCALE = 1000; // how fast we change speed (bigger is slower, longer, wider motion)
@@ -32,7 +36,7 @@ function venomDogClass(x, y) {
     'isMovingLeft': false,
     'isCrouching': false,
     'isFacingUp': false,
-    'isAttacking': false,
+    'isAttacking': false, // once we bark, lunge at player!
     'isDefending': false,
     'isAnimating': false,
     'isHurt': false,
@@ -50,6 +54,7 @@ function venomDogClass(x, y) {
 
   this.tickCount = 0;
   this.ticksPerFrame = 15;
+  this.currentAttackTicks = 0;
   this.spriteAnim = null;
   this.framesAnim = null;
 
@@ -120,6 +125,7 @@ function venomDogClass(x, y) {
       if (Math.random() < DOG_ATTACK_FREQUENCY) {
         console.log('GRRRR! venom dog feels like attacking from a distance of ' + Math.round(distFromPlayer));
         strangeEnemySound.play(); // TODO: make a bark sfx
+        this.changeState('isAttacking');
       }
     }
 
@@ -147,6 +153,18 @@ function venomDogClass(x, y) {
       if (Math.abs(this.speed.x) < 1) this.speed.x = 0;
 
     }
+    else if (this.state.isAttacking) { // lunging at the player!
+      this.currentAttackTicks++;
+      if (this.currentAttackTicks > VENOMDOG_MAX_ATTACK_TICKS) {
+        this.currentAttackTicks = 0; // reset for next time
+        this.changeState("isPatrolling"); // leave attacking state
+      }
+      this.speed.x = (player.pos > this.pos ? VENOMDOG_ATTACK_SPEED : -VENOMDOG_ATTACK_SPEED);
+      if (distFromPlayer <= VENOMDOG_CANHITPLAYER_DIST) {
+        console.log("venom dog successfully bit the player!");
+        this.changeState("isPatrolling"); // leave attacking state
+      }
+    }
     else { // probably isDead
 
       this.speed.x = 0;
@@ -155,27 +173,7 @@ function venomDogClass(x, y) {
 
     }
 
-    /*
-    // Checking collisions
-    if (this.speed.y < 0 && isPlatformAtPixelCoord(this.pos.x, this.pos.y - this.boundingBox.height / 2)) {
-        this.pos.y = (Math.floor(this.pos.y / WORLD_H)) * WORLD_H + this.boundingBox.height / 2;
-        this.speed.y = 0;
-    }
- 
-    if (this.speed.x < 0 && isPlatformAtPixelCoord(this.pos.x - this.boundingBox.width / 2, this.pos.y)) {
-        this.pos.x = (Math.floor(this.pos.x / WORLD_W)) * WORLD_W + this.boundingBox.width / 2;
-        this.speed.x = 0;
-    }
- 
-    if (this.speed.x > 0 && isPlatformAtPixelCoord(this.pos.x + this.boundingBox.width / 2, this.pos.y)) {
-        this.pos.x = (1 + Math.floor(this.pos.x / WORLD_W)) * WORLD_W - this.boundingBox.width / 2;
-        this.speed.x = 0;
-    }
-    */
-
-    this.pos.addTo(this.speed);
-
-    // stay within wander range
+    // stay within wander range - even if attacking!
     var minx = this.spawnPoint.x - VENOMDOG_HORIZ_RANGE / 2;
     var maxx = this.spawnPoint.x + VENOMDOG_HORIZ_RANGE / 2;
     var miny = this.spawnPoint.y - VENOMDOG_VERT_RANGE / 2;
@@ -185,6 +183,25 @@ function venomDogClass(x, y) {
     if (this.pos.y < miny) this.pos.y = miny;
     if (this.pos.y > maxy) this.pos.y = maxy;
 
+    /*
+  // Checking collisions
+  if (this.speed.y < 0 && isPlatformAtPixelCoord(this.pos.x, this.pos.y - this.boundingBox.height / 2)) {
+      this.pos.y = (Math.floor(this.pos.y / WORLD_H)) * WORLD_H + this.boundingBox.height / 2;
+      this.speed.y = 0;
+  }
+ 
+  if (this.speed.x < 0 && isPlatformAtPixelCoord(this.pos.x - this.boundingBox.width / 2, this.pos.y)) {
+      this.pos.x = (Math.floor(this.pos.x / WORLD_W)) * WORLD_W + this.boundingBox.width / 2;
+      this.speed.x = 0;
+  }
+ 
+  if (this.speed.x > 0 && isPlatformAtPixelCoord(this.pos.x + this.boundingBox.width / 2, this.pos.y)) {
+      this.pos.x = (1 + Math.floor(this.pos.x / WORLD_W)) * WORLD_W - this.boundingBox.width / 2;
+      this.speed.x = 0;
+  }
+  */
+
+    this.pos.addTo(this.speed);
 
     //playerWorldHandling(this);
 

@@ -114,7 +114,7 @@ function intializeCollidableObjects() {
 			// spawn enemies
 			if (tileKindHere == WORLD_VENOM_DOG) {
 				console.log('spawning a venom dog!');
-				var venomDog = new venomDogClass(drawTileX, drawTileY - (Math.ceil(WORLD_H / 2))); // not centered inside tile, nudged to be on TOP of tile floor
+				var venomDog = new venomDogClass(drawTileX, drawTileY);
 				venomDog.init(venomDogIdle, "Venom Dog"); // so it gets remembered in entityList[]
 				venomDog.changeState('isPatrolling');
 			}
