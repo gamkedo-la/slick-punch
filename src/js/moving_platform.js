@@ -78,11 +78,7 @@ var platformList = new (function() {
 		for (var p = platforms.length - 1; 0 <= p; p--) {
 			if (platforms[p].checkCollision(entity)) {
         platforms[p].collisionEffect(entity);
-        entity.setStateValueTo(ON_PLATFORM, true);
-        entity.setStateValueTo(ON_GROUND, true);
-			} else {
-        entity.setStateValueTo(ON_PLATFORM, false);
-      }
+			} 
 		}
 
 		
@@ -173,7 +169,7 @@ function Platform(type, platformWidth, startCol, startRow, endCol, endRow) {
    var falling_down = entity.speed.getY() > 0 ;
 
    if (jumping) {
-      entity.pos.setY((Math.floor(entity.pos.getY() / WORLD_H)) * WORLD_H + entity.boundingBox.height / 2);
+      // entity.pos.setY((Math.floor(entity.pos.getY() / WORLD_H)) * WORLD_H + entity.boundingBox.height / 2);
       entity.speed.setY(0);
      console.log("Collidiing");
    }
