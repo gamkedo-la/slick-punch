@@ -138,6 +138,10 @@ function drawAll() {
 			if (tileCollisionRect != undefined) {
 				strokedRect(tileCollisionRect.x, tileCollisionRect.y, tileCollisionRect.width, tileCollisionRect.height, "2", "green");
 			}
+      for (var i = 0; i < entityList.length; i++) {
+        boundingBox = entityList[i].boundingBox;
+        strokedRect(boundingBox.x, boundingBox.y, boundingBox.width, boundingBox.height, "2", "blue");
+      }
 			for (var i = 0; i < itemArr.length; i++) {
 				boundingBox = itemArr[i].boundingBox;
 				strokedRect(boundingBox.x, boundingBox.y, boundingBox.width, boundingBox.height, "2", "blue");
