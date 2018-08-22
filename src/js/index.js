@@ -10,7 +10,7 @@ var score;
 var debug = false;
 var enemyObjArr = [];
 var gameRunning = false;
-var timeLimit = 600; //Level time limit in seconds. Set high for now to avoid running out of time while testing.
+var timeLimit = 99999999; //Level time limit in seconds. Set high for now to avoid running out of time while testing.
 var timeRemaining;
 //Might be redundant
 var timeStarted;
