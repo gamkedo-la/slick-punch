@@ -26,7 +26,7 @@ let currentBackgroundMusic;
 // let soundVolume = document.getElementById('soundVolume').defaultValue;
 // let musicVolume = document.getElementById('musicVolume').defaultValue;
 
-let musicVolume = 1;
+let musicVolume = 0.25; // default music to be quieter than in-game sound effects
 let soundVolume = 0.5;
 
 function setFormat() {
@@ -40,27 +40,27 @@ function setFormat() {
 
 function backgroundMusicClass(filename) {
     let musicSound = null;
-    this.loopSong = function() {
+    this.loopSong = function () {
         setFormat(); // calling this to ensure that audioFormat is set before needed
 
         if (musicSound != null) {
             musicSound.pause();
             musicSound = null;
         }
-        musicSound = new Audio("./src/audio/music/" + audioFormat.slice(1, audioFormat.length) + "/"  + filename + audioFormat);
+        musicSound = new Audio("./src/audio/music/" + audioFormat.slice(1, audioFormat.length) + "/" + filename + audioFormat);
         musicSound.volume = musicVolume;
         musicSound.loop = true;
         musicSound.play();
     }
-    this.pauseSound = function() {
+    this.pauseSound = function () {
         if (musicSound != null) {
-          musicSound.pause();
+            musicSound.pause();
         }
     }
-    this.isPlaying = function(){
+    this.isPlaying = function () {
         return !musicSound.paused;
     }
-    this.startOrStopMusic = function() {
+    this.startOrStopMusic = function () {
         if (musicSound.paused) {
             musicSound.play();
         } else {
@@ -72,9 +72,9 @@ function backgroundMusicClass(filename) {
 function SoundOverlapsClass(filename) {
     setFormat();
     var altSoundTurn = false;
-    var mainSound = new Audio("./src/audio/sounds/" + audioFormat.slice(1, audioFormat.length) + "/"  + filename + audioFormat);
-    var altSound = new Audio("./src/audio/sounds/" + audioFormat.slice(1, audioFormat.length) + "/"  + filename + audioFormat);
-    this.play = function() {
+    var mainSound = new Audio("./src/audio/sounds/" + audioFormat.slice(1, audioFormat.length) + "/" + filename + audioFormat);
+    var altSound = new Audio("./src/audio/sounds/" + audioFormat.slice(1, audioFormat.length) + "/" + filename + audioFormat);
+    this.play = function () {
         if (altSoundTurn) {
             altSound.currentTime = 0;
             altSound.volume = soundVolume;
@@ -88,16 +88,16 @@ function SoundOverlapsClass(filename) {
     }
 }
 
-function getRandomVolume(){
-	var min = 0.3;
-	var max = 0.6;
-	var randomVolume = Math.random() * (max - min) + min;
-	return randomVolume.toFixed(2);
+function getRandomVolume() {
+    var min = 0.3;
+    var max = 0.6;
+    var randomVolume = Math.random() * (max - min) + min;
+    return randomVolume.toFixed(2);
 }
 
-function updateSoundMusicLevel(){
-  soundVolume = document.getElementById('soundVolume').value;
-  musicVolume = document.getElementById('musicVolume').value;
-  deepdarkMusic.pauseSound();
-  deepdarkMusic.loopSong();
+function updateSoundMusicLevel() {
+    soundVolume = document.getElementById('soundVolume').value;
+    musicVolume = document.getElementById('musicVolume').value;
+    deepdarkMusic.pauseSound();
+    deepdarkMusic.loopSong();
 }

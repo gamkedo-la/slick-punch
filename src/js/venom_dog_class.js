@@ -2,6 +2,8 @@
 // Venom Dog Class
 
 const ENEMY_VENOMDOG_RELOAD_FRAMES = 90;
+const DOG_ATTACK_DISTANCE = 128; // maximum distance from the player to warrant an attack
+const DOG_ATTACK_FREQUENCY = 0.015; // chance per frame of attacking player if in range
 
 function venomDogClass(x, y) {
 
@@ -110,16 +112,27 @@ function venomDogClass(x, y) {
 
     if (this.state.isDead) return;
 
+    // measure distance to the player
+    var distFromPlayer = utils.distance(player.pos, this.pos);
+
+    // close enough to warrant an attack, perhaps?
+    if (distFromPlayer < DOG_ATTACK_DISTANCE) {
+      if (Math.random() < DOG_ATTACK_FREQUENCY) {
+        console.log('GRRRR! venom dog feels like attacking from a distance of ' + Math.round(distFromPlayer));
+        strangeEnemySound.play(); // TODO: make a bark sfx
+      }
+    }
+
     // close enough to hit?
     if (this.reloadFrames > 0) {
       this.reloadFrames--;
     } else {
-      if (player.state.isAttacking && (utils.distance(player.pos, this.pos) < 80)) {
+      if (player.state.isAttacking && (distFromPlayer < 80)) {
         this.takeDamage(1);
         this.reloadFrames = ENEMY_VENOMDOG_RELOAD_FRAMES;
       }
       // close enough to get hit?
-      else if (!player.state.isAttacking && utils.distance(player.pos, this.pos) < 40) {
+      else if (!player.state.isAttacking && distFromPlayer < 40) {
         player.takeDamage(1);
         this.reloadFrames = ENEMY_VENOMDOG_RELOAD_FRAMES;
       }
