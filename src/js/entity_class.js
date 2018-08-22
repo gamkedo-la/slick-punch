@@ -39,9 +39,6 @@ const BOX_HEALTH = 0.5;
 //Manages the list of entity
 let entityList = []; 
 
-var jumping, moving_left, moving_right, falling_down;
-
-
 function entityClass() {
 	//Need to check which variables are used outside and only expose them in code. 
   this.pos = vector.create(75, 75);
@@ -205,6 +202,7 @@ entityClass.prototype.addEntityToWorldTile = function() {
 	console.log("NO" + this.name + "START FOUND!");
 }
 
+//x,y -> leftmost top, topmost point 
 entityClass.prototype.setInitialBoundingBox = function(width, height){
   this.boundingBox.width = width;
   this.boundingBox.height = height;
@@ -227,18 +225,15 @@ entityClass.prototype.setWorldPhysics = function(){
   }
 }
 
-entityClass.prototype.getCurrentEntityConstants = function(){
-   jumping = this.speed.getY() < 0;
-   moving_left = this.speed.getX() < 0;
-   moving_right = this.speed.getX() > 0;
-   falling_down = this.speed.getY() > 0 && !this.state[ON_PLATFORM];
-}
-
 entityClass.prototype.entityPlatformHandling = function(){
    //Checking if player is falling or jumping.
    //Get bounding box border coordinates and perform the same functionality for each point
-   
-   this.getCurrentEntityConstants();
+   const jumping = this.speed.getY() < 0;
+   const moving_left = this.speed.getX() < 0;
+   const moving_right = this.speed.getX() > 0;
+   const falling_down = this.speed.getY() > 0 && !this.state[ON_PLATFORM];
+
+   //check collision bug that allows wall climbing. Shoudn't occur
 
    if (jumping &&
     (isPlatformAtPixelCoord(this.pos.getX() + this.boundingBox.width/2, this.pos.getY() - this.boundingBox.height / 2) ||
