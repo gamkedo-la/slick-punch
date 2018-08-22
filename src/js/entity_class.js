@@ -10,7 +10,6 @@ const PLAYER_COLLISION_PADDING = 5;
 //constants created instead of just texts to make sure no one 
 //mispells and assigns different state
 const ON_GROUND = 'isOnGround';
-const ON_PLATFORM = 'isOnPlatform';
 const IDLE = 'isIdle';
 const IN_MOTION = 'isInMotion';
 const MOVING_LEFT = 'isMovingLeft';
@@ -214,10 +213,10 @@ entityClass.prototype.setWorldPhysics = function(){
     this.speed.x *= GROUND_FRICTION;
     this.speed.setX(this.speed.x * GROUND_FRICTION);
   }
-  if (this.state[ON_GROUND] || this.state[ON_PLATFORM]) {
+  if (this.state[ON_GROUND]) {
     this.doubleJumpCount = 0;
   }
-  else if (!this.state[ON_PLATFORM]) {
+  else if (!this.state[ON_GROUND]) {
     // in the air
     this.speed.setX(this.speed.getX() * AIR_RESISTANCE);
     this.speed.setY(this.speed.getY() + GRAVITY);
@@ -231,7 +230,7 @@ entityClass.prototype.entityPlatformHandling = function(){
    const jumping = this.speed.getY() < 0;
    const moving_left = this.speed.getX() < 0;
    const moving_right = this.speed.getX() > 0;
-   const falling_down = this.speed.getY() > 0 && !this.state[ON_PLATFORM];
+   const falling_down = this.speed.getY() > 0;
 
    //check collision bug that allows wall climbing. Shoudn't occur
 
@@ -247,7 +246,7 @@ entityClass.prototype.entityPlatformHandling = function(){
      (isPlatformAtPixelCoord(this.pos.getX()  + this.boundingBox.width/2, this.pos.getY() + this.boundingBox.height / 2 - PLAYER_COLLISION_PADDING * 2) || 
       isPlatformAtPixelCoord(this.pos.getX()  - this.boundingBox.width/2, this.pos.getY() + this.boundingBox.height / 2 - PLAYER_COLLISION_PADDING * 2))) {
         
-        
+
         this.pos.setY((1 + Math.floor(this.pos.getY() / WORLD_H)) * WORLD_H - this.boundingBox.height / 2 + PLAYER_COLLISION_PADDING); 
         this.setStateValueTo(ON_GROUND, true);
         this.speed.setY(0);

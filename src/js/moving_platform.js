@@ -186,48 +186,25 @@ function Platform(type, platformWidth, startCol, startRow, endCol, endRow) {
    }
 
    //Sideways collision
-  if (moving_left){
-    if(entity.boundingBox.x < platformBBox.x + platformBBox.width &&
-      entity.boundingBox.y +  entity.boundingBox.height  > platformBBox.y + platformBBox.height &&
-      entity.boundingBox.y  < platformBBox.y
+   if (moving_left){
+     if(entity.boundingBox.x < platformBBox.x + platformBBox.width &&
+       entity.boundingBox.y +  entity.boundingBox.height  > platformBBox.y + platformBBox.height &&
+       entity.boundingBox.y  < platformBBox.y
        ){
-        entity.speed.setX(0);
-        entity.pos.setX(platformBBox.x + platformBBox.width + 5);
-    }
-  }
+         entity.speed.setX(0);
+         entity.pos.setX(platformBBox.x + platformBBox.width + 5);
+     }
+   }
 
-
- else if (moving_right){
-    if(entity.boundingBox.x + entity.boundingBox.width > platformBBox.x  &&
-      entity.boundingBox.y +  entity.boundingBox.height  > platformBBox.y + platformBBox.height &&
-      entity.boundingBox.y  < platformBBox.y
-      ){
-        entity.speed.setX(0);
-        entity.pos.setX(platformBBox.x - 10);
-    }
-  }
-
-
-
-    // check if the entity is to the right or left of the platform
-    // if (entity.boundingBox.x < platformBBox.x || platformBBox.x + platformBBox.width < entity.boundingBox.x + entity.boundingBox.width) {
-    //  return;
-    // }
-
-    // // check if the entity is (too far) above or below the platform
-    // if (entity.boundingBox.y + entity.boundingBox.height < platformBBox.y - 2 || platformBBox.y + 2 < entity.boundingBox.y + entity.boundingBox.height) {
-    //  return;
-    // }
-
-    //   entity.state[ON_GROUND] = true;
-    // var movingSpeedX = 0;
-    // if (entity.state[IN_MOTION]) {
-    //  movingSpeedX = entity.speed.getX();
-    // }
-    // entity.speed.setX(movingSpeedX + direction.getX());
-    // entity.speed.setY(direction.getY());
-
-    // return true;
+   else if (moving_right){
+     if(entity.boundingBox.x + entity.boundingBox.width > platformBBox.x  &&
+       entity.boundingBox.y +  entity.boundingBox.height  > platformBBox.y + platformBBox.height &&
+       entity.boundingBox.y  < platformBBox.y
+       ){
+         entity.speed.setX(0);
+         entity.pos.setX(platformBBox.x - 10);
+     }
+   }
   };
 }
 
