@@ -34,12 +34,12 @@ window.onload = function () {
 function imageLoadingDoneSoStartGame() {
 	setInterval(updateAll, 1000 / FRAMES_PER_SECOND);
 	setupInput();
-	loadLevel(levelOne);
+	loadLevel(STARTING_LEVEL); // see level.js
 }
 
 function spawnFlyingEnemies() {
 	flyingEnemies = [];
-	if(SHOW_ENTITY_DEBUG) {
+	if (SHOW_ENTITY_DEBUG) {
 		console.log("Spawning flying enemies...");
 	}
 	// spawn flying enemies by scanning the level data
@@ -56,17 +56,17 @@ function spawnFlyingEnemies() {
 			}
 		}
 	}
-	if(SHOW_ENTITY_DEBUG) {
+	if (SHOW_ENTITY_DEBUG) {
 		console.log("Flying enemies spawned: " + spawnCounter);
 	}
 }
 
 function loadLevel(whichLevel) {
 	worldGrid = whichLevel.slice();
-  if(player_checkpoint_index != -1){
-    worldGrid[worldGrid.indexOf(WORLD_PLAYERSTART)] = -1;
-    worldGrid[player_checkpoint_index] = WORLD_PLAYERSTART;
-  }
+	if (player_checkpoint_index != -1) {
+		worldGrid[worldGrid.indexOf(WORLD_PLAYERSTART)] = -1;
+		worldGrid[player_checkpoint_index] = WORLD_PLAYERSTART;
+	}
 	platformList.parseWorld();
 	entityList = [];
 	player.init(playerPic, "Player");
@@ -74,20 +74,19 @@ function loadLevel(whichLevel) {
 	// venomDog.init(venomDogIdle, "Venom Dog");
 	// box.init(crateBoxPic, "Box");
 	// slimeDrip.init(slimeBallDripAnim, "Slime Drip");
-  //slimeBall.init(crateBoxPic, "Box");
-  intializeCollidableObjects();
+	//slimeBall.init(crateBoxPic, "Box");
+	intializeCollidableObjects();
 	score = 0;
 	// spawnFlyingEnemies();
 	timeRemaining = timeLimit;
 }
 
 function updateAll() {
-  if(!pause)
-    {
-     moveAll();
-	 drawAll();
-	 particles.update();
-    }
+	if (!pause) {
+		moveAll();
+		drawAll();
+		particles.update();
+	}
 }
 
 function moveAll() {
@@ -98,16 +97,16 @@ function moveAll() {
 		cameraFollow();
 		// enemy.move();
 		// if (!enemy.remove) {
-			// enemy.move();
+		// enemy.move();
 		// }
 		for (var i = 0; i < entityList.length; i++) {
 			entityList[i].move();
 			if (entityList[i].removeMe) {
-				entityList.splice(i,1);
+				entityList.splice(i, 1);
 			}
 		}
 		platformList.update();
-    updateItemList();
+		updateItemList();
 	}
 }
 
@@ -139,8 +138,8 @@ function drawAll() {
 			if (tileCollisionRect != undefined) {
 				strokedRect(tileCollisionRect.x, tileCollisionRect.y, tileCollisionRect.width, tileCollisionRect.height, "2", "green");
 			}
-			for(var i = 0; i < itemArr.length; i++ ){
-        boundingBox = itemArr[i].boundingBox;
+			for (var i = 0; i < itemArr.length; i++) {
+				boundingBox = itemArr[i].boundingBox;
 				strokedRect(boundingBox.x, boundingBox.y, boundingBox.width, boundingBox.height, "2", "blue");
 			}
 		}
@@ -159,8 +158,8 @@ function startGame() {
 	// timeElapsedInSeconds = 0;
 	frameCount = 0;
 	gameRunning = true;
-  deepdarkMusic.pauseSound();
-  slickPunchJamMusic.loopSong();
+	deepdarkMusic.pauseSound();
+	slickPunchJamMusic.loopSong();
 	// loadAndPlayNewBackgroundSong();
 	// console.log(whichSong.src);
 }
