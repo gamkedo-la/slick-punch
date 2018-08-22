@@ -104,7 +104,7 @@ function loadImages() {
     //Tilesheet
     { varName: platformTileSet, theFile: "platformTileSet.png" },
     { varName: slickTileSet, theFile: "slickTileset2.png" },
-		{ varName: brickWithSlimeTileSet, theFile: "brickWithSlimeTileSet.png"},
+		{ varName: brickWithSlimeTileSet, theFile: "brickwithslime.png"},
     { varName: deathZone, theFile: "deathZone.png" },
 
     //Destroyable Objects
