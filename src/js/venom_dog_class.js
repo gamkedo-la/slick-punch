@@ -252,6 +252,10 @@ function venomDogClass(x, y) {
     }
     */
 
+    // this code looks backwards, but it is just to match the dog sprite art which faces left by default
+    this.state.isMovingLeft = this.speed.x > 0; // flips sprite if needed
+    this.state.isMovingRight = (!this.state.isMovingLeft);
+
     //final drawing of sprite.
     if (this.spriteAnim != null) {
       //TODO :Change this.frameRow and used it for animating consilated spritesheet of player character
