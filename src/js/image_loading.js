@@ -5,6 +5,7 @@ const playerPunchAnim = document.createElement("img");
 const playerWalkAnim = document.createElement("img");
 const playerLeftJabAnim = document.createElement("img");
 const scrollBackground = document.createElement("img");
+const scrollBackground2 = document.createElement("img");
 const playerWalkJumpAnim = document.createElement("img");
 const playerIdleJumpAnim = document.createElement("img");
 const playerHighKickAnim = document.createElement("img");
@@ -67,7 +68,7 @@ function beginLoadingImage(imgObj) {
 	console.log('start', iii--, imgObj.theFile);
 	imgObj.varName.onload = countLoadedImagesAndLaunchIfReady.bind(this, imgObj.theFile);
 	imgObj.varName.src = "src/images/" + imgObj.theFile;
-  
+
 }
 
 function loadImageForTrackCode(trackCode, fileName) {
@@ -133,6 +134,7 @@ function loadImages() {
 		{ varName: goal, theFile: "goal.png", width: 35, height: 35},
     //MenuBackground
     { varName: scrollBackground, theFile: "background.png", width: 35, height: 35},
+		{ varName: scrollBackground2, theFile: "arenal.png", width: 35, height: 35},
     { varName: menuBackground, theFile: "menuImage.png", width: 35, height: 35},
 		{ varName: menuBackgroundEmpty, theFile: "menuBackgroundEmpty.png", width: 35, height: 35},
 		//Heart images
@@ -153,6 +155,6 @@ function loadImages() {
 	for (var i = 0; i < imageList.length; i++) {
 		if (imageList[i].varName != undefined) {
 			beginLoadingImage(imageList[i]);
-		} 
+		}
 	}
 }
