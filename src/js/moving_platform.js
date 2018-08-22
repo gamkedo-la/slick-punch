@@ -77,13 +77,15 @@ var platformList = new (function() {
 	this.checkCollisions = function(entity) {
 		for (var p = platforms.length - 1; 0 <= p; p--) {
 			if (platforms[p].checkCollision(entity)) {
-				entity.setStateValueTo(ON_PLATFORM, true);
-				entity.setStateValueTo(ON_GROUND, true);
-				return true;
-			}
+        platforms[p].collisionEffect(entity);
+        entity.setStateValueTo(ON_PLATFORM, true);
+        entity.setStateValueTo(ON_GROUND, true);
+			} else {
+        entity.setStateValueTo(ON_PLATFORM, false);
+      }
 		}
 
-		entity.setStateValueTo(ON_PLATFORM, false);
+		
 	};
 });
 
@@ -156,47 +158,38 @@ function Platform(type, platformWidth, startCol, startRow, endCol, endRow) {
 	};
 
 	this.checkCollision = function(entity) {
-		var platformBBox = this.getBounds();
-    // console.log(platformBBox);
+     var platformBBox = this.getBounds();
+     return utils.rectIntersect(platformBBox, entity.boundingBox);
+  }
+
+  this.collisionEffect = function(entity){
+    var platformBBox = this.getBounds();
+
+    var newplatformBBox = Object.assign({},platformBBox);
+    newplatformBBox.height = newplatformBBox.height/4;    // console.log(platformBBox);
 
 
    var jumping = entity.speed.getY() < 0;
    var moving_left = entity.speed.getX() < 0;
    var moving_right = entity.speed.getX() > 0;
-   var falling_down = entity.speed.getY() > 0 && !entity.state[ON_PLATFORM];
+   var falling_down = entity.speed.getY() > 0 ;
 
    if (jumping && utils.rectIntersect(platformBBox, entity.boundingBox)) {
      // this.pos.setY((Math.floor(this.pos.getY() / WORLD_H)) * WORLD_H + this.boundingBox.height / 2);
       entity.speed.setY(0);
       entity.setStateValueTo(ON_GROUND, false);
    }
- 
-  // if (falling_down && utils.rectIntersect(platformBBox, entity.boundingBox)
-  //    ) {
-  //       entity.pos.setY((1 + Math.floor(entity.pos.getY() / WORLD_H)) * WORLD_H - entity.boundingBox.height / 2 + PLAYER_COLLISION_PADDING); 
-  //       // entity.setStateValueTo(ON_GROUND, true);
-  //       entity.speed.setY(0);
-  //       entity.state[ON_GROUND] = true;
-  //       var movingSpeedX = 0;
-  //       if (entity.state[IN_MOTION]) {
-  //        movingSpeedX = entity.speed.getX();
-  //       }
-  //       entity.speed.setX(movingSpeedX + direction.getX());
-  //     // entity.speed.setY(direction.getY());
+
+  // // //Sideways collision
+  // if (moving_right && utils.rectIntersect(platformBBox, entity.boundingBox && entity.state)
+  //   ){
+  //   console.log(platformBBox.x);
+  //   entity.pos.setX(platformBBox.x);
   // }
 
-
-  // //Sideways collision
-  // if (moving_left && 
-  //   (isPlatformAtPixelCoord(this.pos.getX() - this.boundingBox.width / 2, this.pos.getY() + this.boundingBox.height/4) ||
-  //   isPlatformAtPixelCoord(this.pos.getX() - this.boundingBox.width / 2, this.pos.getY() - this.boundingBox.height/4))){
-  //   this.pos.setX((Math.floor(this.pos.getX() / WORLD_W)) * WORLD_W + this.boundingBox.width / 2);
-  // }
-
-  // if (moving_right && 
-  //   (isPlatformAtPixelCoord(this.pos.getX() + this.boundingBox.width / 2, this.pos.getY() + this.boundingBox.height/4) ||
-  //    isPlatformAtPixelCoord(this.pos.getX() + this.boundingBox.width / 2, this.pos.getY() - this.boundingBox.height/4))) {
-  //   this.pos.setX((1 + Math.floor(this.pos.getX() / WORLD_W)) * WORLD_W - this.boundingBox.width / 2);
+  // if (moving_right && utils.rectIntersect(platformBBox, entity.boundingBox)){
+  //   entity.pos.setX((1 + Math.floor(entity.pos.getX() / WORLD_W)) * WORLD_W - entity.boundingBox.width / 2);
+  
   // }
 
   // //Pushing player if only one leg is on platform
@@ -225,24 +218,25 @@ function Platform(type, platformWidth, startCol, startRow, endCol, endRow) {
   //   }
 
 
-		// check if the entity is to the right or left of the platform
-		// if (entity.boundingBox.x < platformBBox.x || platformBBox.x + platformBBox.width < entity.boundingBox.x + entity.boundingBox.width) {
-		// 	return;
-		// }
+    // check if the entity is to the right or left of the platform
+    // if (entity.boundingBox.x < platformBBox.x || platformBBox.x + platformBBox.width < entity.boundingBox.x + entity.boundingBox.width) {
+    //  return;
+    // }
 
-		// // check if the entity is (too far) above or below the platform
-		// if (entity.boundingBox.y + entity.boundingBox.height < platformBBox.y - 2 || platformBBox.y + 2 < entity.boundingBox.y + entity.boundingBox.height) {
-		// 	return;
-		// }
+    // // check if the entity is (too far) above or below the platform
+    // if (entity.boundingBox.y + entity.boundingBox.height < platformBBox.y - 2 || platformBBox.y + 2 < entity.boundingBox.y + entity.boundingBox.height) {
+    //  return;
+    // }
 
-  //   entity.state[ON_GROUND] = true;
-		// var movingSpeedX = 0;
-		// if (entity.state[IN_MOTION]) {
-		// 	movingSpeedX = entity.speed.getX();
-		// }
-		// entity.speed.setX(movingSpeedX + direction.getX());
-		// entity.speed.setY(direction.getY());
+    //   entity.state[ON_GROUND] = true;
+    // var movingSpeedX = 0;
+    // if (entity.state[IN_MOTION]) {
+    //  movingSpeedX = entity.speed.getX();
+    // }
+    // entity.speed.setX(movingSpeedX + direction.getX());
+    // entity.speed.setY(direction.getY());
 
-		// return true;
-	};
+    // return true;
+  };
 }
+

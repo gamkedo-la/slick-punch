@@ -39,6 +39,9 @@ const BOX_HEALTH = 0.5;
 //Manages the list of entity
 let entityList = []; 
 
+var jumping, moving_left, moving_right, falling_down;
+
+
 function entityClass() {
 	//Need to check which variables are used outside and only expose them in code. 
   this.pos = vector.create(75, 75);
@@ -211,7 +214,7 @@ entityClass.prototype.setInitialBoundingBox = function(width, height){
 
 entityClass.prototype.setWorldPhysics = function(){
   if (this.state[ON_GROUND]) {
-    // this.speed.x *= GROUND_FRICTION;
+    this.speed.x *= GROUND_FRICTION;
     this.speed.setX(this.speed.x * GROUND_FRICTION);
   }
   else if (!this.state[ON_PLATFORM]) {
@@ -224,13 +227,18 @@ entityClass.prototype.setWorldPhysics = function(){
   }
 }
 
+entityClass.prototype.getCurrentEntityConstants = function(){
+   jumping = this.speed.getY() < 0;
+   moving_left = this.speed.getX() < 0;
+   moving_right = this.speed.getX() > 0;
+   falling_down = this.speed.getY() > 0 && !this.state[ON_PLATFORM];
+}
+
 entityClass.prototype.entityPlatformHandling = function(){
    //Checking if player is falling or jumping.
    //Get bounding box border coordinates and perform the same functionality for each point
-   const jumping = this.speed.getY() < 0;
-   const moving_left = this.speed.getX() < 0;
-   const moving_right = this.speed.getX() > 0;
-   const falling_down = this.speed.getY() > 0 && !this.state[ON_PLATFORM];
+   
+   this.getCurrentEntityConstants();
 
    if (jumping &&
     (isPlatformAtPixelCoord(this.pos.getX() + this.boundingBox.width/2, this.pos.getY() - this.boundingBox.height / 2) ||
