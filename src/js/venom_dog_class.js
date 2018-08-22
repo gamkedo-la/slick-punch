@@ -60,7 +60,8 @@ function venomDogClass(x, y) {
 
   // Animation generation. 
   this.idleAnim = new SpriteSheetClass(venomDogIdle, this.width, this.height, true, 2, 13); // 10 frames
-  this.walkAnim = new SpriteSheetClass(venomDogIdle, this.width, this.height, true, 2, 13); // 10 frames - FIXME: add walk anim
+  this.walkAnim = new SpriteSheetClass(venomDogIdle, this.width, this.height, true, 2, 13); // FIXME: add walk anim
+  this.biteAnim = new SpriteSheetClass(venomDogIdle, this.width, this.height, true, 2, 13); // FIXME: add bite anim
   this.frameRow = 0;
 
   //sets all values of state object to false
@@ -159,7 +160,7 @@ function venomDogClass(x, y) {
         this.currentAttackTicks = 0; // reset for next time
         this.changeState("isPatrolling"); // leave attacking state
       }
-      this.speed.x = (player.pos > this.pos ? VENOMDOG_ATTACK_SPEED : -VENOMDOG_ATTACK_SPEED);
+      this.speed.x = (player.pos.x > this.pos.x ? VENOMDOG_ATTACK_SPEED : -VENOMDOG_ATTACK_SPEED);
       if (distFromPlayer <= VENOMDOG_CANHITPLAYER_DIST) {
         console.log("venom dog successfully bit the player!");
         this.changeState("isPatrolling"); // leave attacking state
@@ -236,8 +237,17 @@ function venomDogClass(x, y) {
     }
 
     if (this.state['isPatrolling']) {
-      this.spriteAnim = this.walkAnim;
+      if (Math.abs(this.speed.x) > 0) {
+        this.spriteAnim = this.walkAnim;
+      } else {
+        this.spriteAnim = this.idleAnim;
+      }
     }
+
+    if (this.state['isAttacking']) {
+      this.spriteAnim = this.biteAnim;
+    }
+
 
     /*
     if (this.state['isIdle']) {
