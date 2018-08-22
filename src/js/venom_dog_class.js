@@ -25,7 +25,7 @@ function venomDogClass(x, y) {
   this.state = {
     'isFlying': false,
     'isOnGround': false,
-    'isIdle': true, // starting state
+    'isIdle': false, // starting state?
     'isInMotion': false,
     'isMovingLeft': false,
     'isCrouching': false,
@@ -34,7 +34,8 @@ function venomDogClass(x, y) {
     'isDefending': false,
     'isAnimating': false,
     'isHurt': false,
-    'isDead': false
+    'isDead': false,
+    'isPatrolling': true // walk back and forth horizontally, with stops at the ends
   };
 
   this.boundingBox = {}
@@ -52,6 +53,7 @@ function venomDogClass(x, y) {
 
   // Animation generation. 
   this.idleAnim = new SpriteSheetClass(venomDogIdle, this.width, this.height, true, 2, 13); // 10 frames
+  this.walkAnim = new SpriteSheetClass(venomDogIdle, this.width, this.height, true, 2, 13); // 10 frames - FIXME: add walk anim
   this.frameRow = 0;
 
   //sets all values of state object to false
@@ -117,7 +119,7 @@ function venomDogClass(x, y) {
       }
     }
 
-    if (this.state.isIdle) { // FIXME TODO
+    if (this.state.isPatrolling) { // walk back and forth horizontally with stops between direction changes
 
       var phaseOffset = this.spawnPoint.x * 5555 + this.spawnPoint.x * 3213; // randomish
       this.speed.x = Math.cos((performance.now() + phaseOffset) / VENOMDOG_SPEED_SCALE) * VENOMDOG_HORIZ_MAX_SPEED;
@@ -197,6 +199,9 @@ function venomDogClass(x, y) {
       this.spriteAnim = this.idleAnim;
     }
 
+    if (this.state['isPatrolling']) {
+      this.spriteAnim = this.walkAnim;
+    }
 
     /*
     if (this.state['isIdle']) {
