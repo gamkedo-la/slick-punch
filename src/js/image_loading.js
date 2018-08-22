@@ -30,6 +30,7 @@ const crateBoxAnim = document.createElement("img");
 const flyingEnemyAnim = document.createElement("img");
 const slickTileSet = document.createElement("img");
 const platformTileSet = document.createElement("img");
+const brickWithSlimeTileSet = document.createElement("img");
 const menuBackground = document.createElement("img");
 const menuBackgroundEmpty = document.createElement("img");
 const redKeyAnimation = document.createElement("img");
@@ -103,6 +104,7 @@ function loadImages() {
     //Tilesheet
     { varName: platformTileSet, theFile: "platformTileSet.png" },
     { varName: slickTileSet, theFile: "slickTileset2.png" },
+		{ varName: brickWithSlimeTileSet, theFile: "brickWithSlimeTileSet.png"},
     { varName: deathZone, theFile: "deathZone.png" },
 
     //Destroyable Objects
