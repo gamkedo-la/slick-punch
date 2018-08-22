@@ -71,6 +71,12 @@ function venomDogClass(x, y) {
     }
   };
 
+  this.changeState = function (key) {
+    this.setStateToFalse(); // clear others
+    //this.setStateValueTo(key, true); // doesnt work?
+    this.state[key] = true;
+  }
+
   this.resetHurt = function () {
     this.state.isHurt = false;
   }

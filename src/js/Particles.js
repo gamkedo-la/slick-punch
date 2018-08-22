@@ -175,6 +175,24 @@ function flyingEnemyDeathEffect(x, y) {
     sparksEffect(x, y);
 }
 
+function dogEnemyHitEffect(x, y) {
+    x -= 16; y += 64; // offset to match the sprite
+    for (var i = 0; i < 16; i++) {
+        particles.add(x + randomInt(0, 32) - 16, y + randomInt(0, 32) - 16, particlePic, randomInt(800, 1600), randomInt(24, 48), "rgb(0,255,255)", 0.1, 0, Math.random() * 2 - 1, Math.random() * 2 - 1);
+    }
+    sparksEffect(x, y);
+}
+
+function dogEnemyDeathEffect(x, y) {
+    x -= 16; y += 64; // offset to match the sprite
+    for (var i = 0; i < 8; i++) { // fire
+        particles.add(x + randomInt(0, 20) - 10, y + randomInt(0, 20) - 10, particlePic, randomInt(800, 1600), randomInt(24, 48), "rgb(" + randomInt(0, 130) + "," + randomInt(0, 50) + "," + randomInt(170, 255) + ")", 0.1, 0, Math.random() * 1 - 0.5, Math.random() * 1 - 0.5);
+    }
+    for (var i = 0; i < 8; i++) { // smoke
+        particles.add(x + randomInt(0, 32) - 16, y + randomInt(0, 32) - 16, particlePic, randomInt(800, 1600), randomInt(24, 48), "rgb(" + randomInt(0, 60) + "," + randomInt(0, 10) + "," + randomInt(0, 180) + ")", 0.1, 0, Math.random() * 4 - 2, Math.random() * 4 - 2);
+    }
+    sparksEffect(x, y);
+}
 function enemyHitEffect(x, y) {
     x -= 16; y += 64; // offset to match the sprite
     for (var i = 0; i < 16; i++) {
@@ -269,7 +287,7 @@ function collectibleEffect(x, y) {
 function extractAlphaFromCSSColour(str) { // eg rgba(255,255,255,0.5); // returns 0.5
     if (!str) return 1;
     var rgb = str.match(/[.?\d]+/g);
-    if(rgb == null) return 1;
+    if (rgb == null) return 1;
     if (rgb[3] == undefined) rgb[3] = 1;
     return rgb[3];
 }

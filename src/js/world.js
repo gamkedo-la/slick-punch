@@ -116,9 +116,7 @@ function intializeCollidableObjects() {
 				console.log('spawning a venom dog!');
 				var venomDog = new venomDogClass(drawTileX, drawTileY - (Math.ceil(WORLD_H / 2))); // not centered inside tile, nudged to be on TOP of tile floor
 				venomDog.init(venomDogIdle, "Venom Dog"); // so it gets remembered in entityList[]
-				venomDog.state.isPatrolling = true; // start walking immediately
-				// how do we unset other states? manually?
-				venomDog.state.isIdle = false;
+				venomDog.changeState('isPatrolling');
 			}
 
 			drawTileX += WORLD_W;
