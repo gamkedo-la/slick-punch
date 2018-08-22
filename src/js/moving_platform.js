@@ -80,8 +80,6 @@ var platformList = new (function() {
         platforms[p].collisionEffect(entity);
 			} 
 		}
-
-		
 	};
 });
 
@@ -166,12 +164,25 @@ function Platform(type, platformWidth, startCol, startRow, endCol, endRow) {
    var jumping = entity.speed.getY() < 0;
    var moving_left = entity.speed.getX() < 0;
    var moving_right = entity.speed.getX() > 0;
-   var falling_down = entity.speed.getY() > 0 ;
+   var falling_down = entity.speed.getY() > 0;
+
+   if (falling_down) {
+      if(entity.boundingBox.y + entity.boundingBox.height < platformBBox.y + platformBBox.height ){
+        // entity.speed.setY(0);
+         entity.pos.setY(platformBBox.y - platformBBox.height ); 
+         entity.setStateValueTo(ON_GROUND, true);
+      }
+      // entity.setStateValueTo(ON_PLATFORM, true);
+      console.log("Colliding with the top");
+   }
 
    if (jumping) {
       // entity.pos.setY((Math.floor(entity.pos.getY() / WORLD_H)) * WORLD_H + entity.boundingBox.height / 2);
-      entity.speed.setY(0);
-     console.log("Collidiing");
+      if(entity.boundingBox.y > platformBBox.y){
+        entity.speed.setY(0);
+        entity.pos.setY(platformBBox.y + platformBBox.height * 2);
+        console.log("Collidiing with the bottom");
+      }
    }
 
 

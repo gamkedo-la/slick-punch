@@ -93,8 +93,7 @@ entityClass.prototype.setStateToFalse = function (){
 //sets value of given key of state object to value passed
 entityClass.prototype.setStateValueTo = function (key, val){
 	if(this.state.hasOwnProperty(key)){
-		// console.log("Setting" + key + ":" + val);
-		this.state[key] = val;
+  		this.state[key] = val;
 	}
 };
 
@@ -215,14 +214,15 @@ entityClass.prototype.setWorldPhysics = function(){
     this.speed.x *= GROUND_FRICTION;
     this.speed.setX(this.speed.x * GROUND_FRICTION);
   }
+  if (this.state[ON_GROUND] || this.state[ON_PLATFORM]) {
+    this.doubleJumpCount = 0;
+  }
   else if (!this.state[ON_PLATFORM]) {
     // in the air
     this.speed.setX(this.speed.getX() * AIR_RESISTANCE);
     this.speed.setY(this.speed.getY() + GRAVITY);
   }
-  if (this.state[ON_GROUND] || this.state[ON_PLATFORM]) {
-	  this.doubleJumpCount = 0;
-  }
+ 
 }
 
 entityClass.prototype.entityPlatformHandling = function(){
