@@ -146,6 +146,19 @@ function placeTilesOnButtonPress() {
 		worldGrid[mouseIndex] = PICKUP;
 	}
 
+	if (keyHeld_Num1) {
+		worldGrid[mouseIndex] = BRICK_WITH_SLIME_1;
+	}
+	if (keyHeld_Num2) {
+		worldGrid[mouseIndex] = BRICK_WITH_SLIME_2;
+	}
+	if (keyHeld_Num3) {
+		worldGrid[mouseIndex] = BRICK_WITH_SLIME_3;
+	}
+	if (keyHeld_Num4) {
+		worldGrid[mouseIndex] = BRICK_WITH_SLIME_4;
+	}
+
 }
 
 const copyToClipboard = str => {

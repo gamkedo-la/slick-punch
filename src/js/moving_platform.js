@@ -173,7 +173,7 @@ function Platform(type, platformWidth, startCol, startRow, endCol, endRow) {
          entity.setStateValueTo(ON_GROUND, true);
       }
       // entity.setStateValueTo(ON_PLATFORM, true);
-      console.log("Colliding with the top");
+      // console.log("Colliding with the top");
    }
 
    else if (jumping) {
@@ -181,7 +181,7 @@ function Platform(type, platformWidth, startCol, startRow, endCol, endRow) {
       if(entity.boundingBox.y > platformBBox.y){
         entity.speed.setY(0);
         entity.pos.setY(platformBBox.y + platformBBox.height * 2);
-        console.log("Collidiing with the bottom");
+        // console.log("Collidiing with the bottom");
       }
    }
 

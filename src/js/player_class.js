@@ -209,7 +209,7 @@ playerClass.prototype.playerWorldHandling = function () {
         console.log("Checkpoint reached");
         // scorePickupSound.play();
     }
-    tileHere == INDICATOR_CHECKPOINT
+    // tileHere == INDICATOR_CHECKPOINT
   }
 }
 

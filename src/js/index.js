@@ -10,7 +10,7 @@ var score;
 var debug = false;
 var enemyObjArr = [];
 var gameRunning = false;
-var timeLimit = 600; //Level time limit in seconds. Set high for now to avoid running out of time while testing.
+var timeLimit = 99999999; //Level time limit in seconds. Set high for now to avoid running out of time while testing.
 var timeRemaining;
 //Might be redundant
 var timeStarted;
@@ -20,6 +20,7 @@ var frameCount = 0;
 const FRAMES_PER_SECOND = 60;
 
 var pause = false;
+var winScreen = false;
 
 window.onload = function () {
 	canvas = document.getElementById('gameCanvas');
@@ -34,7 +35,7 @@ window.onload = function () {
 function imageLoadingDoneSoStartGame() {
 	setInterval(updateAll, 1000 / FRAMES_PER_SECOND);
 	setupInput();
-	loadLevel(STARTING_LEVEL); // see level.js
+	loadLevel(STARTING_LEVEL);
 }
 
 function spawnFlyingEnemies() {
@@ -82,10 +83,22 @@ function loadLevel(whichLevel) {
 }
 
 function updateAll() {
-	if (!pause) {
+	if(winScreen) {
+		colorRect(0,0,canvas.width,canvas.height,"black");
+		colorText("You win!",canvas.width/2,canvas.height/2,"white",
+			"30px Arial",'center',1);
+		colorText("Click to reset",canvas.width/2,canvas.height-30,"white",
+			"20px Arial",'center',1);
+	} else if (!pause) {
 		moveAll();
 		drawAll();
 		particles.update();
+	} else {
+		drawAll();
+		colorText("- P A U S E D -",canvas.width/2+2,canvas.height/2+2,"black",
+			"30px Arial",'center',1);
+		colorText("- P A U S E D -",canvas.width/2,canvas.height/2,"white",
+			"30px Arial",'center',1);
 	}
 }
 
@@ -99,15 +112,38 @@ function moveAll() {
 		// if (!enemy.remove) {
 		// enemy.move();
 		// }
-		for (var i = 0; i < entityList.length; i++) {
+		var enemiesAlive = 0;
+		for (var i = entityList.length-1; i >= 0; i--) { // need to iterate backwards if ever splicing from it
 			entityList[i].move();
 			if (entityList[i].removeMe) {
 				entityList.splice(i, 1);
+			} else if(entityList[i].name != "Player" && entityList[i].state[DEAD] == false) {
+				enemiesAlive++;
 			}
 		}
 		platformList.update();
 		updateItemList();
+		if(enemiesAlive == 0 && enemiesAliveInLevel > 0) {
+			enterWinScreen();
+		}
 	}
+}
+
+function enterWinScreen() {
+	winScreen = true;
+	slickPunchJamMusic.pauseSound();
+	dilseMusic.loopSong();
+}
+
+function doneWithWinScreen() {
+	winScreen = false;
+	windowState.mainMenu = true;
+	gameRunning = false;
+	pause = false;
+	loadLevel(STARTING_LEVEL); // see level.js
+
+	dilseMusic.pauseSound();
+	deepdarkMusic.loopSong();
 }
 
 function drawAll() {
