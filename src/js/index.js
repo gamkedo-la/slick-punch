@@ -115,7 +115,7 @@ function drawAll() {
 		mainMenuStates();
 	}
 	else {
-		canvasContext.drawImage(scrollBackground2, 0, 0);
+		canvasContext.drawImage(scrollBackground, 0, 0);
 		canvasContext.save(); // needed to undo this .translate() used for scroll
 		// this next line is like subtracting camPanX and camPanY from every
 		// canvasContext draw operation up until we call canvasContext.restore
@@ -133,7 +133,7 @@ function drawAll() {
 		}
 
 		if (debug) {
-			strokedRect(player.boundingBox.x, player.boundingBox.y, player.boundingBox.width, player.boundingBox.height, "2", "yellow");
+			// strokedRect(player.boundingBox.x, player.boundingBox.y, player.boundingBox.width, player.boundingBox.height, "2", "yellow");
 			colorCircle(player.pos.x, player.pos.y, 2, "green");
 			if (tileCollisionRect != undefined) {
 				strokedRect(tileCollisionRect.x, tileCollisionRect.y, tileCollisionRect.width, tileCollisionRect.height, "2", "green");
