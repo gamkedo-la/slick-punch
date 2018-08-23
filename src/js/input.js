@@ -82,7 +82,6 @@ var keyHeld_Multiply = false;
 var keyHeld_Subtract = false;
 var keyHeld_Add = false;
 var keyHeld_Decimal = false;
-var keyHeld_Escape = false;
 
 var mouseX = 0, mouseY = 0;
 var clickWaiting = false;
@@ -175,6 +174,15 @@ function keyReleased(evt) {
 	keyHeld_Timer = KEY_HELD_TIME_MAX; 
 }
 
+function togglePause() {
+	pause = !pause;
+    if(pause) {
+    	slickPunchJamMusic.pauseSound();
+    } else {
+    	slickPunchJamMusic.startOrStopMusic();
+    }
+}
+
 function setValuesForKey(evt, value) {
 	// console.log("Key pressed: "+evt.keyCode);
 	var keyUsedByGame = true;
@@ -249,7 +257,9 @@ function setValuesForKey(evt, value) {
 		case "KeyP":
 			if(windowState.mainMenu){
 	  			startGame();
-	  		}	
+	  		} else if(value) { // only on press, not release
+				togglePause();
+			}
 			keyHeld_P = value;
 			break;
 		case "BracketLeft":
@@ -421,13 +431,9 @@ function setValuesForKey(evt, value) {
 			keyHeld_Decimal = value;
 			break;
 		case "Escape":
-			pause = !pause;
-            if(pause) {
-            	slickPunchJamMusic.pauseSound();
-            } else {
-            	slickPunchJamMusic.startOrStopMusic();
-            }
-			keyHeld_Escape = value;
+			if(value) { // only on press, not release
+				togglePause();
+			}
 			break;
 
 		default : 

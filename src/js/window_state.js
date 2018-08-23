@@ -138,39 +138,6 @@ function backToMainMenuFromCredits() {
 	windowState.mainMenu = true;
 }
 
-function togglePause(){
-    var levelIsInPlay = assaultMode || waveStarted || carnageStarted || twoPlayerMode;
-    if((!levelIsInPlay || windowState.help) && !orchestratorMode){
-		console.log(waveStarted, windowState.help, orchestratorMode, twoPlayerMode);	
-        console.log("no pause");
-        return;
-    }
-
-    isPaused = !isPaused;	
-    if(isPaused) {
-    	if(assaultMode || carnageStarted) {
-        clearInterval(gameDropshipSpawn);
-        clearInterval(gameGunshipSpawn);
-        clearInterval(gameProtectorSpawn);
-        clearInterval(gameMissileSpawn);
-    	}
-        showPausedScreen();
-        pauseSound.play();
-        clearInterval(gameUpdate);
-    } else {
-		gameUpdate = setInterval(update, 1000/30);
-		if (carnageStarted) {
-			gameDropshipSpawn = setInterval(dropshipSpawn, dropshipSpawnTimer);
-			gameGunshipSpawn = setInterval(gunshipSpawn, gunshipSpawnTimer);
-			gameProtectorSpawn = setInterval(protectionShipSpawn, protectionShipSpawnTimer);
-			gameMissileSpawn = setInterval(missileSpawn, missileSpawnTimer);
-		}
-        resumeSound.play();
-		timeStartedActive = new Date().getTime();
-    }
-}
-
-
 function tintScreen(){
     canvasContext.fillStyle = "black";
     canvasContext.globalAlpha = 0.2;

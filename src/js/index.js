@@ -86,6 +86,12 @@ function updateAll() {
 		moveAll();
 		drawAll();
 		particles.update();
+	} else {
+		drawAll();
+		colorText("- P A U S E D -",canvas.width/2+2,canvas.height/2+2,"black",
+			"30px Arial",'center',1);
+		colorText("- P A U S E D -",canvas.width/2,canvas.height/2,"white",
+			"30px Arial",'center',1);
 	}
 }
 

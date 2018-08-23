@@ -71,18 +71,20 @@ function drawHeartImage(heartImage, posFromEnd) {
 }
 
 function drawTimer() {
-	frameCount++
-	if (frameCount == FRAMES_PER_SECOND) {
-		timeRemaining--
-		if (timeRemaining == 0) {
-			player.state.isDead = true;
-			// player.takeDamage(this.attackPower);
-			setTimeout(player.resetGame.bind(player), 2000);
-		}
-		if(timeRemaining<0) {
-			timeRemaining = 0; // blocks showing negative
-		}
-		frameCount = 0;
-	} //end if
+	if(pause == false) {
+		frameCount++
+		if (frameCount == FRAMES_PER_SECOND) {
+			timeRemaining--
+			if (timeRemaining == 0) {
+				player.state.isDead = true;
+				// player.takeDamage(this.attackPower);
+				setTimeout(player.resetGame.bind(player), 2000);
+			}
+			if(timeRemaining<0) {
+				timeRemaining = 0; // blocks showing negative
+			}
+			frameCount = 0;
+		} //end if
+	}
 	colorText(timeRemaining, canvas.width / 2, 40, "yellow", "30px Tahoma");
 } // end func drawTimer()
