@@ -71,7 +71,7 @@ function loadLevel(whichLevel) {
 	platformList.parseWorld();
 	entityList = [];
 	player.init(playerPic, "Player");
-	// enemy.init(dumbEnemyWalkAnim, "Dumb Enemy");
+  //enemy.init(dumbEnemyWalkAnim, "Dumb Enemy");
 	// venomDog.init(venomDogIdle, "Venom Dog");
 	// box.init(crateBoxPic, "Box");
 	// slimeDrip.init(slimeBallDripAnim, "Slime Drip");

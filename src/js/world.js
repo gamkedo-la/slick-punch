@@ -123,7 +123,12 @@ function intializeCollidableObjects() {
 				var venomDog = new venomDogClass(drawTileX, drawTileY);
 				venomDog.init(venomDogIdle, "Venom Dog"); // so it gets remembered in entityList[]
 				venomDog.changeState('isPatrolling');
-			}
+			} /*else if (tileKindHere === WORLD_ENEMY_DUMB_START) {
+				console.log("spawning a dumb enemy....duuuuhhhh");
+				var dumbEnemy1 = new dumbEnemyClass(drawTileX, drawTileY);
+				console.log(dumbEnemy1.draw);
+				dumbEnemy1.init("IN_MOTION")
+			}*/
 
 			drawTileX += WORLD_W;
 			arrayIndex++;
