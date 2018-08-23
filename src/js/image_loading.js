@@ -30,7 +30,10 @@ const crateBoxAnim = document.createElement("img");
 const flyingEnemyAnim = document.createElement("img");
 const slickTileSet = document.createElement("img");
 const platformTileSet = document.createElement("img");
-const brickWithSlimeTileSet = document.createElement("img");
+const brickWithSlime1 = document.createElement("img");
+const brickWithSlime2 = document.createElement("img");
+const brickWithSlime3 = document.createElement("img");
+const brickWithSlime4 = document.createElement("img");
 const menuBackground = document.createElement("img");
 const menuBackgroundEmpty = document.createElement("img");
 const redKeyAnimation = document.createElement("img");
@@ -106,8 +109,11 @@ function loadImages() {
 		//Tilesheet
 		{ varName: platformTileSet, theFile: "platformTileSet.png" },
 		{ varName: slickTileSet, theFile: "slickTileset2.png" },
-		{ varName: brickWithSlimeTileSet, theFile: "brickwithslime.png" },
 		{ varName: deathZone, theFile: "deathZone.png" },
+		{ varName: brickWithSlime1, theFile: "brickwithslime1.png" },
+		{ varName: brickWithSlime2, theFile: "brickwithslime2.png" },
+		{ varName: brickWithSlime3, theFile: "brickwithslime3.png" },
+		{ varName: brickWithSlime4, theFile: "brickwithslime4.png" },
 
 		//Destroyable Objects
 		{ varName: diamondPickupAnim, theFile: "pickup.png", width: 35, height: 35 },

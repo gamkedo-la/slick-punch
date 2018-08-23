@@ -1,5 +1,5 @@
 
-//Convert all constant to enum 
+//Convert all constant to enum
 const WORLD_W = 35;
 const WORLD_H = 35;
 // const WORLD_W = 50;
@@ -64,6 +64,10 @@ const PLATFORM_UP = 42;
 const PLATFORM_DOWN = 43;
 const PLATFORM_DESTINATION = 49;
 const DEATH_ZONE = 50;
+const BRICK_WITH_SLIME_1 = 51;
+const BRICK_WITH_SLIME_2 = 52;
+const BRICK_WITH_SLIME_3 = 53;
+const BRICK_WITH_SLIME_4 = 54;
 var PLATFORM_SPEEDS = [];
 PLATFORM_SPEEDS[PLATFORM_RIGHT] = vector.create(1, 0);
 PLATFORM_SPEEDS[PLATFORM_LEFT] = vector.create(-1, 0);
@@ -81,12 +85,12 @@ const SLIME_DRIP = -10;
 const PLAYER_CHECKPOINT = -11;
 const INDICATOR_CHECKPOINT = -12;
 
-const slimeLeftBlobSprite = new SpriteSheetClass(slimeLeftBlobAnim, WORLD_W, WORLD_H, true, 8, 5); // 8 frames, 5 ticks 
+const slimeLeftBlobSprite = new SpriteSheetClass(slimeLeftBlobAnim, WORLD_W, WORLD_H, true, 8, 5); // 8 frames, 5 ticks
 const slimeMiddleBlobSprite = new SpriteSheetClass(slimeMiddleBlobAnim, WORLD_W, WORLD_H, true, 8, 20); // 8 frames
-const slimeRightBlobSprite = new SpriteSheetClass(slimeRightBlobAnim, WORLD_W, WORLD_H, true, 8, 5); // 8 frames, 5 ticks 
-const diamondSprite = new SpriteSheetClass(diamondPickupAnim, WORLD_W / 2, WORLD_H / 2, true, 2, 18); // 2 frames, 18 ticks 
-const redKeySprite = new SpriteSheetClass(redKeyAnimation, 32, 32, true, 2, 18); // 2 frames, 18 ticks 
-const greenKeySprite = new SpriteSheetClass(greenKeyAnimation, 32, 32, true, 2, 18); // 2 frames, 18 ticks 
+const slimeRightBlobSprite = new SpriteSheetClass(slimeRightBlobAnim, WORLD_W, WORLD_H, true, 8, 5); // 8 frames, 5 ticks
+const diamondSprite = new SpriteSheetClass(diamondPickupAnim, WORLD_W / 2, WORLD_H / 2, true, 2, 18); // 2 frames, 18 ticks
+const redKeySprite = new SpriteSheetClass(redKeyAnimation, 32, 32, true, 2, 18); // 2 frames, 18 ticks
+const greenKeySprite = new SpriteSheetClass(greenKeyAnimation, 32, 32, true, 2, 18); // 2 frames, 18 ticks
 const blueKeySprite = new SpriteSheetClass(blueKeyAnimation, 32, 32, true, 2, 18); // 2 frames, 18 ticks
 /*const blueKeySprite = new SpriteSheetClass(blueKeyAnimation, 32, 32, true, 2, 60); // 2 frames, 60 ticks*/ // same as above?
 
@@ -99,7 +103,7 @@ function intializeCollidableObjects() {
 			var arrayIndex = rowColToArrayIndex(eachCol, eachRow);
 			var tileKindHere = worldGrid[arrayIndex];
 
-			// spawn dangerous tiles 
+			// spawn dangerous tiles
 			if (tileHarms(tileKindHere) || isPickable(tileKindHere) || tileIsDoor(tileKindHere)) {
 
 				itemArr.push(new ItemClass(drawTileX,
@@ -207,7 +211,7 @@ function drawWorld() {
 		for (var eachCol = 0; eachCol < WORLD_COLS; eachCol++) {
 			var arrayIndex = rowColToArrayIndex(eachCol, eachRow);
 			var tileKindHere = worldGrid[arrayIndex];
-			//converting to see what this tile kind here index means 
+			//converting to see what this tile kind here index means
 			//Used for TIleset
 			var tilesetRow = tileKindHere > 0 ? Math.floor(tileKindHere / 3) : 0;
 			var tilesetCol = tileKindHere > 0 ? Math.floor(tileKindHere % 3) : 0; //Here 3 is columns in tileset
@@ -239,6 +243,18 @@ function drawWorld() {
 					}
 					if (tileKindHere == INDICATOR_CHECKPOINT) {
 						canvasContext.drawImage(checkpointIndicPic, drawTileX, drawTileY);
+					}
+					if (tileKindHere == BRICK_WITH_SLIME_1) {
+						canvasContext.drawImage(brickWithSlime1, drawTileX, drawTileY);
+					}
+					if (tileKindHere == BRICK_WITH_SLIME_2) {
+						canvasContext.drawImage(brickWithSlime2, drawTileX, drawTileY);
+					}
+					if (tileKindHere == BRICK_WITH_SLIME_3) {
+						canvasContext.drawImage(brickWithSlime3, drawTileX, drawTileY);
+					}
+					if (tileKindHere == BRICK_WITH_SLIME_4) {
+						canvasContext.drawImage(brickWithSlime4, drawTileX, drawTileY);
 					}
 					else {
 						canvasContext.drawImage(slickTileSet,
