@@ -98,6 +98,7 @@ function intializeCollidableObjects() {
 	var arrayIndex = 0;
 	var drawTileX = 0;
 	var drawTileY = 0;
+	itemArr = []; // emptying array before filling in
 	for (var eachRow = 0; eachRow < WORLD_ROWS; eachRow++) {
 		for (var eachCol = 0; eachCol < WORLD_COLS; eachCol++) {
 			var arrayIndex = rowColToArrayIndex(eachCol, eachRow);
@@ -105,7 +106,6 @@ function intializeCollidableObjects() {
 
 			// spawn dangerous tiles
 			if (tileHarms(tileKindHere) || isPickable(tileKindHere) || tileIsDoor(tileKindHere)) {
-
 				itemArr.push(new ItemClass(drawTileX,
 					drawTileY,
 					WORLD_W,

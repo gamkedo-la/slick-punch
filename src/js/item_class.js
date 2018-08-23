@@ -72,17 +72,17 @@ ItemClass.prototype.setName = function () {
 	}
 
   if (this.tileKindHere == DOOR_RED) {
-    console.log("Name set");
+    // console.log("Name set");
     return RED_DOOR_TEXT;
   }
 
   if (this.tileKindHere == DOOR_BLUE) {
-    console.log("Name set");
+    // console.log("Name set");
     return BLUE_DOOR_TEXT;
   }
 
   if (this.tileKindHere == DOOR_LOWER) {
-    console.log("Name set");
+    // console.log("Name set");
     return LOWER_DOOR_TEXT;
   }
 }
@@ -91,35 +91,35 @@ ItemClass.prototype.returnEffect = function () {
 	// debug info works great but spams the log every frame and kills my vidual studio
 	//console.log("You touched" + this.name); 
 	if (this.name == SLIME_TEXT) {
-    console.log("Player hurt by a Slime");
+    // console.log("Player hurt by a Slime");
     player.takeDamage(2);
     player.keyHeld_Jump = true;
     setTimeout(function(){player.keyHeld_Jump = true;}, 500);
 	}
 
 	if (this.name == WEBS_TEXT) {
-     console.log("Player hurt by a webs");
+    // console.log("Player hurt by a webs");
     player.takeDamage(1);
     player.keyHeld_Jump = true;
     setTimeout(function(){player.keyHeld_Jump = true;}, 500);
 	}
 
 	if (this.name == THORNS_TEXT) {
-    console.log("Player hurt by a thorns");
+    // console.log("Player hurt by a thorns");
     player.takeDamage(2);
     player.keyHeld_Jump = true;
     setTimeout(function(){player.keyHeld_Jump = true;}, 500);
 	}
 
 	if (this.name == "Vines") {
-    console.log("Player hurt by a vines");
+    // console.log("Player hurt by a vines");
     player.takeDamage(2);
     player.keyHeld_Jump = true;
     setTimeout(function(){player.keyHeld_Jump = true;}, 500);
 	}
 
 	if (this.name == DIAMOND_TEXT) {
-		console.log("Diamond touched! Gaining health.");
+		// console.log("Diamond touched! Gaining health.");
 		player.health++;
 		worldGrid[this.worldIndex] = -1;
 		scorePickupSound.play();
