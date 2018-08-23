@@ -63,7 +63,7 @@ var picsToLoad = 0; // set automatically based on imageList in loadImages()
 
 function countLoadedImagesAndLaunchIfReady(f) {
 	picsToLoad--;
-	console.log(picsToLoad, f);
+	// console.log(picsToLoad, f);
 	if (picsToLoad == 0) {
 		imageLoadingDoneSoStartGame();
 	}
@@ -71,7 +71,7 @@ function countLoadedImagesAndLaunchIfReady(f) {
 
 var iii = 46;
 function beginLoadingImage(imgObj) {
-	console.log('start', iii--, imgObj.theFile);
+	// console.log('start', iii--, imgObj.theFile);
 	imgObj.varName.onload = countLoadedImagesAndLaunchIfReady.bind(this, imgObj.theFile);
 	imgObj.varName.src = "src/images/" + imgObj.theFile;
 

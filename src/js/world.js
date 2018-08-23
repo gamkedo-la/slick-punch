@@ -11,6 +11,8 @@ var tileCollisionRect; // Used for displaying currently colliding rect
 var frameRow = 0;
 var worldGrid = [];
 var currentLevel = 1; // This needs to get incremented every time a level is completed
+var enemiesAliveInLevel = 0;
+
 const WORLD_BACKGROUND = -1;
 const DOUBLE_PLATFORM_LEFT_TOP = 0;
 const DOUBLE_PLATFORM_MIDDLE_TOP = 1;
@@ -128,6 +130,13 @@ function intializeCollidableObjects() {
 		} // end of for each col
 		drawTileY += WORLD_H;
 		drawTileX = 0;
+	}
+
+	enemiesAliveInLevel = 0;
+	for (var i = entityList.length-1; i >= 0; i--) { // need to iterate backwards if ever splicing from it
+		if (entityList[i].removeMe == false  && entityList[i].name != "Player" && entityList[i].state[DEAD] == false) {
+			enemiesAliveInLevel++;
+		}
 	}
 }
 

@@ -123,6 +123,9 @@ function setupInput() {
 
 function catchMouseInput() {
 	clickWaiting = true;
+	if(winScreen) {
+		doneWithWinScreen();
+	}
 }
 function releaseMouseInput() {
 	clickWaiting = false;
