@@ -39,21 +39,21 @@ function mainMenuStates() {
 		var creditsNameFont = "bold 12px Tahoma";
 		var creditsLines = [
 "Vignesh Ramesh: Lead, concept, main gameplay code, most animations, environment, score, pickups, scrolling, boss song and menu music, menu code, AI",
-"Christer \"McFunkypants\" Kaitila: Tuning adjustments, flying enemy, particles",
+"Christer \"McFunkypants\" Kaitila: Venom dog AI, tuning adjustments, flying enemy, particles, collision fix",
 "Brian Boucher: Hearts health meter, countdown timer, crouch fix, limited double jump",
 "Zak Ali: Alien vine, spike tile, punch sound, initial sound integration",
 "Kise: Venom dog, kick animation, landing sound",
-"Brandon Trumpold: Eerie song, jump sound, bug fixing for audio and animation",
+"Brandon Trumpold: Level editor, eerie song, jump sound, bug fixing for audio and animation",
 "Caspar \"SpadXIII\" Dunant: Collision improvements, moving platforms",
 "Terrence McDonnell: Slime drip, additional sprite sheet code",
-"Stebs: Fight song and miniboss song, music randomizer",
+"Stebs: Volcano background, slime brick, fight song and miniboss song, music randomizer",
+"Chris DeLeon: Credits entry, mouse menu code, minor bug fixing, win screen",
 "Asix Jin: Game over music",
 "Oasis Rim: Ogre attack animation",
 "Jaime Rivas: Jump and kick sounds",
 "Chris Markle: Game Over sound",
 "pseudoLudo: Pause functionality",
-"Eugene Meidinger: Damage from slime",
-"Chris DeLeon: Credits entry, mouse menu code, minor bug fixing"
+"Eugene Meidinger: Damage from slime"
 		];
 		for(var i=0;i<creditsLines.length;i++) {
 			var creditor = creditsLines[i].split(":");
