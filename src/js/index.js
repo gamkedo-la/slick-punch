@@ -6,11 +6,13 @@ var player = new playerClass();
 // var slimeDrip = new slimeDripClass();
 window.player = player;
 
+const WIN_EDGE_X = 790; // walking past this x counts as advancing to next area
+
 var score;
 var debug = false;
 var enemyObjArr = [];
 var gameRunning = false;
-var timeLimit = 99999999; //Level time limit in seconds. Set high for now to avoid running out of time while testing.
+var timeLimit = 30; //Level time limit in seconds. Set high for now to avoid running out of time while testing.
 var timeRemaining;
 //Might be redundant
 var timeStarted;
@@ -158,14 +160,19 @@ function moveAll() {
 		}
 		platformList.update();
 		updateItemList();
-		if(enemiesAlive == 0 && enemiesAliveInLevel > 0) {
-			currentLevel++;
-			if(currentLevel < levelSet.length) {
-				loadLevel(levelSet[currentLevel]);
-			} else {
-				enterWinScreen();
-			}
+		if(player.pos.x > WIN_EDGE_X || // walked off right edge to next area?
+			(enemiesAlive == 0 && enemiesAliveInLevel > 0)) { // there are enemies and all are defeated?
+			nextLevelOrWin();
 		}
+	}
+}
+
+function nextLevelOrWin() {
+	currentLevel++;
+	if(currentLevel < levelSet.length) {
+		loadLevel(levelSet[currentLevel]);
+	} else {
+		enterWinScreen();
 	}
 }
 
