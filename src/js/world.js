@@ -123,6 +123,11 @@ function intializeCollidableObjects() {
 				var venomDog = new venomDogClass(drawTileX, drawTileY);
 				venomDog.init(venomDogIdle, "Venom Dog"); // so it gets remembered in entityList[]
 				venomDog.changeState('isPatrolling');
+			} else if (tileKindHere == WORLD_FLYING_ENEMY) {
+				console.log('spawning a flying enemy!');
+				var flyingEnemy = new flyingEnemyClass(drawTileX, drawTileY);
+				flyingEnemy.spriteAnim = flyingEnemy.flyingAnim;
+				flyingEnemy.init(flyingEnemyAnim, "Flying Enemy"); // so it gets remembered in entityList[]
 			} /*else if (tileKindHere === WORLD_ENEMY_DUMB_START) {
 				console.log("spawning a dumb enemy....duuuuhhhh");
 				var dumbEnemy1 = new dumbEnemyClass(drawTileX, drawTileY);

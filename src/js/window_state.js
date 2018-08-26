@@ -47,7 +47,7 @@ function mainMenuStates() {
 "Caspar \"SpadXIII\" Dunant: Collision improvements, moving platforms",
 "Terrence McDonnell: Slime drip, additional sprite sheet code",
 "Stebs: Volcano background, slime brick, fight song and miniboss song, music randomizer, level design (1)",
-"Chris DeLeon: Credits entry, mouse menu code, minor bug fixing, win screen",
+"Chris DeLeon: Credits entry, mouse menu code, minor bug fixing, win screen, level sequence code",
 "Asix Jin: Game over music",
 "Oasis Rim: Ogre walk and attack animation (win screen)",
 "Jaime Rivas: Jump and kick sounds, battle mage boss animations (win screen)",

@@ -119,12 +119,11 @@ function flyingEnemyClass(x, y) {
             }
         }
 
-        if (this.state.isFlying) {
-
+        //if (this.state.isFlying) {
             var phaseOffset = this.spawnPoint.x * 5555 + this.spawnPoint.x * 3213; // randomish
             this.speed.x = Math.cos((performance.now() + phaseOffset) / FLYING_SPEED_SCALE) * FLYING_HORIZ_MAX_SPEED;
             this.speed.y = Math.sin((performance.now() + phaseOffset) / FLYING_SPEED_SCALE) * FLYING_VERT_MAX_SPEED;
-
+            /*
         }
         else { // probably isDead
 
@@ -132,7 +131,7 @@ function flyingEnemyClass(x, y) {
             this.speed.y = 0;
             this.doubleJumpCount = 0;
 
-        }
+        }*/
 
         /*
         // Checking collisions
@@ -216,3 +215,5 @@ function flyingEnemyClass(x, y) {
     }
 } // flyingEnemy Class
 
+
+flyingEnemyClass.prototype = Object.create(entityClass.prototype); // inherit the ini() function etc

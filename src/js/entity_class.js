@@ -158,6 +158,10 @@ entityClass.prototype.init = function (whichImage, playerName) {
       this.valueInWorldIndex = WORLD_VENOM_DOG;
       this.health = ENEMY_VENOM_DOG_HEALTH;
       break;
+    case "Flying Enemy":
+      this.valueInWorldIndex = WORLD_FLYING_ENEMY;
+      this.health = 1;
+      break;
     case "Box":
       this.valueInWorldIndex = CRATE;
       this.health = BOX_HEALTH;
