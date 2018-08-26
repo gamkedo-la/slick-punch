@@ -74,20 +74,20 @@ dumbEnemyClass.prototype.move = function () {
       this.setStateValueTo(IDLE, true);
       this.setStateValueTo(ATTACKING, false);
     } 
-    // else if (this.keyHeld_Attack) {
-    //   player.takeDamage(this.attackPower);
-    //   this.reloadFrames = ENEMY_DUMB_RELOAD_FRAMES;
-    //   this.setStateValueTo(IDLE, false);
-    //   this.setStateValueTo(IN_MOTION, false);
-    //   this.setStateValueTo(ATTACKING, true);
-    //   kickSound.play();
-    //   this.boundingBox.width = this.width / 2.5;
-    //   this.boundingBox.x = this.pos.x - this.boundingBox.width / 2;
-    //   console.log("Bounding box changed.")
-    // }
-    // else {
-    //   this.setStateValueTo(ATTACKING, false);
-    // }
+    else if (this.keyHeld_Attack) {
+      player.takeDamage(this.attackPower);
+      this.reloadFrames = ENEMY_DUMB_RELOAD_FRAMES;
+      this.setStateValueTo(IDLE, false);
+      this.setStateValueTo(IN_MOTION, false);
+      this.setStateValueTo(ATTACKING, true);
+      kickSound.play();
+      this.boundingBox.width = this.width / 2.5;
+      this.boundingBox.x = this.pos.x - this.boundingBox.width / 2;
+      console.log("Bounding box changed.")
+    }
+    else {
+      this.setStateValueTo(ATTACKING, false);
+    }
 
     if (this.state.isOnGround && this.state.isAttacking) {
         this.speed.x = 0;
