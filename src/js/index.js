@@ -1,6 +1,6 @@
 var canvas, canvasContext;
 var player = new playerClass();
-// var enemy = new dumbEnemyClass();
+var enemy = new dumbEnemyClass();
 // var venomDog;
 // var box = new boxClass();
 // var slimeDrip = new slimeDripClass();
@@ -71,7 +71,7 @@ function loadLevel(whichLevel) {
 	platformList.parseWorld();
 	entityList = [];
 	player.init(playerPic, "Player");
-	// enemy.init(dumbEnemyWalkAnim, "Dumb Enemy");
+	enemy.init(dumbEnemyWalkAnim, "Dumb Enemy");
 	// venomDog.init(venomDogIdle, "Venom Dog");
 	// box.init(crateBoxPic, "Box");
 	// slimeDrip.init(slimeBallDripAnim, "Slime Drip");
@@ -108,7 +108,7 @@ function moveAll() {
 			placeTilesOnButtonPress();
 		}
 		cameraFollow();
-		// enemy.move();
+		enemy.move();
 		// if (!enemy.remove) {
 		// enemy.move();
 		// }
@@ -160,7 +160,7 @@ function drawAll() {
 		drawWorld();
 		platformList.draw();
 		//player.draw();
-		//enemy.draw();
+		// enemy.draw();
 		// if (!enemy.remove) {
 		// 	enemy.draw();
 		// }

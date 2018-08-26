@@ -1,4 +1,4 @@
-const DUMB_RUN_SPEED = 0.2;
+const DUMB_RUN_SPEED = 0.6;
 const ENEMY_DUMB_RELOAD_FRAMES = 90;
 
 function dumbEnemyClass() {
@@ -20,7 +20,7 @@ function dumbEnemyClass() {
 dumbEnemyClass.prototype = Object.create(entityClass.prototype);
 
 dumbEnemyClass.prototype.move = function () {
-    this.setInitialBoundingBox(this.width , this.height);
+    this.setInitialBoundingBox(this.width/2  , this.height);
     this.setWorldPhysics();
 
     var current_direction;
