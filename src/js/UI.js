@@ -2,7 +2,7 @@ var healthDisplay = [0, 0, 0, 0];
 
 function drawUI() {
 	colorRect(0, 0, canvas.width, 60, 'black');
-	colorText(`Score : ${score}`, 30, 40, "yellow", "30px Tahoma");
+	//colorText(`Score : ${score}`, 30, 40, "yellow", "30px Tahoma");
 	//colorText(`Health : ${player.health}`, 30, 60, "yellow", "30px Tahoma");
 
 	drawHealthDisplay();
@@ -86,5 +86,5 @@ function drawTimer() {
 			frameCount = 0;
 		} //end if
 	}
-	colorText(timeRemaining, canvas.width / 2, 40, "yellow", "30px Tahoma");
+	colorText(timeRemaining, 30, 40, "yellow", "30px Tahoma");
 } // end func drawTimer()

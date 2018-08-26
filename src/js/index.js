@@ -130,6 +130,16 @@ function updateAll() {
 		moveAll();
 		drawAll();
 		particles.update();
+
+		if(gameRunning && currentLevel == 0) {
+			for(var i=0;i<helpText.length;i++) {
+				colorText(helpText[i],50+2,140+i*25+2,"black",
+					"25px Arial",'left',1);
+				colorText(helpText[i],50 ,140+i*25,"white",
+					"25px Arial",'left',1);
+			}
+		}
+
 	} else {
 		drawAll();
 		colorText("- P A U S E D -",canvas.width/2+2,canvas.height/2+2,"black",

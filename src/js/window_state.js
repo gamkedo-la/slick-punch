@@ -14,6 +14,8 @@ var TitleTextY,subTitleTextX,opacity;
 var endScreenY = 600;
 const TITLE_OFFSET = 175;
 
+const helpText = ['Z: strike','X: jump or double jump','Arrow keys: walk','','Defeat all enemies','Advance to the right','Watch your time'];
+
 function mainMenuStates() {
 	if(windowState.mainMenu){
 		canvasContext.drawImage(menuBackground,0,0);
@@ -77,9 +79,8 @@ function mainMenuStates() {
 		canvasContext.drawImage(menuBackgroundEmpty,0,0);
 		colorText('How To Play',canvas.width/2 ,100,TEXT_COLOR,"30px Tahoma","center",opacity);
 
-		var helpList = ['Z: strike','X: jump or double jump','Arrow keys: walk'];
-		for(var i=0;i<helpList.length;i++) {
-			colorText(helpList[i],canvas.width/10 ,160+i*25,TEXT_COLOR,"25px Tahoma","left",opacity);
+		for(var i=0;i<helpText.length;i++) {
+			colorText(helpText[i],canvas.width/10 ,160+i*25,TEXT_COLOR,"25px Tahoma","left",opacity);
 		}
 		
 		colorText('[Enter] or click to go back to menu',canvas.width/2 , 550,TEXT_COLOR,"30px Tahoma","center",opacity);
