@@ -110,7 +110,7 @@ function venomDogClass(x, y) {
   }
 
   this.move = function () {
-
+    this.setInitialBoundingBox(this.width/2  , this.height);
     this.boundingBox.width = this.width;
     this.boundingBox.height = this.height;
     this.boundingBox.x = this.pos.x - this.boundingBox.width / 2;
