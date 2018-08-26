@@ -1,7 +1,7 @@
 var canvas, canvasContext;
 var player = new playerClass();
 // var venomDog;
-// var box = new boxClass();
+var box = new boxClass();
 // var slimeDrip = new slimeDripClass();
 window.player = player;
 
@@ -50,7 +50,7 @@ function loadLevel() {
 	player.init(playerPic, "Player");
 	
 	// venomDog.init(venomDogIdle, "Venom Dog");
-	// box.init(crateBoxPic, "Box");
+	box.init(crateBoxPic, "Box");
 	// slimeDrip.init(slimeBallDripAnim, "Slime Drip");
 	//slimeBall.init(crateBoxPic, "Box");
 	intializeCollidableObjects();

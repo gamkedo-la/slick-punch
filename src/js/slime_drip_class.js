@@ -23,6 +23,7 @@ slimeDripClass.prototype.move = function () {
         var slimeBall = new slimeBallClass(this.pos.x + Xoffset,this.pos.y + WORLD_H/3); // hard coded for proof of concept
         entityList.push(slimeBall);
       }
+      
   }
 }
 

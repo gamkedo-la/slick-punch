@@ -21,11 +21,15 @@ slimeBallClass.prototype.move = function () {
   }
 
   this.pos.addTo(this.speed);
+  if(utils.pointInRect(this.pos.x, this.pos.y, player.boundingBox)){
+        player.takeDamage(0.5);
+  }
   this.entityPlatformHandling();
   if (this.state[ON_GROUND]) {
     this.removeMe = true;
     // play effect
   }
+ 
 }
 
 slimeBallClass.prototype.draw = function () {
