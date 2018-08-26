@@ -39,6 +39,9 @@ const menuBackgroundEmpty = document.createElement("img");
 const redKeyAnimation = document.createElement("img");
 const greenKeyAnimation = document.createElement("img");
 const blueKeyAnimation = document.createElement("img");
+const bossAnim = document.createElement("img");
+const ogreWalkAnim = document.createElement("img");
+const ogreAttackAnim = document.createElement("img");
 const venomDogPic = document.createElement("img");
 const venomDogIdle = document.createElement("img");
 const venomDogWalk = document.createElement("img");
@@ -134,6 +137,11 @@ function loadImages() {
 		{ varName: redKeyAnimation, theFile: "KeyRed.png", width: 35, height: 35 },
 		{ varName: greenKeyAnimation, theFile: "KeyGreen.png", width: 35, height: 35 },
 		{ varName: blueKeyAnimation, theFile: "KeyBlue.png", width: 35, height: 35 },
+		//Boss animation
+		{ varName: bossAnim, theFile: "slick_punch_battle_mage_sheet.png", width: 130, height: 154 },
+		//Ogre animation
+		{ varName: ogreWalkAnim, theFile: "Ogre_Walk.png", width: 80, height: 154 },
+		{ varName: ogreAttackAnim, theFile: "Ogre_Attack.png", width: 80, height: 80 },
 		//Dumb Enemy animation
 		{ varName: dumbEnemyWalkAnim, theFile: "enemyWalkSprite.png" },
 		{ varName: dumbEnemyAttackAnim, theFile: "enemyPunchSprite.png" },

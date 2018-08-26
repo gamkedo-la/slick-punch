@@ -84,9 +84,43 @@ function loadLevel(whichLevel) {
 
 function updateAll() {
 	if(winScreen) {
-		colorRect(0,0,canvas.width,canvas.height,"black");
-		colorText("You win!",canvas.width/2,canvas.height/2,"white",
+		colorRect(0,0,canvas.width,canvas.height,"#444444");
+
+		frameCount++; // since skipping draw timer it otherwise sits still
+		// but we'll use the above to cycle animations on this screen
+		var slowerFrameTick = Math.floor(frameCount/5);
+
+		var bossW = 130, bossH = 154;
+		var bossFrames = 11;
+		var bossFrame = slowerFrameTick%bossFrames;
+        canvasContext.drawImage(bossAnim,
+                                 bossW*bossFrame, 0,
+                                 bossW, bossH,
+                                 canvas.width/2, canvas.height/2,
+                                 bossW, bossH);
+
+		var ogreW = 80, ogreH = 80;
+		var ogreWalkFrames = 4;
+		var ogreAttackFrames = 6;
+		var ogreWalkFrame = slowerFrameTick%ogreWalkFrames;
+		var ogreAttackFrame = slowerFrameTick%ogreAttackFrames;
+
+        canvasContext.drawImage(ogreWalkAnim,
+                                 ogreW*ogreWalkFrame, 0,
+                                 ogreW, ogreH,
+                                 canvas.width/4, canvas.height/2,
+                                 ogreW, ogreH);
+
+        canvasContext.drawImage(ogreAttackAnim,
+                                 ogreW*ogreAttackFrame, 0,
+                                 ogreW, ogreH,
+                                 canvas.width*3/4, canvas.height/2,
+                                 ogreW, ogreH);
+
+		colorText("To be continued...!",canvas.width/2,40,"white",
 			"30px Arial",'center',1);
+		colorText("Congratulations! You reached the Battle Mage and his Ogres!",canvas.width/2,80,"white",
+			"20px Arial",'center',1);
 		colorText("Click to reset",canvas.width/2,canvas.height-30,"white",
 			"20px Arial",'center',1);
 	} else if (!pause) {
