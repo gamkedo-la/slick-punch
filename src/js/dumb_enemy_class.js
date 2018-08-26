@@ -15,7 +15,7 @@ function dumbEnemyClass() {
     this.height = 80; 
     this.walkAnim = new SpriteSheetClass(dumbEnemyWalkAnim, this.width, this.height, true, 4, 30); // 3 frames
     this.punchAnim = new SpriteSheetClass(dumbEnemyAttackAnim, this.width, this.height, true, 3, 10); //3frames
-    this.remove = false;
+    this.removeMe = false;
 }
 
 dumbEnemyClass.prototype = Object.create(entityClass.prototype);

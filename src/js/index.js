@@ -1,6 +1,5 @@
 var canvas, canvasContext;
 var player = new playerClass();
-var enemy = new dumbEnemyClass();
 // var venomDog;
 // var box = new boxClass();
 // var slimeDrip = new slimeDripClass();
@@ -10,7 +9,6 @@ const WIN_EDGE_X = 790; // walking past this x counts as advancing to next area
 
 var score;
 var debug = false;
-var enemyObjArr = [];
 var gameRunning = false;
 var timeLimit = 30; //Level time limit in seconds. Set high for now to avoid running out of time while testing.
 var timeRemaining;
@@ -40,30 +38,6 @@ function imageLoadingDoneSoStartGame() {
 	setInterval(updateAll, 1000 / FRAMES_PER_SECOND);
 }
 
-function spawnFlyingEnemies() {
-	flyingEnemies = [];
-	if (SHOW_ENTITY_DEBUG) {
-		console.log("Spawning flying enemies...");
-	}
-	// spawn flying enemies by scanning the level data
-	var spawnCounter = 0;
-	for (var px, py, eachRow = 0; eachRow < WORLD_ROWS; eachRow++) {
-		for (var eachCol = 0; eachCol < WORLD_COLS; eachCol++) {
-			var arrayIndex = rowColToArrayIndex(eachCol, eachRow);
-			if (worldGrid[arrayIndex] == WORLD_FLYING_ENEMY) {
-				worldGrid[arrayIndex] = WORLD_BACKGROUND;
-				spawnCounter++;
-				px = eachCol * WORLD_W + WORLD_W / 2;
-				py = eachRow * WORLD_H + WORLD_H / 2;
-				entityList.push(new flyingEnemyClass(px, py));
-			}
-		}
-	}
-	if (SHOW_ENTITY_DEBUG) {
-		console.log("Flying enemies spawned: " + spawnCounter);
-	}
-}
-
 function loadLevel() {
 	worldGrid = levelSet[currentLevel].slice();
 	/* // overrode start pos, commented since 1 screen levels didn't need checkpoints
@@ -74,15 +48,13 @@ function loadLevel() {
 	platformList.parseWorld();
 	entityList = [];
 	player.init(playerPic, "Player");
-	enemy.init(dumbEnemyWalkAnim, "Dumb Enemy");
-
+	
 	// venomDog.init(venomDogIdle, "Venom Dog");
 	// box.init(crateBoxPic, "Box");
 	// slimeDrip.init(slimeBallDripAnim, "Slime Drip");
 	//slimeBall.init(crateBoxPic, "Box");
 	intializeCollidableObjects();
 	score = 0;
-	// spawnFlyingEnemies();
 	timeRemaining = timeLimit;
 }
 
@@ -156,22 +128,20 @@ function moveAll() {
 			placeTilesOnButtonPress();
 		}
 		cameraFollow();
-		enemy.move();
-		// if (!enemy.remove) {
-		// enemy.move();
-		// }
+
 		var enemiesAlive = 0;
 		for (var i = entityList.length-1; i >= 0; i--) { // need to iterate backwards if ever splicing from it
-			if (entityList[i].remove) {
-        entityList.splice(i, 1);
-      }			
+			if (entityList[i].removeMe) {
+				entityList.splice(i, 1);
+			}	
 		}
-    for(var i = 0; i < entityList.length; i++){
-      if(entityList[i].name != "Player" && entityList[i].state[DEAD] == false) {
-        enemiesAlive++;
-      }
-      entityList[i].move();
-    }
+
+	    for(var i = 0; i < entityList.length; i++){
+	      if(entityList[i].name != "Player" && entityList[i].state[DEAD] == false) {
+	        enemiesAlive++;
+	      }
+	      entityList[i].move();
+	    }
 		platformList.update();
 		updateItemList();
 		if(player.pos.x > WIN_EDGE_X || // walked off right edge to next area?

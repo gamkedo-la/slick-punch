@@ -111,18 +111,15 @@ entityClass.prototype.takeDamage = function (howMuch) {
     }
   }
   else{
-    this.remove = true;
+    this.removeMe = true;
      if (this.name == "Player") {
-      playerHitSound.play();
-      if (this.health <= 0) {
-        if (SHOW_ENTITY_DEBUG) {
-          console.log("PLAYER HAS 0 HP - todo: gameover/respawn");
+        playerHitSound.play();
+        if (this.health <= 0) {
+          this.state[DEAD] = true;
+          playerDieSound.play();
+          setTimeout(this.resetGame.bind(this), 500);
         }
-        this.state[DEAD] = true;
-        playerDieSound.play();
-        setTimeout(this.resetGame.bind(this), 500);
       }
-    }
   }
  
 }
@@ -136,6 +133,7 @@ entityClass.prototype.resetHurtAnimation = function () {
 }
 
 entityClass.prototype.init = function (whichImage, playerName) {
+  this.removeMe = false;
   this.name = playerName;
   this.pic = whichImage;
   this.doubleJumpCount = 0;
