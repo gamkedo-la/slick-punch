@@ -132,6 +132,10 @@ function intializeCollidableObjects() {
 				console.log("spawning a zombie");
 				var dumbEnemy1 = new dumbEnemyClass(drawTileX, drawTileY);
 				dumbEnemy1.init(dumbEnemyWalkAnim, "Dumb Enemy");
+			} else if(tileKindHere == SLIME_DRIP) {
+				console.log("spawning a slime drip");
+				var slimeDrip1 = new slimeDripClass(drawTileX, drawTileY);
+				slimeDrip1.init(slimeBallDripAnim, "Slime Drip");
 			}
 
 			drawTileX += WORLD_W;

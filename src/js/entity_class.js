@@ -21,6 +21,7 @@ const ANIMATING = 'isAnimating';
 const HURT = 'isHurt';
 const DEAD = 'isDead';
 const FLYING = 'isFlying';
+const DAMAGE_MIN_FRAMES_TO_REPEAT = 10;
 
 const FLYING_ENEMY_HEALTH = 1;
 const FLYING_ENEMY_ATTACK_POWER = 2;
@@ -67,6 +68,7 @@ function entityClass() {
   this.boundingBox = {}
   this.width = 80;
   this.height = 80;
+  this.recentlyDamaged = 0;
   this.ang = 0;
   this.removeMe = false;
   //Needed for keeping trak of player animation 
@@ -98,6 +100,11 @@ entityClass.prototype.setStateValueTo = function (key, val) {
 
 //how much would be attack power for each entity
 entityClass.prototype.takeDamage = function (howMuch) {
+  if(this.recentlyDamaged>0) {
+    console.log("blocked damage, was too rapid fire");
+    return;
+  }
+  this.recentlyDamaged = DAMAGE_MIN_FRAMES_TO_REPEAT;
   if (SHOW_ENTITY_DEBUG) {
     console.log("Damage received:  " + howMuch + " by " + this.name);
   }
@@ -138,6 +145,7 @@ entityClass.prototype.init = function (whichImage, playerName) {
   this.name = playerName;
   this.pic = whichImage;
   this.doubleJumpCount = 0;
+  this.recentlyDamaged = 0;
   this.state = {
     'isOnGround': true,
     'isIdle': true,

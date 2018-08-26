@@ -90,18 +90,23 @@ function venomDogClass(x, y) {
   }
 
   this.takeDamage = function (howMuch) {
+    if(this.recentlyDamaged>0) {
+      console.log("blocked damage, was too rapid fire");
+      return;
+    }
+    this.recentlyDamaged = DAMAGE_MIN_FRAMES_TO_REPEAT;
     console.log("venom dog damage received: HP = " + this.health + " - " + howMuch);
     if (this.health > 0 && !this.state.isHurt) {
       this.health -= howMuch;
       this.state.isHurt = true;
-      dogEnemyHitEffect(this.pos.x, this.pos.y);
+      //dogEnemyHitEffect(this.pos.x, this.pos.y);
       // knockback
       this.pos.x += Math.random() * 8 - 4;
       this.pos.y += Math.random() * 8 - 6;
     }
     if (this.health <= 0) {
       console.log("VENOM DOG HAS 0 HP");
-      dogEnemyDeathEffect(this.pos.x, this.pos.y);
+      //dogEnemyDeathEffect(this.pos.x, this.pos.y);
       this.pos.x = -9999999;
       this.pos.y = -9999999;
       this.state.isDead = true;

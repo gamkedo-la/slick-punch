@@ -72,7 +72,7 @@ function updateAll() {
         canvasContext.drawImage(bossAnim,
                                  bossW*bossFrame, 0,
                                  bossW, bossH,
-                                 canvas.width/2, canvas.height/2,
+                                 canvas.width/2-bossW/2, canvas.height/2,
                                  bossW, bossH);
 
 		var ogreW = 80, ogreH = 80;
@@ -81,23 +81,23 @@ function updateAll() {
 		var ogreWalkFrame = slowerFrameTick%ogreWalkFrames;
 		var ogreAttackFrame = slowerFrameTick%ogreAttackFrames;
 
-    canvasContext.drawImage(ogreWalkAnim,
+	    canvasContext.drawImage(ogreWalkAnim,
                              ogreW*ogreWalkFrame, 0,
                              ogreW, ogreH,
-                             canvas.width/4, canvas.height/2,
+                             canvas.width/4-ogreW/2, canvas.height/2,
                              ogreW, ogreH);
 
-    canvasContext.drawImage(ogreAttackAnim,
+   		canvasContext.drawImage(ogreAttackAnim,
                              ogreW*ogreAttackFrame, 0,
                              ogreW, ogreH,
-                             canvas.width*3/4, canvas.height/2,
+                             canvas.width*3/4-ogreW/2, canvas.height/2,
                              ogreW, ogreH);
 
-		colorText("To be continued...!",canvas.width/2,40,"white",
+		colorText("To be continued...",canvas.width/2,40,"white",
 			"30px Arial",'center',1);
 		colorText("Congratulations! You reached the Battle Mage and his Ogres!",canvas.width/2,80,"white",
 			"20px Arial",'center',1);
-		colorText("Click to reset",canvas.width/2,canvas.height-30,"white",
+		colorText("Thank you for playing. Click to reset.",canvas.width/2,canvas.height-30,"white",
 			"20px Arial",'center',1);
 	} else if (!pause) {
 		moveAll();
@@ -133,11 +133,14 @@ function moveAll() {
 		for (var i = entityList.length-1; i >= 0; i--) { // need to iterate backwards if ever splicing from it
 			if (entityList[i].removeMe) {
 				entityList.splice(i, 1);
-			}	
+			} else if(entityList[i].recentlyDamaged > 0) {
+				entityList[i].recentlyDamaged--; // cool off to avoid constant damage
+			}
 		}
 
 	    for(var i = 0; i < entityList.length; i++){
-	      if(entityList[i].name != "Player" && entityList[i].state[DEAD] == false) {
+	      if(entityList[i].name != "Player" && entityList[i].name !=  "Slime Drip" &&
+	      		entityList[i].state[DEAD] == false) {
 	        enemiesAlive++;
 	      }
 	      entityList[i].move();

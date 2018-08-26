@@ -177,7 +177,8 @@ playerClass.prototype.move = function () {
     for(var i = 0; i< entityList.length; i++){
       if(this.name != entityList[i].name &&
         utils.rectIntersect(this.boundingBox, entityList[i].boundingBox)){
-        if(this.state[ATTACKING] && !entityList[i].remove && !this.spriteAnim.cycleComplete){
+        if(this.state[ATTACKING] && !entityList[i].removeMe && !this.spriteAnim.cycleComplete &&
+            entityList[i].recentlyDamaged <= 0){
           entityList[i].takeDamage(PLAYER_ATTACK_POWER);
           enemyHitEffect(entityList[i].pos.x, entityList[i].pos.y)
         }
