@@ -34,7 +34,7 @@ window.onload = function () {
 
 function imageLoadingDoneSoStartGame() {
 	setupInput();
-	loadLevel(levelSet[currentLevel]);
+	loadLevel();
 	setInterval(updateAll, 1000 / FRAMES_PER_SECOND);
 }
 
@@ -62,12 +62,13 @@ function spawnFlyingEnemies() {
 	}
 }
 
-function loadLevel(whichLevel) {
-	worldGrid = whichLevel.slice();
+function loadLevel() {
+	worldGrid = levelSet[currentLevel].slice();
+	/* // overrode start pos, commented since 1 screen levels didn't need checkpoints
 	if (player_checkpoint_index != -1) {
 		worldGrid[worldGrid.indexOf(WORLD_PLAYERSTART)] = -1;
 		worldGrid[player_checkpoint_index] = WORLD_PLAYERSTART;
-	}
+	} */
 	platformList.parseWorld();
 	entityList = [];
 	player.init(playerPic, "Player");
@@ -174,15 +175,24 @@ function enterWinScreen() {
 	dilseMusic.loopSong();
 }
 
-function doneWithWinScreen() {
+function backToTitleScreen() {
+	player.resetOrSetNonLoopingAnim(); // resets death or other non-looping anims
 	winScreen = false;
 	windowState.mainMenu = true;
 	gameRunning = false;
 	pause = false;
-	loadLevel(levelSet[currentLevel]); // see level.js
+	currentLevel = 0;
+	loadLevel(); // see level.js
 
-	dilseMusic.pauseSound();
+	slickPunchJamMusic.pauseSound();
 	deepdarkMusic.loopSong();
+}
+
+function doneWithWinScreen() {
+	dilseMusic.pauseSound();
+	slickPunchJamMusic.loopSong();
+
+	backToTitleScreen();
 }
 
 function drawAll() {

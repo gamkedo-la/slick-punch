@@ -110,9 +110,6 @@ entityClass.prototype.takeDamage = function (howMuch) {
   if (this.name == "Player") {
     playerHitSound.play();
     if (this.health <= 0) {
-      if (SHOW_ENTITY_DEBUG) {
-        console.log("PLAYER HAS 0 HP - todo: gameover/respawn");
-      }
       this.state[DEAD] = true;
       playerDieSound.play();
       setTimeout(this.resetGame.bind(this), 500);
@@ -122,8 +119,7 @@ entityClass.prototype.takeDamage = function (howMuch) {
 }
 
 entityClass.prototype.resetGame = function () {
-  player.resetOrSetNonLoopingAnim(); // resets death or other non-looping anims
-  loadLevel(levelOne)
+  backToTitleScreen();
 }
 
 entityClass.prototype.resetHurtAnimation = function () {
