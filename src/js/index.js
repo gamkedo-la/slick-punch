@@ -139,7 +139,9 @@ function moveAll() {
 		}
 
 	    for(var i = 0; i < entityList.length; i++){
-	      if(entityList[i].name != "Player" && entityList[i].name !=  "Slime Drip" &&
+	      if(entityList[i].name != "Player" &&
+	      	entityList[i].name !=  "Slime Drip" &&
+	      	entityList[i].name !=  "Box" &&
 	      		entityList[i].state[DEAD] == false) {
 	        enemiesAlive++;
 	      }

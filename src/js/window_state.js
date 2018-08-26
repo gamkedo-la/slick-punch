@@ -82,6 +82,7 @@ function mainMenuStates() {
 		for(var i=0;i<helpText.length;i++) {
 			colorText(helpText[i],canvas.width/10 ,160+i*25,TEXT_COLOR,"25px Tahoma","left",opacity);
 		}
+		colorText("Cheat: N key skips to Next room",canvas.width/10 ,160+(helpText.length+1)*25,TEXT_COLOR,"25px Tahoma","left",opacity);
 		
 		colorText('[Enter] or click to go back to menu',canvas.width/2 , 550,TEXT_COLOR,"30px Tahoma","center",opacity);
 		
