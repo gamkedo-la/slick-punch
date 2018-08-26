@@ -29,7 +29,7 @@ const RUNNING_ZOMBIE_ATTACK_POWER = 1.5;
 const ENEMY_DUMB_HEALTH = 1;
 const ENEMY_DUMB_ATTACK_POWER = 1;
 const PLAYER_ATTACK_POWER = 1.5;
-const PLAYER_HEALTH = 6;
+const PLAYER_HEALTH = 8;
 const PLAYER_RUN_SPEED = 3.0;
 const ENEMY_VENOM_DOG_HEALTH = 10;
 const ENEMY_VENOM_DOG_ATTACK_POWER = 1;
@@ -128,8 +128,7 @@ entityClass.prototype.takeDamage = function (howMuch) {
 }
 
 entityClass.prototype.resetGame = function () {
-  player.resetOrSetNonLoopingAnim(); // resets death or other non-looping anims
-  loadLevel(levelOne)
+  backToTitleScreen();
 }
 
 entityClass.prototype.resetHurtAnimation = function () {
@@ -167,6 +166,10 @@ entityClass.prototype.init = function (whichImage, playerName) {
     case "Venom Dog":
       this.valueInWorldIndex = WORLD_VENOM_DOG;
       this.health = ENEMY_VENOM_DOG_HEALTH;
+      break;
+    case "Flying Enemy":
+      this.valueInWorldIndex = WORLD_FLYING_ENEMY;
+      this.health = 1;
       break;
     case "Box":
       this.valueInWorldIndex = CRATE;

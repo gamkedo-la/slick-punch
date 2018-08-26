@@ -158,6 +158,9 @@ function placeTilesOnButtonPress() {
 	if (keyHeld_Num4) {
 		worldGrid[mouseIndex] = BRICK_WITH_SLIME_4;
 	}
+	if (keyHeld_Num5) {
+		worldGrid[mouseIndex] = GOAL;
+	}
 
 }
 

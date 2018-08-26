@@ -95,7 +95,9 @@ const KEY_DOWN_ARROW = 40;
 const KEY_Z = 90; 
 const KEY_X = 88;
 // Toggle music
-const KEY_M = 77; 
+const KEY_M = 77;
+// next level cheat 
+const KEY_N = 78; 
 // Toggle Debug
 const KEY_D = 68;
 // Used for menu Screen
@@ -348,7 +350,10 @@ function setValuesForKey(evt, value) {
 			keyHeld_B = value;
 			break;
 		case "KeyN":
-			keyHeld_N = value;
+			// keyHeld_N = value;
+			if(value) {
+				nextLevelOrWin();
+			}
 			break;
 		case "KeyM":
 			musicEnabled = !musicEnabled;

@@ -14,6 +14,8 @@ var TitleTextY,subTitleTextX,opacity;
 var endScreenY = 600;
 const TITLE_OFFSET = 175;
 
+const helpText = ['Z: strike','X: jump or double jump','Arrow keys: walk','','Defeat all enemies','Advance to the right','Watch your time'];
+
 function mainMenuStates() {
 	if(windowState.mainMenu){
 		canvasContext.drawImage(menuBackground,0,0);
@@ -39,21 +41,21 @@ function mainMenuStates() {
 		var creditsNameFont = "bold 12px Tahoma";
 		var creditsLines = [
 "Vignesh Ramesh: Lead, concept, main gameplay code, most animations, environment, score, pickups, scrolling, boss song and menu music, menu code, AI",
-"Christer \"McFunkypants\" Kaitila: Tuning adjustments, flying enemy, particles",
+"Christer \"McFunkypants\" Kaitila: Venom dog AI, tuning adjustments, flying enemy, particles, collision fix, level design (6)",
 "Brian Boucher: Hearts health meter, countdown timer, crouch fix, limited double jump",
 "Zak Ali: Alien vine, spike tile, punch sound, initial sound integration",
 "Kise: Venom dog, kick animation, landing sound",
-"Brandon Trumpold: Eerie song, jump sound, bug fixing for audio and animation",
+"Brandon Trumpold: Level editor, eerie song, jump sound, bug fixing for audio and animation",
 "Caspar \"SpadXIII\" Dunant: Collision improvements, moving platforms",
 "Terrence McDonnell: Slime drip, additional sprite sheet code",
-"Stebs: Fight song and miniboss song, music randomizer",
+"Stebs: Volcano background, slime brick, fight song and miniboss song, music randomizer, level design (1)",
+"Chris DeLeon: Credits entry, mouse menu code, minor bug fixing, win screen, level sequence code",
 "Asix Jin: Game over music",
-"Oasis Rim: Ogre attack animation",
-"Jaime Rivas: Jump and kick sounds",
+"Oasis Rim: Ogre walk and attack animation (win screen)",
+"Jaime Rivas: Jump and kick sounds, battle mage boss animations (win screen)",
 "Chris Markle: Game Over sound",
 "pseudoLudo: Pause functionality",
-"Eugene Meidinger: Damage from slime",
-"Chris DeLeon: Credits entry, mouse menu code, minor bug fixing"
+"Eugene Meidinger: Damage from slime"
 		];
 		for(var i=0;i<creditsLines.length;i++) {
 			var creditor = creditsLines[i].split(":");
@@ -77,9 +79,8 @@ function mainMenuStates() {
 		canvasContext.drawImage(menuBackgroundEmpty,0,0);
 		colorText('How To Play',canvas.width/2 ,100,TEXT_COLOR,"30px Tahoma","center",opacity);
 
-		var helpList = ['Z: strike','X: jump or double jump','Arrow keys: walk'];
-		for(var i=0;i<helpList.length;i++) {
-			colorText(helpList[i],canvas.width/10 ,160+i*25,TEXT_COLOR,"25px Tahoma","left",opacity);
+		for(var i=0;i<helpText.length;i++) {
+			colorText(helpText[i],canvas.width/10 ,160+i*25,TEXT_COLOR,"25px Tahoma","left",opacity);
 		}
 		
 		colorText('[Enter] or click to go back to menu',canvas.width/2 , 550,TEXT_COLOR,"30px Tahoma","center",opacity);

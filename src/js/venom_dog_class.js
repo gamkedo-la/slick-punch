@@ -135,12 +135,12 @@ function venomDogClass(x, y) {
       this.reloadFrames--;
     } else {
       if (player.state.isAttacking && (distFromPlayer < 80)) {
-        this.takeDamage(1);
+        this.takeDamage(5);
         this.reloadFrames = ENEMY_VENOMDOG_RELOAD_FRAMES;
       }
       // close enough to get hit?
       else if (!player.state.isAttacking && distFromPlayer < 40) {
-        player.takeDamage(1);
+        player.takeDamage(5);
         this.reloadFrames = ENEMY_VENOMDOG_RELOAD_FRAMES;
       }
     }
