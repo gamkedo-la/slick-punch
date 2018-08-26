@@ -15,6 +15,7 @@ function dumbEnemyClass() {
     this.height = 80; 
     this.walkAnim = new SpriteSheetClass(dumbEnemyWalkAnim, this.width, this.height, true, 4, 30); // 3 frames
     this.punchAnim = new SpriteSheetClass(dumbEnemyAttackAnim, this.width, this.height, true, 3, 10); //3frames
+    this.remove = false;
 }
 
 dumbEnemyClass.prototype = Object.create(entityClass.prototype);
@@ -67,24 +68,26 @@ dumbEnemyClass.prototype.move = function () {
       this.setStateValueTo(IDLE, true);
     }
 
-     if(this.reloadFrames > 0) {
-        this.reloadFrames--;
-        // console.log("countdown");
-        this.setStateValueTo(IDLE, true);
-        this.setStateValueTo(ATTACKING, false);
-     } else if (this.keyHeld_Attack) {
-        player.takeDamage(this.attackPower);
-        this.reloadFrames = ENEMY_DUMB_RELOAD_FRAMES;
-        this.setStateValueTo(IDLE, false);
-        this.setStateValueTo(IN_MOTION, false);
-        this.setStateValueTo(ATTACKING, true);
-        kickSound.play();
-        this.boundingBox.width = this.width / 1.5;
-        this.boundingBox.x = this.pos.x - this.boundingBox.width / 2;
-      }
-      else {
-        this.setStateValueTo(ATTACKING, false);
-      }
+    if(this.reloadFrames > 0) {
+      this.reloadFrames--;
+      // console.log("countdown");
+      this.setStateValueTo(IDLE, true);
+      this.setStateValueTo(ATTACKING, false);
+    } 
+    // else if (this.keyHeld_Attack) {
+    //   player.takeDamage(this.attackPower);
+    //   this.reloadFrames = ENEMY_DUMB_RELOAD_FRAMES;
+    //   this.setStateValueTo(IDLE, false);
+    //   this.setStateValueTo(IN_MOTION, false);
+    //   this.setStateValueTo(ATTACKING, true);
+    //   kickSound.play();
+    //   this.boundingBox.width = this.width / 2.5;
+    //   this.boundingBox.x = this.pos.x - this.boundingBox.width / 2;
+    //   console.log("Bounding box changed.")
+    // }
+    // else {
+    //   this.setStateValueTo(ATTACKING, false);
+    // }
 
     if (this.state.isOnGround && this.state.isAttacking) {
         this.speed.x = 0;

@@ -160,7 +160,6 @@ function Platform(type, platformWidth, startCol, startRow, endCol, endRow) {
     var platformBBox = this.getBounds();
     // var newplatformBBox = Object.assign({},platformBBox);
     // newplatformBBox.height = newplatformBBox.height/4;    // console.log(platformBBox);
-
    var jumping = entity.speed.getY() < 0;
    var moving_left = entity.speed.getX() < 0;
    var moving_right = entity.speed.getX() > 0;
@@ -177,7 +176,6 @@ function Platform(type, platformWidth, startCol, startRow, endCol, endRow) {
    }
 
    else if (jumping) {
-      // entity.pos.setY((Math.floor(entity.pos.getY() / WORLD_H)) * WORLD_H + entity.boundingBox.height / 2);
       if(entity.boundingBox.y > platformBBox.y){
         entity.speed.setY(0);
         entity.pos.setY(platformBBox.y + platformBBox.height * 2);

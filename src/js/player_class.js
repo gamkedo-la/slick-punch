@@ -169,6 +169,19 @@ playerClass.prototype.move = function () {
   this.pos.addTo(this.speed);
   this.playerWorldHandling();
   platformList.checkCollisions(this);
+  // this.entityMutualCollisionHandling(this);
+  if(entityList.length > 0){
+    for(var i = 0; i< entityList.length; i++){
+      if(this.name != entityList[i].name &&
+        utils.rectIntersect(this.boundingBox, entityList[i].boundingBox)){
+        if(this.state[ATTACKING] && !entityList[i].remove && !this.spriteAnim.cycleComplete){
+          entityList[i].takeDamage(PLAYER_ATTACK_POWER);
+          enemyHitEffect(entityList[i].pos.x, entityList[i].pos.y)
+        }
+      }
+    }
+  }
+
   if (this.spriteAnim != null) {
     this.spriteAnim.update();
   }

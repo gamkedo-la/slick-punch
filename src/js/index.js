@@ -114,18 +114,21 @@ function moveAll() {
 		// }
 		var enemiesAlive = 0;
 		for (var i = entityList.length-1; i >= 0; i--) { // need to iterate backwards if ever splicing from it
-			entityList[i].move();
-			if (entityList[i].removeMe) {
-				entityList.splice(i, 1);
-			} else if(entityList[i].name != "Player" && entityList[i].state[DEAD] == false) {
-				enemiesAlive++;
-			}
+			if (entityList[i].remove) {
+        entityList.splice(i, 1);
+      }			
 		}
+    for(var i = 0; i < entityList.length; i++){
+      if(entityList[i].name != "Player" && entityList[i].state[DEAD] == false) {
+        enemiesAlive++;
+      }
+      entityList[i].move();
+    }
 		platformList.update();
 		updateItemList();
-		if(enemiesAlive == 0 && enemiesAliveInLevel > 0) {
-			enterWinScreen();
-		}
+		// if(enemiesAlive == 0 && enemiesAliveInLevel > 0) {
+		// 	enterWinScreen();
+		// }
 	}
 }
 

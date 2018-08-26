@@ -36,7 +36,7 @@ const ENEMY_VENOM_DOG_ATTACK_POWER = 1;
 const BOX_HEALTH = 0.5;
 
 //Manages the list of entity
-let entityList = [];
+window.entityList = [];
 
 function entityClass() {
   //Need to check which variables are used outside and only expose them in code. 
@@ -102,23 +102,29 @@ entityClass.prototype.takeDamage = function (howMuch) {
     console.log("Damage received:  " + howMuch + " by " + this.name);
   }
   //TODO: Improve this. Currently only effects health till isHurt is active. 
-  if (this.health > 0 && !this.state[HURT]) {
+  if (this.health > 0 ) {
     this.health -= howMuch;
-    this.state[HURT] = true;
-    playerHitEffect(this.pos.x, this.pos.y);
-  }
-  if (this.name == "Player") {
-    playerHitSound.play();
-    if (this.health <= 0) {
-      if (SHOW_ENTITY_DEBUG) {
-        console.log("PLAYER HAS 0 HP - todo: gameover/respawn");
-      }
-      this.state[DEAD] = true;
-      playerDieSound.play();
-      setTimeout(this.resetGame.bind(this), 500);
+    if(this.name == "Player" && !this.state[HURT]){
+      this.state[HURT] = true;
+      playerHitEffect(this.pos.x, this.pos.y);
+      this.resetHurtTimeout = setTimeout(this.resetHurtAnimation.bind(this), 700);
     }
   }
-  this.resetHurtTimeout = setTimeout(this.resetHurtAnimation.bind(this), 700);
+  else{
+    this.remove = true;
+     if (this.name == "Player") {
+      playerHitSound.play();
+      if (this.health <= 0) {
+        if (SHOW_ENTITY_DEBUG) {
+          console.log("PLAYER HAS 0 HP - todo: gameover/respawn");
+        }
+        this.state[DEAD] = true;
+        playerDieSound.play();
+        setTimeout(this.resetGame.bind(this), 500);
+      }
+    }
+  }
+ 
 }
 
 entityClass.prototype.resetGame = function () {
@@ -177,6 +183,7 @@ entityClass.prototype.init = function (whichImage, playerName) {
   }
   this.addEntityToWorldTile();
   entityList.push(this);
+  console.log(entityList);
   if (SHOW_ENTITY_DEBUG) {
     console.log(playerName + " spawned");
   }
@@ -221,12 +228,10 @@ entityClass.prototype.setWorldPhysics = function () {
     this.speed.setX(this.speed.getX() * AIR_RESISTANCE);
     this.speed.setY(this.speed.getY() + GRAVITY);
   }
-
 }
 
 entityClass.prototype.entityPlatformHandling = function () {
   const DEBUGCOLLISION = false; // lots of console spam tohelp
-
   //Checking if player is falling or jumping.
   //Get bounding box border coordinates and perform the same functionality for each point
   const jumping = this.speed.getY() < 0;
@@ -295,6 +300,7 @@ entityClass.prototype.entityPlatformHandling = function () {
       this.pos.setX(this.pos.getX() - PLAYER_COLLISION_PADDING / 2)
     }
   }
+  //Moving right
   else {
     if (isPlatformAtPixelCoord(this.pos.getX() + this.boundingBox.width / 2, this.pos.getY() + this.boundingBox.height / 2 + PLAYER_COLLISION_PADDING * 2) &&
       !isPlatformAtPixelCoord(this.pos.getX(), this.pos.getY() + this.boundingBox.height / 2 + PLAYER_COLLISION_PADDING * 2)
