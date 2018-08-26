@@ -33,9 +33,9 @@ window.onload = function () {
 };
 
 function imageLoadingDoneSoStartGame() {
-	setInterval(updateAll, 1000 / FRAMES_PER_SECOND);
 	setupInput();
-	loadLevel(STARTING_LEVEL);
+	loadLevel(levelSet[currentLevel]);
+	setInterval(updateAll, 1000 / FRAMES_PER_SECOND);
 }
 
 function spawnFlyingEnemies() {
@@ -158,7 +158,12 @@ function moveAll() {
 		platformList.update();
 		updateItemList();
 		if(enemiesAlive == 0 && enemiesAliveInLevel > 0) {
-			enterWinScreen();
+			currentLevel++;
+			if(currentLevel < levelSet.length) {
+				loadLevel(levelSet[currentLevel]);
+			} else {
+				enterWinScreen();
+			}
 		}
 	}
 }
@@ -174,7 +179,7 @@ function doneWithWinScreen() {
 	windowState.mainMenu = true;
 	gameRunning = false;
 	pause = false;
-	loadLevel(STARTING_LEVEL); // see level.js
+	loadLevel(levelSet[currentLevel]); // see level.js
 
 	dilseMusic.pauseSound();
 	deepdarkMusic.loopSong();
