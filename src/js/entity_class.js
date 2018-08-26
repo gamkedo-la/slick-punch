@@ -102,12 +102,14 @@ entityClass.prototype.takeDamage = function (howMuch) {
     console.log("Damage received:  " + howMuch + " by " + this.name);
   }
   //TODO: Improve this. Currently only effects health till isHurt is active. 
-  if (this.health > 0 ) {
-    this.health -= howMuch;
+  if (this.health > 0) {
+    if(this.name != "Player" || !this.state[HURT]){
+      this.health -= howMuch;
+    }
     if(this.name == "Player" && !this.state[HURT]){
       this.state[HURT] = true;
       playerHitEffect(this.pos.x, this.pos.y);
-      this.resetHurtTimeout = setTimeout(this.resetHurtAnimation.bind(this), 700);
+      this.resetHurtTimeout = setTimeout(this.resetHurtAnimation.bind(this), 1100);
     }
   }
   else{
@@ -121,7 +123,6 @@ entityClass.prototype.takeDamage = function (howMuch) {
         }
       }
   }
- 
 }
 
 entityClass.prototype.resetGame = function () {

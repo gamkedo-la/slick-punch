@@ -14,7 +14,7 @@ var TitleTextY,subTitleTextX,opacity;
 var endScreenY = 600;
 const TITLE_OFFSET = 175;
 
-const helpText = ['Z: strike','X: jump or double jump','Arrow keys: walk','','Defeat all enemies','Advance to the right','Watch your time'];
+const helpText = ['Z: strike','X: jump or double jump','Arrow keys: walk','','Advance to the right','Fight when you have to','Watch your time'];
 
 function mainMenuStates() {
 	if(windowState.mainMenu){

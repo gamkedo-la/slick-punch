@@ -76,90 +76,93 @@ playerClass.prototype.move = function () {
   this.setInitialBoundingBox(this.width / 4, this.height);
   this.setWorldPhysics();
 
-  //Left and Right movement
-  if (this.keyHeld_Left) {
-    //this.setStateToFalse(); //setting every value of object to false; // might be buggy
-    this.setStateValueTo(IN_MOTION, true);
-    this.setStateValueTo(MOVING_LEFT, true);
-    this.speed.setX(-PLAYER_RUN_SPEED);
-  }
-  //Right movement
-  else if (this.keyHeld_Right) {
-    //this.setStateToFalse();
-    this.setStateValueTo(IN_MOTION, true);
-    this.setStateValueTo(MOVING_LEFT, false);
-    this.speed.setX(PLAYER_RUN_SPEED);
-    // this.speed.x = PLAYER_RUN_SPEED;
-  }
-  else {
-    this.setStateValueTo(IN_MOTION, false);
-    this.setStateValueTo(IDLE, true);
-  }
-  //For crouched movement 
-  if ((this.keyHeld_Down  || this.keyHeld_Up) && this.state[ON_GROUND]) {
-    //Up for uppercut
-    this.setStateValueTo(IDLE, false);
-    this.setStateValueTo(CROUCHING, true);
-    this.boundingBox.height = this.height / 1.5;
-    this.boundingBox.y = this.pos.y - this.boundingBox.height / 3;  
-  }
-  else {
-    //Down for spin kick
-    this.setStateValueTo(CROUCHING, false);
-    this.setStateValueTo(IDLE, true);
-  }
+  if(this.state[DEAD] == false) { // alive? allow input
 
-  if (this.keyHeld_Attack) {
-    if(!this.state[ATTACKING]){
-      punchSound.play();
+    //Left and Right movement
+    if (this.keyHeld_Left) {
+      //this.setStateToFalse(); //setting every value of object to false; // might be buggy
+      this.setStateValueTo(IN_MOTION, true);
+      this.setStateValueTo(MOVING_LEFT, true);
+      this.speed.setX(-PLAYER_RUN_SPEED);
     }
-    this.setStateValueTo(IDLE, false);
-    this.setStateValueTo(IN_MOTION, false);
-    this.setStateValueTo(ATTACKING, true);
-    this.boundingBox.width = this.width / 1.5;
-    this.boundingBox.x = this.pos.x - this.boundingBox.width / 2;
-  }
-  else if(this.spriteAnim!=null && this.spriteAnim.cycleComplete){
-    this.setStateValueTo(ATTACKING, false);
-    this.resetAttackFrameIndex();
-  }
- 
-  //Remove this code if you want to reverse kick with movement. 
-  if (this.state[ON_GROUND] && this.state[ATTACKING]) {
-    this.speed.x = 0;
-  }
-
-  if (this.keyHeld_Jump && !this.keyHeld_Up_lastframe) {
-    // this.setStateToFalse();
-    this.keyHeld_Up_lastframe = true;
-    if (this.state[ON_GROUND]) { // regular jump
-      jumpSound.play();
-      this.speed.setY(this.speed.getY() - JUMP_POWER);
-      this.setStateValueTo(ON_GROUND, false);
-    }
-    else if (this.doubleJumpCount < MAX_AIR_JUMPS) { // in the air?
-      this.speed.setY(0);
-      if(this.state[HURT]){
-        this.speed.setY(this.speed.getY() - HURT_JUMP_POWER);
-      }else{
-        jumpSound.play();
-       
-        this.speed.setY(this.speed.getY() - JUMP_POWER);
-      }      
-      this.doubleJumpCount++;
-      this.setStateValueTo(ON_GROUND, false);
+    //Right movement
+    else if (this.keyHeld_Right) {
+      //this.setStateToFalse();
+      this.setStateValueTo(IN_MOTION, true);
+      this.setStateValueTo(MOVING_LEFT, false);
+      this.speed.setX(PLAYER_RUN_SPEED);
+      // this.speed.x = PLAYER_RUN_SPEED;
     }
     else {
-      console.log("Ignoring triple jump...");
+      this.setStateValueTo(IN_MOTION, false);
+      this.setStateValueTo(IDLE, true);
     }
-  }
+    //For crouched movement 
+    if ((this.keyHeld_Down  || this.keyHeld_Up) && this.state[ON_GROUND]) {
+      //Up for uppercut
+      this.setStateValueTo(IDLE, false);
+      this.setStateValueTo(CROUCHING, true);
+      this.boundingBox.height = this.height / 1.5;
+      this.boundingBox.y = this.pos.y - this.boundingBox.height / 3;  
+    }
+    else {
+      //Down for spin kick
+      this.setStateValueTo(CROUCHING, false);
+      this.setStateValueTo(IDLE, true);
+    }
 
-  if (this.state[ON_GROUND] && this.state[IN_MOTION]) {
-    walkFX(this.pos.x, this.pos.y + 110); // dust as we walk
-  }
+    if (this.keyHeld_Attack) {
+      if(!this.state[ATTACKING]){
+        punchSound.play();
+      }
+      this.setStateValueTo(IDLE, false);
+      this.setStateValueTo(IN_MOTION, false);
+      this.setStateValueTo(ATTACKING, true);
+      this.boundingBox.width = this.width / 1.5;
+      this.boundingBox.x = this.pos.x - this.boundingBox.width / 2;
+    }
+    else if(this.spriteAnim!=null && this.spriteAnim.cycleComplete){
+      this.setStateValueTo(ATTACKING, false);
+      this.resetAttackFrameIndex();
+    }
+   
+    //Remove this code if you want to reverse kick with movement. 
+    if (this.state[ON_GROUND] && this.state[ATTACKING]) {
+      this.speed.x = 0;
+    }
 
-  if (!this.state[ON_GROUND]) {
-    fallFX(this.pos.x, this.pos.y + 110); // trail when we are jumping/falling
+    if (this.keyHeld_Jump && !this.keyHeld_Up_lastframe) {
+      // this.setStateToFalse();
+      this.keyHeld_Up_lastframe = true;
+      if (this.state[ON_GROUND]) { // regular jump
+        jumpSound.play();
+        this.speed.setY(this.speed.getY() - JUMP_POWER);
+        this.setStateValueTo(ON_GROUND, false);
+      }
+      else if (this.doubleJumpCount < MAX_AIR_JUMPS) { // in the air?
+        this.speed.setY(0);
+        if(this.state[HURT]){
+          this.speed.setY(this.speed.getY() - HURT_JUMP_POWER);
+        }else{
+          jumpSound.play();
+         
+          this.speed.setY(this.speed.getY() - JUMP_POWER);
+        }      
+        this.doubleJumpCount++;
+        this.setStateValueTo(ON_GROUND, false);
+      }
+      else {
+        console.log("Ignoring triple jump...");
+      }
+    }
+
+    if (this.state[ON_GROUND] && this.state[IN_MOTION]) {
+      walkFX(this.pos.x, this.pos.y + 110); // dust as we walk
+    }
+
+    if (!this.state[ON_GROUND]) {
+      fallFX(this.pos.x, this.pos.y + 110); // trail when we are jumping/falling
+    }
   }
 
   // avoid multiple jumps from the same keypress
