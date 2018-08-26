@@ -1,6 +1,5 @@
 var canvas, canvasContext;
 var player = new playerClass();
-var enemy = new dumbEnemyClass();
 // var venomDog;
 // var box = new boxClass();
 // var slimeDrip = new slimeDripClass();
@@ -10,7 +9,6 @@ const WIN_EDGE_X = 790; // walking past this x counts as advancing to next area
 
 var score;
 var debug = false;
-var enemyObjArr = [];
 var gameRunning = false;
 var timeLimit = 30; //Level time limit in seconds. Set high for now to avoid running out of time while testing.
 var timeRemaining;
@@ -40,30 +38,6 @@ function imageLoadingDoneSoStartGame() {
 	setInterval(updateAll, 1000 / FRAMES_PER_SECOND);
 }
 
-function spawnFlyingEnemies() {
-	flyingEnemies = [];
-	if (SHOW_ENTITY_DEBUG) {
-		console.log("Spawning flying enemies...");
-	}
-	// spawn flying enemies by scanning the level data
-	var spawnCounter = 0;
-	for (var px, py, eachRow = 0; eachRow < WORLD_ROWS; eachRow++) {
-		for (var eachCol = 0; eachCol < WORLD_COLS; eachCol++) {
-			var arrayIndex = rowColToArrayIndex(eachCol, eachRow);
-			if (worldGrid[arrayIndex] == WORLD_FLYING_ENEMY) {
-				worldGrid[arrayIndex] = WORLD_BACKGROUND;
-				spawnCounter++;
-				px = eachCol * WORLD_W + WORLD_W / 2;
-				py = eachRow * WORLD_H + WORLD_H / 2;
-				entityList.push(new flyingEnemyClass(px, py));
-			}
-		}
-	}
-	if (SHOW_ENTITY_DEBUG) {
-		console.log("Flying enemies spawned: " + spawnCounter);
-	}
-}
-
 function loadLevel() {
 	worldGrid = levelSet[currentLevel].slice();
 	/* // overrode start pos, commented since 1 screen levels didn't need checkpoints
@@ -74,15 +48,13 @@ function loadLevel() {
 	platformList.parseWorld();
 	entityList = [];
 	player.init(playerPic, "Player");
-	enemy.init(dumbEnemyWalkAnim, "Dumb Enemy");
-
+	
 	// venomDog.init(venomDogIdle, "Venom Dog");
 	// box.init(crateBoxPic, "Box");
 	// slimeDrip.init(slimeBallDripAnim, "Slime Drip");
 	//slimeBall.init(crateBoxPic, "Box");
 	intializeCollidableObjects();
 	score = 0;
-	// spawnFlyingEnemies();
 	timeRemaining = timeLimit;
 }
 
@@ -100,7 +72,7 @@ function updateAll() {
         canvasContext.drawImage(bossAnim,
                                  bossW*bossFrame, 0,
                                  bossW, bossH,
-                                 canvas.width/2, canvas.height/2,
+                                 canvas.width/2-bossW/2, canvas.height/2,
                                  bossW, bossH);
 
 		var ogreW = 80, ogreH = 80;
@@ -109,23 +81,23 @@ function updateAll() {
 		var ogreWalkFrame = slowerFrameTick%ogreWalkFrames;
 		var ogreAttackFrame = slowerFrameTick%ogreAttackFrames;
 
-    canvasContext.drawImage(ogreWalkAnim,
+	    canvasContext.drawImage(ogreWalkAnim,
                              ogreW*ogreWalkFrame, 0,
                              ogreW, ogreH,
-                             canvas.width/4, canvas.height/2,
+                             canvas.width/4-ogreW/2, canvas.height/2,
                              ogreW, ogreH);
 
-    canvasContext.drawImage(ogreAttackAnim,
+   		canvasContext.drawImage(ogreAttackAnim,
                              ogreW*ogreAttackFrame, 0,
                              ogreW, ogreH,
-                             canvas.width*3/4, canvas.height/2,
+                             canvas.width*3/4-ogreW/2, canvas.height/2,
                              ogreW, ogreH);
 
-		colorText("To be continued...!",canvas.width/2,40,"white",
+		colorText("To be continued...",canvas.width/2,40,"white",
 			"30px Arial",'center',1);
 		colorText("Congratulations! You reached the Battle Mage and his Ogres!",canvas.width/2,80,"white",
 			"20px Arial",'center',1);
-		colorText("Click to reset",canvas.width/2,canvas.height-30,"white",
+		colorText("Thank you for playing. Click to reset.",canvas.width/2,canvas.height-30,"white",
 			"20px Arial",'center',1);
 	} else if (!pause) {
 		moveAll();
@@ -156,22 +128,23 @@ function moveAll() {
 			placeTilesOnButtonPress();
 		}
 		cameraFollow();
-		enemy.move();
-		// if (!enemy.remove) {
-		// enemy.move();
-		// }
+
 		var enemiesAlive = 0;
 		for (var i = entityList.length-1; i >= 0; i--) { // need to iterate backwards if ever splicing from it
-			if (entityList[i].remove) {
-        entityList.splice(i, 1);
-      }			
+			if (entityList[i].removeMe) {
+				entityList.splice(i, 1);
+			} else if(entityList[i].recentlyDamaged > 0) {
+				entityList[i].recentlyDamaged--; // cool off to avoid constant damage
+			}
 		}
-    for(var i = 0; i < entityList.length; i++){
-      if(entityList[i].name != "Player" && entityList[i].state[DEAD] == false) {
-        enemiesAlive++;
-      }
-      entityList[i].move();
-    }
+
+	    for(var i = 0; i < entityList.length; i++){
+	      if(entityList[i].name != "Player" && entityList[i].name !=  "Slime Drip" &&
+	      		entityList[i].state[DEAD] == false) {
+	        enemiesAlive++;
+	      }
+	      entityList[i].move();
+	    }
 		platformList.update();
 		updateItemList();
 		if(player.pos.x > WIN_EDGE_X || // walked off right edge to next area?

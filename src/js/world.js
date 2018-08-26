@@ -128,12 +128,15 @@ function intializeCollidableObjects() {
 				var flyingEnemy = new flyingEnemyClass(drawTileX, drawTileY);
 				flyingEnemy.spriteAnim = flyingEnemy.flyingAnim;
 				flyingEnemy.init(flyingEnemyAnim, "Flying Enemy"); // so it gets remembered in entityList[]
-			} /*else if (tileKindHere === WORLD_ENEMY_DUMB_START) {
-				console.log("spawning a dumb enemy....duuuuhhhh");
+			} else if (tileKindHere == WORLD_ENEMY_DUMB_START) {
+				console.log("spawning a zombie");
 				var dumbEnemy1 = new dumbEnemyClass(drawTileX, drawTileY);
-				console.log(dumbEnemy1.draw);
-				dumbEnemy1.init("IN_MOTION")
-			}*/
+				dumbEnemy1.init(dumbEnemyWalkAnim, "Dumb Enemy");
+			} else if(tileKindHere == SLIME_DRIP) {
+				console.log("spawning a slime drip");
+				var slimeDrip1 = new slimeDripClass(drawTileX, drawTileY);
+				slimeDrip1.init(slimeBallDripAnim, "Slime Drip");
+			}
 
 			drawTileX += WORLD_W;
 			arrayIndex++;
