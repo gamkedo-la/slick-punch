@@ -49,8 +49,8 @@ function mainMenuStates() {
 "Stebs: Volcano background, slime brick, fight song and miniboss song, music randomizer",
 "Chris DeLeon: Credits entry, mouse menu code, minor bug fixing, win screen",
 "Asix Jin: Game over music",
-"Oasis Rim: Ogre attack animation",
-"Jaime Rivas: Jump and kick sounds",
+"Oasis Rim: Ogre walk and attack animation (win screen)",
+"Jaime Rivas: Jump and kick sounds, battle mage boss animations (win screen)",
 "Chris Markle: Game Over sound",
 "pseudoLudo: Pause functionality",
 "Eugene Meidinger: Damage from slime"
