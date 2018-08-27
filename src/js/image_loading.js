@@ -66,7 +66,7 @@ var picsToLoad = 0; // set automatically based on imageList in loadImages()
 
 function countLoadedImagesAndLaunchIfReady(f) {
 	picsToLoad--;
-	// console.log(picsToLoad, f);
+	console.log(picsToLoad, f);
 	if (picsToLoad == 0) {
 		imageLoadingDoneSoStartGame();
 	}
