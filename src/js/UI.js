@@ -73,12 +73,11 @@ function drawHeartImage(heartImage, posFromEnd) {
 function drawTimer() {
 	if(pause == false) {
 		frameCount++
-		if (frameCount == FRAMES_PER_SECOND) {
+		if (frameCount >= FRAMES_PER_SECOND && winScreen == false) {
 			timeRemaining--
 			if (timeRemaining == 0) {
 				player.state.isDead = true;
-				// player.takeDamage(this.attackPower);
-				gameOverMusic.pauseSound();
+				slickPunchJamMusic.pauseSound();
 				gameOverMusic.loopSong();
 
 				setTimeout(player.resetGame.bind(player), 2000);
