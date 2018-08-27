@@ -78,6 +78,9 @@ function drawTimer() {
 			if (timeRemaining == 0) {
 				player.state.isDead = true;
 				// player.takeDamage(this.attackPower);
+				gameOverMusic.pauseSound();
+				gameOverMusic.loopSong();
+
 				setTimeout(player.resetGame.bind(player), 2000);
 			}
 			if(timeRemaining<0) {

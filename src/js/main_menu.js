@@ -76,8 +76,13 @@ mainMenu = {
 				onSlide : function(volume){
 					musicVolume = volume;
 					localStorage.setItem("musicVolume", musicVolume);
-					deepdarkMusic.pauseSound();
-  					deepdarkMusic.loopSong();
+					if(gameOverMusic.isPlaying) {
+						gameOverMusic.pauseSound();
+						gameOverMusic.loopSong();
+					} else {
+						deepdarkMusic.pauseSound();
+	  					deepdarkMusic.loopSong();
+	  				}
 				},
 			},
 			{

@@ -125,7 +125,10 @@ entityClass.prototype.takeDamage = function (howMuch) {
         playerHitSound.play();
         if (this.health <= 0) {
           this.state[DEAD] = true;
+          player.state.isDead = true;
           playerDieSound.play();
+          slickPunchJamMusic.pauseSound();
+          gameOverMusic.loopSong();
           setTimeout(this.resetGame.bind(this), 500);
         }
       }

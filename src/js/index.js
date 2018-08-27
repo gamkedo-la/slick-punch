@@ -172,6 +172,11 @@ function enterWinScreen() {
 }
 
 function backToTitleScreen() {
+	if(player.state.isDead == false) {
+		slickPunchJamMusic.pauseSound();
+		deepdarkMusic.loopSong();
+	}
+
 	player.resetOrSetNonLoopingAnim(); // resets death or other non-looping anims
 	winScreen = false;
 	windowState.mainMenu = true;
@@ -179,9 +184,6 @@ function backToTitleScreen() {
 	pause = false;
 	currentLevel = 0;
 	loadLevel(); // see level.js
-
-	slickPunchJamMusic.pauseSound();
-	deepdarkMusic.loopSong();
 }
 
 function doneWithWinScreen() {
@@ -243,7 +245,12 @@ function startGame() {
 	// timeElapsedInSeconds = 0;
 	frameCount = 0;
 	gameRunning = true;
-	deepdarkMusic.pauseSound();
+	if(gameOverMusic.isPlaying) {
+		gameOverMusic.pauseSound();
+	}
+	if(deepdarkMusic.isPlaying) {
+		deepdarkMusic.pauseSound();
+	}
 	slickPunchJamMusic.loopSong();
 	// loadAndPlayNewBackgroundSong();
 	// console.log(whichSong.src);
